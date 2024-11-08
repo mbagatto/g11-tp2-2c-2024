@@ -2,3 +2,4 @@
 ## Grupo 11
 
 * **Integrante 1** - [Matias Bagatto - 108812](https://github.com/mbagatto)
+* **Integrante 2** - [Juan Balella - 110271](https://github.com/juanbalella20)
