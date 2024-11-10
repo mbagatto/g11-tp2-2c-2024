@@ -15,6 +15,10 @@ public class Deck {
         }
     }
 
+    public Card deal() {
+        return (this.cards.removeLast());
+    }
+
     public boolean isReadyToPlay() {
         return (this.cards.size() == 52);
     }
