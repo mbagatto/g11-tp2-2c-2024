@@ -5,8 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e79e9ffa-f196-4350-adcc-d2cd20158c1e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Deck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Deck.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Deck.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DeckTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DeckTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Card.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Deck.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/PlayerDeck.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/CardTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/DeckTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/PlayerDeckTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/PlayerTest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,59 +51,47 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JUnit.All in g11-tp2-2c-2024 (1).executor": "Run",
-    "JUnit.All in g11-tp2-2c-2024.executor": "Run",
-    "JUnit.CardTest.executor": "Run",
-    "JUnit.DeckTest.executor": "Run",
-    "JUnit.PlayerDeckTest.executor": "Run",
-    "JUnit.PlayerDeckTest.playerDeckHasNoCardsWhenInitializated.executor": "Run",
-    "JUnit.PlayerTest.executor": "Run",
-    "JUnit.PlayerTest.playerHas8CardsAfterDealing.executor": "Run",
-    "JUnit.PlayerTest.playerHas8CardsWhenANewRoundStarts.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "features-matias",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/matiasbagatto/Documents/repos/g11-tp2-2c-2024",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JUnit.&lt;default&gt;.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in g11-tp2-2c-2024 (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in g11-tp2-2c-2024.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CardTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeckTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeckTest.verifyThatDeckHas52Cards.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerDeckTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerDeckTest.playerDeckHasNoCardsWhenInitializated.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.playerHas8CardsAfterDealing.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.playerHas8CardsWhenANewRoundStarts.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.g11-tp2-2c-2024 [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.g11-tp2-2c-2024 [org.apache.maven.plugins:maven-jar-plugin:3.4.1:test-jar].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.g11-tp2-2c-2024 [test].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;features&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/matiasbagatto/Documents/repos/g11-tp2-2c-2024&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="JUnit.All in g11-tp2-2c-2024">
-    <configuration name="All in g11-tp2-2c-2024" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+}</component>
+  <component name="RunManager" selected="JUnit.DeckTest.verifyThatDeckHas52Cards">
+    <configuration name="DeckTest.verifyThatDeckHas52Cards" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="g11-tp2-2c-2024" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PlayerDeckTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="g11-tp2-2c-2024" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="PlayerDeckTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PlayerDeckTest.playerDeckIsEmptyWhenInitializated" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="g11-tp2-2c-2024" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="PlayerDeckTest" />
-      <option name="METHOD_NAME" value="playerDeckIsEmptyWhenInitializated" />
+      <option name="MAIN_CLASS_NAME" value="DeckTest" />
+      <option name="METHOD_NAME" value="verifyThatDeckHas52Cards" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="PlayerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="g11-tp2-2c-2024" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="PlayerTest" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -107,13 +107,68 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="g11-tp2-2c-2024" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-23" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="g11-tp2-2c-2024" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="g11-tp2-2c-2024" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="g11-tp2-2c-2024 [test]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="test" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.PlayerTest.playerHas8CardsAfterDealing" />
+        <item itemvalue="JUnit.DeckTest.verifyThatDeckHas52Cards" />
+        <item itemvalue="Maven.g11-tp2-2c-2024 [test]" />
         <item itemvalue="JUnit.PlayerTest" />
-        <item itemvalue="JUnit.PlayerDeckTest.playerDeckIsEmptyWhenInitializated" />
-        <item itemvalue="JUnit.PlayerDeckTest" />
-        <item itemvalue="JUnit.All in g11-tp2-2c-2024" />
+        <item itemvalue="JUnit.g11-tp2-2c-2024" />
+        <item itemvalue="JUnit.PlayerTest.playerHas8CardsAfterDealing" />
       </list>
     </recent_temporary>
   </component>

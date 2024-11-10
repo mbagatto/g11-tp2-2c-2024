@@ -22,4 +22,8 @@ public class Deck {
     public boolean isReadyToPlay() {
         return (this.cards.size() == 52);
     }
+
+    public boolean hasAmount(int amount) {
+        return (this.cards.size() == amount);
+    }
 }
