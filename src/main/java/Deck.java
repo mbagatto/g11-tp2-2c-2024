@@ -9,7 +9,7 @@ public class Deck {
     public Deck() {
         this.cards = new ArrayList<Card>();
         for (String suit : suits) {
-            for (int i = 1; i <= 13; i++) {
+            for (int i = 2; i <= 14; i++) {
                 this.cards.add(new Card(i, suit));
             }
         }

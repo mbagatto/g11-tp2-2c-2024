@@ -1,0 +1,14 @@
+PlayerDeckTest.class
+RoyalFlushTest.class
+ThreeOfAKindTest.class
+DoublePairTest.class
+StraightFlushTest.class
+PairTest.class
+CardTest.class
+DeckTest.class
+StraightTest.class
+FourOfAKindTest.class
+FullHouseTest.class
+HandCalculatorTest.class
+FlushTest.class
+PlayerTest.class
