@@ -4,9 +4,9 @@ import java.util.Map;
 
 public class Pair implements HandPattern {
     @Override
-    public boolean verifyPattern(ArrayList<Card> cards) {
+    public Hand verifyPattern(ArrayList<Card> cards) {
         Map<Integer, Integer> counters = new HashMap<>();
-
+        boolean patternFound = false;
         for (Card card : cards) {
             int value = card.getValue();
             counters.put(value, counters.getOrDefault(value, 0) + 1);
@@ -14,9 +14,13 @@ public class Pair implements HandPattern {
 
         for (int key : counters.keySet()) {
             if (counters.get(key) == 2) {
-                return true;
+                patternFound = true;
             }
         }
-        return false;
+
+        if (patternFound) {
+            return (new Hand(20, 2));
+        }
+        return null;
     }
 }

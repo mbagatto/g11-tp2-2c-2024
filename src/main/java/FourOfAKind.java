@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class FourOfAKind implements HandPattern {
     @Override
-    public boolean verifyPattern(ArrayList<Card> cards) {
+    public Hand verifyPattern(ArrayList<Card> cards) {
         Map<Integer, Integer> counters = new HashMap<>();
 
         for (Card card : cards) {
@@ -14,9 +14,9 @@ public class FourOfAKind implements HandPattern {
 
         for (int key : counters.keySet()) {
             if (counters.get(key) == 4) {
-                return true;
+                return (new Hand(60, 7));
             }
         }
-        return false;
+        return null;
     }
 }

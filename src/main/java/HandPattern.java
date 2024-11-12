@@ -1,5 +1,5 @@
 import java.util.ArrayList;
 
 public interface HandPattern {
-    boolean verifyPattern(ArrayList<Card> cards);
+    Hand verifyPattern(ArrayList<Card> cards);
 }

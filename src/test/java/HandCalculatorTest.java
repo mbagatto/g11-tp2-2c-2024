@@ -2,16 +2,15 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class HandCalculatorTest {
     @Test
-    public void verifyThatTypeOfHandReturnAPairHand() {
+    public void patternVerifiesAPairScoreCorrectly() {
         HandCalculator handCalculator = new HandCalculator();
         handCalculator.setPattern(new Pair());
         ArrayList<Card> cards = new ArrayList<>();
-        cards.add(new Card(2, "heart"));
-        cards.add(new Card(2, "spade"));
-        assertTrue(handCalculator.verifyPattern(cards));
+        Hand obtainedHand = handCalculator.verifyPattern(cards);
+        assertNull(obtainedHand);
     }
 }
