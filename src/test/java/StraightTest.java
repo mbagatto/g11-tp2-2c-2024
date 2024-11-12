@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StraightTest {
     @Test
-    public void verifyTwoHandsAreStraight() {
+    public void verifyAHandIsStraight() {
         HandPattern straight = new Straight();
         ArrayList<Card> cards = new ArrayList<>();
         cards.add(new Card(2, "heart"));
@@ -14,6 +14,8 @@ public class StraightTest {
         cards.add(new Card(4, "diamond"));
         cards.add(new Card(5, "club"));
         cards.add(new Card(3, "heart"));
-        assertTrue(straight.verifyPattern(cards));
+        Hand expectedHand = new Hand(30, 4);
+        Hand obtainedHand = straight.verifyPattern(cards);
+        assertTrue(expectedHand.isEqualAs(obtainedHand));
     }
 }

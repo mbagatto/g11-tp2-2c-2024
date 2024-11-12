@@ -6,11 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PairTest {
     @Test
-    public void verifyTwoHandsArePair() {
+    public void verifyThatHandIsAPair() {
         HandPattern pair = new Pair();
+        Hand expectedHand = new Hand(10, 2);
         ArrayList<Card> cards = new ArrayList<>();
         cards.add(new Card(2, "heart"));
         cards.add(new Card(2, "spade"));
-        assertTrue(pair.verifyPattern(cards));
+        Hand obtainedHand = pair.verifyPattern(cards);
+        assertTrue(expectedHand.isEqualAs(obtainedHand));
     }
 }

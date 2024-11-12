@@ -6,8 +6,8 @@ public class PlayerDeck {
     private static HandCalculator handCalculator = new HandCalculator();
 
     public PlayerDeck() {
-        this.cards = new ArrayList<Card>();
-        this.selectedCards = new ArrayList<Card>();
+        this.cards = new ArrayList<>();
+        this.selectedCards = new ArrayList<>();
     }
 
     public void addCard(Card card) {

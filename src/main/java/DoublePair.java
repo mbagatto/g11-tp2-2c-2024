@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class DoublePair implements HandPattern {
     @Override
-    public boolean verifyPattern(ArrayList<Card> cards) {
+    public Hand verifyPattern(ArrayList<Card> cards) {
         Map<Integer, Integer> counters = new HashMap<>();
 
         for (Card card : cards) {
@@ -18,6 +18,9 @@ public class DoublePair implements HandPattern {
                 pairsCount++;
             }
         }
-        return (pairsCount == 2);
+        if (pairsCount == 2) {
+            return (new Hand(20, 2));
+        }
+        return null;
     }
 }

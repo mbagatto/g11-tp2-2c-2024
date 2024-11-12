@@ -7,7 +7,7 @@ public class HandCalculator {
         this.currentPattern = pattern;
     }
 
-    public boolean verifyPattern(ArrayList<Card> cards) {
+    public Hand verifyPattern(ArrayList<Card> cards) {
         return (this.currentPattern.verifyPattern(cards));
     }
 }

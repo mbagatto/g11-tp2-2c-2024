@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RoyalFlushTest {
     @Test
-    public void verifyTwoHandsAreRoyalFlush() {
+    public void verifyAHandIsRoyalFlush() {
         HandPattern royalFlush = new RoyalFlush();
         ArrayList<Card> cards = new ArrayList<>();
         cards.add(new Card(13, "club"));
@@ -14,6 +14,8 @@ public class RoyalFlushTest {
         cards.add(new Card(10, "club"));
         cards.add(new Card(12, "club"));
         cards.add(new Card(14, "club"));
-        assertTrue(royalFlush.verifyPattern(cards));
+        Hand expectedHand = new Hand(100, 8);
+        Hand obtainedHand = royalFlush.verifyPattern(cards);
+        assertTrue(expectedHand.isEqualAs(obtainedHand));
     }
 }
