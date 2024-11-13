@@ -4,23 +4,26 @@ import java.util.Comparator;
 public class RoyalFlush implements HandPattern {
     @Override
     public Hand verifyPattern(ArrayList<Card> cards) {
-        cards.sort(Comparator.comparingInt(Card::getValue));
-        if (cards.getFirst().getValue() != 10) {
+        ArrayList<Card> cardsCopy = new ArrayList<>(cards);
+        cardsCopy.sort(Comparator.comparingInt(Card::getValue));
+
+        if (cardsCopy.getFirst().getValue() != 10) {
             return null;
         }
-        for (int i = 1; i < cards.size(); i++) {
-            if (cards.get(i).getValue() != cards.get(i - 1).getValue() + 1) {
+
+        for (int i = 1; i < cardsCopy.size(); i++) {
+            if (cardsCopy.get(i).getValue() != cardsCopy.get(i - 1).getValue() + 1) {
                 return null;
             }
         }
 
-        Card firstCard = cards.getFirst();
-        cards.removeFirst();
-        for (Card card : cards) {
+        Card firstCard = cardsCopy.getFirst();
+        for (Card card : cardsCopy) {
             if (!firstCard.hasSameSuitAs(card)) {
                 return null;
             }
         }
-        return (new Hand(100, 8));
+
+        return new Hand(100, 8, cardsCopy);
     }
 }

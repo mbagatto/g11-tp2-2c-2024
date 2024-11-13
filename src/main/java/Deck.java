@@ -7,7 +7,7 @@ public class Deck {
     private static List<String> suits = new ArrayList<>(Arrays.asList("heart", "diamond", "spade", "club"));
 
     public Deck() {
-        this.cards = new ArrayList<Card>();
+        this.cards = new ArrayList<>();
         for (String suit : suits) {
             for (int i = 2; i <= 14; i++) {
                 this.cards.add(new Card(i, suit));
