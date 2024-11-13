@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Hand {
     private int points;
     private int multiplier;
+    private Score score;
 
     public Hand(int points, int multiplier) {
         this.points = points;
@@ -11,6 +12,10 @@ public class Hand {
 
     public int calculateScore() {
         return (this.points * this.multiplier);
+    }
+
+    public void applyTarot(Tarot tarot){
+        tarot.applyEfect(this.score);
     }
 
     public boolean isEqualAs(Hand obtainedHand) {
