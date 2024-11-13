@@ -9,7 +9,7 @@ public class PlayerDeckTest {
         assertFalse(deck.isComplete());
     }
     @Test
-    public void whenPlayingAPairItShouldGiveACertainScore(){
+    public void whenPlayingAPairItShouldGiveACertainScore() {
 
         PlayerDeck playerDeck = new PlayerDeck();
         playerDeck.addCard(new Card(2, "heart"));
@@ -26,16 +26,14 @@ public class PlayerDeckTest {
         playerDeck.selectCard(3);
         playerDeck.selectCard(2);
         playerDeck.selectCard(7);
-        int expectedScore = 52;
-        Score score = playerDeck.playSelectedCard();
 
-        assertEquals(score.calculateScore(),expectedScore);
+        Score expectedScore = new Score(52, 1);
+        Score obtainedScore = playerDeck.playSelectedCard();
 
+        assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
-
     @Test
-    public void whenPlayingADoublePairItShouldGiveACertainScore(){
-
+    public void whenPlayingADoublePairItShouldGiveACertainScore() {
         PlayerDeck playerDeck = new PlayerDeck();
         playerDeck.addCard(new Card(2, "heart"));
         playerDeck.addCard(new Card(8, "spade"));
@@ -51,16 +49,14 @@ public class PlayerDeckTest {
         playerDeck.selectCard(3);
         playerDeck.selectCard(1);
         playerDeck.selectCard(7);
-        int expectedScore = 80;
-        Score score = playerDeck.playSelectedCard();
 
-        assertEquals(score.calculateScore(),expectedScore);
+        Score expectedScore = new Score(80, 1);
+        Score obtainedScore = playerDeck.playSelectedCard();
 
+        assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
-
     @Test
-    public void whenPlayingAThreeOfAKindItShouldGiveACertainScore(){
-
+    public void whenPlayingAThreeOfAKindItShouldGiveACertainScore() {
         PlayerDeck playerDeck = new PlayerDeck();
         playerDeck.addCard(new Card(2, "heart"));
         playerDeck.addCard(new Card(8, "spade"));
@@ -76,16 +72,15 @@ public class PlayerDeckTest {
         playerDeck.selectCard(3);
         playerDeck.selectCard(2);
         playerDeck.selectCard(7);
-        int expectedScore = 162;
-        Score score = playerDeck.playSelectedCard();
 
-        assertEquals(score.calculateScore(),expectedScore);
+        Score expectedScore = new Score(162, 1);
+        Score obtainedScore = playerDeck.playSelectedCard();
 
+        assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
 
     @Test
-    public void whenPlayingAStraightItShouldGiveACertainScore(){
-
+    public void whenPlayingAStraightItShouldGiveACertainScore() {
         PlayerDeck playerDeck = new PlayerDeck();
         playerDeck.addCard(new Card(2, "heart"));
         playerDeck.addCard(new Card(7, "spade"));
@@ -96,23 +91,20 @@ public class PlayerDeckTest {
         playerDeck.addCard(new Card(5, "spade"));
         playerDeck.addCard(new Card(7, "heart"));
 
-
         playerDeck.selectCard(5);
         playerDeck.selectCard(1);
         playerDeck.selectCard(2);
         playerDeck.selectCard(3);
         playerDeck.selectCard(4);
 
-        int expectedScore = 220;
-        Score score = playerDeck.playSelectedCard();
+        Score expectedScore = new Score(220, 1);
+        Score obtainedScore = playerDeck.playSelectedCard();
 
-        assertEquals(score.calculateScore(),expectedScore);
-
+        assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
 
     @Test
-    public void whenPlayingAFlushItShouldGiveACertainScore(){
-
+    public void whenPlayingAFlushItShouldGiveACertainScore() {
         PlayerDeck playerDeck = new PlayerDeck();
         playerDeck.addCard(new Card(2, "heart"));//0
         playerDeck.addCard(new Card(7, "spade"));//1
@@ -128,16 +120,15 @@ public class PlayerDeckTest {
         playerDeck.selectCard(4);
         playerDeck.selectCard(3);
         playerDeck.selectCard(2);
-        int expectedScore = 248;
-        Score score = playerDeck.playSelectedCard();
 
-        assertEquals(score.calculateScore(),expectedScore);
+        Score expectedScore = new Score(248, 1);
+        Score obtainedScore = playerDeck.playSelectedCard();
 
+        assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
 
     @Test
-    public void whenPlayingAFullHouseItShouldGiveACertainScore(){
-
+    public void whenPlayingAFullHouseItShouldGiveACertainScore() {
         PlayerDeck playerDeck = new PlayerDeck();
         playerDeck.addCard(new Card(2, "heart"));//0
         playerDeck.addCard(new Card(5, "diamond"));//1
@@ -153,16 +144,15 @@ public class PlayerDeckTest {
         playerDeck.selectCard(4);
         playerDeck.selectCard(3);
         playerDeck.selectCard(2);
-        int expectedScore = 244;
-        Score score = playerDeck.playSelectedCard();
 
-        assertEquals(score.calculateScore(),expectedScore);
+        Score expectedScore = new Score(244, 1);
+        Score obtainedScore = playerDeck.playSelectedCard();
 
+        assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
 
     @Test
-    public void whenPlayingAFourOfAKindItShouldGiveACertainScore(){
-
+    public void whenPlayingAFourOfAKindItShouldGiveACertainScore() {
         PlayerDeck playerDeck = new PlayerDeck();
         playerDeck.addCard(new Card(2, "heart"));//0
         playerDeck.addCard(new Card(5, "diamond"));//1
@@ -178,16 +168,15 @@ public class PlayerDeckTest {
         playerDeck.selectCard(4);
         playerDeck.selectCard(3);
         playerDeck.selectCard(2);
-        int expectedScore = 560;
-        Score score = playerDeck.playSelectedCard();
 
-        assertEquals(score.calculateScore(),expectedScore);
+        Score expectedScore = new Score(560, 1);
+        Score obtainedScore = playerDeck.playSelectedCard();
 
+        assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
 
     @Test
-    public void whenPlayingAStraightFlushItShouldGiveACertainScore(){
-
+    public void whenPlayingAStraightFlushItShouldGiveACertainScore() {
         PlayerDeck playerDeck = new PlayerDeck();
         playerDeck.addCard(new Card(6, "heart"));//0
         playerDeck.addCard(new Card(5, "diamond"));//1
@@ -203,16 +192,15 @@ public class PlayerDeckTest {
         playerDeck.selectCard(5);
         playerDeck.selectCard(6);
         playerDeck.selectCard(0);
-        int expectedScore = 1080;
-        Score score = playerDeck.playSelectedCard();
 
-        assertEquals(score.calculateScore(),expectedScore);
+        Score expectedScore = new Score(1080, 1);
+        Score obtainedScore = playerDeck.playSelectedCard();
 
+        assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
 
     @Test
-    public void whenPlayingARoyalFlushItShouldGiveACertainScore(){
-
+    public void whenPlayingARoyalFlushItShouldGiveACertainScore() {
         PlayerDeck playerDeck = new PlayerDeck();
         playerDeck.addCard(new Card(10, "heart"));//0
         playerDeck.addCard(new Card(5, "diamond"));//1
@@ -228,16 +216,15 @@ public class PlayerDeckTest {
         playerDeck.selectCard(5);
         playerDeck.selectCard(6);
         playerDeck.selectCard(0);
-        int expectedScore = 1280;
-        Score score = playerDeck.playSelectedCard();
 
-        assertEquals(score.calculateScore(),expectedScore);
+        Score expectedScore = new Score(1280, 1);
+        Score obtainedScore = playerDeck.playSelectedCard();
 
+        assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
 
     @Test
-    public void whenPlayingAHighCardItShouldGiveACertainScore(){
-
+    public void whenPlayingAHighCardItShouldGiveACertainScore() {
         PlayerDeck playerDeck = new PlayerDeck();
         playerDeck.addCard(new Card(10, "heart"));//0
         playerDeck.addCard(new Card(5, "diamond"));//1
@@ -253,16 +240,15 @@ public class PlayerDeckTest {
         playerDeck.selectCard(5);
         playerDeck.selectCard(6);
         playerDeck.selectCard(0);
-        int expectedScore = 19;
-        Score score = playerDeck.playSelectedCard();
 
-        assertEquals(score.calculateScore(),expectedScore);
+        Score expectedScore = new Score(19, 1);
+        Score obtainedScore = playerDeck.playSelectedCard();
 
+        assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
 
     @Test
-    public void whenPlayingATarotShouldModifyFinalScoreOfAHighCard(){
-
+    public void whenPlayingATarotShouldModifyFinalScoreOfAHighCard() {
         PlayerDeck playerDeck = new PlayerDeck();
         playerDeck.addCard(new Card(10, "heart"));
         playerDeck.addCard(new Card(5, "diamond"));
@@ -286,11 +272,34 @@ public class PlayerDeckTest {
         playerDeck.selectCard(5);
         playerDeck.selectCard(6);
         playerDeck.selectCard(0);
-        int expectedScore = 105;
-        Score score = playerDeck.playSelectedCard();
 
-        assertEquals(score.calculateScore(),expectedScore);
+        Score expectedScore = new Score(21, 5);
+        Score obtainedScore = playerDeck.playSelectedCard();
 
+        assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
 
+    @Test
+    public void verifyThatTheScoreIsCalculatedFromLeftToRight() {
+        PlayerDeck playerDeck = new PlayerDeck();
+        playerDeck.addCard(new Card(5, "heart"));
+        playerDeck.addCard(new Card(6, "heart"));
+        playerDeck.addCard(new Card(7, "heart"));
+        playerDeck.addCard(new Card(8, "heart"));
+        playerDeck.addCard(new Card(9, "heart"));
+        playerDeck.addCard(new Card(2, "diamond"));
+        playerDeck.addCard(new Card(6, "spade"));
+        playerDeck.addCard(new Card(8, "spade"));
+
+        playerDeck.selectCard(0);
+        playerDeck.selectCard(1);
+        playerDeck.selectCard(2);
+        playerDeck.selectCard(3);
+        playerDeck.selectCard(4);
+
+        Score expectedScore = new Score(135, 8);
+        Score obtainedScore = playerDeck.playSelectedCard();
+
+        assertTrue(expectedScore.isEqualAs(obtainedScore));
+    }
 }
