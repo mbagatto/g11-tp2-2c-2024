@@ -34,4 +34,8 @@ public class Score {
     public void setMultiplier(int otherMultiplier){
         this.multiplier = otherMultiplier;
     }
+
+    public boolean isEqualAs(Score otherScore) {
+        return (this.calculateScore() == otherScore.calculateScore());
+    }
 }

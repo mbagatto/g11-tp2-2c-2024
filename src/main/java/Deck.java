@@ -5,12 +5,27 @@ import java.util.List;
 public class Deck {
     private ArrayList<Card> cards;
     private static List<String> suits = new ArrayList<>(Arrays.asList("heart", "diamond", "spade", "club"));
+    private static List<Integer> values = new ArrayList<>(Arrays.asList(
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            10,
+            10,
+            10,
+            11
+    ));
 
     public Deck() {
         this.cards = new ArrayList<>();
         for (String suit : suits) {
-            for (int i = 2; i <= 14; i++) {
-                this.cards.add(new Card(i, suit));
+            for (int value : values) {
+                this.cards.add(new Card(value, suit));
             }
         }
     }
