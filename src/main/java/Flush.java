@@ -3,27 +3,26 @@ import java.util.ArrayList;
 public class Flush implements HandPattern {
     @Override
     public Hand verifyPattern(ArrayList<Card> cards) {
+        ArrayList<Card> cardsCopy = new ArrayList<>(cards);
         boolean patternFound = true;
-        Card firstCard = cards.getFirst();
-        Card removedCard = cards.removeFirst();
-        for (Card card : cards) {
+        Card firstCard = cardsCopy.getFirst();
+        for (Card card : cardsCopy) {
             if (!firstCard.hasSameSuitAs(card)) {
                 patternFound = false;
             }
         }
-        cards.add(removedCard);
         if (patternFound) {
-            return this.findCards(cards);
+            return (new Hand(35, 4, cardsCopy));
         }
         return null;
     }
 
-    private Hand findCards(ArrayList<Card> cards){
-        Hand hand = new Hand(35, 4);
-        for (Card card : cards) {
-            hand.addCard(card);
-        }
-        return hand;
-    }
+//    private Hand findCards(ArrayList<Card> cards){
+//        Hand hand = new Hand(35, 4);
+//        for (Card card : cards) {
+//            hand.addCard(card);
+//        }
+//        return hand;
+//    }
 
 }

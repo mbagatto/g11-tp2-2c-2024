@@ -5,9 +5,10 @@ import java.util.Map;
 public class FullHouse implements HandPattern {
     @Override
     public Hand verifyPattern(ArrayList<Card> cards) {
+        ArrayList<Card> cardsCopy = new ArrayList<>(cards);
         Map<Integer, Integer> counters = new HashMap<>();
 
-        for (Card card : cards) {
+        for (Card card : cardsCopy) {
             int value = card.getValue();
             counters.put(value, counters.getOrDefault(value, 0) + 1);
         }
@@ -23,16 +24,16 @@ public class FullHouse implements HandPattern {
             }
         }
         if (isThreeOfAKind && isPair) {
-            return this.findCards(cards);
+            return new Hand(40, 4, cardsCopy);
         }
         return null;
     }
 
-    private Hand findCards(ArrayList<Card> cards){
-        Hand hand = new Hand(40, 4);
-        for (Card card : cards) {
-            hand.addCard(card);
-        }
-        return hand;
-    }
+//    private Hand findCards(ArrayList<Card> cards){
+//        Hand hand = new Hand(40, 4);
+//        for (Card card : cards) {
+//            hand.addCard(card);
+//        }
+//        return hand;
+//    }
 }

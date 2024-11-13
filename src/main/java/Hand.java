@@ -13,6 +13,13 @@ public class Hand {
         this.cards = new ArrayList<>();
     }
 
+    public Hand(int points, int multiplier, ArrayList<Card> cards) {
+        this.points = points;
+        this.multiplier = multiplier;
+        this.cards = cards;
+        this.score = new Score(points, multiplier);
+    }
+
     public int calculateScore() {
         return (this.points * this.multiplier);
     }
