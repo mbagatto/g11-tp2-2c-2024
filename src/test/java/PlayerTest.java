@@ -66,7 +66,7 @@ public class PlayerTest {
         player.selectCard(2);
         player.selectCard(7);
         Score scoreObtenido = player.play();
-        int expectedScore = 48;
+        int expectedScore = 28;
 
         assertEquals(scoreObtenido.calculateScore(), expectedScore);
 

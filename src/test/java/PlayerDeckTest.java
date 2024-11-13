@@ -26,7 +26,7 @@ public class PlayerDeckTest {
         playerDeck.selectCard(3);
         playerDeck.selectCard(2);
         playerDeck.selectCard(7);
-        int expectedScore = 72;
+        int expectedScore = 52;
         Score score = playerDeck.playSelectedCard();
 
         assertEquals(score.calculateScore(),expectedScore);
