@@ -35,5 +35,4 @@ public class HandCalculator {
         }
         return null;
     }
-
 }

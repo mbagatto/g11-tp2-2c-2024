@@ -7,6 +7,7 @@ public class Pair implements HandPattern {
     public Hand verifyPattern(ArrayList<Card> cards) {
         ArrayList<Card> cardsCopy = new ArrayList<>(cards);
         Map<Integer, Integer> counters = new HashMap<>();
+
         boolean patternFound = false;
         for (Card card : cardsCopy) {
             int value = card.getValue();
@@ -24,31 +25,7 @@ public class Pair implements HandPattern {
         if (patternFound) {
             return (new Hand(10, 2, cardsCopy));
         }
+
         return null;
     }
-
-//    private Hand findCards(ArrayList<Card> cards){
-//        Hand hand = new Hand(20, 2);
-//        Map<Integer, ArrayList<Card>> map = new HashMap<>();
-//
-//        for (int i = 2; i < 14; i++) {
-//            ArrayList<Card> cardsCopy = new ArrayList<>();
-//            for (Card card : cards) {
-//                if (card.getValue() == i) {
-//                    cardsCopy.add(card);
-//                }
-//            }
-//            map.put(i, cardsCopy);
-//        }
-//
-//        for (Map.Entry<Integer, ArrayList<Card>> entry : map.entrySet()) {
-//            if (entry.getValue().size() == 2) {
-//                hand.addCard(entry.getValue().get(0));
-//                hand.addCard(entry.getValue().get(1));
-//            }
-//        }
-//
-//        return hand;
-//    }
-
 }

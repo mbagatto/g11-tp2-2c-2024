@@ -22,13 +22,12 @@ public class PlayerDeck {
         selectedCards.add(this.cards.get(indexCard));
     }
 
-    public Score playSelectedCard(){
+    public Score playSelectedCard() {
         Hand hand = handCalculator.findHandType(this.selectedCards);
         return hand.calculateTotalScore();
     }
 
-    public void playTarot(int indexCard,Tarot tarot){
+    public void playTarot(int indexCard, Tarot tarot){
         cards.get(indexCard).applyTarot(tarot);
     }
-
 }

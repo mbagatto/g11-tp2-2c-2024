@@ -23,7 +23,7 @@ public class Player {
         this.playerDeck.selectCard(indexSelectCard);
     }
 
-    public Score play(){
+    public Score play() {
         return playerDeck.playSelectedCard();
     }
 }

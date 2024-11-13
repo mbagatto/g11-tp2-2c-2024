@@ -9,15 +9,15 @@ public class Hand {
     public Hand(int points, int multiplier) {
         this.points = points;
         this.multiplier = multiplier;
-        score = new Score(points, multiplier);
+        this.score = new Score(points, multiplier);
         this.cards = new ArrayList<>();
     }
 
     public Hand(int points, int multiplier, ArrayList<Card> cards) {
         this.points = points;
         this.multiplier = multiplier;
-        this.cards = cards;
         this.score = new Score(points, multiplier);
+        this.cards = cards;
     }
 
     public int calculateScore() {
@@ -35,18 +35,10 @@ public class Hand {
         return (this.getClass().equals(obtainedHand.getClass()));
     }
 
-
-    public void addCard(Card card) {
-        this.cards.add(card);
-    }
-
     public Score calculateTotalScore(){
-
         for (Card card : cards) {
             card.addScoreTo(this.score);
         }
-
         return this.score;
     }
-
 }

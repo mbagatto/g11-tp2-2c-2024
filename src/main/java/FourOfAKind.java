@@ -21,36 +21,11 @@ public class FourOfAKind implements HandPattern {
                 cardsCopy.removeIf(card -> card.getValue() == key);
             }
         }
+
         if (isFourOfAKind) {
             return (new Hand(60, 7, cardsCopy));
         }
+
         return null;
     }
-
-//    private Hand findCards(ArrayList<Card> cards){
-//        Hand hand = new Hand(60, 7);
-//        Map<Integer, ArrayList<Card>> map = new HashMap<>();
-//
-//        for (int i = 2; i < 14; i++) {
-//            ArrayList<Card> cardsCopy = new ArrayList<>();
-//            for (Card card : cards) {
-//                if (card.getValue() == i) {
-//                    cardsCopy.add(card);
-//                }
-//            }
-//            map.put(i, cardsCopy);
-//        }
-//
-//        for (Map.Entry<Integer, ArrayList<Card>> entry : map.entrySet()) {
-//            if (entry.getValue().size() == 4) {
-//                hand.addCard(entry.getValue().get(0));
-//                hand.addCard(entry.getValue().get(1));
-//                hand.addCard(entry.getValue().get(2));
-//                hand.addCard(entry.getValue().get(3));
-//            }
-//        }
-//
-//        return hand;
-//    }
-
 }

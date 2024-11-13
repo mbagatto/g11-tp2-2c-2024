@@ -14,15 +14,7 @@ public class Straight implements HandPattern {
                 return null;
             }
         }
+
         return new Hand(30, 4, cardsCopy);
     }
-
-//    private Hand findCards(ArrayList<Card> cards){
-//        Hand hand = new Hand(30, 4);
-//        for (Card card : cards) {
-//            hand.addCard(card);
-//        }
-//        return hand;
-//    }
-
 }

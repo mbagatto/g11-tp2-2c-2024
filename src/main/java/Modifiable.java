@@ -1,4 +1,3 @@
 public interface Modifiable {
-
-    public void apply(Score score);
+    void apply(Score score);
 }
