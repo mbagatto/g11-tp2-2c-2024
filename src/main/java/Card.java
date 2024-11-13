@@ -1,13 +1,11 @@
 public class Card {
     private int value;
     private String suit;
-    private int multiplier;
     private Score score;
 
     public Card(int value, String suit) {
         this.value = value;
         this.suit = suit;
-        this.multiplier = 1;
         this.score = new Score(this.value , 0);
     }
 
@@ -30,7 +28,8 @@ public class Card {
     public boolean hasSameSuitAs(Card card) {
         return (this.suit.equals(card.getSuit()));
     }
-    public int getScore() {
+
+    public int calculateScore() {
         return this.score.calculateScore();
     }
 
