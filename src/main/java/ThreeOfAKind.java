@@ -14,9 +14,35 @@ public class ThreeOfAKind implements HandPattern {
 
         for (int key : counters.keySet()) {
             if (counters.get(key) == 3) {
-                return (new Hand(30, 3));
+                return this.findCards(cards);
             }
         }
         return null;
     }
+
+    private Hand findCards(ArrayList<Card> cards){
+        Hand hand = new Hand(30, 3);
+        Map<Integer, ArrayList<Card>> map = new HashMap<>();
+
+        for (int i = 2; i < 14; i++) {
+            ArrayList<Card> cardsCopy = new ArrayList<>();
+            for (Card card : cards) {
+                if (card.getValue() == i) {
+                    cardsCopy.add(card);
+                }
+            }
+            map.put(i, cardsCopy);
+        }
+
+        for (Map.Entry<Integer, ArrayList<Card>> entry : map.entrySet()) {
+            if (entry.getValue().size() == 3) {
+                hand.addCard(entry.getValue().get(0));
+                hand.addCard(entry.getValue().get(1));
+                hand.addCard(entry.getValue().get(2));
+            }
+        }
+
+        return hand;
+    }
+
 }

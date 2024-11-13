@@ -3,9 +3,11 @@ import java.util.ArrayList;
 public class PlayerDeck {
     private ArrayList<Card> cards;
     private static HandCalculator handCalculator = new HandCalculator();
+    private ArrayList<Card> selectedCards;
 
     public PlayerDeck() {
         this.cards = new ArrayList<>();
+        this.selectedCards = new ArrayList<>();
     }
 
     public void addCard(Card card) {
@@ -15,4 +17,18 @@ public class PlayerDeck {
     public boolean isComplete() {
         return (this.cards.size() == 8);
     }
+
+    public void selectCard(int indexCard){
+        selectedCards.add(this.cards.get(indexCard));
+    }
+
+    public Score playSelectedCard(){
+        Hand hand = handCalculator.findHandType(this.selectedCards);
+        return hand.calculateTotalScore();
+    }
+
+    public void playTarot(int indexCard,Tarot tarot){
+        cards.get(indexCard).applyTarot(tarot);
+    }
+
 }

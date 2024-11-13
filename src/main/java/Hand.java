@@ -4,10 +4,13 @@ public class Hand {
     private int points;
     private int multiplier;
     private Score score;
+    private ArrayList<Card> cards;
 
     public Hand(int points, int multiplier) {
         this.points = points;
         this.multiplier = multiplier;
+        score = new Score(points, multiplier);
+        this.cards = new ArrayList<>();
     }
 
     public int calculateScore() {
@@ -24,4 +27,19 @@ public class Hand {
         }
         return (this.getClass().equals(obtainedHand.getClass()));
     }
+
+
+    public void addCard(Card card) {
+        this.cards.add(card);
+    }
+
+    public Score calculateTotalScore(){
+
+        for (Card card : cards) {
+            card.addScoreTo(this.score);
+        }
+
+        return this.score;
+    }
+
 }

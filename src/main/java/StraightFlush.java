@@ -12,12 +12,23 @@ public class StraightFlush implements HandPattern {
         }
 
         Card firstCard = cards.getFirst();
-        cards.removeFirst();
+        Card removedCard = cards.removeFirst();
         for (Card card : cards) {
             if (!firstCard.hasSameSuitAs(card)) {
+                cards.add(removedCard);
                 return null;
             }
         }
-        return (new Hand(100, 8));
+        cards.add(removedCard);
+        return this.findCards(cards);
     }
+
+    private Hand findCards(ArrayList<Card> cards){
+        Hand hand = new Hand(100, 8);
+        for (Card card : cards) {
+            hand.addCard(card);
+        }
+        return hand;
+    }
+
 }

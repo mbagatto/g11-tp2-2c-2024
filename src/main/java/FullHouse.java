@@ -23,8 +23,16 @@ public class FullHouse implements HandPattern {
             }
         }
         if (isThreeOfAKind && isPair) {
-            return (new Hand(40, 4));
+            return this.findCards(cards);
         }
         return null;
+    }
+
+    private Hand findCards(ArrayList<Card> cards){
+        Hand hand = new Hand(40, 4);
+        for (Card card : cards) {
+            hand.addCard(card);
+        }
+        return hand;
     }
 }

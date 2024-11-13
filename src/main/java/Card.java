@@ -8,7 +8,7 @@ public class Card {
         this.value = value;
         this.suit = suit;
         this.multiplier = 1;
-        this.score = new Score(this.value , multiplier);
+        this.score = new Score(this.value , 0);
     }
 
     public int getValue() {
@@ -33,5 +33,9 @@ public class Card {
     }
     public int getScore( ){
             return this.score.calculateScore();
-}
+    }
+
+    public void addScoreTo(Score anotherScore){
+        anotherScore.addScore(this.score);
+    }
 }

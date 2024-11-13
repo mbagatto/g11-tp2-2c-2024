@@ -18,4 +18,12 @@ public class Player {
     public boolean hasEnoughCards() {
         return (this.playerDeck.isComplete());
     }
+
+    public void selectCard(int indexSelectCard){
+        this.playerDeck.selectCard(indexSelectCard);
+    }
+
+    public Score play(){
+        return playerDeck.playSelectedCard();
+    }
 }
