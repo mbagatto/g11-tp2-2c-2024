@@ -30,4 +30,8 @@ public class PlayerDeck {
     public void playTarot(int indexCard, Tarot tarot){
         cards.get(indexCard).applyTarot(tarot);
     }
+
+    public void cleanSelectedCards() {
+        this.selectedCards.clear();
+    }
 }

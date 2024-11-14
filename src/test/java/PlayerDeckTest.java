@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerDeckTest {
@@ -280,7 +282,7 @@ public class PlayerDeckTest {
     }
 
     @Test
-    public void verifyThatTheScoreIsCalculatedFromLeftToRight() {
+    public void verifyThatTheOrderDoesNotChangeTheScore() {
         PlayerDeck playerDeck = new PlayerDeck();
         playerDeck.addCard(new Card(5, "heart"));
         playerDeck.addCard(new Card(6, "heart"));
@@ -296,10 +298,15 @@ public class PlayerDeckTest {
         playerDeck.selectCard(2);
         playerDeck.selectCard(3);
         playerDeck.selectCard(4);
+        Score score1 = playerDeck.playSelectedCard();
+        playerDeck.cleanSelectedCards();
+        playerDeck.selectCard(2);
+        playerDeck.selectCard(4);
+        playerDeck.selectCard(1);
+        playerDeck.selectCard(3);
+        playerDeck.selectCard(0);
+        Score score2 = playerDeck.playSelectedCard();
 
-        Score expectedScore = new Score(135, 8);
-        Score obtainedScore = playerDeck.playSelectedCard();
-
-        assertTrue(expectedScore.isEqualAs(obtainedScore));
+        assertTrue(score1.isEqualAs(score2));
     }
 }
