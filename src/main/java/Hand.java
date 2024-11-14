@@ -24,10 +24,6 @@ public class Hand {
         return (this.points * this.multiplier);
     }
 
-    public void applyTarot(Tarot tarot){
-        tarot.applyEfect(this.score);
-    }
-
     public boolean isEqualAs(Hand obtainedHand) {
         if (obtainedHand == null) {
             return false;

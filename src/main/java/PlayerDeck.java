@@ -23,7 +23,7 @@ public class PlayerDeck {
     }
 
     public Score playSelectedCard() {
-        Hand hand = handCalculator.findHandType(this.selectedCards);
+        Hand hand = handCalculator.verifyPattern(this.selectedCards);
         return hand.calculateTotalScore();
     }
 
