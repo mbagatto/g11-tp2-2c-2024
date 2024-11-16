@@ -36,4 +36,8 @@ public class PlayerDeck {
     public void cleanSelectedCards() {
         this.selectedCards.clear();
     }
+
+    public boolean isEmpty() {
+        return (this.cards.isEmpty());
+    }
 }

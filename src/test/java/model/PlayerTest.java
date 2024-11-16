@@ -7,17 +7,17 @@ import org.mockito.stubbing.Answer;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 public class PlayerTest {
     @Test
     public void playerHas8CardsAfterDealing() {
         Deck deck = new Deck();
+        deck.fillDeck();
         Player player = new Player("Matias", deck);
-        player.completeDeck();
-        assertTrue(player.hasEnoughCards());
+        //player.completeDeck();
+        assertThrows(EmptyPlayerDeckException.class, player::play); // Seguimos por aca
     }
 
     @Test
