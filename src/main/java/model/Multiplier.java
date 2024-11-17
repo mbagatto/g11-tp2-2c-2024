@@ -16,12 +16,10 @@ public class Multiplier {
 
     @Override
     public boolean equals(Object o) {
-        if(o instanceof Multiplier) {
-            Multiplier multiplier = (Multiplier) o;
-            return this.value == multiplier.value;
-        }else{
-            throw new IsNotAnInstanceOfMultiplierException();
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Multiplier multiplier = (Multiplier) o;
+        return this.value == multiplier.value;
     }
 
     @Override

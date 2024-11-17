@@ -8,12 +8,10 @@ public class Point {
 
     @Override
     public boolean equals(Object o) {
-        if(o instanceof Point) {
-            Point point = (Point) o;
-            return this.value == point.value;
-        }else{
-            throw new IsNotAnInstanceOfPointException();
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Point point = (Point) o;
+        return value == point.value;
     }
 
     @Override
