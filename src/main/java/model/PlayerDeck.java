@@ -4,12 +4,29 @@ import java.util.ArrayList;
 
 public class PlayerDeck {
     private ArrayList<Card> cards;
-    private static HandCalculator handCalculator = new HandCalculator();
     private ArrayList<Card> selectedCards;
+    private HandIdentifier handIdentifier;
 
     public PlayerDeck() {
         this.cards = new ArrayList<>();
         this.selectedCards = new ArrayList<>();
+        this.handIdentifier = new RoyalFlushIdentifier(
+                new StraightFlushIdentifier(
+                        new FourOfAKindIdentifier(
+                                new FullHouseIdentifier(
+                                        new FlushIdentifier(
+                                                new StraightIdentifier(
+                                                        new ThreeOfAKindIdentifier(
+                                                                new TwoPairIdentifier(
+                                                                        new PairIdentifier()
+                                                                )
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
     }
 
     public void addCard(Card card) {
@@ -25,7 +42,7 @@ public class PlayerDeck {
     }
 
     public Score playSelectedCard() {
-        Hand hand = handCalculator.verifyPattern(this.selectedCards);
+        Hand hand = handIdentifier.identify(this.selectedCards);
         return hand.calculateTotalScore();
     }
 
