@@ -1,5 +1,7 @@
 package model;
 
+import model.Cards.Card;
+
 import java.util.ArrayList;
 
 public class PlayerDeck {
@@ -25,6 +27,9 @@ public class PlayerDeck {
     }
 
     public Score playSelectedCard() {
+        if (selectedCards.isEmpty()) {
+            throw new NoSelectedCardsException();
+        }
         Hand hand = handCalculator.verifyPattern(this.selectedCards);
         return hand.calculateTotalScore();
     }
@@ -35,5 +40,9 @@ public class PlayerDeck {
 
     public void cleanSelectedCards() {
         this.selectedCards.clear();
+    }
+
+    public boolean isEmpty() {
+        return (this.cards.isEmpty());
     }
 }

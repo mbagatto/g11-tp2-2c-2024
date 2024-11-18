@@ -17,15 +17,14 @@ public class Player {
         }
     }
 
-    public boolean hasEnoughCards() {
-        return (this.playerDeck.isComplete());
-    }
-
     public void selectCard(int indexSelectCard){
         this.playerDeck.selectCard(indexSelectCard);
     }
 
     public Score play() {
+        if (this.playerDeck.isEmpty()) {
+            throw new EmptyPlayerDeckException();
+        }
         return playerDeck.playSelectedCard();
     }
 }

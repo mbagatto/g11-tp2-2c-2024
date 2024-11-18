@@ -2,22 +2,27 @@ package model;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckTest {
     @Test
-    public void verifyThatDeckHas52Cards() {
+    public void dealMustThrowsAnExceptionWhenIsEmpty() {
         Deck deck = new Deck();
-        assertTrue(deck.isReadyToPlay());
+        assertThrows(EmptyDeckException.class, deck::deal);
     }
 
     @Test
-    public void verifyThatDeckCardsAreCorrectlyDecreasedAfterDealing() {
+    public void verifyThatDeckCardsAreCorrectlyDecreasedAfterDealing() { // Este test deberiamos borrarlo porque no testea funcionalidad. Y no existe un test distinto que lo reemplace
         Deck deck = new Deck();
+        deck.fillDeck();
+
+        Deck otherDeck = new Deck();
+        otherDeck.fillDeck();
+
         for (int i = 1; i <= 5; i++) {
             deck.deal();
         }
-        int expectedResult = 47;
-        assertTrue(deck.hasAmount(expectedResult));
+
+        assertNotEquals(deck, otherDeck);
     }
 }

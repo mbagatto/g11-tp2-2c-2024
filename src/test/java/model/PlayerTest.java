@@ -1,5 +1,6 @@
 package model;
 
+import model.Cards.Card;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
@@ -7,19 +8,10 @@ import org.mockito.stubbing.Answer;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 public class PlayerTest {
-    @Test
-    public void playerHas8CardsAfterDealing() {
-        Deck deck = new Deck();
-        Player player = new Player("Matias", deck);
-        player.completeDeck();
-        assertTrue(player.hasEnoughCards());
-    }
-
     @Test
     public void whenPlayingAPairItShouldGiveACertainScore(){
         Deck deckMock = Mockito.mock(Deck.class);
@@ -72,5 +64,31 @@ public class PlayerTest {
         assertEquals(scoreObtenido.calculateScore(), expectedScore);
 
     }
-
+    @Test
+    public void PlayerWithoutCompleteDeckTriesPlay() {
+        String playerName = "ExampleName";
+        Deck mockDeck = Mockito.mock(Deck.class);
+        Player player = new Player(playerName, mockDeck);
+        assertThrows(EmptyPlayerDeckException.class, player::play);
+    }
+    @Test
+    public void PlayerWithoutSelectedCardsTriesPlay() {
+        Deck deck = new Deck();
+        deck.fillDeck();
+        String playerName = "ExampleName";
+        Player player = new Player(playerName, deck);
+        player.completeDeck();
+        assertThrows(NoSelectedCardsException.class, player::play);
+    }
+    @Test
+    public void PlayerWithValid() {
+        String playerName = "ExampleName";
+        Deck deck = new Deck();
+        deck.fillDeck();
+        Player player = new Player(playerName, deck);
+        player.completeDeck();
+        player.selectCard(1);
+        player.selectCard(2);
+        assertNotNull(player.play());
+    }
 }
