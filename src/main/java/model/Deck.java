@@ -9,7 +9,6 @@ public class Deck {
     private ArrayList<Card> cards;
     private static List<String> suits = new ArrayList<>(Arrays.asList("heart", "diamond", "spade", "club"));
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -17,16 +16,13 @@ public class Deck {
         Deck deck = (Deck) o;
         return cards.size() == deck.cards.size();
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(cards.size());
     }
-
     public Deck() {
         this.cards = new ArrayList<>();
     }
-
     public void fillDeck() {
         for (String suit : suits) {
             for (int value = 2; value <= 14; value++) {
@@ -34,7 +30,6 @@ public class Deck {
             }
         }
     }
-
     public Card deal() {
         if (this.cards.isEmpty()) {
             throw new EmptyDeckException();

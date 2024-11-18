@@ -29,4 +29,26 @@ public class CardTest {
         Card expectedClubCard = new Card(13,"club");
         assertEquals(clubCard, expectedClubCard);
     }
+    @Test
+    public void heartMusntBeDiamond() {
+        String heartSuit = "heart";
+        int heartValue = 10;
+        Card heartCard = new Card(heartValue,heartSuit);
+
+        String clubSuit = "club";
+        int clubValue = 5;
+        Card clubCard = new Card(clubValue,clubSuit);
+
+        assertFalse(heartCard.hasSameSuitAs(clubCard));
+    }
+    @Test
+    public void CardScoreMustBe0() {
+        String spadeSuit = "spade";
+        int spadeValue = 2;
+        Card spadeCard = new Card(spadeValue,spadeSuit);
+        Score sumScore = new Score(0,0);
+        spadeCard.addScoreTo(sumScore);
+        int expectedValue = 2;
+        assertEquals(spadeCard.calculateScore(), expectedValue);
+    }
 }

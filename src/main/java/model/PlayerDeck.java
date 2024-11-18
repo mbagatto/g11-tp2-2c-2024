@@ -25,6 +25,9 @@ public class PlayerDeck {
     }
 
     public Score playSelectedCard() {
+        if (selectedCards.isEmpty()) {
+            throw new NoSelectedCardsException();
+        }
         Hand hand = handCalculator.verifyPattern(this.selectedCards);
         return hand.calculateTotalScore();
     }

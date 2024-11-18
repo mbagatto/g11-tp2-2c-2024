@@ -12,7 +12,7 @@ public class DeckTest {
     }
 
     @Test
-    public void verifyThatDeckCardsAreCorrectlyDecreasedAfterDealing() {
+    public void verifyThatDeckCardsAreCorrectlyDecreasedAfterDealing() { // Este test deberiamos borrarlo porque no testea funcionalidad. Y no existe un test distinto que lo reemplace
         Deck deck = new Deck();
         deck.fillDeck();
 
