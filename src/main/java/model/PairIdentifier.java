@@ -1,5 +1,7 @@
 package model;
 
+import model.Cards.Card;
+
 import java.util.*;
 
 public class PairIdentifier implements HandIdentifier {

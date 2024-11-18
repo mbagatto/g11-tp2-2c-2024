@@ -26,6 +26,9 @@ public class Player {
     }
 
     public Score play() {
+        if (this.playerDeck.isEmpty()) {
+            throw new EmptyPlayerDeckException();
+        }
         return playerDeck.playSelectedCards();
     }
 }

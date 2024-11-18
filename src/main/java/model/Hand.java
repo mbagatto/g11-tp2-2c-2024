@@ -1,5 +1,7 @@
 package model;
 
+import model.Cards.Card;
+
 import java.util.ArrayList;
 import java.util.Objects;
 

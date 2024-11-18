@@ -11,7 +11,4 @@ public class HandTest {
         int expectedScore = 20;
         assertEquals(expectedScore, pair.calculateScore());
     }
-
-
-
 }
