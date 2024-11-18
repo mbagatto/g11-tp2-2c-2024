@@ -1,6 +1,7 @@
 package model;
 
 import model.Cards.Card;
+import model.SpecialCards.Tarot;
 
 import java.util.ArrayList;
 

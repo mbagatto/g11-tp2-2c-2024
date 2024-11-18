@@ -14,8 +14,8 @@ import static org.mockito.Mockito.when;
 public class PlayerTest {
     @Test
     public void whenPlayingAPairItShouldGiveACertainScore(){
-        Deck deckMock = Mockito.mock(Deck.class);
-        when(deckMock.deal()).thenAnswer( new Answer<Card>() {
+        EnglishDeck englishDeckMock = Mockito.mock(EnglishDeck.class);
+        when(englishDeckMock.deal()).thenAnswer(new Answer<Card>() {
             private List<Card> cards = List.of(
                     new Card(2,"spade"),
                     new Card(5,"club"),
@@ -39,7 +39,7 @@ public class PlayerTest {
             }
         });
         String nameExample = "example";
-        Player player = new Player(nameExample, deckMock);
+        Player player = new Player(nameExample, englishDeckMock);
         player.completeDeck();
         player.selectCard(0);
         player.selectCard(1);
@@ -53,25 +53,25 @@ public class PlayerTest {
     @Test
     public void PlayerWithoutCompleteDeckTriesPlay() {
         String playerName = "ExampleName";
-        Deck mockDeck = Mockito.mock(Deck.class);
-        Player player = new Player(playerName, mockDeck);
+        EnglishDeck mockEnglishDeck = Mockito.mock(EnglishDeck.class);
+        Player player = new Player(playerName, mockEnglishDeck);
         assertThrows(EmptyPlayerDeckException.class, player::play);
     }
     @Test
     public void PlayerWithoutSelectedCardsTriesPlay() {
-        Deck deck = new Deck();
-        deck.fillDeck();
+        EnglishDeck englishDeck = new EnglishDeck();
+        englishDeck.fillDeck();
         String playerName = "ExampleName";
-        Player player = new Player(playerName, deck);
+        Player player = new Player(playerName, englishDeck);
         player.completeDeck();
         assertThrows(NoSelectedCardsException.class, player::play);
     }
     @Test
     public void PlayerWithValid() {
         String playerName = "ExampleName";
-        Deck deck = new Deck();
-        deck.fillDeck();
-        Player player = new Player(playerName, deck);
+        EnglishDeck englishDeck = new EnglishDeck();
+        englishDeck.fillDeck();
+        Player player = new Player(playerName, englishDeck);
         player.completeDeck();
         player.selectCard(1);
         player.selectCard(2);

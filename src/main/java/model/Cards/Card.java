@@ -1,7 +1,9 @@
 package model.Cards;
 
 import model.Score;
-import model.Tarot;
+import model.SpecialCards.Joker;
+import model.SpecialCards.Modifiable;
+import model.SpecialCards.Tarot;
 
 import java.util.Objects;
 
@@ -34,7 +36,11 @@ public class Card {
     }
 
     public void applyTarot(Tarot tarot) {
-        tarot.applyEfect(this.score);
+        tarot.applyEffect(this.score);
+    }
+    //FRULA
+    public void applyJoker(Joker joker) {
+        joker.applyEfect(this.score);
     }
 
     public String getSuit() {
@@ -52,4 +58,6 @@ public class Card {
     public void addScoreTo(Score anotherScore) {
         anotherScore.addScore(this.score);
     }
+
+
 }

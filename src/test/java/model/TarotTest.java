@@ -1,6 +1,9 @@
 package model;
 
 import model.Cards.Card;
+import model.SpecialCards.ForMultiplier;
+import model.SpecialCards.ForValue;
+import model.SpecialCards.Tarot;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,7 +12,7 @@ public class TarotTest {
     @Test
     public void testChangeCardMultiplierToSix() {
         Tarot tarot = new Tarot();
-        tarot.setBehaviour(new ForMultiplier());
+        tarot.setBehaviour(new ForMultiplier(6));
         int expectedScore = 30;
         Card card = new Card(5, "heart");
         card.applyTarot(tarot);

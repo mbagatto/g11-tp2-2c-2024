@@ -1,4 +1,7 @@
-package model;
+package model.SpecialCards;
+
+import model.Point;
+import model.Score;
 
 public class ForValue implements Modifiable {
     @Override

@@ -1,7 +1,9 @@
-package model;
+package model.SpecialCards;
 
-public class Tarot {
+import model.Dealable;
+import model.Score;
 
+public class Joker extends Dealable {
     private Modifiable modifiable;
 
     public void setBehaviour(Modifiable modifiable) {

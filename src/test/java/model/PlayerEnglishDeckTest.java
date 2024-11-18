@@ -1,11 +1,14 @@
 package model;
 
 import model.Cards.Card;
+import model.SpecialCards.ForMultiplier;
+import model.SpecialCards.ForValue;
+import model.SpecialCards.Tarot;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PlayerDeckTest {
+public class PlayerEnglishDeckTest {
     @Test
     public void playerDeckIsEmptyWhenInitializated() {
         PlayerDeck deck = new PlayerDeck();
@@ -267,7 +270,7 @@ public class PlayerDeckTest {
         tarot.setBehaviour(new ForValue());
         playerDeck.playTarot(2,tarot);
 
-        tarot.setBehaviour(new ForMultiplier());
+        tarot.setBehaviour(new ForMultiplier(6));
         playerDeck.playTarot(2,tarot);
 
         playerDeck.selectCard(2);

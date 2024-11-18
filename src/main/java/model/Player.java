@@ -2,18 +2,18 @@ package model;
 
 public class Player {
     private String name;
-    private Deck deck;
+    private EnglishDeck englishDeck;
     private PlayerDeck playerDeck;
 
-    public Player(String name, Deck deck) {
+    public Player(String name, EnglishDeck englishDeck) {
         this.name = name;
-        this.deck = deck;
+        this.englishDeck = englishDeck;
         this.playerDeck = new PlayerDeck();
     }
 
     public void completeDeck() {
         while (!this.playerDeck.isComplete()) {
-            this.playerDeck.addCard(this.deck.deal());
+            this.playerDeck.addCard(this.englishDeck.deal());
         }
     }
 
