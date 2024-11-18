@@ -15,19 +15,6 @@ public class PlayerTest {
     @Test
     public void whenPlayingAPairItShouldGiveACertainScore(){
         Deck deckMock = Mockito.mock(Deck.class);
-        Player player = new Player("Matias", deckMock);
-        /*
-        when(deckMock.deal())
-                .thenReturn(new Card(2,"spade"))
-                .thenReturn(new Card(5,"club"))
-                .thenReturn(new Card(2,"heart"))
-                .thenReturn(new Card(12,"spade"))
-                .thenReturn(new Card(11,"spade"))
-                .thenReturn(new Card(8,"heart"))
-                .thenReturn(new Card(4,"spade"))
-                .thenReturn(new Card(10,"club"))
-                .thenReturn(new Card(9,"club"));
-        */
         when(deckMock.deal()).thenAnswer( new Answer<Card>() {
             private List<Card> cards = List.of(
                     new Card(2,"spade"),
@@ -48,11 +35,12 @@ public class PlayerTest {
                 if (index < cards.size()) {
                     return cards.get(index++);
                 }
-                return null;  // o lo que quieras devolver cuando se acaben las cartas
+                return null;
             }
         });
+        String nameExample = "example";
+        Player player = new Player(nameExample, deckMock);
         player.completeDeck();
-
         player.selectCard(0);
         player.selectCard(1);
         player.selectCard(4);
@@ -60,9 +48,7 @@ public class PlayerTest {
         player.selectCard(7);
         Score scoreObtenido = player.play();
         int expectedScore = 28;
-
         assertEquals(scoreObtenido.calculateScore(), expectedScore);
-
     }
     @Test
     public void PlayerWithoutCompleteDeckTriesPlay() {

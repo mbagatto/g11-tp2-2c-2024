@@ -1,6 +1,7 @@
 package model;
 
 public class Tarot {
+
     private Modifiable modifiable;
 
     public void setBehaviour(Modifiable modifiable) {
