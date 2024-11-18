@@ -26,6 +26,6 @@ public class Player {
     }
 
     public Score play() {
-        return playerDeck.playSelectedCard();
+        return playerDeck.playSelectedCards();
     }
 }

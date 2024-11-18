@@ -3,6 +3,11 @@ package model;
 import java.util.*;
 
 public class PairIdentifier implements HandIdentifier {
+    private HandIdentifier next;
+
+    public PairIdentifier(HandIdentifier next) {
+        this.next = next;
+    }
 
     @Override
     public Hand identify(ArrayList<Card> cards) {

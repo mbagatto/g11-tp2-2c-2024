@@ -30,7 +30,7 @@ public class PlayerDeckTest {
         playerDeck.selectCard(7);
 
         Score expectedScore = new Score(52, 1);
-        Score obtainedScore = playerDeck.playSelectedCard();
+        Score obtainedScore = playerDeck.playSelectedCards();
 
         assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
@@ -53,7 +53,7 @@ public class PlayerDeckTest {
         playerDeck.selectCard(7);
 
         Score expectedScore = new Score(80, 1);
-        Score obtainedScore = playerDeck.playSelectedCard();
+        Score obtainedScore = playerDeck.playSelectedCards();
 
         assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
@@ -76,7 +76,7 @@ public class PlayerDeckTest {
         playerDeck.selectCard(7);
 
         Score expectedScore = new Score(162, 1);
-        Score obtainedScore = playerDeck.playSelectedCard();
+        Score obtainedScore = playerDeck.playSelectedCards();
 
         assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
@@ -100,7 +100,7 @@ public class PlayerDeckTest {
         playerDeck.selectCard(4);
 
         Score expectedScore = new Score(220, 1);
-        Score obtainedScore = playerDeck.playSelectedCard();
+        Score obtainedScore = playerDeck.playSelectedCards();
 
         assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
@@ -124,7 +124,7 @@ public class PlayerDeckTest {
         playerDeck.selectCard(2);
 
         Score expectedScore = new Score(248, 1);
-        Score obtainedScore = playerDeck.playSelectedCard();
+        Score obtainedScore = playerDeck.playSelectedCards();
 
         assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
@@ -148,7 +148,7 @@ public class PlayerDeckTest {
         playerDeck.selectCard(2);
 
         Score expectedScore = new Score(244, 1);
-        Score obtainedScore = playerDeck.playSelectedCard();
+        Score obtainedScore = playerDeck.playSelectedCards();
 
         assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
@@ -172,7 +172,7 @@ public class PlayerDeckTest {
         playerDeck.selectCard(2);
 
         Score expectedScore = new Score(560, 1);
-        Score obtainedScore = playerDeck.playSelectedCard();
+        Score obtainedScore = playerDeck.playSelectedCards();
 
         assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
@@ -196,7 +196,7 @@ public class PlayerDeckTest {
         playerDeck.selectCard(0);
 
         Score expectedScore = new Score(1080, 1);
-        Score obtainedScore = playerDeck.playSelectedCard();
+        Score obtainedScore = playerDeck.playSelectedCards();
 
         assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
@@ -220,7 +220,7 @@ public class PlayerDeckTest {
         playerDeck.selectCard(0);
 
         Score expectedScore = new Score(1280, 1);
-        Score obtainedScore = playerDeck.playSelectedCard();
+        Score obtainedScore = playerDeck.playSelectedCards();
 
         assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
@@ -244,7 +244,7 @@ public class PlayerDeckTest {
         playerDeck.selectCard(0);
 
         Score expectedScore = new Score(19, 1);
-        Score obtainedScore = playerDeck.playSelectedCard();
+        Score obtainedScore = playerDeck.playSelectedCards();
 
         assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
@@ -276,7 +276,7 @@ public class PlayerDeckTest {
         playerDeck.selectCard(0);
 
         Score expectedScore = new Score(21, 5);
-        Score obtainedScore = playerDeck.playSelectedCard();
+        Score obtainedScore = playerDeck.playSelectedCards();
 
         assertTrue(expectedScore.isEqualAs(obtainedScore));
     }
@@ -298,14 +298,14 @@ public class PlayerDeckTest {
         playerDeck.selectCard(2);
         playerDeck.selectCard(3);
         playerDeck.selectCard(4);
-        Score score1 = playerDeck.playSelectedCard();
+        Score score1 = playerDeck.playSelectedCards();
         playerDeck.cleanSelectedCards();
         playerDeck.selectCard(2);
         playerDeck.selectCard(4);
         playerDeck.selectCard(1);
         playerDeck.selectCard(3);
         playerDeck.selectCard(0);
-        Score score2 = playerDeck.playSelectedCard();
+        Score score2 = playerDeck.playSelectedCards();
 
         assertTrue(score1.isEqualAs(score2));
     }

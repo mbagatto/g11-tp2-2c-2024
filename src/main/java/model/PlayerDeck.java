@@ -18,7 +18,9 @@ public class PlayerDeck {
                                                 new StraightIdentifier(
                                                         new ThreeOfAKindIdentifier(
                                                                 new TwoPairIdentifier(
-                                                                        new PairIdentifier()
+                                                                        new PairIdentifier(
+                                                                                new HighCardIdentifier()
+                                                                        )
                                                                 )
                                                         )
                                                 )
@@ -41,7 +43,7 @@ public class PlayerDeck {
         selectedCards.add(this.cards.get(indexCard));
     }
 
-    public Score playSelectedCard() {
+    public Score playSelectedCards() {
         Hand hand = handIdentifier.identify(this.selectedCards);
         return hand.calculateTotalScore();
     }
