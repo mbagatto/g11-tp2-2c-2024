@@ -1,4 +1,7 @@
-package model;
+package model.Cards;
+
+import model.Score;
+import model.Tarot;
 
 import java.util.Objects;
 
@@ -49,6 +52,4 @@ public class Card {
     public void addScoreTo(Score anotherScore) {
         anotherScore.addScore(this.score);
     }
-
-
 }

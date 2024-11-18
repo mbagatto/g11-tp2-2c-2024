@@ -10,6 +10,10 @@ public class Multiplier {
         this.value = value;
     }
 
+    public Multiplier() {
+        this.value = 0;
+    }
+
     public void add(Multiplier otherMultiplier) {
         this.value = this.value + otherMultiplier.value;
     }

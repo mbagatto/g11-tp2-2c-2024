@@ -20,6 +20,11 @@ public class Score {
         this.multiplier = new Multiplier(multiplier);
     }
 
+    public Score(int value) {
+        this.point = new Point(value);
+        this.multiplier = new Multiplier();
+    }
+
 //    public int calculateScore() {
 //        if(this.multiplier == 0) {
 //            return this.value;
@@ -27,9 +32,9 @@ public class Score {
 //        return value * multiplier;
 //    }
     public int calculateScore() {
-        if(this.multiplier.isZero()){
+        if (this.multiplier.isZero()) {
             return this.point.multiplyBy(1);
-        }else{
+        } else {
             return this.multiplier.applyMultiplierTo(this.point);
         }
     }
