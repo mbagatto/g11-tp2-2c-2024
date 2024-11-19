@@ -1,6 +1,9 @@
 package model;
 
 import model.cards.Card;
+import model.cards.Club;
+import model.cards.Heart;
+import model.cards.Spade;
 import model.score.Score;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -17,18 +20,19 @@ public class PlayerTest {
     public void test01WhenPlayingAPairItShouldGiveACertainScore() {
         // Arrange
         EnglishDeck englishDeckMock = Mockito.mock(EnglishDeck.class);
-        when(englishDeckMock.deal()).thenAnswer( new Answer<Card>() {
+        when(englishDeckMock.deal()).thenAnswer(new Answer<Card>() {
             private List<Card> cards = List.of(
-                    new Card(2,"spade"),
-                    new Card(5,"club"),
-                    new Card(2,"heart"),
-                    new Card(12,"spade"),
-                    new Card(11,"spade"),
-                    new Card(8,"heart"),
-                    new Card(4,"spade"),
-                    new Card(10,"club"),
-                    new Card(9,"club")
+                    new Spade(2),
+                    new Club(5),
+                    new Heart(2),
+                    new Spade(12),
+                    new Spade(11),
+                    new Heart(8),
+                    new Spade(4),
+                    new Club(10),
+                    new Club(9)
             );
+
 
             private int index = 0;
 

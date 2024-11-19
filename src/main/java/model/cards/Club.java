@@ -1,9 +1,10 @@
 package model.cards;
 
-public class Club {
+public class Club extends Card {
 
-    public boolean equals(Object o) {
-        return (o instanceof Club);
+    public Club(int value) {
+        super(value);
+        this.suit = "Club";
     }
 
 }

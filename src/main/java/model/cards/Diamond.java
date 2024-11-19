@@ -1,8 +1,9 @@
 package model.cards;
 
-public class Diamond {
+public class Diamond extends Card {
 
-    public boolean equals(Object o) {
-        return (o instanceof Diamond);
+    public Diamond(int value) {
+        super(value);
+        this.suit = "Club";
     }
 }

@@ -1,6 +1,9 @@
 package model;
 
 import model.cards.Card;
+import model.cards.Club;
+import model.cards.Heart;
+import model.cards.Spade;
 import model.identifiers.FullHouseIdentifier;
 import model.identifiers.HandIdentifier;
 import org.junit.jupiter.api.Test;
@@ -15,11 +18,11 @@ public class FullHouseIdentifierTest {
         // Arrange
         HandIdentifier handIdentifier = new FullHouseIdentifier(null);
         ArrayList<Card> cards = new ArrayList<>();
-        cards.add(new Card(4, "heart"));
-        cards.add(new Card(4, "spade"));
-        cards.add(new Card(4, "club"));
-        cards.add(new Card(10, "heart"));
-        cards.add(new Card(10, "spade"));
+        cards.add(new Heart(4));
+        cards.add(new Spade(4));
+        cards.add(new Club(4));
+        cards.add(new Heart(10));
+        cards.add(new Spade(10));
         Hand expectedHand = new Hand(40, 4, cards);
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);

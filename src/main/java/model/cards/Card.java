@@ -5,10 +5,10 @@ import model.specialCards.Tarot;
 
 import java.util.Objects;
 
-public class Card {
-    private int value;
-    private String suit;
-    private Score score;
+public abstract class Card {
+    protected int value;
+    protected String suit;
+    protected Score score;
 
     @Override
     public boolean equals(Object o) {
@@ -26,6 +26,11 @@ public class Card {
     public Card(int value, String suit) {
         this.value = value;
         this.suit = suit;
+        this.score = new Score(this.value , 0);
+    }
+
+    public Card(int value) {
+        this.value = value;
         this.score = new Score(this.value , 0);
     }
 

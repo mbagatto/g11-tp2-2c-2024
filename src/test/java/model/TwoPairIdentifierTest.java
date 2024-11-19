@@ -1,6 +1,8 @@
 package model;
 
 import model.cards.Card;
+import model.cards.Heart;
+import model.cards.Spade;
 import model.identifiers.HandIdentifier;
 import model.identifiers.TwoPairIdentifier;
 import org.junit.jupiter.api.Test;
@@ -15,10 +17,11 @@ public class TwoPairIdentifierTest {
         // Arrange
         HandIdentifier handIdentifier = new TwoPairIdentifier(null);
         ArrayList<Card> cards = new ArrayList<>();
-        cards.add(new Card(2, "heart"));
-        cards.add(new Card(2, "spade"));
-        cards.add(new Card(3, "heart"));
-        cards.add(new Card(3, "spade"));
+        cards.add(new Heart(2));
+        cards.add(new Spade(2));
+        cards.add(new Heart(3));
+        cards.add(new Spade(3));
+
         Hand expectedHand = new Hand(20, 2, cards);
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);
