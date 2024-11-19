@@ -1,4 +1,4 @@
-package model;
+package model.specialCards;
 
 import model.score.Score;
 

@@ -73,7 +73,7 @@ public class PlayerTest {
         assertThrows(NoSelectedCardsException.class, player::play);
     }
     @Test
-    public void test04PlayerWithValid() {
+    public void test04PlayerWithValidSelectedCardsCanPlay() {
         String playerName = "ExampleName";
         EnglishDeck englishDeck = new EnglishDeck();
         englishDeck.fillDeck();
@@ -81,6 +81,6 @@ public class PlayerTest {
         player.completeDeck();
         player.selectCard(1);
         player.selectCard(2);
-        assertNotNull(player.play());
+        assertDoesNotThrow(player::play);
     }
 }

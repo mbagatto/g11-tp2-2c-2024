@@ -1,6 +1,5 @@
 package model.specialCards;
 
-import model.Dealable;
 import model.score.Score;
 
 public class Joker extends Dealable {
