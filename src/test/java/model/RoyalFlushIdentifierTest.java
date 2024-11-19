@@ -1,6 +1,7 @@
 package model;
 
 import model.cards.Card;
+import model.cards.Heart;
 import model.identifiers.HandIdentifier;
 import model.identifiers.RoyalFlushIdentifier;
 import org.junit.jupiter.api.Test;
@@ -15,11 +16,11 @@ public class RoyalFlushIdentifierTest {
         // Arrange
         HandIdentifier handIdentifier = new RoyalFlushIdentifier(null);
         ArrayList<Card> cards = new ArrayList<>();
-        cards.add(new Card(10, "heart"));
-        cards.add(new Card(13, "heart"));
-        cards.add(new Card(12, "heart"));
-        cards.add(new Card(11, "heart"));
-        cards.add(new Card(14, "heart"));
+        cards.add(new Heart(10));
+        cards.add(new Heart(13));
+        cards.add(new Heart(12));
+        cards.add(new Heart(11));
+        cards.add(new Heart(14));
         Hand expectedHand = new Hand(100, 8, cards);
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);

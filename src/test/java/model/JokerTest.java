@@ -1,5 +1,6 @@
 package model;
 
+import model.cards.Spade;
 import model.specialCards.Joker;
 import model.cards.Card;
 import model.score.Score;
@@ -17,7 +18,7 @@ public class JokerTest {
         ArrayList<Joker> jokers = new ArrayList<>();
         jokers.add(new Joker(jokerScore));
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Card(10, "spade"));
+        playerDeck.addCard(new Spade(10));
         playerDeck.selectCard(0);
         Score expectedScore = new Score(15, 9);
         // Act

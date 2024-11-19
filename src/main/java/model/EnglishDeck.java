@@ -1,15 +1,13 @@
 package model;
 
-import model.cards.Card;
+import model.cards.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public class EnglishDeck {
     private ArrayList<Card> cards;
-    private static List<String> suits = new ArrayList<>(Arrays.asList("heart", "diamond", "spade", "club"));
+    EnglishCardCreator creator;
 
     @Override
     public boolean equals(Object o) {
@@ -25,15 +23,20 @@ public class EnglishDeck {
 
     public EnglishDeck() {
         this.cards = new ArrayList<>();
+        this.creator = new EnglishCardCreator();
     }
 
     public void fillDeck() {
-        for (String suit : suits) {
-            for (int value = 2; value <= 14; value++) {
-                this.cards.add(new Card(value, suit));
-            }
+        for (int value = 2; value <= 14; value++) {
+            this.cards.add(this.creator.createDiamondCard(value));
+            this.cards.add(this.creator.createClubCard(value));
+            this.cards.add(this.creator.createHearCard(value));
+            this.cards.add(this.creator.createSpadeCard(value));
         }
     }
+
+
+
     public Card deal() {
         if (this.cards.isEmpty()) {
             throw new EmptyDeckException();

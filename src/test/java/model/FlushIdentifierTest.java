@@ -1,6 +1,7 @@
 package model;
 
 import model.cards.Card;
+import model.cards.Heart;
 import model.identifiers.FlushIdentifier;
 import model.identifiers.HandIdentifier;
 import org.junit.jupiter.api.Test;
@@ -15,11 +16,11 @@ public class FlushIdentifierTest {
         // Arrange
         HandIdentifier handIdentifier = new FlushIdentifier(null);
         ArrayList<Card> cards = new ArrayList<>();
-        cards.add(new Card(2, "heart"));
-        cards.add(new Card(8, "heart"));
-        cards.add(new Card(7, "heart"));
-        cards.add(new Card(4, "heart"));
-        cards.add(new Card(10, "heart"));
+        cards.add(new Heart(2));
+        cards.add(new Heart(8));
+        cards.add(new Heart(7));
+        cards.add(new Heart(4));
+        cards.add(new Heart(10));
         Hand expectedHand = new Hand(35, 4, cards);
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);

@@ -1,6 +1,8 @@
 package model;
 
 import model.cards.Card;
+import model.cards.Heart;
+import model.cards.Spade;
 import model.score.Score;
 import model.specialCards.ForMultiplier;
 import model.specialCards.ForValue;
@@ -15,7 +17,7 @@ public class TarotTest {
         // Arrange
         Tarot tarot = new Tarot();
         tarot.setBehaviour(new ForMultiplier(6));
-        Card card = new Card(5, "heart");
+        Card card = new Heart(5);
         Score expectedScore = new Score(30, 1);
         // Act
         card.applyTarot(tarot);
@@ -29,7 +31,7 @@ public class TarotTest {
         // Arrange
         Tarot tarot = new Tarot();
         tarot.setBehaviour(new ForValue());
-        Card card = new Card(7, "spade");
+        Card card = new Spade(7);
         Score expectedScore = new Score(10, 1);
         // Act
         card.applyTarot(tarot);

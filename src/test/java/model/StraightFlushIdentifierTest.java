@@ -1,6 +1,7 @@
 package model;
 
 import model.cards.Card;
+import model.cards.Heart;
 import model.identifiers.HandIdentifier;
 import model.identifiers.StraightFlushIdentifier;
 import org.junit.jupiter.api.Test;
@@ -15,11 +16,11 @@ public class StraightFlushIdentifierTest {
         // Arrange
         HandIdentifier handIdentifier = new StraightFlushIdentifier(null);
         ArrayList<Card> cards = new ArrayList<>();
-        cards.add(new Card(3, "heart"));
-        cards.add(new Card(7, "heart"));
-        cards.add(new Card(5, "heart"));
-        cards.add(new Card(4, "heart"));
-        cards.add(new Card(6, "heart"));
+        cards.add(new Heart(3));
+        cards.add(new Heart(7));
+        cards.add(new Heart(5));
+        cards.add(new Heart(4));
+        cards.add(new Heart(6));
         Hand expectedHand = new Hand(100, 8, cards);
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);

@@ -1,6 +1,6 @@
 package model;
 
-import model.cards.Card;
+import model.cards.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,36 +8,36 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CardTest {
     @Test
     public void test01TwoHeartCardsMustBeEqual() {
-        Card heartCard = new Card(13,"heart");
-        Card otherHeartCard = new Card(13,"heart");
+        Card heartCard = new Heart(13);
+        Card otherHeartCard = new Heart(13);
         assertEquals(heartCard, otherHeartCard);
     }
 
     @Test
     public void test02TwoDiamondCardsMustBeEqual() {
-        Card diamondCard = new Card(11,"diamond");
-        Card otherDiamondCard = new Card(11,"diamond");
+        Card diamondCard = new Diamond(11);
+        Card otherDiamondCard = new Diamond(11);
         assertEquals(diamondCard, otherDiamondCard);
     }
 
     @Test
     public void test03TwoSpadeCardsMustBeEqual() {
-        Card spadeCard = new Card(9,"spade");
-        Card otherSpadeCard = new Card(9,"spade");
+        Card spadeCard = new Spade(9);
+        Card otherSpadeCard = new Spade(9);
         assertEquals(spadeCard, otherSpadeCard);
     }
 
     @Test
     public void test04TwoClubCardsMustBeEqual() {
-        Card clubCard = new Card(7,"club");
-        Card otherClubCard = new Card(7,"club");
+        Card clubCard = new Club(7);
+        Card otherClubCard = new Club(7);
         assertEquals(clubCard, otherClubCard);
     }
 
     @Test
     public void test05TwoCardsWithDifferentSuitsMustNotBeEqual() {
-        Card heartCard = new Card(5, "heart");
-        Card clubCard = new Card(5, "club");
+        Card heartCard = new Heart(5);
+        Card clubCard = new Club(5);
         assertNotEquals(heartCard, clubCard);
     }
 }

@@ -1,7 +1,9 @@
 package model.cards;
 
-public class Spade {
-    public boolean equals(Object o) {
-        return (o instanceof Spade);
+public class Spade extends Card {
+
+    public Spade(int value) {
+        super(value);
+        this.suit = "Spade";
     }
 }
