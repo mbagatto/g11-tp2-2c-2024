@@ -11,10 +11,10 @@ public class TarotTest {
         Tarot tarot = new Tarot();
         tarot.setBehaviour(new ForMultiplier());
         Card card = new Card(5, "heart");
-        int expectedScore = new Score(30, 1).calculateScore();
+        Score expectedScore = new Score(30, 1);
         // Act
         card.applyTarot(tarot);
-        int obtainedScore = card.calculateScore();
+        Score obtainedScore = new Score(card.calculateScore(), 1);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
@@ -25,10 +25,10 @@ public class TarotTest {
         Tarot tarot = new Tarot();
         tarot.setBehaviour(new ForValue());
         Card card = new Card(7, "spade");
-        int expectedScore = new Score(10, 1).calculateScore();
+        Score expectedScore = new Score(10, 1);
         // Act
         card.applyTarot(tarot);
-        int obtainedScore = card.calculateScore();
+        Score obtainedScore = new Score(card.calculateScore(), 1);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
