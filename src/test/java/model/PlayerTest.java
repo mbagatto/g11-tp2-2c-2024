@@ -1,6 +1,7 @@
 package model;
 
-import model.Cards.Card;
+import model.cards.Card;
+import model.score.Score;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
@@ -13,9 +14,10 @@ import static org.mockito.Mockito.when;
 
 public class PlayerTest {
     @Test
-    public void whenPlayingAPairItShouldGiveACertainScore(){
+    public void test01WhenPlayingAPairItShouldGiveACertainScore() {
+        // Arrange
         EnglishDeck englishDeckMock = Mockito.mock(EnglishDeck.class);
-        when(englishDeckMock.deal()).thenAnswer(new Answer<Card>() {
+        when(englishDeckMock.deal()).thenAnswer( new Answer<Card>() {
             private List<Card> cards = List.of(
                     new Card(2,"spade"),
                     new Card(5,"club"),
@@ -46,19 +48,23 @@ public class PlayerTest {
         player.selectCard(4);
         player.selectCard(2);
         player.selectCard(7);
-        Score scoreObtenido = player.play();
-        int expectedScore = 28;
-        assertEquals(scoreObtenido.calculateScore(), expectedScore);
+        Score expectedScore = new Score(28, 1);
+        // Act
+        Score obtainedScore = player.play();
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
     }
+
     @Test
-    public void PlayerWithoutCompleteDeckTriesPlay() {
+    public void test02PlayerWithoutCompleteDeckTriesPlay() {
         String playerName = "ExampleName";
         EnglishDeck mockEnglishDeck = Mockito.mock(EnglishDeck.class);
         Player player = new Player(playerName, mockEnglishDeck);
         assertThrows(EmptyPlayerDeckException.class, player::play);
     }
+
     @Test
-    public void PlayerWithoutSelectedCardsTriesPlay() {
+    public void test03PlayerWithoutSelectedCardsTriesPlay() {
         EnglishDeck englishDeck = new EnglishDeck();
         englishDeck.fillDeck();
         String playerName = "ExampleName";
@@ -67,7 +73,7 @@ public class PlayerTest {
         assertThrows(NoSelectedCardsException.class, player::play);
     }
     @Test
-    public void PlayerWithValid() {
+    public void test04PlayerWithValid() {
         String playerName = "ExampleName";
         EnglishDeck englishDeck = new EnglishDeck();
         englishDeck.fillDeck();

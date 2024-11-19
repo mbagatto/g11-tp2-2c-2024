@@ -1,5 +1,7 @@
 package model;
 
+import model.score.Score;
+
 public class Dealable {
     Score score;
 

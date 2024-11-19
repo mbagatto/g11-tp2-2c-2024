@@ -1,45 +1,51 @@
 package model;
 
+import model.score.Multiplier;
+import model.score.Point;
+import model.score.Score;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ScoreTest {
     @Test
-    public void scoreShouldBeEqualToAnotherScore() {
+    public void test01ScoreShouldBeEqualToAnotherScore() {
         Score score = new Score(10,2);
-        int expectedFinalScore = 20;
-        assertEquals(score.calculateScore(),expectedFinalScore);
+        Score otherScore = new Score(20, 1);
+        assertEquals(score, otherScore);
     }
+
     @Test
-    public void scoreShouldSumCorrectlyAnotherScore() {
-        Score score = new Score(10);
-        Score sumScore = new Score(1);
-        score.addScore(sumScore);
-        int expectedScore = 11;
-        assertEquals(score.calculateScore(),expectedScore);
+    public void test02ScoreShouldAddOtherScoreCorrectly() {
+        // Arrange
+        Score scoreToEvaluate = new Score(10, 1);
+        Score expectedScore = new Score(11, 2);
+        // Act
+        scoreToEvaluate.addScore(new Score(1, 1));
+        // Assert
+        assertEquals(expectedScore, scoreToEvaluate);
     }
+
     @Test
-    public void scoreShouldChangeHisMultiplier() {
-        Score score = new Score(5);
+    public void test03ScoreShouldChangeItsMultiplierCorrectly() {
+        // Arrange
+        Score scoreToEvaluate = new Score(5, 1);
         Multiplier multiplier = new Multiplier(2);
-        score.changeMultiplier(multiplier);
-        int expectedMultiplier = 10;
-        assertEquals(score.calculateScore(),expectedMultiplier);
+        Score expectedScore = new Score(5, 2);
+        // Act
+        scoreToEvaluate.changeMultiplier(multiplier);
+        // Arrange
+        assertEquals(expectedScore, scoreToEvaluate);
     }
     @Test
-    public void scoreShouldChangeHisPoint() {
-        Score score = new Score(10);
+    public void test04ScoreShouldChangeItsPointsCorrectly() {
+        // Arrange
+        Score scoreToEvaluate = new Score(10, 1);
         Point point = new Point(1);
-        score.changePoint(point);
-        int expectedScore = 1;
-        assertEquals(score.calculateScore(),expectedScore);
-    }
-    @Test
-    public void scoreShouldBeEqualsToAnotherScore() {
-        Score score = new Score(10, 2);
-        Score anotherScore = new Score(10, 2);
-        assertTrue(score.isEqualAs(anotherScore));
+        Score expectedScore = new Score(1, 1);
+        // Act
+        scoreToEvaluate.changePoint(point);
+        // Assert
+        assertEquals(expectedScore, scoreToEvaluate);
     }
 }

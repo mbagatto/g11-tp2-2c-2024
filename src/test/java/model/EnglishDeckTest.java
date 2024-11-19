@@ -6,23 +6,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class EnglishDeckTest {
     @Test
-    public void dealMustThrowsAnExceptionWhenIsEmpty() {
+    public void test01DealMustThrowAnExceptionWhenIsEmpty() {
         EnglishDeck englishDeck = new EnglishDeck();
         assertThrows(EmptyDeckException.class, englishDeck::deal);
     }
 
     @Test
-    public void verifyThatDeckCardsAreCorrectlyDecreasedAfterDealing() { // Este test deberiamos borrarlo porque no testea funcionalidad. Y no existe un test distinto que lo reemplace
+    public void test02ADeckThatDealtACardIsNotEqualToAFullDeck() {
+        // Arrange
         EnglishDeck englishDeck = new EnglishDeck();
         englishDeck.fillDeck();
 
         EnglishDeck otherEnglishDeck = new EnglishDeck();
         otherEnglishDeck.fillDeck();
-
-        for (int i = 1; i <= 5; i++) {
-            englishDeck.deal();
-        }
-
+        // Act
+        englishDeck.deal();
+        // Assert
         assertNotEquals(englishDeck, otherEnglishDeck);
     }
 }

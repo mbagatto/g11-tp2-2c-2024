@@ -1,6 +1,6 @@
 package model;
 
-import model.Cards.Card;
+import model.cards.Card;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,9 +22,11 @@ public class EnglishDeck {
     public int hashCode() {
         return Objects.hash(cards.size());
     }
+
     public EnglishDeck() {
         this.cards = new ArrayList<>();
     }
+
     public void fillDeck() {
         for (String suit : suits) {
             for (int value = 2; value <= 14; value++) {

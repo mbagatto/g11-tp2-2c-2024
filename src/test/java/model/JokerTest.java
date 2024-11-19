@@ -1,22 +1,28 @@
 package model;
 
-import model.Cards.Card;
-import model.SpecialCards.ForMultiplier;
-import model.SpecialCards.Joker;
+import model.specialCards.Joker;
+import model.cards.Card;
+import model.score.Score;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JokerTest {
     @Test
-    public void JokerShouldModifyMultiplierOfACardCorrectly() {
-        Joker joker = new Joker();
-        joker.setBehaviour(new ForMultiplier(8));
-        String heartSuit = "heart";
-        int heartValue = 4;
-        Card card = new Card(heartValue, heartSuit);
-        card.applyJoker(joker);
-        int expectedScore = 32;
-        assertEquals(card.calculateScore(), expectedScore);
+    public void test01JokerShouldModifyMultiplierOfACardCorrectly() {
+        // Arrange
+        Score jokerScore = new Score(0, 8);
+        ArrayList<Joker> jokers = new ArrayList<>();
+        jokers.add(new Joker(jokerScore));
+        PlayerDeck playerDeck = new PlayerDeck();
+        playerDeck.addCard(new Card(10, "spade"));
+        playerDeck.selectCard(0);
+        Score expectedScore = new Score(15, 9);
+        // Act
+        Score obtainedScore = playerDeck.playSelectedCards(jokers);
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
     }
 }

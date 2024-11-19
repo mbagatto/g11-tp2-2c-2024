@@ -1,8 +1,11 @@
 package model;
 
-import model.Cards.Card;
+import model.specialCards.Joker;
+import model.cards.Card;
+import model.score.Score;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Hand {
     private int points;
@@ -10,11 +13,17 @@ public class Hand {
     private Score score;
     private ArrayList<Card> cards;
 
-    public Hand(int points, int multiplier) {
-        this.points = points;
-        this.multiplier = multiplier;
-        this.score = new Score(points, multiplier);
-        this.cards = new ArrayList<>();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Hand hand = (Hand) o;
+        return points == hand.points && multiplier == hand.multiplier && cards.equals(hand.cards);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(points, multiplier, cards);
     }
 
     public Hand(int points, int multiplier, ArrayList<Card> cards) {
@@ -24,20 +33,14 @@ public class Hand {
         this.cards = cards;
     }
 
-    public int calculateScore() {
-        return (this.points * this.multiplier);
-    }
-
-    public boolean isEqualAs(Hand obtainedHand) {
-        if (obtainedHand == null) {
-            return false;
-        }
-        return (this.getClass().equals(obtainedHand.getClass()));
-    }
-
-    public Score calculateTotalScore(){
+    public Score calculateScore(ArrayList<Joker> jokers){
         for (Card card : cards) {
             card.addScoreTo(this.score);
+        }
+        if ( ! jokers.isEmpty() ) {
+            for (Joker joker : jokers) {
+                joker.applyEffect(this.score);
+            }
         }
         return this.score;
     }
