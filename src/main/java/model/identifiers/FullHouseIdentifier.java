@@ -16,6 +16,7 @@ public class FullHouseIdentifier implements HandIdentifier {
 
     @Override
     public Hand identify(ArrayList<Card> cards) {
+        if (cards.size() < 5) { return next.identify(cards); }
         if (isFullHouse(cards)) {
             return new Hand(40, 4, cards);
         }

@@ -16,6 +16,7 @@ public class RoyalFlushIdentifier implements HandIdentifier {
 
     @Override
     public Hand identify(ArrayList<Card> cards) {
+        if (cards.size() < 5) { return next.identify(cards); }
         if (isRoyalFlush(cards)) {
             return new Hand(100, 8, cards);
         }

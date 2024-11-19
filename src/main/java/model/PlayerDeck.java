@@ -1,5 +1,7 @@
 package model;
 
+import model.specialCards.Joker;
+import model.specialCards.Tarot;
 import model.cards.Card;
 import model.identifiers.*;
 import model.score.Score;
@@ -47,12 +49,12 @@ public class PlayerDeck {
         selectedCards.add(this.cards.get(indexCard));
     }
 
-    public Score playSelectedCards() {
+    public Score playSelectedCards(ArrayList<Joker> jokers) {
         if (selectedCards.isEmpty()) {
             throw new NoSelectedCardsException();
         }
         Hand hand = handIdentifier.identify(this.selectedCards);
-        return hand.calculateScore();
+        return hand.calculateScore(jokers);
     }
 
     public void playTarot(int indexCard, Tarot tarot){
@@ -66,4 +68,6 @@ public class PlayerDeck {
     public boolean isEmpty() {
         return this.cards.isEmpty();
     }
+
+
 }

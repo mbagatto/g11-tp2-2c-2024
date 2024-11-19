@@ -1,5 +1,6 @@
 package model;
 
+import model.specialCards.Joker;
 import model.cards.Card;
 import model.score.Score;
 
@@ -32,9 +33,14 @@ public class Hand {
         this.cards = cards;
     }
 
-    public Score calculateScore(){
+    public Score calculateScore(ArrayList<Joker> jokers){
         for (Card card : cards) {
             card.addScoreTo(this.score);
+        }
+        if ( ! jokers.isEmpty() ) {
+            for (Joker joker : jokers) {
+                joker.applyEffect(this.score);
+            }
         }
         return this.score;
     }

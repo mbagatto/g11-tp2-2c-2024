@@ -1,7 +1,7 @@
 package model.cards;
 
 import model.score.Score;
-import model.Tarot;
+import model.specialCards.Tarot;
 
 import java.util.Objects;
 
@@ -34,7 +34,7 @@ public class Card {
     }
 
     public void applyTarot(Tarot tarot) {
-        tarot.applyEfect(this.score);
+        tarot.applyEffect(this.score);
     }
 
     public String getSuit() {

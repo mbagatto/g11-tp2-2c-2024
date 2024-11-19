@@ -16,6 +16,7 @@ public class FlushIdentifier implements HandIdentifier {
 
     @Override
     public Hand identify(ArrayList<Card> cards) {
+        if (cards.size() < 5) { return next.identify(cards); }
         if (isFlush(cards)) {
             return new Hand(35, 4, cards);
         }

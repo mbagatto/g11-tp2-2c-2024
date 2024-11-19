@@ -16,6 +16,7 @@ public class StraightFlushIdentifier implements HandIdentifier {
 
     @Override
     public Hand identify(ArrayList<Card> cards) {
+        if (cards.size() < 5) { return next.identify(cards); }
         if (isStraightFlush(cards)) {
             return new Hand(100, 8, cards);
         }

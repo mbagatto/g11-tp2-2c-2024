@@ -1,5 +1,6 @@
 package model;
 
+import model.specialCards.Joker;
 import model.cards.Card;
 import model.score.Score;
 import org.junit.jupiter.api.Test;
@@ -17,8 +18,9 @@ public class HandTest {
         cards.add(new Card(3, "spade"));
         Hand pair = new Hand(10, 2, cards);
         Score expectedScore = new Score(32, 1);
+        ArrayList<Joker> jokers = new ArrayList<>();
         // Act
-        Score obtainedScore = pair.calculateScore();
+        Score obtainedScore = pair.calculateScore(jokers);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }

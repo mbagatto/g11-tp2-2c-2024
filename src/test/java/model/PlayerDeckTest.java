@@ -1,8 +1,14 @@
 package model;
 
+import model.specialCards.Joker;
 import model.cards.Card;
 import model.score.Score;
+import model.specialCards.ForMultiplier;
+import model.specialCards.ForValue;
+import model.specialCards.Tarot;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,14 +31,16 @@ public class PlayerDeckTest {
         playerDeck.addCard(new Card(11, "spade"));
         playerDeck.addCard(new Card(5, "spade"));
         playerDeck.addCard(new Card(7, "heart"));
+
         playerDeck.selectCard(1);
         playerDeck.selectCard(4);
         playerDeck.selectCard(3);
         playerDeck.selectCard(2);
         playerDeck.selectCard(7);
         Score expectedScore = new Score(52, 1);
+        ArrayList<Joker> jokers = new ArrayList<>();
         // Act
-        Score obtainedScore = playerDeck.playSelectedCards();
+        Score obtainedScore = playerDeck.playSelectedCards(jokers);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
@@ -55,8 +63,9 @@ public class PlayerDeckTest {
         playerDeck.selectCard(1);
         playerDeck.selectCard(7);
         Score expectedScore = new Score(80, 1);
+        ArrayList<Joker> jokers = new ArrayList<>();
         // Act
-        Score obtainedScore = playerDeck.playSelectedCards();
+        Score obtainedScore = playerDeck.playSelectedCards(jokers);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
@@ -78,8 +87,9 @@ public class PlayerDeckTest {
         playerDeck.selectCard(2);
         playerDeck.selectCard(7);
         Score expectedScore = new Score(162, 1);
+        ArrayList<Joker> jokers = new ArrayList<>();
         // Act
-        Score obtainedScore = playerDeck.playSelectedCards();
+        Score obtainedScore = playerDeck.playSelectedCards(jokers);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
@@ -102,8 +112,9 @@ public class PlayerDeckTest {
         playerDeck.selectCard(3);
         playerDeck.selectCard(4);
         Score expectedScore = new Score(220, 1);
+        ArrayList<Joker> jokers = new ArrayList<>();
         // Act
-        Score obtainedScore = playerDeck.playSelectedCards();
+        Score obtainedScore = playerDeck.playSelectedCards(jokers);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
@@ -126,8 +137,9 @@ public class PlayerDeckTest {
         playerDeck.selectCard(3);
         playerDeck.selectCard(2);
         Score expectedScore = new Score(248, 1);
+        ArrayList<Joker> jokers = new ArrayList<>();
         // Act
-        Score obtainedScore = playerDeck.playSelectedCards();
+        Score obtainedScore = playerDeck.playSelectedCards(jokers);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
@@ -150,8 +162,9 @@ public class PlayerDeckTest {
         playerDeck.selectCard(3);
         playerDeck.selectCard(2);
         Score expectedScore = new Score(244, 1);
+        ArrayList<Joker> jokers = new ArrayList<>();
         // Act
-        Score obtainedScore = playerDeck.playSelectedCards();
+        Score obtainedScore = playerDeck.playSelectedCards(jokers);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
@@ -174,8 +187,9 @@ public class PlayerDeckTest {
         playerDeck.selectCard(3);
         playerDeck.selectCard(2);
         Score expectedScore = new Score(560, 1);
+        ArrayList<Joker> jokers = new ArrayList<>();
         // Act
-        Score obtainedScore = playerDeck.playSelectedCards();
+        Score obtainedScore = playerDeck.playSelectedCards(jokers);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
@@ -198,8 +212,9 @@ public class PlayerDeckTest {
         playerDeck.selectCard(6);
         playerDeck.selectCard(0);
         Score expectedScore = new Score(1080, 1);
+        ArrayList<Joker> jokers = new ArrayList<>();
         // Act
-        Score obtainedScore = playerDeck.playSelectedCards();
+        Score obtainedScore = playerDeck.playSelectedCards(jokers);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
@@ -222,8 +237,9 @@ public class PlayerDeckTest {
         playerDeck.selectCard(6);
         playerDeck.selectCard(0);
         Score expectedScore = new Score(1280, 1);
+        ArrayList<Joker> jokers = new ArrayList<>();
         // Act
-        Score obtainedScore = playerDeck.playSelectedCards();
+        Score obtainedScore = playerDeck.playSelectedCards(jokers);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
@@ -246,8 +262,9 @@ public class PlayerDeckTest {
         playerDeck.selectCard(6);
         playerDeck.selectCard(0);
         Score expectedScore = new Score(19, 1);
+        ArrayList<Joker> jokers = new ArrayList<>();
         // Act
-        Score obtainedScore = playerDeck.playSelectedCards();
+        Score obtainedScore = playerDeck.playSelectedCards(jokers);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
@@ -265,18 +282,20 @@ public class PlayerDeckTest {
         playerDeck.addCard(new Card(11, "spade"));
         playerDeck.addCard(new Card(2, "heart"));
         Score expectedScore = new Score(21, 5);
+        ArrayList<Joker> jokers = new ArrayList<>();
         // Act
         Tarot tarot = new Tarot();
         tarot.setBehaviour(new ForValue());
         playerDeck.playTarot(2,tarot);
-        tarot.setBehaviour(new ForMultiplier());
+
+        tarot.setBehaviour(new ForMultiplier(6));
         playerDeck.playTarot(2,tarot);
         playerDeck.selectCard(2);
         playerDeck.selectCard(3);
         playerDeck.selectCard(5);
         playerDeck.selectCard(6);
         playerDeck.selectCard(0);
-        Score obtainedScore = playerDeck.playSelectedCards();
+        Score obtainedScore = playerDeck.playSelectedCards(jokers);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
@@ -293,20 +312,21 @@ public class PlayerDeckTest {
         playerDeck.addCard(new Card(2, "diamond"));
         playerDeck.addCard(new Card(6, "spade"));
         playerDeck.addCard(new Card(8, "spade"));
+        ArrayList<Joker> jokers = new ArrayList<>();
         // Act
         playerDeck.selectCard(0);
         playerDeck.selectCard(1);
         playerDeck.selectCard(2);
         playerDeck.selectCard(3);
         playerDeck.selectCard(4);
-        Score score1 = playerDeck.playSelectedCards();
+        Score score1 = playerDeck.playSelectedCards(jokers);
         playerDeck.cleanSelectedCards();
         playerDeck.selectCard(2);
         playerDeck.selectCard(4);
         playerDeck.selectCard(1);
         playerDeck.selectCard(3);
         playerDeck.selectCard(0);
-        Score score2 = playerDeck.playSelectedCards();
+        Score score2 = playerDeck.playSelectedCards(jokers);
         // Assert
         assertEquals(score1, score2);
     }

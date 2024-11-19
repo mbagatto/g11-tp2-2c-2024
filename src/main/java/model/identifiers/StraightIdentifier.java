@@ -16,6 +16,7 @@ public class StraightIdentifier implements HandIdentifier {
 
     @Override
     public Hand identify(ArrayList<Card> cards) {
+        if (cards.size() < 5) { return next.identify(cards); }
         if (isStraight(cards)) {
             return new Hand(30, 4, cards);
         }

@@ -1,4 +1,4 @@
-package model;
+package model.specialCards;
 
 import model.score.Score;
 
@@ -10,7 +10,7 @@ public class Tarot {
         this.modifiable = modifiable;
     }
 
-    public void applyEfect(Score score){
+    public void applyEffect(Score score){
         this.modifiable.apply(score);
     }
 }
