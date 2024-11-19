@@ -6,11 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PointTest {
     @Test
-    public void shouldAddAPointToAnother() {
+    public void test01APointShouldAddAPointToOtherPointCorrectly() {
+        // Arrange
         Point toChange = new Point(10);
         Point toAdd = new Point(5);
         Point expectedPoint = new Point(15);
+        // Act
         toChange.add(toAdd);
-        assertEquals(toChange, expectedPoint);
+        // Assert
+        assertEquals(expectedPoint, toChange);
     }
 }

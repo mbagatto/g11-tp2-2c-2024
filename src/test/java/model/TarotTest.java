@@ -5,24 +5,31 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TarotTest {
-
     @Test
-    public void testChangeCardMultiplierToSix() {
+    public void test01ATarotChangesCardMultiplierToSixCorrectly() {
+        // Arrange
         Tarot tarot = new Tarot();
         tarot.setBehaviour(new ForMultiplier());
-        int expectedScore = 30;
         Card card = new Card(5, "heart");
+        int expectedScore = new Score(30, 1).calculateScore();
+        // Act
         card.applyTarot(tarot);
-        assertEquals(expectedScore, card.calculateScore());
+        int obtainedScore = card.calculateScore();
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
     }
 
     @Test
-    public void testChangeHandPointsToTen() {
+    public void test02ATarotChangesHandPointsToTenCorrectly() {
+        // Arrange
         Tarot tarot = new Tarot();
         tarot.setBehaviour(new ForValue());
-        int expectedScore = 10;
         Card card = new Card(7, "spade");
+        int expectedScore = new Score(10, 1).calculateScore();
+        // Act
         card.applyTarot(tarot);
-        assertEquals(expectedScore, card.calculateScore());
+        int obtainedScore = card.calculateScore();
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
     }
 }

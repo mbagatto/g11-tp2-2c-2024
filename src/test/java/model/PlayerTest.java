@@ -13,7 +13,8 @@ import static org.mockito.Mockito.when;
 
 public class PlayerTest {
     @Test
-    public void whenPlayingAPairItShouldGiveACertainScore(){
+    public void test01WhenPlayingAPairItShouldGiveACertainScore() {
+        // Arrange
         Deck deckMock = Mockito.mock(Deck.class);
         when(deckMock.deal()).thenAnswer( new Answer<Card>() {
             private List<Card> cards = List.of(
@@ -46,19 +47,23 @@ public class PlayerTest {
         player.selectCard(4);
         player.selectCard(2);
         player.selectCard(7);
-        Score scoreObtenido = player.play();
-        int expectedScore = 28;
-        assertEquals(scoreObtenido.calculateScore(), expectedScore);
+        Score expectedScore = new Score(28, 1);
+        // Act
+        Score obtainedScore = player.play();
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
     }
+
     @Test
-    public void PlayerWithoutCompleteDeckTriesPlay() {
+    public void test02PlayerWithoutCompleteDeckTriesPlay() {
         String playerName = "ExampleName";
         Deck mockDeck = Mockito.mock(Deck.class);
         Player player = new Player(playerName, mockDeck);
         assertThrows(EmptyPlayerDeckException.class, player::play);
     }
+
     @Test
-    public void PlayerWithoutSelectedCardsTriesPlay() {
+    public void test03PlayerWithoutSelectedCardsTriesPlay() {
         Deck deck = new Deck();
         deck.fillDeck();
         String playerName = "ExampleName";
@@ -67,7 +72,7 @@ public class PlayerTest {
         assertThrows(NoSelectedCardsException.class, player::play);
     }
     @Test
-    public void PlayerWithValid() {
+    public void test04PlayerWithValid() {
         String playerName = "ExampleName";
         Deck deck = new Deck();
         deck.fillDeck();
