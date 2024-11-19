@@ -6,12 +6,31 @@ import java.util.ArrayList;
 
 public class PlayerDeck {
     private ArrayList<Card> cards;
-    private static HandCalculator handCalculator = new HandCalculator();
     private ArrayList<Card> selectedCards;
+    private HandIdentifier handIdentifier;
 
     public PlayerDeck() {
         this.cards = new ArrayList<>();
         this.selectedCards = new ArrayList<>();
+        this.handIdentifier = new RoyalFlushIdentifier(
+                new StraightFlushIdentifier(
+                        new FourOfAKindIdentifier(
+                                new FullHouseIdentifier(
+                                        new FlushIdentifier(
+                                                new StraightIdentifier(
+                                                        new ThreeOfAKindIdentifier(
+                                                                new TwoPairIdentifier(
+                                                                        new PairIdentifier(
+                                                                                new HighCardIdentifier()
+                                                                        )
+                                                                )
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
     }
 
     public void addCard(Card card) {
@@ -26,11 +45,11 @@ public class PlayerDeck {
         selectedCards.add(this.cards.get(indexCard));
     }
 
-    public Score playSelectedCard() {
+    public Score playSelectedCards() {
         if (selectedCards.isEmpty()) {
             throw new NoSelectedCardsException();
         }
-        Hand hand = handCalculator.verifyPattern(this.selectedCards);
+        Hand hand = handIdentifier.identify(this.selectedCards);
         return hand.calculateTotalScore();
     }
 
@@ -43,6 +62,6 @@ public class PlayerDeck {
     }
 
     public boolean isEmpty() {
-        return (this.cards.isEmpty());
+        return this.cards.isEmpty();
     }
 }
