@@ -15,7 +15,7 @@ public class HighCardIdentifier implements HandIdentifier {
         ArrayList<Card> cardsCopy = new ArrayList<>(cards);
         cardsCopy.sort(Comparator.comparingInt(Card::getValue));
         ArrayList<Card> result = new ArrayList<>();
-        result.add(cardsCopy.getFirst());
+        result.add(cardsCopy.getLast());
         return result;
     }
 }

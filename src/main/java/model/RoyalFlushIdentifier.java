@@ -7,9 +7,11 @@ import java.util.Comparator;
 
 public class RoyalFlushIdentifier implements HandIdentifier {
     private HandIdentifier next;
+    private SequenceChecker checker;
 
     public RoyalFlushIdentifier(HandIdentifier next) {
         this.next = next;
+        this.checker = new SequenceChecker();
     }
 
     @Override
@@ -21,26 +23,6 @@ public class RoyalFlushIdentifier implements HandIdentifier {
     }
 
     private boolean isRoyalFlush(ArrayList<Card> cards) {
-        ArrayList<Card> cardsCopy = new ArrayList<>(cards);
-        cardsCopy.sort(Comparator.comparingInt(Card::getValue));
-
-        if (cardsCopy.getFirst().getValue() != 10) {
-            return false;
-        }
-
-        for (int i = 1; i < cardsCopy.size(); i++) {
-            if (cardsCopy.get(i).getValue() != cardsCopy.get(i - 1).getValue() + 1) {
-                return false;
-            }
-        }
-
-        Card firstCard = cardsCopy.getFirst();
-        for (Card card : cardsCopy) {
-            if (!firstCard.hasSameSuitAs(card)) {
-                return false;
-            }
-        }
-
-        return true;
+        return checker.isRoyalFlush(cards);
     }
 }

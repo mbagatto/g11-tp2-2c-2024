@@ -6,9 +6,11 @@ import java.util.ArrayList;
 
 public class FlushIdentifier implements HandIdentifier {
     private HandIdentifier next;
+    private SequenceChecker checker;
 
     public FlushIdentifier(HandIdentifier next) {
         this.next = next;
+        this.checker = new SequenceChecker();
     }
 
     @Override
@@ -20,16 +22,6 @@ public class FlushIdentifier implements HandIdentifier {
     }
 
     private boolean isFlush(ArrayList<Card> cards) {
-        ArrayList<Card> cardsCopy = new ArrayList<>(cards);
-        boolean patternFound = true;
-
-        Card firstCard = cardsCopy.getFirst();
-        for (Card card : cardsCopy) {
-            if (!firstCard.hasSameSuitAs(card)) {
-                patternFound = false;
-            }
-        }
-
-        return patternFound;
+        return checker.isFlush(cards);
     }
 }

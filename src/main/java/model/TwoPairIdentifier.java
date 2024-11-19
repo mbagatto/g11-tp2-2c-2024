@@ -4,13 +4,14 @@ import model.Cards.Card;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class TwoPairIdentifier implements HandIdentifier {
     private HandIdentifier next;
+    private FrequencyChecker checker;
 
     public TwoPairIdentifier(HandIdentifier next) {
         this.next = next;
+        this.checker = new FrequencyChecker();
     }
 
     @Override
@@ -22,35 +23,17 @@ public class TwoPairIdentifier implements HandIdentifier {
     }
 
     private boolean isTwoPair(ArrayList<Card> cards) {
-        ArrayList<Card> cardsCopy = new ArrayList<>(cards);
-        Map<Integer, Integer> counters = generateMap(cardsCopy);
-
-        int pairsCount = 0;
-        for (int key : counters.keySet()) {
-            if (counters.get(key) == 2) {
-                pairsCount++;
-            }
-        }
-        return pairsCount == 2;
+        return checker.isTwoPair(cards);
     }
 
     private ArrayList<Card> findHandCards(ArrayList<Card> cards) {
         ArrayList<Card> handCards = new ArrayList<>(cards);
-        HashMap<Integer, Integer> map = generateMap(handCards);
+        HashMap<Integer, Integer> map = checker.generateMap(handCards);
         for (int key : map.keySet()) {
             if (map.get(key) != 2) {
                 handCards.removeIf(card -> card.getValue() == key);
             }
         }
         return handCards;
-    }
-
-    private HashMap<Integer, Integer> generateMap(ArrayList<Card> cards) {
-        HashMap<Integer, Integer> map = new HashMap<>();
-        for (Card card : cards) {
-            int value = card.getValue();
-            map.put(value, map.getOrDefault(value, 0) + 1);
-        }
-        return map;
     }
 }

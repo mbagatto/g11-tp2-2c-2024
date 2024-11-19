@@ -8,9 +8,11 @@ import java.util.Map;
 
 public class FullHouseIdentifier implements HandIdentifier {
     private HandIdentifier next;
+    private FrequencyChecker checker;
 
     public FullHouseIdentifier(HandIdentifier next) {
         this.next = next;
+        this.checker = new FrequencyChecker();
     }
 
     @Override
@@ -22,24 +24,6 @@ public class FullHouseIdentifier implements HandIdentifier {
     }
 
     private boolean isFullHouse(ArrayList<Card> cards) {
-        ArrayList<Card> cardsCopy = new ArrayList<>(cards);
-        Map<Integer, Integer> counters = new HashMap<>();
-
-        for (Card card : cardsCopy) {
-            int value = card.getValue();
-            counters.put(value, counters.getOrDefault(value, 0) + 1);
-        }
-
-        boolean isThreeOfAKind = false;
-        boolean isPair = false;
-        for (int key : counters.keySet()) {
-            if (counters.get(key) == 3) {
-                isThreeOfAKind = true;
-            }
-            if (counters.get(key) == 2) {
-                isPair = true;
-            }
-        }
-        return (isThreeOfAKind && isPair);
+        return checker.isFullHouse(cards);
     }
 }

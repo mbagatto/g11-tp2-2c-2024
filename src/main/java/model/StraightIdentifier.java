@@ -7,9 +7,11 @@ import java.util.Comparator;
 
 public class StraightIdentifier implements HandIdentifier {
     private HandIdentifier next;
+    private SequenceChecker checker;
 
     public StraightIdentifier(HandIdentifier next) {
         this.next = next;
+        this.checker = new SequenceChecker();
     }
 
     @Override
@@ -21,14 +23,6 @@ public class StraightIdentifier implements HandIdentifier {
     }
 
     private boolean isStraight(ArrayList<Card> cards) {
-        ArrayList<Card> cardsCopy = new ArrayList<>(cards);
-        cardsCopy.sort(Comparator.comparingInt(Card::getValue));
-
-        for (int i = 1; i < cardsCopy.size(); i++) {
-            if (cardsCopy.get(i).getValue() != cardsCopy.get(i - 1).getValue() + 1) {
-                return false;
-            }
-        }
-        return true;
+        return checker.isStraight(cards);
     }
 }
