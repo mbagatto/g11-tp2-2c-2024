@@ -3,19 +3,14 @@ package model;
 import java.util.Objects;
 
 public class Multiplier {
-
     private int value;
-
-    public Multiplier(int value) {
-        this.value = value;
-    }
 
     public Multiplier() {
         this.value = 0;
     }
 
-    public void add(Multiplier otherMultiplier) {
-        this.value = this.value + otherMultiplier.value;
+    public Multiplier(int value) {
+        this.value = value;
     }
 
     @Override
@@ -28,7 +23,11 @@ public class Multiplier {
 
     @Override
     public int hashCode(){
-        return Objects.hash(value);
+        return Objects.hashCode(value);
+    }
+
+    public void add(Multiplier otherMultiplier) {
+        this.value += otherMultiplier.value;
     }
 
     public boolean isZero() {

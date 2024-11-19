@@ -1,21 +1,27 @@
 package model;
 
+import model.Cards.Card;
+
+import java.util.Objects;
+
 public class Score {
-//  private int value;
     private Point point;
-    //private int multiplier;
     private Multiplier multiplier;
 
-//    private int getMultiplier() {
-//        return this.multiplier;
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Score score = (Score) o;
+        return this.calculateScore() == score.calculateScore();
+    }
 
-//    private int getValue() {
-//        return this.value;
-//    }
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(this.calculateScore());
+    }
 
     public Score(int value, int multiplier) {
-//      this.value = value;
         this.point = new Point(value);
         this.multiplier = new Multiplier(multiplier);
     }
@@ -25,12 +31,6 @@ public class Score {
         this.multiplier = new Multiplier();
     }
 
-//    public int calculateScore() {
-//        if(this.multiplier == 0) {
-//            return this.value;
-//        }
-//        return value * multiplier;
-//    }
     public int calculateScore() {
         if (this.multiplier.isZero()) {
             return this.point.multiplyBy(1);
@@ -40,18 +40,9 @@ public class Score {
     }
 
     public void addScore(Score otherValue) {
-//        this.value += otherValue.getValue();
         this.point.add(otherValue.point);
         this.multiplier.add(otherValue.multiplier);
     }
-
-//    public void setValue(int otherValue){
-//         this.value = otherValue;
-//    }
-
-//    public void setMultiplier(int otherMultiplier){
-//        this.multiplier = otherMultiplier;
-//    }
 
     public void changeMultiplier (Multiplier otherMultiplier){
         this.multiplier.changeMultiplier(otherMultiplier);

@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HandTest {
     @Test
-    public void verifyThatAPairCalculatesItsScoreCorrectly() {
+    public void test01APairCalculatesItsScoreCorrectly() {
         // Arrange
         ArrayList<Card> cards = new ArrayList<>();
         cards.add(new Card(3, "heart"));
@@ -17,8 +17,8 @@ public class HandTest {
         Hand pair = new Hand(10, 2, cards);
         Score expectedScore = new Score(32, 1);
         // Act
-        Score obtainedScore = pair.calculateTotalScore();
+        Score obtainedScore = pair.calculateScore();
         // Assert
-        assertTrue(expectedScore.isEqualAs(obtainedScore));
+        assertEquals(expectedScore, obtainedScore);
     }
 }

@@ -24,13 +24,6 @@ public class Hand {
         return Objects.hash(points, multiplier, cards);
     }
 
-    public Hand(int points, int multiplier) {
-        this.points = points;
-        this.multiplier = multiplier;
-        this.score = new Score(points, multiplier);
-        this.cards = new ArrayList<>();
-    }
-
     public Hand(int points, int multiplier, ArrayList<Card> cards) {
         this.points = points;
         this.multiplier = multiplier;
@@ -38,20 +31,7 @@ public class Hand {
         this.cards = cards;
     }
 
-
-
-    public int calculateScore() {
-        return (this.points * this.multiplier);
-    }
-
-    public boolean isEqualAs(Hand obtainedHand) {
-        if (obtainedHand == null) {
-            return false;
-        }
-        return (this.getClass().equals(obtainedHand.getClass()));
-    }
-
-    public Score calculateTotalScore(){
+    public Score calculateScore(){
         for (Card card : cards) {
             card.addScoreTo(this.score);
         }

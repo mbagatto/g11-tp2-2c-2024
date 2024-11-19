@@ -18,13 +18,16 @@ public class Deck {
         Deck deck = (Deck) o;
         return cards.size() == deck.cards.size();
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(cards.size());
     }
+
     public Deck() {
         this.cards = new ArrayList<>();
     }
+
     public void fillDeck() {
         for (String suit : suits) {
             for (int value = 2; value <= 14; value++) {
@@ -32,6 +35,7 @@ public class Deck {
             }
         }
     }
+
     public Card deal() {
         if (this.cards.isEmpty()) {
             throw new EmptyDeckException();

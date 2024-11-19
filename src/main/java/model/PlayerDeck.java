@@ -51,7 +51,7 @@ public class PlayerDeck {
             throw new NoSelectedCardsException();
         }
         Hand hand = handIdentifier.identify(this.selectedCards);
-        return hand.calculateTotalScore();
+        return hand.calculateScore();
     }
 
     public void playTarot(int indexCard, Tarot tarot){
