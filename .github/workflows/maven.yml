@@ -17,9 +17,9 @@ jobs:
           distribution: 'temurin'
           java-version: '23'
           cache: 'maven'
-      - name: Build with Maven
+      - name: Build with
         run: mvn clean install -DskipTests=true
 
-      - name: Run tests with Maven
+      - name: Run tests
         run: mvn test
 
