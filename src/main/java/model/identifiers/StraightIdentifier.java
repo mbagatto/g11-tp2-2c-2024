@@ -1,9 +1,9 @@
-package model;
+package model.identifiers;
 
-import model.Cards.Card;
+import model.Hand;
+import model.cards.Card;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class StraightIdentifier implements HandIdentifier {
     private HandIdentifier next;

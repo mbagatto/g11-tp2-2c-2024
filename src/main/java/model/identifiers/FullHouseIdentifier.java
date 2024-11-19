@@ -1,10 +1,9 @@
-package model;
+package model.identifiers;
 
-import model.Cards.Card;
+import model.Hand;
+import model.cards.Card;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class FullHouseIdentifier implements HandIdentifier {
     private HandIdentifier next;

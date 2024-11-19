@@ -1,4 +1,4 @@
-package model.Cards;
+package model.cards;
 
 public class Spade {
     public boolean equals(Object o) {

@@ -1,6 +1,7 @@
-package model;
+package model.identifiers;
 
-import model.Cards.Card;
+import model.Hand;
+import model.cards.Card;
 
 import java.util.ArrayList;
 

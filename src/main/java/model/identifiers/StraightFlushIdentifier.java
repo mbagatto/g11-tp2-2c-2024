@@ -1,28 +1,28 @@
-package model;
+package model.identifiers;
 
-import model.Cards.Card;
+import model.Hand;
+import model.cards.Card;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
-public class RoyalFlushIdentifier implements HandIdentifier {
+public class StraightFlushIdentifier implements HandIdentifier {
     private HandIdentifier next;
     private SequenceChecker checker;
 
-    public RoyalFlushIdentifier(HandIdentifier next) {
+    public StraightFlushIdentifier(HandIdentifier next) {
         this.next = next;
         this.checker = new SequenceChecker();
     }
 
     @Override
     public Hand identify(ArrayList<Card> cards) {
-        if (isRoyalFlush(cards)) {
+        if (isStraightFlush(cards)) {
             return new Hand(100, 8, cards);
         }
         return next.identify(cards);
     }
 
-    private boolean isRoyalFlush(ArrayList<Card> cards) {
-        return checker.isRoyalFlush(cards);
+    private boolean isStraightFlush(ArrayList<Card> cards) {
+        return checker.isStraightFlush(cards);
     }
 }

@@ -1,6 +1,6 @@
 package model;
 
-import model.Cards.Card;
+import model.cards.Card;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

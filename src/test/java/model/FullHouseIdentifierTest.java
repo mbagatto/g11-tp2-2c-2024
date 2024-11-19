@@ -1,6 +1,8 @@
 package model;
 
-import model.Cards.Card;
+import model.cards.Card;
+import model.identifiers.FullHouseIdentifier;
+import model.identifiers.HandIdentifier;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
