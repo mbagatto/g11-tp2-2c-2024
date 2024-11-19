@@ -1,6 +1,4 @@
-package model;
-
-import model.Cards.Card;
+package model.score;
 
 import java.util.Objects;
 
@@ -50,9 +48,5 @@ public class Score {
 
     public void changePoint (Point otherPoint){
         this.point.changePoint(otherPoint);
-    }
-
-    public boolean isEqualAs(Score otherScore) {
-        return (this.calculateScore() == otherScore.calculateScore());
     }
 }

@@ -1,6 +1,6 @@
 package model.cards;
 
-import model.Score;
+import model.score.Score;
 import model.Tarot;
 
 import java.util.Objects;

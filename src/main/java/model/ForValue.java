@@ -1,9 +1,11 @@
 package model;
 
+import model.score.Point;
+import model.score.Score;
+
 public class ForValue implements Modifiable {
     @Override
     public void apply(Score score) {
-//         score.setValue(10);
         score.changePoint(new Point(10));
     }
 }

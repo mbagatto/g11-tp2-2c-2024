@@ -1,6 +1,7 @@
 package model;
 
 import model.cards.Card;
+import model.score.Score;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;

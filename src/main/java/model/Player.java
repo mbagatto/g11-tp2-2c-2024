@@ -1,5 +1,7 @@
 package model;
 
+import model.score.Score;
+
 public class Player {
     private String name;
     private Deck deck;
@@ -15,10 +17,6 @@ public class Player {
         while (!this.playerDeck.isComplete()) {
             this.playerDeck.addCard(this.deck.deal());
         }
-    }
-
-    public boolean hasEnoughCards() {
-        return (this.playerDeck.isComplete());
     }
 
     public void selectCard(int indexSelectCard){

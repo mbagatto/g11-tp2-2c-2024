@@ -1,6 +1,7 @@
 package model;
 
 import model.cards.Card;
+import model.score.Score;
 
 import java.util.ArrayList;
 import java.util.Objects;

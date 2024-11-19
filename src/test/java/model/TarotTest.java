@@ -1,8 +1,10 @@
 package model;
 
 import model.cards.Card;
+import model.score.Score;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TarotTest {
     @Test

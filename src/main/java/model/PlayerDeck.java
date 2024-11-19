@@ -2,6 +2,7 @@ package model;
 
 import model.cards.Card;
 import model.identifiers.*;
+import model.score.Score;
 
 import java.util.ArrayList;
 
