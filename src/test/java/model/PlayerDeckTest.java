@@ -1,7 +1,7 @@
 package model;
 
 import model.cards.*;
-import model.specialCards.Joker;
+import model.jokers.Joker;
 import model.score.Score;
 import model.specialCards.ForMultiplier;
 import model.specialCards.ForValue;

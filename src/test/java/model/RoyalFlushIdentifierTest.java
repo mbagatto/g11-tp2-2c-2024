@@ -2,6 +2,8 @@ package model;
 
 import model.cards.Card;
 import model.cards.Heart;
+import model.hands.Hand;
+import model.hands.RoyalFlush;
 import model.identifiers.HandIdentifier;
 import model.identifiers.RoyalFlushIdentifier;
 import org.junit.jupiter.api.Test;
@@ -21,7 +23,7 @@ public class RoyalFlushIdentifierTest {
         cards.add(new Heart(12));
         cards.add(new Heart(11));
         cards.add(new Heart(14));
-        Hand expectedHand = new Hand(100, 8, cards);
+        Hand expectedHand = new RoyalFlush(cards);
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);
         // Assert

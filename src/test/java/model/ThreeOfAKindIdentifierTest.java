@@ -4,6 +4,8 @@ import model.cards.Card;
 import model.cards.Club;
 import model.cards.Heart;
 import model.cards.Spade;
+import model.hands.Hand;
+import model.hands.ThreeOfAKind;
 import model.identifiers.HandIdentifier;
 import model.identifiers.ThreeOfAKindIdentifier;
 import org.junit.jupiter.api.Test;
@@ -22,7 +24,7 @@ public class ThreeOfAKindIdentifierTest {
         cards.add(new Spade(3));
         cards.add(new Club(3));
 
-        Hand expectedHand = new Hand(30, 3, cards);
+        Hand expectedHand = new ThreeOfAKind(cards);
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);
         // Assert

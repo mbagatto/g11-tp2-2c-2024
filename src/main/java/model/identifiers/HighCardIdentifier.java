@@ -1,7 +1,9 @@
 package model.identifiers;
 
-import model.Hand;
+import model.hands.Hand;
 import model.cards.Card;
+import model.hands.HighCard;
+import model.score.Score;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -9,7 +11,7 @@ import java.util.Comparator;
 public class HighCardIdentifier implements HandIdentifier {
     @Override
     public Hand identify(ArrayList<Card> cards) {
-        return new Hand(5, 1, findHandCards(cards));
+        return new HighCard(findHandCards(cards));
     }
 
     private ArrayList<Card> findHandCards(ArrayList<Card> cards) {

@@ -1,7 +1,9 @@
 package model.identifiers;
 
-import model.Hand;
+import model.hands.FullHouse;
+import model.hands.Hand;
 import model.cards.Card;
+import model.score.Score;
 
 import java.util.ArrayList;
 
@@ -18,7 +20,7 @@ public class FullHouseIdentifier implements HandIdentifier {
     public Hand identify(ArrayList<Card> cards) {
         if (cards.size() < 5) { return next.identify(cards); }
         if (isFullHouse(cards)) {
-            return new Hand(40, 4, cards);
+            return new FullHouse(cards);
         }
         return next.identify(cards);
     }

@@ -1,6 +1,8 @@
 package model;
 
 import model.cards.*;
+import model.hands.Hand;
+import model.hands.Straight;
 import model.identifiers.HandIdentifier;
 import model.identifiers.StraightIdentifier;
 import org.junit.jupiter.api.Test;
@@ -20,7 +22,7 @@ public class StraightIdentifierTest {
         cards.add(new Club(5));
         cards.add(new Diamond(4));
         cards.add(new Heart(6));
-        Hand expectedHand = new Hand(30, 4, cards);
+        Hand expectedHand = new Straight(cards);
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);
         // Assert

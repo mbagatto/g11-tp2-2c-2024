@@ -49,4 +49,8 @@ public class Score {
     public void changePoint (Point otherPoint){
         this.point.changePoint(otherPoint);
     }
+
+    public void multiplyMultiplier(Score score) {
+        this.multiplier.multiply(score.multiplier);
+    }
 }
