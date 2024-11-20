@@ -40,4 +40,11 @@ public class CardTest {
         Card clubCard = new Club(5);
         assertNotEquals(heartCard, clubCard);
     }
+
+    @Test
+    public void test06TwoCardsWithDifferentNumbersMustNotBeEqual() {
+        Card heartCard = new Heart(5);
+        Card otherHeartCard = new Heart(6);
+        assertNotEquals(heartCard, otherHeartCard);
+    }
 }
