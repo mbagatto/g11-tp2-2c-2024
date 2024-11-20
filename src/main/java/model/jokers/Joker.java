@@ -14,4 +14,12 @@ public class Joker {
     public void applyEffect(Hand hand) {
         this.effect.apply(hand);
     }
+
+//    public boolean hasEffect(Effect effect) {
+//        return this.effect.equals(effect);
+//    }
+
+//    public void setDiscards(int discard) {
+//        this.effect.setDiscards(discard);
+//    }
 }

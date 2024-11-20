@@ -32,7 +32,9 @@ public class Player {
         if (this.playerDeck.isEmpty()) {
             throw new EmptyPlayerDeckException();
         }
-        return playerDeck.playSelectedCards(this.jokers);
+        Score score = playerDeck.playSelectedCards(this.jokers);
+        this.completeDeck();
+        return score;
     }
 
     public void addJoker(Joker joker) {
@@ -41,4 +43,19 @@ public class Player {
         }
         this.jokers.add(joker);
     }
+
+//    public void discard() {
+//        this.playerDeck.discardSelectedCards();
+//        this.completeDeck();
+//        this.discard++;
+//        this.updateJokers();
+//    }
+
+//    private void updateJokers() {
+//        for (Joker joker : jokers) {
+//            if (joker.hasEffect(new DiscardBonus(new Score(0)))) {
+//                joker.setDiscards(this.discard);
+//            }
+//        }
+//    }
 }

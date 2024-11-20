@@ -9,6 +9,6 @@ public class ForTheScore extends Effect {
     }
 
     public void apply(Hand hand) {
-        hand.addToMultiplier(this.score);
+        hand.addToScore(this.score);
     }
 }

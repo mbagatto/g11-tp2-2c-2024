@@ -53,4 +53,8 @@ public class Score {
     public void multiplyMultiplier(Score score) {
         this.multiplier.multiply(score.multiplier);
     }
+
+    public void multiplyPoint(Score score) {
+        this.point.multiplyBy(score.calculateScore());
+    }
 }
