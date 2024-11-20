@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.NoSelectedCardsException;
 import model.hands.Hand;
 import model.jokers.DiscardBonus;
 import model.jokers.Joker;

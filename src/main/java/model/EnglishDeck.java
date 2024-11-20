@@ -1,6 +1,7 @@
 package model;
 
 import model.cards.*;
+import model.exceptions.EmptyDeckException;
 
 import java.util.ArrayList;
 import java.util.Objects;

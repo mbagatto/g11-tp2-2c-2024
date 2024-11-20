@@ -1,5 +1,7 @@
 package model;
 
+import model.exceptions.EmptyPlayerDeckException;
+import model.exceptions.InvalidJokerException;
 import model.jokers.Joker;
 import model.score.Score;
 

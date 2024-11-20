@@ -1,6 +1,8 @@
 package model;
 
 import model.cards.*;
+import model.exceptions.EmptyPlayerDeckException;
+import model.exceptions.NoSelectedCardsException;
 import model.jokers.*;
 import model.score.Score;
 import org.junit.jupiter.api.Test;

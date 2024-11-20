@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.EmptyDeckException;
 import model.specialCards.Dealable;
 
 import java.util.ArrayList;
