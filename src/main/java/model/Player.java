@@ -10,12 +10,14 @@ public class Player {
     private EnglishDeck englishDeck;
     private PlayerDeck playerDeck;
     private ArrayList<Joker> jokers;
+    private int discards;
 
     public Player(String name, EnglishDeck englishDeck) {
         this.name = name;
         this.englishDeck = englishDeck;
         this.playerDeck = new PlayerDeck();
         this.jokers = new ArrayList<>();
+        this.discards = 0;
     }
 
     public void completeDeck() {
@@ -32,7 +34,18 @@ public class Player {
         if (this.playerDeck.isEmpty()) {
             throw new EmptyPlayerDeckException();
         }
-        return playerDeck.playSelectedCards(this.jokers);
+        Score score = playerDeck.playSelectedCards(this.jokers);
+        this.completeDeck();
+        return score;
+    }
+
+    public void discard() {
+        if (this.playerDeck.isEmpty()) {
+            throw new EmptyPlayerDeckException();
+        }
+        this.playerDeck.discardSelectedCards(this.jokers);
+        this.completeDeck();
+        this.discards++;
     }
 
     public void addJoker(Joker joker) {

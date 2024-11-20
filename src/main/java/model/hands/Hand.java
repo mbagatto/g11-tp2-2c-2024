@@ -28,7 +28,7 @@ public abstract class Hand {
         this.cards = cards;
     }
 
-    public Score calculateScore(ArrayList<Joker> jokers){
+    public Score calculateScore(ArrayList<Joker> jokers) {
         for (Card card : cards) {
             card.addScoreTo(this.score);
         }
@@ -40,11 +40,15 @@ public abstract class Hand {
         return this.score;
     }
 
-    public void addToMultiplier(Score score) {
+    public void addToScore(Score score) {
         this.score.addScore(score);
     }
 
     public void multiplyMultiplier(Score score) {
         this.score.multiplyMultiplier(score);
+    }
+
+    public void addPoints(Score effect) {
+        this.score.addPoints(effect);
     }
 }

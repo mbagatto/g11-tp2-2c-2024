@@ -326,7 +326,15 @@ public class PlayerDeckTest {
         playerDeck.selectCard(3);
         playerDeck.selectCard(4);
         Score score1 = playerDeck.playSelectedCards(jokers);
-        playerDeck.cleanSelectedCards();
+        playerDeck.clear();
+        playerDeck.addCard(new Heart(5));
+        playerDeck.addCard(new Heart(6));
+        playerDeck.addCard(new Heart(7));
+        playerDeck.addCard(new Heart(8));
+        playerDeck.addCard(new Heart(9));
+        playerDeck.addCard(new Diamond(2));
+        playerDeck.addCard(new Spade(6));
+        playerDeck.addCard(new Spade(8));
         playerDeck.selectCard(2);
         playerDeck.selectCard(4);
         playerDeck.selectCard(1);

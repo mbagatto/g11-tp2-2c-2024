@@ -1,9 +1,7 @@
 package model;
 
-import model.cards.Card;
-import model.cards.Club;
-import model.cards.Heart;
-import model.cards.Spade;
+import model.cards.*;
+import model.jokers.*;
 import model.score.Score;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -86,5 +84,45 @@ public class PlayerTest {
         player.selectCard(1);
         player.selectCard(2);
         assertDoesNotThrow(player::play);
+    }
+
+    @Test
+    public void test05PlayerDiscardsWithDiscardBonusAndTheScoreIsCorrect() {
+        // Arrange
+        String playerName = "ExampleName";
+        EnglishDeck englishDeck = new EnglishDeck();
+        englishDeck.fillDeck();
+        Player player = new Player(playerName, englishDeck);
+        player.completeDeck();
+        Joker joker = new DiscardBonusForPoints("Third Joker", new Score(10, 0));
+        player.addJoker(joker);
+        Score expectedScore = new Score(29, 1);
+        // Act
+        player.selectCard(0);
+        player.discard();
+        player.selectCard(1);
+        Score obtainedScore = player.play();
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
+    }
+
+    @Test
+    public void test07PlayerDiscardsWithDiscardBonusAndTheMultiplierIsAffectedCorrectly() {
+        // Arrange
+        String playerName = "ExampleName";
+        EnglishDeck englishDeck = new EnglishDeck();
+        englishDeck.fillDeck();
+        Player player = new Player(playerName, englishDeck);
+        player.completeDeck();
+        Joker joker = new DiscardBonusForMultiplier("Fourth Joker", new Score(1, 15));
+        player.addJoker(joker);
+        Score expectedScore = new Score(19, 15);
+        // Act
+        player.selectCard(0);
+        player.discard();
+        player.selectCard(1);
+        Score obtainedScore = player.play();
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
     }
 }
