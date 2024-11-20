@@ -1,7 +1,9 @@
 package model.identifiers;
 
-import model.Hand;
+import model.hands.Hand;
 import model.cards.Card;
+import model.hands.TwoPair;
+import model.score.Score;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +20,7 @@ public class TwoPairIdentifier implements HandIdentifier {
     @Override
     public Hand identify(ArrayList<Card> cards) {
         if (isTwoPair(cards)) {
-            return new Hand(20, 2, findHandCards(cards));
+            return new TwoPair(findHandCards(cards));
         }
         return next.identify(cards);
     }

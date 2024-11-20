@@ -1,16 +1,14 @@
-package model;
+package model.hands;
 
-import model.specialCards.Joker;
+import model.jokers.Joker;
 import model.cards.Card;
 import model.score.Score;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Hand {
-    private int points;
-    private int multiplier;
-    private Score score;
+public abstract class Hand {
+    protected Score score;
     private ArrayList<Card> cards;
 
     @Override
@@ -18,18 +16,15 @@ public class Hand {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Hand hand = (Hand) o;
-        return points == hand.points && multiplier == hand.multiplier && cards.equals(hand.cards);
+        return score.calculateScore() == hand.score.calculateScore() && cards.equals(hand.cards);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(points, multiplier, cards);
+        return Objects.hash(score, cards);
     }
 
-    public Hand(int points, int multiplier, ArrayList<Card> cards) {
-        this.points = points;
-        this.multiplier = multiplier;
-        this.score = new Score(points, multiplier);
+    public Hand(ArrayList<Card> cards) {
         this.cards = cards;
     }
 
@@ -37,11 +32,15 @@ public class Hand {
         for (Card card : cards) {
             card.addScoreTo(this.score);
         }
-        if ( ! jokers.isEmpty() ) {
+        if (!jokers.isEmpty()) {
             for (Joker joker : jokers) {
-                joker.applyEffect(this.score);
+                joker.applyEffect(this);
             }
         }
         return this.score;
+    }
+
+    public void modifyMultiplier(Score score) {
+        this.score.multiplyMultiplier(score);
     }
 }

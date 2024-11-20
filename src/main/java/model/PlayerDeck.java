@@ -1,6 +1,7 @@
 package model;
 
-import model.specialCards.Joker;
+import model.hands.Hand;
+import model.jokers.Joker;
 import model.specialCards.Tarot;
 import model.cards.Card;
 import model.identifiers.*;

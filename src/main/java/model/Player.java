@@ -1,6 +1,6 @@
 package model;
 
-import model.specialCards.Joker;
+import model.jokers.Joker;
 import model.score.Score;
 
 import java.util.ArrayList;

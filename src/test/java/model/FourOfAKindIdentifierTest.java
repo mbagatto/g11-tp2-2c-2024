@@ -1,6 +1,8 @@
 package model;
 
 import model.cards.*;
+import model.hands.FourOfAKind;
+import model.hands.Hand;
 import model.identifiers.FourOfAKindIdentifier;
 import model.identifiers.HandIdentifier;
 import org.junit.jupiter.api.Test;
@@ -19,7 +21,7 @@ public class FourOfAKindIdentifierTest {
         cards.add(new Spade(4));
         cards.add(new Club(4));
         cards.add(new Diamond(4));
-        Hand expectedHand = new Hand(60, 7, cards);
+        Hand expectedHand = new FourOfAKind(cards);
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);
         // Assert

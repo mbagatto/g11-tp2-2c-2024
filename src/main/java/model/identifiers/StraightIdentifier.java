@@ -1,7 +1,9 @@
 package model.identifiers;
 
-import model.Hand;
+import model.hands.Hand;
+import model.hands.Straight;
 import model.cards.Card;
+import model.score.Score;
 
 import java.util.ArrayList;
 
@@ -18,7 +20,7 @@ public class StraightIdentifier implements HandIdentifier {
     public Hand identify(ArrayList<Card> cards) {
         if (cards.size() < 5) { return next.identify(cards); }
         if (isStraight(cards)) {
-            return new Hand(30, 4, cards);
+            return new Straight(cards);
         }
         return next.identify(cards);
     }

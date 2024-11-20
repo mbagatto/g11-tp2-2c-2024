@@ -2,7 +2,9 @@ package model;
 
 import model.cards.Heart;
 import model.cards.Spade;
-import model.specialCards.Joker;
+import model.hands.Hand;
+import model.hands.Pair;
+import model.jokers.Joker;
 import model.cards.Card;
 import model.score.Score;
 import org.junit.jupiter.api.Test;
@@ -18,7 +20,7 @@ public class HandTest {
         ArrayList<Card> cards = new ArrayList<>();
         cards.add(new Heart(3));
         cards.add(new Spade(3));
-        Hand pair = new Hand(10, 2, cards);
+        Hand pair = new Pair(cards);
         Score expectedScore = new Score(32, 1);
         ArrayList<Joker> jokers = new ArrayList<>();
         // Act

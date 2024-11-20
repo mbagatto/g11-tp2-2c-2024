@@ -1,7 +1,9 @@
 package model.identifiers;
 
-import model.Hand;
+import model.hands.FourOfAKind;
+import model.hands.Hand;
 import model.cards.Card;
+import model.score.Score;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +20,7 @@ public class FourOfAKindIdentifier implements HandIdentifier {
     @Override
     public Hand identify(ArrayList<Card> cards) {
         if (isFourOfAKind(cards)) {
-            return new Hand(60, 7, findHandCards(cards));
+            return new FourOfAKind(findHandCards(cards));
         }
         return next.identify(cards);
     }

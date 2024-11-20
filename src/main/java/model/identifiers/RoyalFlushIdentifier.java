@@ -1,7 +1,9 @@
 package model.identifiers;
 
-import model.Hand;
+import model.hands.Hand;
 import model.cards.Card;
+import model.hands.RoyalFlush;
+import model.score.Score;
 
 import java.util.ArrayList;
 
@@ -18,7 +20,7 @@ public class RoyalFlushIdentifier implements HandIdentifier {
     public Hand identify(ArrayList<Card> cards) {
         if (cards.size() < 5) { return next.identify(cards); }
         if (isRoyalFlush(cards)) {
-            return new Hand(100, 8, cards);
+            return new RoyalFlush(cards);
         }
         return next.identify(cards);
     }
