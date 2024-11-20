@@ -40,7 +40,11 @@ public abstract class Hand {
         return this.score;
     }
 
-    public void modifyMultiplier(Score score) {
+    public void addToMultiplier(Score score) {
+        this.score.addScore(score);
+    }
+
+    public void multiplyMultiplier(Score score) {
         this.score.multiplyMultiplier(score);
     }
 }
