@@ -3,12 +3,12 @@ package model.jokers;
 import model.hands.Hand;
 import model.score.Score;
 
-public class ForTheScore extends Effect {
-    public ForTheScore(Score score) {
-        super(score);
+public class ForTheScore extends Joker {
+    public ForTheScore(String name, Score score) {
+        super(name, score);
     }
 
-    public void apply(Hand hand) {
-        hand.addToScore(this.score);
+    public void applyEffect(Hand hand) {
+        hand.addToScore(this.effect);
     }
 }

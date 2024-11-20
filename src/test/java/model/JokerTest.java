@@ -23,7 +23,7 @@ public class JokerTest {
         PlayerDeck playerDeck = new PlayerDeck();
         playerDeck.addCard(new Spade(4));
         playerDeck.selectCard(0);
-        Joker joker = new Joker("First Joker", new ForTheScore(new Score(0, 8)));
+        Joker joker = new ForTheScore("First Joker", new Score(0, 8));
         jokers.add(joker);
         Score expectedScore = new Score(9, 9);
         // Act
@@ -48,7 +48,7 @@ public class JokerTest {
         playerDeck.selectCard(3);
         playerDeck.selectCard(4);
         ArrayList<Card> cards = new ArrayList<>();
-        Joker joker = new Joker("Second Joker", new PlayedHandBonus(new Score(1, 3), new Straight(cards)));
+        Joker joker = new PlayedHandBonus("Second Joker", new Score(1, 3), new Straight(cards));
         jokers.add(joker);
         Score expectedScore = new Score(55, 12);
         // Act

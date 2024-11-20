@@ -10,12 +10,14 @@ public class Player {
     private EnglishDeck englishDeck;
     private PlayerDeck playerDeck;
     private ArrayList<Joker> jokers;
+    private int discards;
 
     public Player(String name, EnglishDeck englishDeck) {
         this.name = name;
         this.englishDeck = englishDeck;
         this.playerDeck = new PlayerDeck();
         this.jokers = new ArrayList<>();
+        this.discards = 0;
     }
 
     public void completeDeck() {
@@ -37,25 +39,19 @@ public class Player {
         return score;
     }
 
+    public void discard() {
+        if (this.playerDeck.isEmpty()) {
+            throw new EmptyPlayerDeckException();
+        }
+        this.playerDeck.discardSelectedCards(this.jokers);
+        this.completeDeck();
+        this.discards++;
+    }
+
     public void addJoker(Joker joker) {
         if (joker == null) {
             throw new InvalidJokerException();
         }
         this.jokers.add(joker);
     }
-
-//    public void discard() {
-//        this.playerDeck.discardSelectedCards();
-//        this.completeDeck();
-//        this.discard++;
-//        this.updateJokers();
-//    }
-
-//    private void updateJokers() {
-//        for (Joker joker : jokers) {
-//            if (joker.hasEffect(new DiscardBonus(new Score(0)))) {
-//                joker.setDiscards(this.discard);
-//            }
-//        }
-//    }
 }

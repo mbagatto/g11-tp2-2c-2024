@@ -47,4 +47,8 @@ public abstract class Hand {
     public void multiplyMultiplier(Score score) {
         this.score.multiplyMultiplier(score);
     }
+
+    public void addPoints(Score effect) {
+        this.score.addPoints(effect);
+    }
 }

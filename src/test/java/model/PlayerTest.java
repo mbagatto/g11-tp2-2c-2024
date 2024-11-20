@@ -1,14 +1,13 @@
 package model;
 
 import model.cards.*;
-import model.jokers.Joker;
+import model.jokers.*;
 import model.score.Score;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -87,25 +86,43 @@ public class PlayerTest {
         assertDoesNotThrow(player::play);
     }
 
-//    @Test
-//    public void test05PlayerDiscardsWithDiscardBonusAndTheScoreIsCorrect() {
-//        // Arrange
-//        String playerName = "ExampleName";
-//        EnglishDeck englishDeck = new EnglishDeck();
-//        englishDeck.fillDeck();
-//        Player player = new Player(playerName, englishDeck);
-//        player.completeDeck();
-//
-//        ArrayList<Joker> jokers = new ArrayList<>();
-//        Joker joker = new Joker("Third Joker", new DiscardBonus(new Score(10, 0)));
-//        jokers.add(joker);
-//        Score expectedScore = new Score(28, 1);
-//        // Act
-//        player.selectCard(0);
-//        player.discard();
-//        player.selectCard(1);
-//        Score obtainedScore = player.play();
-//        // Assert
-//        assertEquals(expectedScore, obtainedScore);
-//    }
+    @Test
+    public void test05PlayerDiscardsWithDiscardBonusAndTheScoreIsCorrect() {
+        // Arrange
+        String playerName = "ExampleName";
+        EnglishDeck englishDeck = new EnglishDeck();
+        englishDeck.fillDeck();
+        Player player = new Player(playerName, englishDeck);
+        player.completeDeck();
+        Joker joker = new DiscardBonusForPoints("Third Joker", new Score(10, 0));
+        player.addJoker(joker);
+        Score expectedScore = new Score(29, 1);
+        // Act
+        player.selectCard(0);
+        player.discard();
+        player.selectCard(1);
+        Score obtainedScore = player.play();
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
+    }
+
+    @Test
+    public void test07PlayerDiscardsWithDiscardBonusAndTheMultiplierIsAffectedCorrectly() {
+        // Arrange
+        String playerName = "ExampleName";
+        EnglishDeck englishDeck = new EnglishDeck();
+        englishDeck.fillDeck();
+        Player player = new Player(playerName, englishDeck);
+        player.completeDeck();
+        Joker joker = new DiscardBonusForMultiplier("Fourth Joker", new Score(1, 15));
+        player.addJoker(joker);
+        Score expectedScore = new Score(19, 15);
+        // Act
+        player.selectCard(0);
+        player.discard();
+        player.selectCard(1);
+        Score obtainedScore = player.play();
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
+    }
 }

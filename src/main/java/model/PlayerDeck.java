@@ -1,6 +1,7 @@
 package model;
 
 import model.hands.Hand;
+import model.jokers.DiscardBonus;
 import model.jokers.Joker;
 import model.specialCards.Tarot;
 import model.cards.Card;
@@ -56,25 +57,36 @@ public class PlayerDeck {
         }
         Hand hand = handIdentifier.identify(this.selectedCards);
         Score score = hand.calculateScore(jokers);
-//        this.discardSelectedCards();
+        this.clearDecks(this.selectedCards);
         return score;
+    }
+
+    public void discardSelectedCards(ArrayList<Joker> jokers) {
+        if (selectedCards.isEmpty()) {
+            throw new NoSelectedCardsException();
+        }
+        for (Joker joker : jokers) {
+            if (joker instanceof DiscardBonus) {
+                ((DiscardBonus) joker).incrementDiscards();
+            }
+        }
+        this.clearDecks(this.selectedCards);
+    }
+
+    public void clearDecks(ArrayList<Card> selectedCards) {
+        this.cards.removeAll(selectedCards);
+        selectedCards.clear();
     }
 
     public void playTarot(int indexCard, Tarot tarot){
         cards.get(indexCard).applyTarot(tarot);
     }
 
-    public void cleanSelectedCards() {
-        this.selectedCards.clear();
+    public void clear() {
+        this.cards.clear();
     }
 
     public boolean isEmpty() {
         return this.cards.isEmpty();
     }
-
-
-//    public void discardSelectedCards() {
-//        this.cards.removeAll(this.selectedCards);
-//        this.selectedCards.clear();
-//    }
 }

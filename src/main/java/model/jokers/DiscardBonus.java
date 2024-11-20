@@ -1,21 +1,19 @@
-//package model.jokers;
-//
-//import model.hands.Hand;
-//import model.score.Score;
-//
-//public class DiscardBonus extends Effect {
-//    private int discards;
-//
-//    public DiscardBonus(Score score) {
-//        super(score);
-//    }
-//
-//    public void setDiscards(int discard) {
-//        this.discards = discard;
-//    }
-//
-//    public void apply(Hand hand) {
-//        this.score.multiplyPoint(new Score(discards));
-//        hand.addToScore(this.score);
-//    }
-//}
+package model.jokers;
+
+import model.hands.Hand;
+import model.score.Score;
+
+public abstract class DiscardBonus extends Joker {
+    protected int discards;
+
+    public DiscardBonus(String name, Score effect) {
+        super(name, effect);
+        this.discards = 0;
+    }
+
+    public abstract void applyEffect(Hand hand);
+
+    public void incrementDiscards() {
+        this.discards++;
+    }
+}

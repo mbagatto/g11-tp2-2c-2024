@@ -1,25 +1,16 @@
 package model.jokers;
 
 import model.hands.Hand;
+import model.score.Score;
 
-public class Joker {
-    private String name;
-    private Effect effect;
+public abstract class Joker {
+    protected String name;
+    protected Score effect;
 
-    public Joker(String name, Effect effect) {
+    public Joker(String name, Score effect) {
         this.name = name;
         this.effect = effect;
     }
 
-    public void applyEffect(Hand hand) {
-        this.effect.apply(hand);
-    }
-
-//    public boolean hasEffect(Effect effect) {
-//        return this.effect.equals(effect);
-//    }
-
-//    public void setDiscards(int discard) {
-//        this.effect.setDiscards(discard);
-//    }
+    public abstract void applyEffect(Hand hand);
 }
