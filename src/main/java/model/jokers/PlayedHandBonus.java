@@ -13,7 +13,7 @@ public class PlayedHandBonus extends Effect {
 
     public void apply(Hand hand) {
         if (this.hand.getClass() == hand.getClass()) {
-            hand.modifyMultiplier(this.score);
+            hand.multiplyMultiplier(this.score);
         }
     }
 }
