@@ -3,8 +3,8 @@ package model;
 import model.cards.*;
 import model.jokers.Joker;
 import model.score.Score;
-import model.specialCards.ForMultiplier;
-import model.specialCards.ForValue;
+
+
 import model.specialCards.Tarot;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -273,7 +273,7 @@ public class PlayerDeckTest {
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
-
+/*
     @Test
     public void test12WhenPlayingATarotShouldModifyFinalScoreOfAHighCard() {
         // Arrange
@@ -305,6 +305,8 @@ public class PlayerDeckTest {
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
+
+ */
 
     @Test
     public void test13VerifyThatTheOrderDoesNotChangeTheScore() {

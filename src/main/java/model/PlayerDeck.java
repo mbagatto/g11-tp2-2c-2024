@@ -79,9 +79,7 @@ public class PlayerDeck {
         selectedCards.clear();
     }
 
-    public void playTarot(int indexCard, Tarot tarot){
-        cards.get(indexCard).applyTarot(tarot);
-    }
+
 
     public void clear() {
         this.cards.clear();
@@ -90,4 +88,19 @@ public class PlayerDeck {
     public boolean isEmpty() {
         return this.cards.isEmpty();
     }
+
+    public void applyEffectToCard(Tarot tarot, int cardIndex) {
+
+        Card targetCard = cards.get(cardIndex);
+        tarot.applyEffect(targetCard);
+    }
+
+    public void applyEffectToHand(Tarot tarot) {
+
+
+        Hand hand = handIdentifier.identify(selectedCards);
+        tarot.applyEffect(hand);
+    }
+
 }
+

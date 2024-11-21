@@ -68,4 +68,12 @@ public class Score {
     public void addOnlyThePoint(Score otherValue) {
         this.point.add(otherValue.point);
     }
+
+    public void addTarotScore(Score effect) {
+        if (effect.multiplier.equals(new Multiplier(1))){
+            this.point.changePoint(effect.point);
+        }else{
+            this.multiplier.changeMultiplier(effect.multiplier);
+        }
+    }
 }

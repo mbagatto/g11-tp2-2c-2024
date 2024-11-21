@@ -2,15 +2,14 @@ package model.specialCards;
 
 import model.score.Score;
 
-public class Tarot {
+public abstract class Tarot {
+    protected String name;
+    protected Score effect;
 
-    private Modifiable modifiable;
-
-    public void setBehaviour(Modifiable modifiable) {
-        this.modifiable = modifiable;
+    public Tarot(String name, Score effect) {
+        this.name = name;
+        this.effect = effect;
     }
 
-    public void applyEffect(Score score){
-        this.modifiable.apply(score);
-    }
+    public abstract void applyEffect(  Modifiable target);
 }
