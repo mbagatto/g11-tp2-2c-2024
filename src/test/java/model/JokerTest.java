@@ -5,9 +5,7 @@ import model.cards.Diamond;
 import model.cards.Heart;
 import model.cards.Spade;
 import model.hands.Straight;
-import model.jokers.ForTheScore;
-import model.jokers.Joker;
-import model.jokers.PlayedHandBonus;
+import model.jokers.*;
 import model.score.Score;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +21,7 @@ public class JokerTest {
         PlayerDeck playerDeck = new PlayerDeck();
         playerDeck.addCard(new Spade(4));
         playerDeck.selectCard(0);
-        Joker joker = new ForTheScore("First Joker", new Score(0, 8));
+        Joker joker = new ForTheScore("First Joker", new Score(1, 8));
         jokers.add(joker);
         Score expectedScore = new Score(9, 9);
         // Act
@@ -50,9 +48,51 @@ public class JokerTest {
         ArrayList<Card> cards = new ArrayList<>();
         Joker joker = new PlayedHandBonus("Second Joker", new Score(1, 3), new Straight(cards));
         jokers.add(joker);
-        Score expectedScore = new Score(55, 12);
+        Score expectedScore = new Score(55, 7);
         // Act
         Score obtainedScore = playerDeck.playSelectedCards(jokers);
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
+    }
+
+    @Test
+    public void test03RandomJokerShouldBeActivatedWithAProbabilityOf6Correctly() {
+        // Arrange
+        ArrayList<Joker> jokers = new ArrayList<>();
+        PlayerDeck playerDeck = new PlayerDeck();
+        playerDeck.addCard(new Spade(7));
+        playerDeck.selectCard(0);
+        Joker joker = new RandomActivationForMultiplier("Gros Michel", new Score(1, 15), new Probability(6));
+        jokers.add(joker);
+        Score expectedScore = new Score(12, 15);
+        // Act
+        Score obtainedScore = playerDeck.playSelectedCards(jokers);
+        while (!expectedScore.equals(obtainedScore)) {
+            playerDeck.addCard(new Spade(7));
+            playerDeck.selectCard(0);
+            obtainedScore = playerDeck.playSelectedCards(jokers);
+        }
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
+    }
+
+    @Test
+    public void test04RandomJokerShouldBeActivatedWithAProbabilityOf20Correctly() {
+        // Arrange
+        ArrayList<Joker> jokers = new ArrayList<>();
+        PlayerDeck playerDeck = new PlayerDeck();
+        playerDeck.addCard(new Spade(7));
+        playerDeck.selectCard(0);
+        Joker joker = new RandomActivationForPoints("Manzano Dorado", new Score(500, 1), new Probability(20));
+        jokers.add(joker);
+        Score expectedScore = new Score(512, 1);
+        // Act
+        Score obtainedScore = playerDeck.playSelectedCards(jokers);
+        while (!expectedScore.equals(obtainedScore)) {
+            playerDeck.addCard(new Spade(7));
+            playerDeck.selectCard(0);
+            obtainedScore = playerDeck.playSelectedCards(jokers);
+        }
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }

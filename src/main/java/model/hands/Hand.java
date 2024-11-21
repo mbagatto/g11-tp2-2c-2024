@@ -40,8 +40,8 @@ public abstract class Hand {
         return this.score;
     }
 
-    public void addToScore(Score score) {
-        this.score.addScore(score);
+    public void addJokerScore(Score score) {
+        this.score.addJokerScore(score);
     }
 
     public void multiplyMultiplier(Score score) {

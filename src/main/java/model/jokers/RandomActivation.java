@@ -3,13 +3,13 @@ package model.jokers;
 import model.hands.Hand;
 import model.score.Score;
 
-public class RandomActivation extends Joker {
+public abstract class RandomActivation extends Joker {
+    protected Probability probability;
 
-    public RandomActivation(String name, Score effect) {
-        super(name, effect );
+    public RandomActivation(String name, Score effect, Probability probability) {
+        super(name, effect);
+        this.probability = probability;
     }
 
-    public void applyEffect(Hand hand) {
-
-    }
+    public abstract void applyEffect(Hand hand);
 }

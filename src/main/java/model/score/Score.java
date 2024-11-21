@@ -42,6 +42,14 @@ public class Score {
         this.multiplier.add(otherValue.multiplier);
     }
 
+    public void addJokerScore(Score otherValue) {
+        if (otherValue.multiplier.equals(new Multiplier(1))) {
+            this.point.add(otherValue.point);
+        } else {
+            this.multiplier.add(otherValue.multiplier);
+        }
+    }
+
     public void changeMultiplier (Multiplier otherMultiplier){
         this.multiplier.changeMultiplier(otherMultiplier);
     }
