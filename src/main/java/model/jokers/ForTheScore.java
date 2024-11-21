@@ -9,6 +9,6 @@ public class ForTheScore extends Joker {
     }
 
     public void applyEffect(Hand hand) {
-        hand.addToScore(this.effect);
+        hand.addJokerScore(this.effect);
     }
 }

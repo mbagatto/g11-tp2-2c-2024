@@ -13,7 +13,7 @@ public class PlayedHandBonus extends Joker {
 
     public void applyEffect(Hand hand) {
         if (this.hand.getClass() == hand.getClass()) {
-            hand.multiplyMultiplier(this.effect);
+            hand.addJokerScore(this.effect);
         }
     }
 }

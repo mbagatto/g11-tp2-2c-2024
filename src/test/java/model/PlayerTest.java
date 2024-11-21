@@ -109,7 +109,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void test07PlayerDiscardsWithDiscardBonusAndTheMultiplierIsAffectedCorrectly() {
+    public void test06PlayerDiscardsWithDiscardBonusAndTheMultiplierIsAffectedCorrectly() {
         // Arrange
         String playerName = "ExampleName";
         EnglishDeck englishDeck = new EnglishDeck();
