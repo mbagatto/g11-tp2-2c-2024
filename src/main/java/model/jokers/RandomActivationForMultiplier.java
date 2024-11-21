@@ -11,7 +11,7 @@ public class RandomActivationForMultiplier extends RandomActivation {
 
     public void applyEffect(Hand hand) {
         if (this.probability.calculate()) {
-            hand.multiplyMultiplier(this.effect);
+            hand.addJokerScore(this.effect);
         }
     }
 }
