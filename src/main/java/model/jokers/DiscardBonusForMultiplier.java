@@ -13,7 +13,7 @@ public class DiscardBonusForMultiplier extends DiscardBonus {
     public void applyEffect(Hand hand) {
         if (this.discards > 0) {
             this.effect.changeMultiplier(new Multiplier(this.effect.calculateScore() * this.discards));
-            hand.multiplyMultiplier(this.effect);
+            hand.addJokerScore(this.effect);
         }
     }
 }

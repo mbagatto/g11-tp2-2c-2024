@@ -43,9 +43,6 @@ public abstract class Hand {
         this.score.addJokerScore(score);
     }
 
-    public void multiplyMultiplier(Score score) {
-        this.score.multiplyMultiplier(score);
-    }
 
     public void addPoints(Score effect) {
         this.score.addPoints(effect);

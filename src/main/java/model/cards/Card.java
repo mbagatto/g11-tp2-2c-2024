@@ -8,18 +8,25 @@ public abstract class Card {
     protected int value;
     protected String suit;
     protected Score score;
-
+    protected String number;
+    protected String name;
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Card card = (Card) o;
-        return value == card.value && suit.equals(card.suit);
+        return Objects.equals(number, card.number) && suit.equals(card.suit);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value, suit);
+        return Objects.hash(number, suit);
+    }
+
+    public Card(String name,String number,int value, int multiplier) {
+        this.name = name;
+        this.number = number;
+        this.score = new Score(value , multiplier);
     }
 
     public Card(int value, String suit) {
@@ -54,6 +61,19 @@ public abstract class Card {
     }
 
     public void addScoreTo(Score anotherScore) {
-        anotherScore.addScore(this.score);
+        if(this.score.multiplierIsOne()) {
+            anotherScore.addOnlyThePoint(this.score);
+        }else{
+            anotherScore.addScore(this.score);
+        }
+
+    }
+
+    public String getNumber() {
+        return (this.number);
+    }
+
+    public boolean isNumber(String number) {
+        return this.number.equals(number);
     }
 }

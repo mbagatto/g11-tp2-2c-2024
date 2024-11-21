@@ -58,11 +58,14 @@ public class Score {
         this.point.changePoint(otherPoint);
     }
 
-    public void multiplyMultiplier(Score score) {
-        this.multiplier.multiply(score.multiplier);
-    }
-
     public void addPoints(Score effect) {
         this.point.add(effect.point);
+    }
+
+    public boolean multiplierIsOne() {
+        return this.multiplier.isOne();
+    }
+    public void addOnlyThePoint(Score otherValue) {
+        this.point.add(otherValue.point);
     }
 }
