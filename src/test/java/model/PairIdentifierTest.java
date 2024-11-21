@@ -17,8 +17,8 @@ public class PairIdentifierTest {
         // Arrange
         HandIdentifier handIdentifier = new PairIdentifier(null);
         ArrayList<Card> cards = new ArrayList<>();
-        cards.add(new Heart(8));
-        cards.add(new Spade(8));
+        cards.add(new Heart("8 de Corazones","8",8,1));
+        cards.add(new Spade("8 de Picas","8",8,1));
         Hand expectedHand = new Hand(10, 2, cards);
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);

@@ -18,7 +18,7 @@ public class JokerTest {
         ArrayList<Joker> jokers = new ArrayList<>();
         jokers.add(new Joker(jokerScore));
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade(10));
+        playerDeck.addCard(new Spade("10 de Picas", "10", 10, 1));
         playerDeck.selectCard(0);
         Score expectedScore = new Score(15, 9);
         // Act

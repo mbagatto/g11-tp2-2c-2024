@@ -27,11 +27,15 @@ public class Multiplier {
     }
 
     public void add(Multiplier otherMultiplier) {
-        this.value += otherMultiplier.value;
+            this.value += otherMultiplier.value;
     }
 
     public boolean isZero() {
-        return this.value == 0;
+        return this.value == 1;
+    }
+
+    public boolean isOne() {
+        return this.value == 1;
     }
 
     public int applyMultiplierTo(Point toMultiplier) {

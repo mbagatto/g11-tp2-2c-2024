@@ -42,6 +42,10 @@ public class Score {
         this.multiplier.add(otherValue.multiplier);
     }
 
+    public void addOnlyThePoint(Score otherValue) {
+        this.point.add(otherValue.point);
+    }
+
     public void changeMultiplier (Multiplier otherMultiplier){
         this.multiplier.changeMultiplier(otherMultiplier);
     }
@@ -49,4 +53,9 @@ public class Score {
     public void changePoint (Point otherPoint){
         this.point.changePoint(otherPoint);
     }
+
+    public boolean multiplierIsOne() {
+        return this.multiplier.isOne();
+    }
+
 }

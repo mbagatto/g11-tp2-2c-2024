@@ -12,15 +12,16 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TwoPairIdentifierTest {
+
     @Test
     public void test01TwoPairIdentifierIdentifiesATwoPairCorrectly() {
         // Arrange
         HandIdentifier handIdentifier = new TwoPairIdentifier(null);
         ArrayList<Card> cards = new ArrayList<>();
-        cards.add(new Heart(2));
-        cards.add(new Spade(2));
-        cards.add(new Heart(3));
-        cards.add(new Spade(3));
+        cards.add(new Heart("2 de Corazones", "2", 2, 1));
+        cards.add(new Spade("2 de Picas", "2", 2, 1));
+        cards.add(new Heart("3 de Corazones", "3", 3, 1));
+        cards.add(new Spade("3 de Picas", "3", 3, 1));
 
         Hand expectedHand = new Hand(20, 2, cards);
         // Act
@@ -28,4 +29,6 @@ public class TwoPairIdentifierTest {
         // Assert
         assertEquals(expectedHand, obtainedHand);
     }
+
+
 }

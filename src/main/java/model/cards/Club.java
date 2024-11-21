@@ -7,4 +7,10 @@ public class Club extends Card {
         this.suit = "Club";
     }
 
+    public Club(String name,String number, int value,int multiplier) {
+        super(name,number,value,multiplier);
+        this.suit = "Club";
+    }
+
+
 }
