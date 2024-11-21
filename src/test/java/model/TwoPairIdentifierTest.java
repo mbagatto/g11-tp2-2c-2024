@@ -8,9 +8,7 @@ import model.hands.TwoPair;
 import model.identifiers.HandIdentifier;
 import model.identifiers.TwoPairIdentifier;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TwoPairIdentifierTest {

@@ -4,18 +4,14 @@ import model.cards.Card;
 import model.cards.Club;
 import model.cards.Heart;
 import model.cards.Spade;
-import model.reader.EnglishCardReader;
 import model.score.Score;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 

@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -108,9 +107,9 @@ public class PlayerTest {
         englishDeck.fillDeck();
         Player player = new Player(playerName, englishDeck);
         player.completeDeck();
-        Joker joker = new DiscardBonusForPoints("Third Joker", new Score(10, 0));
+        Joker joker = new DiscardBonusForPoints("Third Joker", new Score(10, 1));
         player.addJoker(joker);
-        Score expectedScore = new Score(29, 1);
+        Score expectedScore = new Score(25, 1);
         // Act
         player.selectCard(0);
         player.discard();
@@ -130,7 +129,7 @@ public class PlayerTest {
         player.completeDeck();
         Joker joker = new DiscardBonusForMultiplier("Fourth Joker", new Score(1, 15));
         player.addJoker(joker);
-        Score expectedScore = new Score(19, 15);
+        Score expectedScore = new Score(15, 16);
         // Act
         player.selectCard(0);
         player.discard();

@@ -6,9 +6,7 @@ import model.hands.Hand;
 import model.identifiers.FourOfAKindIdentifier;
 import model.identifiers.HandIdentifier;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FourOfAKindIdentifierTest {

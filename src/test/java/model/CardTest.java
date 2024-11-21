@@ -2,7 +2,6 @@ package model;
 
 import model.cards.*;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CardTest {
@@ -43,8 +42,8 @@ public class CardTest {
 
     @Test
     public void test06TwoCardsWithDifferentNumbersMustNotBeEqual() {
-        Card heartCard = new Heart(5);
-        Card otherHeartCard = new Heart(6);
+        Card heartCard = new Heart("5 de Corazones", "5", 5, 1);
+        Card otherHeartCard = new Heart("6 de Corazones", "6", 6, 1);
         assertNotEquals(heartCard, otherHeartCard);
     }
 }

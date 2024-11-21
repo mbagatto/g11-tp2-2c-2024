@@ -7,9 +7,7 @@ import model.hands.Hand;
 import model.identifiers.FlushIdentifier;
 import model.identifiers.HandIdentifier;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FlushIdentifierTest {
@@ -24,7 +22,7 @@ public class FlushIdentifierTest {
         cards.add(new Heart("7 de Corazones", "7", 7, 1));
         cards.add(new Heart("4 de Corazones", "4", 4, 1));
         cards.add(new Heart("10 de Corazones", "10", 10, 1));
-        Hand expectedHand = new Hand(35, 4, cards);
+        Hand expectedHand = new Flush(cards);
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);
         // Assert

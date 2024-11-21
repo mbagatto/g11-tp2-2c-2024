@@ -1,20 +1,14 @@
 package model;
 
 import model.cards.Card;
-import model.cards.EnglishCardCreator;
 import model.cards.Heart;
 import model.hands.Hand;
 import model.hands.RoyalFlush;
 import model.identifiers.HandIdentifier;
 import model.identifiers.RoyalFlushIdentifier;
-import model.identifiers.SequenceChecker;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RoyalFlushIdentifierTest {
     @Test

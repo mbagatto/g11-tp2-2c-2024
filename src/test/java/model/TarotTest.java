@@ -8,7 +8,6 @@ import model.specialCards.ForMultiplier;
 import model.specialCards.ForValue;
 import model.specialCards.Tarot;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TarotTest {

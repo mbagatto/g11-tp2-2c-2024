@@ -7,9 +7,7 @@ import model.specialCards.ForMultiplier;
 import model.specialCards.ForValue;
 import model.specialCards.Tarot;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerDeckTest {
@@ -329,14 +327,14 @@ public class PlayerDeckTest {
         playerDeck.selectCard(4);
         Score score1 = playerDeck.playSelectedCards(jokers);
         playerDeck.clear();
-        playerDeck.addCard(new Heart(5));
-        playerDeck.addCard(new Heart(6));
-        playerDeck.addCard(new Heart(7));
-        playerDeck.addCard(new Heart(8));
-        playerDeck.addCard(new Heart(9));
-        playerDeck.addCard(new Diamond(2));
-        playerDeck.addCard(new Spade(6));
-        playerDeck.addCard(new Spade(8));
+        playerDeck.addCard(new Heart("5 de Corazones", "5", 5, 1));
+        playerDeck.addCard(new Heart("6 de Corazones", "6", 6, 1));
+        playerDeck.addCard(new Heart("7 de Corazones", "7", 7, 1));
+        playerDeck.addCard(new Heart("8 de Corazones", "8", 8, 1));
+        playerDeck.addCard(new Heart("9 de Corazones", "9", 9, 1));
+        playerDeck.addCard(new Diamond("2 de Diamantes", "2", 2, 1));
+        playerDeck.addCard(new Spade("6 de Picas", "6", 6, 1));
+        playerDeck.addCard(new Spade("8 de Picas", "8", 8, 1));
         playerDeck.selectCard(2);
         playerDeck.selectCard(4);
         playerDeck.selectCard(1);
@@ -346,6 +344,4 @@ public class PlayerDeckTest {
         // Assert
         assertEquals(score1, score2);
     }
-
-
 }

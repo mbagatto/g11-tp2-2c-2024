@@ -8,9 +8,7 @@ import model.hands.Straight;
 import model.jokers.*;
 import model.score.Score;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JokerTest {
@@ -19,7 +17,7 @@ public class JokerTest {
         // Arrange
         ArrayList<Joker> jokers = new ArrayList<>();
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade(4));
+        playerDeck.addCard(new Spade("4 de Picas", "4", 4, 1));
         playerDeck.selectCard(0);
         Joker joker = new ForTheScore("First Joker", new Score(1, 8));
         jokers.add(joker);
@@ -69,7 +67,7 @@ public class JokerTest {
         Score obtainedScore = playerDeck.playSelectedCards(jokers);
 
         while (!expectedScore.equals(obtainedScore)) {
-            playerDeck.addCard(new Spade(7));
+            playerDeck.addCard(new Spade("7 de Picas", "7", 7, 1));
             playerDeck.selectCard(0);
             obtainedScore = playerDeck.playSelectedCards(jokers);
         }
@@ -82,7 +80,7 @@ public class JokerTest {
         // Arrange
         ArrayList<Joker> jokers = new ArrayList<>();
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade(7));
+        playerDeck.addCard(new Spade("7 de Picas", "7", 7, 1));
         playerDeck.selectCard(0);
         Joker joker = new RandomActivationForPoints("Golden Apple", new Score(500, 1), new Probability(20));
         jokers.add(joker);
@@ -90,7 +88,7 @@ public class JokerTest {
         // Act
         Score obtainedScore = playerDeck.playSelectedCards(jokers);
         while (!expectedScore.equals(obtainedScore)) {
-            playerDeck.addCard(new Spade(7));
+            playerDeck.addCard(new Spade("7 de Picas", "7", 7, 1));
             playerDeck.selectCard(0);
             obtainedScore = playerDeck.playSelectedCards(jokers);
         }
@@ -109,11 +107,11 @@ public class JokerTest {
         jokersForCombinated.add(new RandomActivationForMultiplier("Gros Michel", new Score(1, 15), new Probability(6)));
         Joker joker = new Combinated("Combinated Supremacy", jokersForCombinated);
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade(4));
-        playerDeck.addCard(new Diamond(6));
-        playerDeck.addCard(new Heart(5));
-        playerDeck.addCard(new Spade(3));
-        playerDeck.addCard(new Spade(7));
+        playerDeck.addCard(new Spade("4 de Picas", "4", 4, 1));
+        playerDeck.addCard(new Diamond("6 de Diamantes", "6", 6, 1));
+        playerDeck.addCard(new Heart("5 de Corazones", "5", 5, 1));
+        playerDeck.addCard(new Spade("3 de Picas", "3", 3, 1));
+        playerDeck.addCard(new Spade("7 de Picas", "7", 7, 1));
         playerDeck.selectCard(0);
         playerDeck.selectCard(1);
         playerDeck.selectCard(2);
@@ -125,11 +123,11 @@ public class JokerTest {
         Score obtainedScore = playerDeck.playSelectedCards(jokersForPlayerDeck);
 
         while (!expectedScore.equals(obtainedScore)) {
-            playerDeck.addCard(new Spade(4));
-            playerDeck.addCard(new Diamond(6));
-            playerDeck.addCard(new Heart(5));
-            playerDeck.addCard(new Spade(3));
-            playerDeck.addCard(new Spade(7));
+            playerDeck.addCard(new Spade("4 de Picas", "4", 4, 1));
+            playerDeck.addCard(new Diamond("6 de Diamantes", "6", 6, 1));
+            playerDeck.addCard(new Heart("5 de Corazones", "5", 5, 1));
+            playerDeck.addCard(new Spade("3 de Picas", "3", 3, 1));
+            playerDeck.addCard(new Spade("7 de Picas", "7", 7, 1));
             playerDeck.selectCard(0);
             playerDeck.selectCard(1);
             playerDeck.selectCard(2);
