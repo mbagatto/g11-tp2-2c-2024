@@ -60,7 +60,7 @@ public class JokerTest {
         // Arrange
         ArrayList<Joker> jokers = new ArrayList<>();
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade(7));
+        playerDeck.addCard(new Spade("10 de Picas", "10", 10, 1));
         playerDeck.selectCard(0);
         Joker joker = new RandomActivationForMultiplier("Gros Michel", new Score(1, 15), new Probability(6));
         jokers.add(joker);

@@ -18,11 +18,11 @@ public class StraightFlushIdentifierTest {
         // Arrange
         HandIdentifier handIdentifier = new StraightFlushIdentifier(null);
         ArrayList<Card> cards = new ArrayList<>();
-        cards.add(new Heart(3));
-        cards.add(new Heart(7));
-        cards.add(new Heart(5));
-        cards.add(new Heart(4));
-        cards.add(new Heart(6));
+        cards.add(new Heart("3 de Corazones", "3", 3, 1));
+        cards.add(new Heart("7 de Corazones", "7", 7, 1));
+        cards.add(new Heart("5 de Corazones", "5", 5, 1));
+        cards.add(new Heart("4 de Corazones", "4", 4, 1));
+        cards.add(new Heart("6 de Corazones", "6", 6, 1));
         Hand expectedHand = new StraightFlush(cards);
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);

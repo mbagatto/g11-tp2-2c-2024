@@ -7,6 +7,7 @@ import model.score.Score;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class TwoPairIdentifier implements HandIdentifier {
     private HandIdentifier next;
@@ -31,10 +32,10 @@ public class TwoPairIdentifier implements HandIdentifier {
 
     private ArrayList<Card> findHandCards(ArrayList<Card> cards) {
         ArrayList<Card> handCards = new ArrayList<>(cards);
-        HashMap<Integer, Integer> map = checker.generateMap(handCards);
-        for (int key : map.keySet()) {
+        HashMap<String, Integer> map = checker.generateMap(handCards);
+        for (String key : map.keySet()) {
             if (map.get(key) != 2) {
-                handCards.removeIf(card -> card.getValue() == key);
+                handCards.removeIf(card -> Objects.equals(card.getNumber(), key));
             }
         }
         return handCards;

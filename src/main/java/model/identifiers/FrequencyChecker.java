@@ -27,9 +27,9 @@ public class FrequencyChecker {
     }
 
     private boolean hasPairs(ArrayList<Card> cards, int pairs) {
-        HashMap<Integer, Integer> map = generateMap(cards);
+        HashMap<String, Integer> map = generateMap(cards);
         int counter = 0;
-        for (int key : map.keySet()) {
+        for (String key : map.keySet()) {
             if (map.get(key) == 2) {
                 counter++;
             }
@@ -38,8 +38,8 @@ public class FrequencyChecker {
     }
 
     private boolean hasAppearances(ArrayList<Card> cards, int appearances) {
-        HashMap<Integer, Integer> map = generateMap(cards);
-        for (int key : map.keySet()) {
+        HashMap<String, Integer> map = generateMap(cards);
+        for (String key : map.keySet()) {
             if (map.get(key) == appearances) {
                 return true;
             }
@@ -47,10 +47,10 @@ public class FrequencyChecker {
         return false;
     }
 
-    public HashMap<Integer, Integer> generateMap(ArrayList<Card> cards) {
-        HashMap<Integer, Integer> map = new HashMap<>();
+    public HashMap<String, Integer> generateMap(ArrayList<Card> cards) {
+        HashMap<String, Integer> map = new HashMap<>();
         for (Card card : cards) {
-            int value = card.getValue();
+            String value = card.getNumber();
             map.put(value, map.getOrDefault(value, 0) + 1);
         }
         return map;

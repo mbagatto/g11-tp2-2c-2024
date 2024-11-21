@@ -18,7 +18,7 @@ public class HighCardIdentifierTest {
         // Arrange
         HandIdentifier handIdentifier = new HighCardIdentifier();
         ArrayList<Card> cards = new ArrayList<>();
-        cards.add(new Heart(8));
+        cards.add(new Heart("8 de Corazones", "8", 8, 1));
         Hand expectedHand = new HighCard(cards);
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);

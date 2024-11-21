@@ -20,10 +20,9 @@ public class ThreeOfAKindIdentifierTest {
         // Arrange
         HandIdentifier handIdentifier = new ThreeOfAKindIdentifier(null);
         ArrayList<Card> cards = new ArrayList<>();
-        cards.add(new Heart(3));
-        cards.add(new Spade(3));
-        cards.add(new Club(3));
-
+        cards.add(new Heart("3 de Corazones", "3", 3, 1));
+        cards.add(new Spade("3 de Picas", "3", 3, 1));
+        cards.add(new Club("3 de Trebol", "3", 3, 1));
         Hand expectedHand = new ThreeOfAKind(cards);
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);
