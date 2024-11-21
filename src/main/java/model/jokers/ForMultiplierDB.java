@@ -4,9 +4,9 @@ import model.hands.Hand;
 import model.score.Multiplier;
 import model.score.Score;
 
-public class DiscardBonusForMultiplier extends DiscardBonus {
+public class ForMultiplierDB extends DiscardBonus {
 
-    public DiscardBonusForMultiplier(String name, Score effect) {
+    public ForMultiplierDB(String name, Score effect) {
         super(name, effect);
     }
 

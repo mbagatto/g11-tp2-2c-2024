@@ -3,9 +3,9 @@ package model.jokers;
 import model.hands.Hand;
 import model.score.Score;
 
-public class DiscardBonusForPoints extends DiscardBonus {
+public class ForPointsDB extends DiscardBonus {
 
-    public DiscardBonusForPoints(String name, Score effect) {
+    public ForPointsDB(String name, Score effect) {
         super(name, effect);
     }
 

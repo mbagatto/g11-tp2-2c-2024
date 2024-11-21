@@ -107,7 +107,7 @@ public class PlayerTest {
         englishDeck.fillDeck();
         Player player = new Player(playerName, englishDeck);
         player.completeDeck();
-        Joker joker = new DiscardBonusForPoints("Third Joker", new Score(10, 1));
+        Joker joker = new ForPointsDB("Third Joker", new Score(10, 1));
         player.addJoker(joker);
         Score expectedScore = new Score(25, 1);
         // Act
@@ -127,7 +127,7 @@ public class PlayerTest {
         englishDeck.fillDeck();
         Player player = new Player(playerName, englishDeck);
         player.completeDeck();
-        Joker joker = new DiscardBonusForMultiplier("Fourth Joker", new Score(1, 15));
+        Joker joker = new ForMultiplierDB("Fourth Joker", new Score(1, 15));
         player.addJoker(joker);
         Score expectedScore = new Score(15, 16);
         // Act

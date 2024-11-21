@@ -33,11 +33,11 @@ public class JokerTest {
         // Arrange
         ArrayList<Joker> jokers = new ArrayList<>();
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade(4));
-        playerDeck.addCard(new Diamond(6));
-        playerDeck.addCard(new Heart(5));
-        playerDeck.addCard(new Spade(3));
-        playerDeck.addCard(new Spade(7));
+        playerDeck.addCard(new Spade("4 de Picas", "4", 4, 1));
+        playerDeck.addCard(new Diamond("6 de Diamantes", "6", 6, 1));
+        playerDeck.addCard(new Spade("5 de Corazones", "5", 5, 1));
+        playerDeck.addCard(new Spade("3 de Picas", "3", 3, 1));
+        playerDeck.addCard(new Spade("7 de Picas", "7", 7, 1));
         playerDeck.selectCard(0);
         playerDeck.selectCard(1);
         playerDeck.selectCard(2);
@@ -60,7 +60,7 @@ public class JokerTest {
         PlayerDeck playerDeck = new PlayerDeck();
         playerDeck.addCard(new Spade("10 de Picas", "10", 10, 1));
         playerDeck.selectCard(0);
-        Joker joker = new RandomActivationForMultiplier("Gros Michel", new Score(1, 15), new Probability(6));
+        Joker joker = new ForMultiplierRA("Gros Michel", new Score(1, 15), new Probability(6));
         jokers.add(joker);
         Score expectedScore = new Score(12, 16);
         // Act
@@ -82,7 +82,7 @@ public class JokerTest {
         PlayerDeck playerDeck = new PlayerDeck();
         playerDeck.addCard(new Spade("7 de Picas", "7", 7, 1));
         playerDeck.selectCard(0);
-        Joker joker = new RandomActivationForPoints("Golden Apple", new Score(500, 1), new Probability(20));
+        Joker joker = new ForPointsRA("Golden Apple", new Score(500, 1), new Probability(20));
         jokers.add(joker);
         Score expectedScore = new Score(512, 1);
         // Act
@@ -104,7 +104,7 @@ public class JokerTest {
         ArrayList<Card> cards = new ArrayList<>();
         jokersForCombinated.add(new PlayedHandBonus("Second Joker", new Score(1, 3), new Straight(cards)));
         jokersForCombinated.add(new ForTheScore("First Joker", new Score(1, 8)));
-        jokersForCombinated.add(new RandomActivationForMultiplier("Gros Michel", new Score(1, 15), new Probability(6)));
+        jokersForCombinated.add(new ForMultiplierRA("Gros Michel", new Score(1, 15), new Probability(6)));
         Joker joker = new Combinated("Combinated Supremacy", jokersForCombinated);
         PlayerDeck playerDeck = new PlayerDeck();
         playerDeck.addCard(new Spade("4 de Picas", "4", 4, 1));
