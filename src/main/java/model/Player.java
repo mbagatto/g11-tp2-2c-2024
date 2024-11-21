@@ -4,6 +4,7 @@ import model.exceptions.EmptyPlayerDeckException;
 import model.exceptions.InvalidJokerException;
 import model.jokers.Joker;
 import model.score.Score;
+import model.specialCards.Tarot;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,8 @@ public class Player {
     private PlayerDeck playerDeck;
     private ArrayList<Joker> jokers;
     private int discards;
+    private ArrayList<Tarot> tarots;
+
 
     public Player(String name, EnglishDeck englishDeck) {
         this.name = name;
@@ -20,6 +23,7 @@ public class Player {
         this.playerDeck = new PlayerDeck();
         this.jokers = new ArrayList<>();
         this.discards = 0;
+        this.tarots = new ArrayList<>();
     }
 
     public void completeDeck() {
@@ -56,4 +60,24 @@ public class Player {
         }
         this.jokers.add(joker);
     }
+
+    public void useTarotOnCard(int tarotIndex, int cardIndex) {
+        if (tarotIndex < 0 || tarotIndex >= tarots.size()) {
+            throw new IndexOutOfBoundsException("Índice de Tarot inválido.");
+        }
+
+        Tarot tarot = tarots.get(tarotIndex);
+        playerDeck.applyEffectToCard(tarot, cardIndex);
+    }
+
+
+    public void useTarotOnHand(int tarotIndex) {
+        if (tarotIndex < 0 || tarotIndex >= tarots.size()) {
+            throw new IndexOutOfBoundsException("Índice de Tarot inválido.");
+        }
+
+        Tarot tarot = tarots.get(tarotIndex);
+        playerDeck.applyEffectToHand(tarot);
+    }
+
 }

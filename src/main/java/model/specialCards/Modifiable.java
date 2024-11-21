@@ -3,5 +3,7 @@ package model.specialCards;
 import model.score.Score;
 
 public interface Modifiable {
-    void apply(Score score);
+   void modifyByTarot(Score score);
+
+  void addScore(Score score);
 }

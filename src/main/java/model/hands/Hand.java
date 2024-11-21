@@ -3,10 +3,12 @@ package model.hands;
 import model.jokers.Joker;
 import model.cards.Card;
 import model.score.Score;
+import model.specialCards.Modifiable;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
-public abstract class Hand {
+public abstract class Hand implements Modifiable {
     protected Score score;
     private ArrayList<Card> cards;
 
@@ -47,4 +49,12 @@ public abstract class Hand {
     public void addPoints(Score effect) {
         this.score.addPoints(effect);
     }
+
+    public  void addScore(Score score) {
+        this.score.addScore(score);
+    }
+    public void modifyByTarot(Score effect){
+        this.score.addScore(effect);
+    }
 }
+
