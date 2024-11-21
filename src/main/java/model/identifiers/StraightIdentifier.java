@@ -3,8 +3,6 @@ package model.identifiers;
 import model.hands.Hand;
 import model.hands.Straight;
 import model.cards.Card;
-import model.score.Score;
-
 import java.util.ArrayList;
 
 public class StraightIdentifier implements HandIdentifier {

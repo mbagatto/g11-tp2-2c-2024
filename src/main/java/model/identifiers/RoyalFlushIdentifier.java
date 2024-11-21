@@ -3,8 +3,6 @@ package model.identifiers;
 import model.hands.Hand;
 import model.cards.Card;
 import model.hands.RoyalFlush;
-import model.score.Score;
-
 import java.util.ArrayList;
 
 public class RoyalFlushIdentifier implements HandIdentifier {

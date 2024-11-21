@@ -3,8 +3,6 @@ package model.identifiers;
 import model.hands.Hand;
 import model.cards.Card;
 import model.hands.StraightFlush;
-import model.score.Score;
-
 import java.util.ArrayList;
 
 public class StraightFlushIdentifier implements HandIdentifier {

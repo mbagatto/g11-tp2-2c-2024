@@ -1,7 +1,6 @@
 package model.identifiers;
 
 import model.cards.Card;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 

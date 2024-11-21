@@ -3,7 +3,6 @@ package model.hands;
 import model.jokers.Joker;
 import model.cards.Card;
 import model.score.Score;
-
 import java.util.ArrayList;
 import java.util.Objects;
 

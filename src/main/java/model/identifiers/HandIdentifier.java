@@ -2,7 +2,6 @@ package model.identifiers;
 
 import model.hands.Hand;
 import model.cards.Card;
-
 import java.util.ArrayList;
 
 public interface HandIdentifier {

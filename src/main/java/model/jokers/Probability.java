@@ -1,7 +1,5 @@
 package model.jokers;
 
-import model.hands.Hand;
-
 import java.util.Random;
 
 public class Probability {

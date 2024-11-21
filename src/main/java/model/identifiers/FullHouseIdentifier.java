@@ -3,7 +3,6 @@ package model.identifiers;
 import model.hands.FullHouse;
 import model.hands.Hand;
 import model.cards.Card;
-import model.score.Score;
 
 import java.util.ArrayList;
 

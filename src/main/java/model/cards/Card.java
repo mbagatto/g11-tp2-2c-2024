@@ -2,7 +2,6 @@ package model.cards;
 
 import model.score.Score;
 import model.specialCards.Tarot;
-
 import java.util.Objects;
 
 public abstract class Card {
