@@ -28,9 +28,6 @@ public class HighCardIdentifier implements HandIdentifier {
                 }
             }
         }
-
-
-
         return result;
     }
 }

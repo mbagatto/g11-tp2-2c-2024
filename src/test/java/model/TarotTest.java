@@ -12,13 +12,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TarotTest {
-    /*
+
     @Test
     public void test01ATarotChangesCardMultiplierToSixCorrectly() {
         // Arrange
         Tarot tarot = new Tarot();
         tarot.setBehaviour(new ForMultiplier(6));
-        Card card = new Heart(5);
+        Card card = new Heart("5 de Corazones", "5", 5, 1);
         Score expectedScore = new Score(30, 1);
         // Act
         card.applyTarot(tarot);
@@ -32,7 +32,7 @@ public class TarotTest {
         // Arrange
         Tarot tarot = new Tarot();
         tarot.setBehaviour(new ForValue());
-        Card card = new Spade(7);
+        Card card = new Spade("7 de Picas", "7", 7, 1);
         Score expectedScore = new Score(10, 1);
         // Act
         card.applyTarot(tarot);
@@ -41,5 +41,5 @@ public class TarotTest {
         assertEquals(expectedScore, obtainedScore);
     }
 
-     */
+
 }

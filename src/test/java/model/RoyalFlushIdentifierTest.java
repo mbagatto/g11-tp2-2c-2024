@@ -31,20 +31,4 @@ public class RoyalFlushIdentifierTest {
         // Assert
         assertEquals(expectedHand, obtainedHand);
     }
-
-//    @Test
-//    public void test02RoyalFlushIdentifierIdentifiesHandCorrectly() {
-//        SequenceChecker sequenceChecker = new SequenceChecker();
-//        EnglishCardCreator creator = new EnglishCardCreator();
-//        ArrayList<Card> baseOrder = new ArrayList<Card>();
-//        baseOrder.add(creator.createHearCard("Reina de Corazones","Reina",10,1));
-//        baseOrder.add(creator.createHearCard("10 de Corazones","10",10,1));
-//        baseOrder.add(creator.createHearCard("Jota de Corazones","Jota",10,1));
-//        baseOrder.add(creator.createHearCard("As de Corazones","As",10,1));
-//        baseOrder.add(creator.createHearCard("Rey de Corazones","Rey",10,1));
-//
-//        ArrayList<Card> l = sequenceChecker.sortCards(baseOrder);
-//
-//        assertTrue(true);
-//    }
 }
