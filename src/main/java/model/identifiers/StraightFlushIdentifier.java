@@ -5,25 +5,17 @@ import model.cards.Card;
 import model.hands.StraightFlush;
 import java.util.ArrayList;
 
-public class StraightFlushIdentifier implements HandIdentifier {
-    private HandIdentifier next;
-    private SequenceChecker checker;
+public class StraightFlushIdentifier extends SequenceHandIdentifier {
 
     public StraightFlushIdentifier(HandIdentifier next) {
-        this.next = next;
-        this.checker = new SequenceChecker();
+        super(next);
     }
 
     @Override
-    public Hand identify(ArrayList<Card> cards) {
-        if (cards.size() < 5) { return next.identify(cards); }
-        if (isStraightFlush(cards)) {
+    protected Hand identifyHand(ArrayList<Card> cards) {
+        if (checker.isStraightFlush(cards)) {
             return new StraightFlush(cards);
         }
         return next.identify(cards);
-    }
-
-    private boolean isStraightFlush(ArrayList<Card> cards) {
-        return checker.isStraightFlush(cards);
     }
 }

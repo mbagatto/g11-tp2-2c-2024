@@ -6,25 +6,17 @@ import model.cards.Card;
 
 import java.util.ArrayList;
 
-public class FullHouseIdentifier implements HandIdentifier {
-    private HandIdentifier next;
-    private FrequencyChecker checker;
+public class FullHouseIdentifier extends FrequencyHandIdentifier {
 
     public FullHouseIdentifier(HandIdentifier next) {
-        this.next = next;
-        this.checker = new FrequencyChecker();
+        super(next);
     }
 
     @Override
-    public Hand identify(ArrayList<Card> cards) {
-        if (cards.size() < 5) { return next.identify(cards); }
-        if (isFullHouse(cards)) {
+    protected Hand identifyHand(ArrayList<Card> cards) {
+        if (checker.hasAppearances(cards, 3) && checker.hasPairs(cards, 1)) {
             return new FullHouse(cards);
         }
         return next.identify(cards);
-    }
-
-    private boolean isFullHouse(ArrayList<Card> cards) {
-        return checker.isFullHouse(cards);
     }
 }
