@@ -5,7 +5,6 @@ import java.util.Random;
 public class Probability {
     private int limit;
     private Random random;
-    private RandomActivation randomJoker;
 
     public Probability(int limit) {
         this.limit = limit;
