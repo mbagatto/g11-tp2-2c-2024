@@ -1,7 +1,7 @@
 package model.reader;
 import model.exceptions.CouldNotReadException;
 import model.cards.Card;
-import model.cards.EnglishCardCreator;
+import model.creators.EnglishCardCreator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

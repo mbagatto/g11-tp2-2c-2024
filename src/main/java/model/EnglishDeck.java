@@ -1,6 +1,7 @@
 package model;
 
 import model.cards.*;
+import model.creators.EnglishCardCreator;
 import model.exceptions.EmptyDeckException;
 import model.reader.EnglishCardReader;
 import java.io.FileNotFoundException;

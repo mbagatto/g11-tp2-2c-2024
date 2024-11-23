@@ -23,7 +23,6 @@ public class ReaderTest {
     public void setUp() {
         englishDeckMock = Mockito.mock(EnglishDeck.class);
 
-
         when(englishDeckMock.deal()).thenAnswer(new Answer<Card>() {
             private List<Card> cards = List.of(
                     new Spade("2 de Picas", "2", 2, 1),
@@ -47,8 +46,6 @@ public class ReaderTest {
             }
         });
     }
-
-
 
     @Test
     public void shouldLoadEnglishCardsFromJsonFile() throws FileNotFoundException {
