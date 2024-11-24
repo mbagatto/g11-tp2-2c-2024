@@ -12,8 +12,9 @@ public class PlayedHandBonus extends Joker {
         this.hand = hand;
     }
 
-    public PlayedHandBonus(String name, String description, String activation, Score effect) {
+    public PlayedHandBonus(String name, String description, String activation, Score effect, Hand hand) {
         super(name, description, activation, effect);
+        this.hand = hand;
     }
 
     public void applyEffect(Hand hand) {

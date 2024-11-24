@@ -1,8 +1,8 @@
 package model.creators;
 
+import model.hands.Hand;
 import model.jokers.*;
 import model.score.Score;
-
 import java.util.ArrayList;
 
 
@@ -28,8 +28,8 @@ public class JokerCreator {
         return new ForPointsRA(name, description, activation, new Score(points, multiplicator));
     }
 
-    public Joker createPlayedHandBonus(String name, String description, String activation, int points, int multiplicator) {
-        return new PlayedHandBonus(name, description, activation, new Score(points, multiplicator));
+    public Joker createPlayedHandBonus(String name, String description, String activation, int points, int multiplicator, Hand hand) {
+        return new PlayedHandBonus(name, description, activation, new Score(points, multiplicator), hand);
     }
 
     public Joker createCombinated(String name, ArrayList<Joker> jokers) {

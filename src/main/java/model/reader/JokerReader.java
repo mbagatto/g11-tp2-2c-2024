@@ -4,6 +4,7 @@ package model.reader;
 
 import model.creators.JokerCreator;
 import model.exceptions.CouldNotReadException;
+import model.hands.*;
 import model.jokers.Joker;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -101,11 +102,21 @@ public class JokerReader {
         String normalizedText = categoryKey.toString().toLowerCase();
 
         if (categoryKey.equals("Al Puntaje")) {
+
             actualJoker = (this.creator.createForTheScore(name, description, activation, points, multiplicator));
+
         }
 
         if (categoryKey.equals("Bonus por Mano Jugada")) {
-            actualJoker = (this.creator.createPlayedHandBonus(name, description, activation, points, multiplicator));
+
+            Hand hand = this.handValidator(activation);
+
+            if (hand != null) {
+
+                actualJoker = (this.creator.createPlayedHandBonus(name, description, activation, points, multiplicator, hand));
+
+            }
+
         }
 
         if (categoryKey.equals("Bonus por Descarte")) {
@@ -132,7 +143,47 @@ public class JokerReader {
                 actualJoker = (this.creator.createForPointsRA(name, description, activation, points, multiplicator));
 
             }
+
         }
+
         return actualJoker;
+
+    }
+
+    public Hand handValidator(String typeHand) {
+
+        if (typeHand.contains("par") ) {
+            return new Pair(null);
+        }
+
+        if (typeHand.contains("trio")) {
+            return new ThreeOfAKind(null);
+        }
+
+        if (typeHand.contains("escalera")) {
+            return new Straight(null);
+        }
+
+        if (typeHand.contains("full")) {
+            return new FullHouse(null);
+        }
+
+        if (typeHand.contains("color")) {
+            return new Flush(null);
+        }
+
+        if (typeHand.contains("poker")) {
+            return new FourOfAKind(null);
+        }
+
+        if (typeHand.contains("escalera de color")) {
+            return new StraightFlush(null);
+        }
+
+        if (typeHand.contains("escalera real")) {
+            return new RoyalFlush(null);
+        }
+
+        return null;
     }
 }
