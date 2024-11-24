@@ -5,7 +5,6 @@ import model.cards.Card;
 import model.hands.HighCard;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 
 public class HighCardIdentifier implements HandIdentifier {
     @Override

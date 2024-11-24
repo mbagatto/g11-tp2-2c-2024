@@ -1,16 +1,16 @@
 package model;
 
 import model.cards.*;
+import model.exceptions.CouldNotReadException;
 import model.exceptions.EmptyDeckException;
-import model.reader.EnglishCardReader;
-import java.io.FileNotFoundException;
+import model.reader.Reader;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class EnglishDeck {
     private ArrayList<Card> cards;
-    EnglishCardReader cardReader;
-    EnglishCardCreator cardCreator;
+    Reader cardReader;
 
     @Override
     public boolean equals(Object o) {
@@ -26,15 +26,14 @@ public class EnglishDeck {
 
     public EnglishDeck() {
         this.cards = new ArrayList<>();
-        this.cardReader = new EnglishCardReader();
-        this.cardCreator = new EnglishCardCreator();
+        this.cardReader = new Reader();
     }
 
     public void generateDeck() {
         try {
-            this.cards.addAll(this.cardReader.englishCardReader());
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            this.cards.addAll(this.cardReader.readEnglishCards());
+        } catch (Exception e) {
+            throw new CouldNotReadException();
         }
     }
 
@@ -42,9 +41,9 @@ public class EnglishDeck {
 
         //this.cards.addAll(this.creator.generateEnglishCards());
         try {
-            this.cards.addAll(this.cardReader.englishCardReader());
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            this.cards.addAll(this.cardReader.readEnglishCards());
+        } catch (Exception e) {
+            throw new CouldNotReadException();
         }
     }
 

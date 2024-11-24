@@ -2,7 +2,7 @@ package model.cards;
 
 import model.score.Score;
 import model.specialCards.Modifiable;
-import model.specialCards.Tarot;
+
 import java.util.Objects;
 
 public abstract class Card implements Modifiable {
@@ -24,7 +24,7 @@ public abstract class Card implements Modifiable {
         return Objects.hash(number, suit);
     }
 
-    public Card(String name,String number,int value, int multiplier) {
+    public Card(String name, String number, int value, int multiplier) {
         this.name = name;
         this.number = number;
         this.score = new Score(value , multiplier);
