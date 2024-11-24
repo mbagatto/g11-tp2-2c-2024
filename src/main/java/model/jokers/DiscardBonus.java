@@ -11,6 +11,10 @@ public abstract class DiscardBonus extends Joker {
         this.discards = 0;
     }
 
+    public DiscardBonus(String name, String description, String activation, Score effect) {
+        super(name, description, activation, effect);
+    }
+
     public abstract void applyEffect(Hand hand);
 
     public void incrementDiscards() {

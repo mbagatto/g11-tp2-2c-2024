@@ -21,6 +21,10 @@ public abstract class Joker {
         this.effect = effect;
     }
 
+    public boolean isMyName(String name) {
+        return name.equals(this.name);
+    }
+
     public Joker(String name) {
         this.name = name;
     }

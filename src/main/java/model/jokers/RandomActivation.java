@@ -11,5 +11,9 @@ public abstract class RandomActivation extends Joker {
         this.probability = probability;
     }
 
+    public RandomActivation(String name, String description, String activation, Score effect) {
+        super(name, description, activation, effect);
+    }
+
     public abstract void applyEffect(Hand hand);
 }

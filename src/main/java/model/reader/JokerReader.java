@@ -1,7 +1,7 @@
 package model.reader;
 
-// Este archivo no se si anda pero bueno copie del EnglishCardReader y del EnglishCardCreator hecho por David
-// No se como se deberia testear
+// Este codigo no esta testeado y es probable que no lea bien el comodines.json
+
 import model.creators.JokerCreator;
 import model.exceptions.CouldNotReadException;
 import model.jokers.Joker;
@@ -35,31 +35,104 @@ public class JokerReader {
             for (Object categoryKey : jsonObject.keySet()) { //Este for itera las categorias
                 JSONObject category = (JSONObject) jsonObject.get(categoryKey);
 
-                String categoryDescription = (String) category.get("descripcion"); //Primera descripcion que creo no se usa
+                String categoryDescription = (String) category.get("descripcion"); //Primera descripcion que explica que hace el comodin, creo que no se utiliza
 
                 JSONArray jokersArray = (JSONArray) category.get("comodines");
 
                 for (Object key : jokersArray) { //Este for itera dentro de la categoria que estee por joker
 
                     JSONObject joker = (JSONObject) key;
+                    jokers.add(this.basicJokerReader(joker, categoryKey));
 
-                    //Estas son las variables que obtiene del JSON //CREO//
-                    String name = (String) joker.get("nombre");
-                    String description = (String) joker.get("descripcion");
-                    String activation = (String) joker.get("activacion");
-                    JSONObject effect = (JSONObject) joker.get("efecto");
-                    int points = Math.toIntExact((Long) effect.get("puntos"));
-                    int multiplicator = Math.toIntExact((Long) effect.get("multiplicador"));
+                    if (categoryKey.equals("Combinación")) {
 
-                    if (categoryKey.equals("Al Puntaje")) {
-                        jokers.add(this.creator.createForTheScore(name, description, activation, points, multiplicator)); //Este labura con el creator de Joker
+                        JSONArray combinedJokersArray = (JSONArray) joker.get("comodines");
+
+                        ArrayList<Joker> combinedJokers = new ArrayList<>();
+
+                        String actualCombinedJokerName  = (String) joker.get("nombre");
+
+                        for (Object combinedKey : combinedJokersArray) {
+
+                            JSONObject combinedJoker = (JSONObject) combinedKey;
+                            String combinedName = (String) combinedJoker.get("nombre");
+
+                            int iteration = 0;
+                            boolean found = false;
+                            Joker foundJoker = null;
+
+                            while (iteration < jokers.size() || (! found)) {
+
+                                if (jokers.get(iteration).isMyName(combinedName)) {
+                                    foundJoker = jokers.get(iteration);
+                                    found = true;
+                                }
+
+                                iteration++;
+                            }
+
+                            if (foundJoker != null) {
+                                combinedJokers.add(foundJoker);
+                            }
+                        }
+
+                        jokers.add(this.creator.createCombinated(actualCombinedJokerName, combinedJokers));
+
                     }
-                    //Falta hacer para todos los Jokers.. Seguiria debajo de esta linea
                 }
             }
         } catch (Exception e) {
             throw new CouldNotReadException();
         }
         return jokers;
+    }
+
+    public Joker basicJokerReader(JSONObject joker, Object categoryKey) {
+
+        Joker actualJoker = null;
+
+        String name = (String) joker.get("nombre");
+        String description = (String) joker.get("descripcion");
+        String activation = (String) joker.get("activacion");
+        JSONObject effect = (JSONObject) joker.get("efecto");
+        int points = Math.toIntExact((Long) effect.get("puntos"));
+        int multiplicator = Math.toIntExact((Long) effect.get("multiplicador"));
+
+        String normalizedText = categoryKey.toString().toLowerCase();
+
+        if (categoryKey.equals("Al Puntaje")) {
+            actualJoker = (this.creator.createForTheScore(name, description, activation, points, multiplicator));
+        }
+
+        if (categoryKey.equals("Bonus por Mano Jugada")) {
+            actualJoker = (this.creator.createPlayedHandBonus(name, description, activation, points, multiplicator));
+        }
+
+        if (categoryKey.equals("Bonus por Descarte")) {
+
+            if (normalizedText.contains("fichas")) {
+
+                actualJoker = (this.creator.createForPointsDB(name, description, activation, points, multiplicator));
+
+            } else if (normalizedText.contains("multiplicación")) {
+
+                actualJoker = (this.creator.createForMultiplierDB(name, description, activation, points, multiplicator));
+            }
+
+        }
+
+        if (categoryKey.equals("Chance de activarse aleatoriamente")) {
+
+            if (normalizedText.contains("Mult.")) {
+
+                actualJoker = (this.creator.createForMultiplierRA(name, description, activation, points, multiplicator));
+
+            } else if (normalizedText.contains("puntos.")) {
+
+                actualJoker = (this.creator.createForPointsRA(name, description, activation, points, multiplicator));
+
+            }
+        }
+        return actualJoker;
     }
 }

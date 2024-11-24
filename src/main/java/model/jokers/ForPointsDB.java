@@ -9,6 +9,10 @@ public class ForPointsDB extends DiscardBonus {
         super(name, effect);
     }
 
+    public ForPointsDB(String name, String description, String activation, Score effect) {
+        super(name, description, activation, effect);
+    }
+
     public void applyEffect(Hand hand) {
         if (this.discards > 0) {
             this.effect = new Score(this.effect.calculateScore() * this.discards);

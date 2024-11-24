@@ -2,15 +2,16 @@ package model.cards;
 
 import model.score.Score;
 import model.specialCards.Modifiable;
-import model.specialCards.Tarot;
 import java.util.Objects;
 
 public abstract class Card implements Modifiable {
+
     protected int value;
     protected String suit;
     protected Score score;
     protected String number;
     protected String name;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,8 +46,6 @@ public abstract class Card implements Modifiable {
         return (this.value);
     }
 
-
-
     public String getSuit() {
         return (this.suit);
     }
@@ -75,9 +74,11 @@ public abstract class Card implements Modifiable {
     public boolean isNumber(String number) {
         return this.number.equals(number);
     }
+
     public void modifyByTarot(Score effect){
         this.score.addTarotScore(effect);
     }
+
     public void addScore(Score score) {
         this.score.addScore(score);
     }

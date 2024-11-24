@@ -10,6 +10,10 @@ public class ForMultiplierDB extends DiscardBonus {
         super(name, effect);
     }
 
+    public ForMultiplierDB(String name, String description, String activation, Score effect) {
+        super(name, description, activation, effect);
+    }
+
     public void applyEffect(Hand hand) {
         if (this.discards > 0) {
             this.effect.changeMultiplier(new Multiplier(this.effect.calculateScore() * this.discards));

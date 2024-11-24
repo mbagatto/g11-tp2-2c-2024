@@ -9,6 +9,10 @@ public class ForMultiplierRA extends RandomActivation {
         super(name, effect, probability);
     }
 
+    public ForMultiplierRA(String name, String description, String activation, Score effect) {
+        super(name, description, activation, effect);
+    }
+
     public void applyEffect(Hand hand) {
         if (this.probability.calculate()) {
             hand.addJokerScore(this.effect);

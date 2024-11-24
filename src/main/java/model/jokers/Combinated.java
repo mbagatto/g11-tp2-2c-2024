@@ -1,6 +1,8 @@
 package model.jokers;
 
 import model.hands.Hand;
+import model.score.Score;
+
 import java.util.ArrayList;
 
 public class Combinated extends Joker {
