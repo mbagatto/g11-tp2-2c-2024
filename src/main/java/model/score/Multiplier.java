@@ -49,4 +49,5 @@ public class Multiplier {
     public void multiply(Multiplier otherMultiplier) {
         this.value = this.value * otherMultiplier.value;
     }
+
 }

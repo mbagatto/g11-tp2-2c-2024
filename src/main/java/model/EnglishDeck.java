@@ -40,7 +40,6 @@ public class EnglishDeck {
     }
 
     public void fillDeck(){
-
         //this.cards.addAll(this.creator.generateEnglishCards());
         try {
             this.cards.addAll(this.cardReader.englishCardReader());
