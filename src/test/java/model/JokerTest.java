@@ -1,154 +1,238 @@
 package model;
 
-import model.cards.Card;
 import model.cards.Diamond;
 import model.cards.Heart;
 import model.cards.Spade;
 import model.hands.Straight;
 import model.jokers.*;
+import model.score.Add;
+import model.score.DoNotModify;
+import model.score.Multiply;
 import model.score.Score;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JokerTest {
     @Test
-    public void test01JokerShouldModifyMultiplierOfACardCorrectly() {
+    public void test01ForTheScoreJokerShouldBeAppliedCorrectlyToThePointsOfAHand() {
         // Arrange
-        ArrayList<Joker> jokers = new ArrayList<>();
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("4 de Picas", "4", 4, 1));
+        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
         playerDeck.selectCard(0);
-        Joker joker = new ForTheScore("Octopus Joker", new Score(1, 8));
+        Joker joker = new ForTheScore("Octopus Joker", new Add(new Score(100)), new DoNotModify());
+        ArrayList<Joker> jokers = new ArrayList<>();
         jokers.add(joker);
-        Score expectedScore = new Score(9, 9);
+        Score expectedScore = new Score(109);
         // Act
-        Score obtainedScore = playerDeck.playSelectedCards(jokers);
+        Score obtainedScore = playerDeck.play(jokers);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
 
     @Test
-    public void test02JokerShouldMultiplyBy3TheMultiplierOfAStraight() {
+    public void test02ForTheScoreJokerShouldBeAppliedCorrectlyToTheMultiplierOfAHand() {
         // Arrange
-        ArrayList<Joker> jokers = new ArrayList<>();
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("4 de Picas", "4", 4, 1));
-        playerDeck.addCard(new Diamond("6 de Diamantes", "6", 6, 1));
-        playerDeck.addCard(new Spade("5 de Corazones", "5", 5, 1));
-        playerDeck.addCard(new Spade("3 de Picas", "3", 3, 1));
-        playerDeck.addCard(new Spade("7 de Picas", "7", 7, 1));
+        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
+        playerDeck.addCard(new Heart("4", new Score(4), new Score(1)));
+        playerDeck.addCard(new Diamond("4", new Score(4), new Score(1)));
+        playerDeck.selectCard(0);
+        playerDeck.selectCard(1);
+        playerDeck.selectCard(2);
+        Joker joker = new ForTheScore("Octopus Joker", new DoNotModify(), new Multiply(new Score(4)));
+        ArrayList<Joker> jokers = new ArrayList<>();
+        jokers.add(joker);
+        Score expectedScore = new Score(504);
+        // Act
+        Score obtainedScore = playerDeck.play(jokers);
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
+    }
+
+    @Test
+    public void test03PlayedHandBonusJokerShouldBeAppliedCorrectlyToTheMultiplierOfAStraight() {
+        // Arrange
+        PlayerDeck playerDeck = new PlayerDeck();
+        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
+        playerDeck.addCard(new Diamond("6", new Score(6), new Score(1)));
+        playerDeck.addCard(new Spade("5", new Score(5), new Score(1)));
+        playerDeck.addCard(new Spade("3", new Score(3), new Score(1)));
+        playerDeck.addCard(new Spade("7", new Score(7), new Score(1)));
         playerDeck.selectCard(0);
         playerDeck.selectCard(1);
         playerDeck.selectCard(2);
         playerDeck.selectCard(3);
         playerDeck.selectCard(4);
-        ArrayList<Card> cards = new ArrayList<>();
-        Joker joker = new PlayedHandBonus("Straight Joker", new Score(1, 3), new Straight(cards));
+        Joker joker = new PlayedHandBonus("Crazy Joker", new DoNotModify(), new Add(new Score(12)), new Straight(new ArrayList<>()));
+        ArrayList<Joker> jokers = new ArrayList<>();
         jokers.add(joker);
-        Score expectedScore = new Score(55, 7);
+        Score expectedScore = new Score(880);
         // Act
-        Score obtainedScore = playerDeck.playSelectedCards(jokers);
+        Score obtainedScore = playerDeck.play(jokers);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
 
     @Test
-    public void test03RandomJokerShouldBeActivated() {
+    public void test04PlayedHandBonusJokerShouldNotBeAppliedWhenOtherHandIsPlayed() {
+        // Arrange
+        PlayerDeck playerDeck = new PlayerDeck();
+        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
+        playerDeck.addCard(new Diamond("6", new Score(6), new Score(1)));
+        playerDeck.addCard(new Spade("5", new Score(5), new Score(1)));
+        playerDeck.addCard(new Spade("3", new Score(3), new Score(1)));
+        playerDeck.addCard(new Spade("7", new Score(7), new Score(1)));
+        playerDeck.selectCard(0);
+        Joker joker = new PlayedHandBonus("Crazy Joker", new DoNotModify(), new Add(new Score(12)), new Straight(new ArrayList<>()));
+        ArrayList<Joker> jokers = new ArrayList<>();
+        jokers.add(joker);
+        Score expectedScore = new Score(9);
+        // Act
+        Score obtainedScore = playerDeck.play(jokers);
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
+    }
+
+    @Test
+    public void test05RandomActivationJokerShouldBeAppliedCorrectly() {
         // Arrange
         Probability mockProbability = Mockito.mock(Probability.class);
         Mockito.when(mockProbability.calculate()).thenReturn(true);
-        ArrayList<Joker> jokers = new ArrayList<>();
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("10 de Picas", "10", 10, 1));
+        playerDeck.addCard(new Spade("10", new Score(10), new Score(1)));
         playerDeck.selectCard(0);
-        Joker joker = new ForMultiplierRA("Gros Michel", new Score(1, 15), mockProbability);
+        Joker joker = new RandomActivation("Gros Michel", new DoNotModify(), new Multiply(new Score(15)), mockProbability);
+        ArrayList<Joker> jokers = new ArrayList<>();
         jokers.add(joker);
-        Score expectedScore = new Score(15, 16);
+        Score expectedScore = new Score(225);
         // Act
-        Score obtainedScore = playerDeck.playSelectedCards(jokers);
+        Score obtainedScore = playerDeck.play(jokers);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
 
     @Test
-    public void test04RandomJokerShouldNotBeActivated() {
+    public void test06RandomActivationJokerShouldNotBeApplied() {
         // Arrange
         Probability mockProbability = Mockito.mock(Probability.class);
         Mockito.when(mockProbability.calculate()).thenReturn(false);
-        ArrayList<Joker> jokers = new ArrayList<>();
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("10 de Picas", "10", 10, 1));
+        playerDeck.addCard(new Spade("10", new Score(10), new Score(1)));
         playerDeck.selectCard(0);
-        Joker joker = new ForMultiplierRA("Gros Michel", new Score(1, 15), mockProbability);
+        Joker joker = new RandomActivation("Gros Michel", new DoNotModify(), new Multiply(new Score(15)), mockProbability);
+        ArrayList<Joker> jokers = new ArrayList<>();
         jokers.add(joker);
-        Score expectedScore = new Score(15, 1);
+        Score expectedScore = new Score(15);
         // Act
-        Score obtainedScore = playerDeck.playSelectedCards(jokers);
+        Score obtainedScore = playerDeck.play(jokers);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
 
     @Test
-    public void test07RandomJokerOfACombinatedJokerShouldBeActivated() {
+    public void test07CombinatedJokerShouldActivateAllOfItsJokersCorrectly() {
         // Arrange
         Probability mockProbability = Mockito.mock(Probability.class);
         Mockito.when(mockProbability.calculate()).thenReturn(true);
-        ArrayList<Joker> jokersForCombinated = new ArrayList<>();
-        ArrayList<Joker> jokersForPlayerDeck = new ArrayList<>();
-        ArrayList<Card> cards = new ArrayList<>();
-        jokersForCombinated.add(new PlayedHandBonus("Straight Joker", new Score(1, 3), new Straight(cards)));
-        jokersForCombinated.add(new ForTheScore("Octopus Joker", new Score(1, 8)));
-        jokersForCombinated.add(new ForMultiplierRA("Gros Michel", new Score(1, 15), mockProbability));
-        Joker joker = new Combinated("Combinated Supremacy", jokersForCombinated);
+        ArrayList<Joker> jokersForJoker = new ArrayList<>();
+        jokersForJoker.add(new PlayedHandBonus("Crazy Joker", new DoNotModify(), new Add(new Score(12)), new Straight(new ArrayList<>())));
+        jokersForJoker.add(new ForTheScore("Octopus Joker", new DoNotModify(), new Multiply(new Score(4))));
+        jokersForJoker.add(new RandomActivation("Gros Michel", new DoNotModify(), new Multiply(new Score(15)), mockProbability));
+        Joker joker = new Combinated("Combinated Supremacy", jokersForJoker);
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("4 de Picas", "4", 4, 1));
-        playerDeck.addCard(new Diamond("6 de Diamantes", "6", 6, 1));
-        playerDeck.addCard(new Heart("5 de Corazones", "5", 5, 1));
-        playerDeck.addCard(new Spade("3 de Picas", "3", 3, 1));
-        playerDeck.addCard(new Spade("7 de Picas", "7", 7, 1));
+        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
+        playerDeck.addCard(new Diamond("6", new Score(6), new Score(1)));
+        playerDeck.addCard(new Heart("5", new Score(5), new Score(1)));
+        playerDeck.addCard(new Spade("3", new Score(3), new Score(1)));
+        playerDeck.addCard(new Spade("7", new Score(7), new Score(1)));
         playerDeck.selectCard(0);
         playerDeck.selectCard(1);
         playerDeck.selectCard(2);
         playerDeck.selectCard(3);
         playerDeck.selectCard(4);
-        jokersForPlayerDeck.add(joker);
-        Score expectedScore = new Score(55, 30);
+        ArrayList<Joker> jokersForDeck = new ArrayList<>();
+        jokersForDeck.add(joker);
+        Score expectedScore = new Score(52800);
         // Act
-        Score obtainedScore = playerDeck.playSelectedCards(jokersForPlayerDeck);
+        Score obtainedScore = playerDeck.play(jokersForDeck);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
 
     @Test
-    public void test08RandomJokerOfACombinatedJokerShouldNotBeActivated() {
+    public void test08CombinatedJokerShouldNotActivatePlayedHandBonusJoker() {
+        // Arrange
+        Probability mockProbability = Mockito.mock(Probability.class);
+        Mockito.when(mockProbability.calculate()).thenReturn(true);
+        ArrayList<Joker> jokersForJoker = new ArrayList<>();
+        jokersForJoker.add(new PlayedHandBonus("Crazy Joker", new DoNotModify(), new Add(new Score(12)), new Straight(new ArrayList<>())));
+        jokersForJoker.add(new ForTheScore("Octopus Joker", new DoNotModify(), new Multiply(new Score(4))));
+        jokersForJoker.add(new RandomActivation("Gros Michel", new DoNotModify(), new Multiply(new Score(15)), mockProbability));
+        Joker joker = new Combinated("Combinated Supremacy", jokersForJoker);
+        PlayerDeck playerDeck = new PlayerDeck();
+        playerDeck.addCard(new Spade("10", new Score(10), new Score(1)));
+        playerDeck.selectCard(0);
+        ArrayList<Joker> jokersForDeck = new ArrayList<>();
+        jokersForDeck.add(joker);
+        Score expectedScore = new Score(900);
+        // Act
+        Score obtainedScore = playerDeck.play(jokersForDeck);
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
+    }
+
+    @Test
+    public void test09CombinatedJokerShouldNotActivateRandomActivationJoker() {
         // Arrange
         Probability mockProbability = Mockito.mock(Probability.class);
         Mockito.when(mockProbability.calculate()).thenReturn(false);
-        ArrayList<Joker> jokersForCombinated = new ArrayList<>();
-        ArrayList<Joker> jokersForPlayerDeck = new ArrayList<>();
-        ArrayList<Card> cards = new ArrayList<>();
-        jokersForCombinated.add(new PlayedHandBonus("Straight Joker", new Score(1, 3), new Straight(cards)));
-        jokersForCombinated.add(new ForTheScore("Octopus Joker", new Score(1, 8)));
-        jokersForCombinated.add(new ForMultiplierRA("Gros Michel", new Score(1, 15), mockProbability));
-        Joker joker = new Combinated("Combinated Supremacy", jokersForCombinated);
+        ArrayList<Joker> jokersForJoker = new ArrayList<>();
+        jokersForJoker.add(new PlayedHandBonus("Crazy Joker", new DoNotModify(), new Add(new Score(12)), new Straight(new ArrayList<>())));
+        jokersForJoker.add(new ForTheScore("Octopus Joker", new DoNotModify(), new Multiply(new Score(4))));
+        jokersForJoker.add(new RandomActivation("Gros Michel", new DoNotModify(), new Multiply(new Score(15)), mockProbability));
+        Joker joker = new Combinated("Combinated Supremacy", jokersForJoker);
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("4 de Picas", "4", 4, 1));
-        playerDeck.addCard(new Diamond("6 de Diamantes", "6", 6, 1));
-        playerDeck.addCard(new Heart("5 de Corazones", "5", 5, 1));
-        playerDeck.addCard(new Spade("3 de Picas", "3", 3, 1));
-        playerDeck.addCard(new Spade("7 de Picas", "7", 7, 1));
+        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
+        playerDeck.addCard(new Diamond("6", new Score(6), new Score(1)));
+        playerDeck.addCard(new Heart("5", new Score(5), new Score(1)));
+        playerDeck.addCard(new Spade("3", new Score(3), new Score(1)));
+        playerDeck.addCard(new Spade("7", new Score(7), new Score(1)));
         playerDeck.selectCard(0);
         playerDeck.selectCard(1);
         playerDeck.selectCard(2);
         playerDeck.selectCard(3);
         playerDeck.selectCard(4);
-        jokersForPlayerDeck.add(joker);
-        Score expectedScore = new Score(55, 15);
+        ArrayList<Joker> jokersForDeck = new ArrayList<>();
+        jokersForDeck.add(joker);
+        Score expectedScore = new Score(3520);
         // Act
-        Score obtainedScore = playerDeck.playSelectedCards(jokersForPlayerDeck);
+        Score obtainedScore = playerDeck.play(jokersForDeck);
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
+    }
+
+    @Test
+    public void test10CombinatedJokerShouldOnlyActivateForTheScoreJoker() {
+        // Arrange
+        Probability mockProbability = Mockito.mock(Probability.class);
+        Mockito.when(mockProbability.calculate()).thenReturn(false);
+        ArrayList<Joker> jokersForJoker = new ArrayList<>();
+        jokersForJoker.add(new PlayedHandBonus("Crazy Joker", new DoNotModify(), new Add(new Score(12)), new Straight(new ArrayList<>())));
+        jokersForJoker.add(new ForTheScore("Octopus Joker", new DoNotModify(), new Multiply(new Score(4))));
+        jokersForJoker.add(new RandomActivation("Gros Michel", new DoNotModify(), new Multiply(new Score(15)), mockProbability));
+        Joker joker = new Combinated("Combinated Supremacy", jokersForJoker);
+        PlayerDeck playerDeck = new PlayerDeck();
+        playerDeck.addCard(new Spade("10", new Score(10), new Score(1)));
+        playerDeck.selectCard(0);
+        ArrayList<Joker> jokersForDeck = new ArrayList<>();
+        jokersForDeck.add(joker);
+        Score expectedScore = new Score(60);
+        // Act
+        Score obtainedScore = playerDeck.play(jokersForDeck);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }

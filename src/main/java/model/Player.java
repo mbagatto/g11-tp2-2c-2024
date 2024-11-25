@@ -4,8 +4,6 @@ import model.exceptions.EmptyPlayerDeckException;
 import model.exceptions.InvalidJokerException;
 import model.jokers.Joker;
 import model.score.Score;
-import model.specialCards.Tarot;
-
 import java.util.ArrayList;
 
 public class Player {
@@ -14,7 +12,7 @@ public class Player {
     private PlayerDeck playerDeck;
     private ArrayList<Joker> jokers;
     private int discards;
-    private ArrayList<Tarot> tarots;
+//    private ArrayList<Tarot> tarots;
 
 
     public Player(String name, EnglishDeck englishDeck) {
@@ -23,7 +21,6 @@ public class Player {
         this.playerDeck = new PlayerDeck();
         this.jokers = new ArrayList<>();
         this.discards = 0;
-        this.tarots = new ArrayList<>();
     }
 
     public void completeDeck() {
@@ -40,19 +37,19 @@ public class Player {
         if (this.playerDeck.isEmpty()) {
             throw new EmptyPlayerDeckException();
         }
-        Score score = playerDeck.playSelectedCards(this.jokers);
+        Score score = this.playerDeck.play(this.jokers);
         this.completeDeck();
         return score;
     }
 
-    public void discard() {
-        if (this.playerDeck.isEmpty()) {
-            throw new EmptyPlayerDeckException();
-        }
-        this.playerDeck.discardSelectedCards(this.jokers);
-        this.completeDeck();
-        this.discards++;
-    }
+//    public void discard() {
+//        if (this.playerDeck.isEmpty()) {
+//            throw new EmptyPlayerDeckException();
+//        }
+//        this.playerDeck.discard(this.jokers);
+//        this.completeDeck();
+//        this.discards++;
+//    }
 
     public void addJoker(Joker joker) {
         if (joker == null) {
@@ -60,24 +57,23 @@ public class Player {
         }
         this.jokers.add(joker);
     }
-
-    public void useTarotOnCard(int tarotIndex, int cardIndex) {
-        if (tarotIndex < 0 || tarotIndex >= tarots.size()) {
-            throw new IndexOutOfBoundsException("Índice de Tarot inválido.");
-        }
-
-        Tarot tarot = tarots.get(tarotIndex);
-        playerDeck.applyEffectToCard(tarot, cardIndex);
-    }
-
-
-    public void useTarotOnHand(int tarotIndex) {
-        if (tarotIndex < 0 || tarotIndex >= tarots.size()) {
-            throw new IndexOutOfBoundsException("Índice de Tarot inválido.");
-        }
-
-        Tarot tarot = tarots.get(tarotIndex);
-        playerDeck.applyEffectToHand(tarot);
-    }
-
+//
+//    public void useTarotOnCard(int tarotIndex, int cardIndex) {
+//        if (tarotIndex < 0 || tarotIndex >= tarots.size()) {
+//            throw new IndexOutOfBoundsException("Índice de Tarot inválido.");
+//        }
+//
+//        Tarot tarot = tarots.get(tarotIndex);
+//        playerDeck.applyEffectToCard(tarot, cardIndex);
+//    }
+//
+//
+//    public void useTarotOnHand(int tarotIndex) {
+//        if (tarotIndex < 0 || tarotIndex >= tarots.size()) {
+//            throw new IndexOutOfBoundsException("Índice de Tarot inválido.");
+//        }
+//
+//        Tarot tarot = tarots.get(tarotIndex);
+//        playerDeck.applyEffectToHand(tarot);
+//    }
 }

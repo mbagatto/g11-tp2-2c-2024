@@ -2,7 +2,6 @@ package model.identifiers;
 
 import model.cards.Card;
 import model.hands.Hand;
-
 import java.util.ArrayList;
 
 public abstract class SequenceHandIdentifier implements HandIdentifier {

@@ -7,6 +7,7 @@ import model.hands.Hand;
 import model.hands.TwoPair;
 import model.identifiers.HandIdentifier;
 import model.identifiers.TwoPairIdentifier;
+import model.score.Score;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,10 +19,10 @@ public class TwoPairIdentifierTest {
         // Arrange
         HandIdentifier handIdentifier = new TwoPairIdentifier(null);
         ArrayList<Card> cards = new ArrayList<>();
-        cards.add(new Heart("2 de Corazones", "2", 2, 1));
-        cards.add(new Spade("2 de Picas", "2", 2, 1));
-        cards.add(new Heart("3 de Corazones", "3", 3, 1));
-        cards.add(new Spade("3 de Picas", "3", 3, 1));
+        cards.add(new Heart("2", new Score(2), new Score(1)));
+        cards.add(new Spade("2", new Score(2), new Score(1)));
+        cards.add(new Heart("3", new Score(3), new Score(1)));
+        cards.add(new Spade("3", new Score(3), new Score(1)));
         Hand expectedHand = new TwoPair(cards);
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);

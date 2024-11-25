@@ -1,16 +1,17 @@
 package model.cards;
 
 import model.score.Score;
-import model.specialCards.Modifiable;
-import model.specialCards.Tarot;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
-public abstract class Card implements Modifiable {
-    protected int value;
-    protected String suit;
-    protected Score score;
+public abstract class Card {
     protected String number;
-    protected String name;
+    protected Score value;
+    protected Score multiplier;
+    protected String suit;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -24,61 +25,43 @@ public abstract class Card implements Modifiable {
         return Objects.hash(number, suit);
     }
 
-    public Card(String name,String number,int value, int multiplier) {
-        this.name = name;
+    public Card(String number, Score value, Score multiplier) {
         this.number = number;
-        this.score = new Score(value , multiplier);
-    }
-
-    public Card(int value, String suit) {
         this.value = value;
-        this.suit = suit;
-        this.score = new Score(this.value , 0);
+        this.multiplier = multiplier;
     }
 
-    public Card(int value) {
-        this.value = value;
-        this.score = new Score(this.value , 0);
+    public boolean isNumber(String key) {
+        return number.equals(key);
     }
 
-    public int getValue() {
-        return (this.value);
+    public boolean isPreviousTo(Card card) {
+        ArrayList<String> baseOrder = generateOrder();
+        String thisNumber = this.number;
+        String cardNumber = card.number;
+        return (baseOrder.indexOf(thisNumber) == baseOrder.indexOf(cardNumber) - 1);
     }
 
-
-
-    public String getSuit() {
-        return (this.suit);
+    public boolean isSmallerThan(Card otherCard) {
+        ArrayList<String> baseOrder = generateOrder();
+        String thisNumber = this.number;
+        String cardNumber = otherCard.number;
+        return (baseOrder.indexOf(thisNumber) < baseOrder.indexOf(cardNumber));
     }
 
     public boolean hasSameSuitAs(Card card) {
-        return (this.suit.equals(card.getSuit()));
+        return this.suit.equals(card.suit);
     }
 
-    public int calculateScore() {
-        return this.score.calculateScore();
+    public Score addValueTo(Score score) {
+        return score.addWith(this.value);
     }
 
-    public void addScoreTo(Score anotherScore) {
-        if(this.score.multiplierIsOne()) {
-            anotherScore.addOnlyThePoint(this.score);
-        }else{
-            anotherScore.addScore(this.score);
-        }
-
+    public String toString() {
+        return this.number + " of " + this.suit;
     }
 
-    public String getNumber() {
-        return (this.number);
-    }
-
-    public boolean isNumber(String number) {
-        return this.number.equals(number);
-    }
-    public void modifyByTarot(Score effect){
-        this.score.addTarotScore(effect);
-    }
-    public void addScore(Score score) {
-        this.score.addScore(score);
+    private ArrayList<String> generateOrder() {
+        return new ArrayList<>(Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "Jota", "Reina", "Rey", "As"));
     }
 }

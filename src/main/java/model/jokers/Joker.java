@@ -1,20 +1,25 @@
 package model.jokers;
 
 import model.hands.Hand;
+import model.score.ScoreModifier;
 import model.score.Score;
 
 public abstract class Joker {
     protected String name;
-    protected Score effect;
+    protected ScoreModifier toPoints;
+    protected ScoreModifier toMultiplier;
 
-    public Joker(String name, Score effect) {
+    public Joker(String name, ScoreModifier toPoints, ScoreModifier toMultiplier) {
         this.name = name;
-        this.effect = effect;
+        this.toPoints = toPoints;
+        this.toMultiplier = toMultiplier;
     }
 
     public Joker(String name) {
         this.name = name;
     }
 
-    public abstract void applyEffect(Hand hand);
+    public abstract Score applyToPoints(Score points, Hand hand);
+
+    public abstract Score applyToMultiplier(Score multiplier, Hand hand);
 }

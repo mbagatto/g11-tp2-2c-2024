@@ -1,15 +1,29 @@
 package model.jokers;
 
 import model.hands.Hand;
+import model.score.DoNotModify;
+import model.score.ScoreModifier;
 import model.score.Score;
 
-public abstract class RandomActivation extends Joker {
+public class RandomActivation extends Joker {
     protected Probability probability;
 
-    public RandomActivation(String name, Score effect, Probability probability) {
-        super(name, effect);
+    public RandomActivation(String name, ScoreModifier toPoints, ScoreModifier toMultiplier, Probability probability) {
+        super(name, toPoints, toMultiplier);
         this.probability = probability;
     }
 
-    public abstract void applyEffect(Hand hand);
+    public Score applyToPoints(Score points, Hand hand) {
+        if (this.probability.calculate()) {
+            return (this.toPoints.modify(points));
+        }
+        return new DoNotModify().modify(points);
+    }
+
+    public Score applyToMultiplier(Score multiplier, Hand hand) {
+        if (this.probability.calculate()) {
+            return (this.toMultiplier.modify(multiplier));
+        }
+        return new DoNotModify().modify(multiplier);
+    }
 }
