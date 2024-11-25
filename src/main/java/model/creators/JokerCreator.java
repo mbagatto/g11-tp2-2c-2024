@@ -12,12 +12,8 @@ public class JokerCreator {
         return new ForTheScore(name, description, activation, new Score(points, multiplicator));
     }
 
-    public Joker createForMultiplierDB(String name, String description, String activation, int points, int multiplicator) {
+    public Joker createDiscardBonus(String name, String description, String activation, int points, int multiplicator) {
         return new ForMultiplierDB(name, description, activation, new Score(points, multiplicator));
-    }
-
-    public Joker createForPointsDB(String name, String description, String activation, int points, int multiplicator) {
-        return new ForPointsDB(name, description, activation, new Score(points, multiplicator));
     }
 
     public Joker createForMultiplierRA(String name, String description, String activation, int points, int multiplicator) {
@@ -30,6 +26,10 @@ public class JokerCreator {
 
     public Joker createPlayedHandBonus(String name, String description, String activation, int points, int multiplicator, Hand hand) {
         return new PlayedHandBonus(name, description, activation, new Score(points, multiplicator), hand);
+    }
+
+    public Joker createPlayedHandBonus() {
+        return new PlayedHandBonus();
     }
 
     public Joker createCombinated(String name, ArrayList<Joker> jokers) {
