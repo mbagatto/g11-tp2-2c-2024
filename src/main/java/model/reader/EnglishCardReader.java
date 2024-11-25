@@ -5,14 +5,13 @@ import model.creators.EnglishCardCreator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Objects;
 
 
-public class EnglishCardReader {
+public class EnglishCardReader{
 
     private final String JSON_BALATRO = "/cardsInfo/balatro.json";
     private EnglishCardCreator creator;
@@ -64,6 +63,5 @@ public class EnglishCardReader {
         }
         return cards;
     }
-
 
 }

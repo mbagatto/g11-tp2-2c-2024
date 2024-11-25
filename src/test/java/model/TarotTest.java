@@ -3,12 +3,10 @@ package model;
 import model.cards.Card;
 import model.cards.Heart;
 
-import model.hands.HighCard;
 import model.score.Score;
 
 import model.specialCards.Tarot;
 import model.specialCards.TarotForCard;
-import model.specialCards.TarotForHand;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
