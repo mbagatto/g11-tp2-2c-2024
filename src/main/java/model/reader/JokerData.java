@@ -1,6 +1,7 @@
 package model.reader;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class JokerData {
     private String description;
 
     @JsonProperty("activacion")
-    private Object activation;
+    private JsonNode activation;
 
     @JsonProperty("efecto")
     private Effect effect;
@@ -36,11 +37,11 @@ public class JokerData {
         this.description = description;
     }
 
-    public Object getActivation() {
+    public JsonNode getActivation() {
         return activation;
     }
 
-    public void setActivation(Object activation) {
+    public void setActivation(JsonNode activation) {
         this.activation = activation;
     }
 

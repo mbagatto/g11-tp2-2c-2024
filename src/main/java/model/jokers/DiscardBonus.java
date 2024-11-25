@@ -12,8 +12,8 @@ public class DiscardBonus extends Joker {
         super(joker);
     }
 
-    public DiscardBonus(String name, ScoreModifier toPoints, ScoreModifier toMultiplier) {
-        super(name, toPoints, toMultiplier);
+    public DiscardBonus(String name, String description, ScoreModifier toPoints, ScoreModifier toMultiplier) {
+        super(name, description, toPoints, toMultiplier);
         this.discards = 0;
     }
 

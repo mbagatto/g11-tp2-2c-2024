@@ -2,37 +2,30 @@ package model.creators;
 
 import model.hands.Hand;
 import model.jokers.*;
-import model.score.Score;
+import model.score.ScoreModifier;
+
 import java.util.ArrayList;
 
 
 public class JokerCreator {
 
-    public Joker createForTheScore(String name, String description, String activation, int points, int multiplicator) {
-        return new ForTheScore(name, description, activation, new Score(points, multiplicator));
+    public Joker createForTheScore(String name, String description, ScoreModifier toPoints, ScoreModifier toMultiplier) {
+        return new ForTheScore(name, description, toPoints, toMultiplier);
     }
 
-    public Joker createDiscardBonus(String name, String description, String activation, int points, int multiplicator) {
-        return new ForMultiplierDB(name, description, activation, new Score(points, multiplicator));
+    public Joker createPlayedHandBonus(String name, String description, ScoreModifier toPoints, ScoreModifier toMultiplier, Hand hand) {
+        return new PlayedHandBonus(name, description, toPoints, toMultiplier, hand);
     }
 
-    public Joker createForMultiplierRA(String name, String description, String activation, int points, int multiplicator) {
-        return new ForMultiplierRA(name, description, activation, new Score(points, multiplicator));
+    public Joker createDiscardBonus(String name, String description, ScoreModifier toPoints, ScoreModifier toMultiplier) {
+        return new DiscardBonus(name, description, toPoints, toMultiplier);
     }
 
-    public Joker createForPointsRA(String name, String description, String activation, int points, int multiplicator) {
-        return new ForPointsRA(name, description, activation, new Score(points, multiplicator));
+    public Joker createRandomActivation(String name, String description, ScoreModifier toPoints, ScoreModifier toMultiplier, Probability probability) {
+        return new RandomActivation(name, description, toPoints, toMultiplier, probability);
     }
 
-    public Joker createPlayedHandBonus(String name, String description, String activation, int points, int multiplicator, Hand hand) {
-        return new PlayedHandBonus(name, description, activation, new Score(points, multiplicator), hand);
-    }
-
-    public Joker createPlayedHandBonus() {
-        return new PlayedHandBonus();
-    }
-
-    public Joker createCombinated(String name, ArrayList<Joker> jokers) {
-        return new Combinated(name, jokers);
+    public Joker createCombinated(String name, String description, ArrayList<Joker> jokers) {
+        return new Combinated(name, description, jokers);
     }
 }

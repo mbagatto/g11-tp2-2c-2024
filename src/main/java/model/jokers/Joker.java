@@ -1,11 +1,13 @@
 package model.jokers;
 
 import model.hands.Hand;
+import model.reader.JokerData;
 import model.score.ScoreModifier;
 import model.score.Score;
 
 public abstract class Joker {
     protected String name;
+    protected String description;
     protected ScoreModifier toPoints;
     protected ScoreModifier toMultiplier;
 
@@ -19,21 +21,28 @@ public abstract class Joker {
 
     public Joker(Joker joker) {
         this.name = joker.name;
+        this.description = joker.description;
         this.toPoints = joker.toPoints;
         this.toMultiplier = joker.toMultiplier;
     }
 
-    public Joker(String name, ScoreModifier toPoints, ScoreModifier toMultiplier) {
+    public Joker(String name, String description, ScoreModifier toPoints, ScoreModifier toMultiplier) {
         this.name = name;
+        this.description = description;
         this.toPoints = toPoints;
         this.toMultiplier = toMultiplier;
     }
 
-    public Joker(String name) {
+    public Joker(String name, String description) {
         this.name = name;
+        this.description = description;
     }
 
     public abstract Score applyToPoints(Score points, Hand hand);
 
     public abstract Score applyToMultiplier(Score multiplier, Hand hand);
+
+    public boolean hasName(String aName) {
+        return name.equals(aName);
+    }
 }

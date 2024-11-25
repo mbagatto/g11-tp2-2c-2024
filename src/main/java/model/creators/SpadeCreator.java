@@ -2,6 +2,7 @@ package model.creators;
 
 import model.cards.Card;
 import model.cards.Spade;
+import model.score.Score;
 
 public class SpadeCreator implements CreatorCard {
 
@@ -11,12 +12,12 @@ public class SpadeCreator implements CreatorCard {
         this.nextCreator = null;
     }
 
-    public Card createCard(String suit, String name, String number, int value, int multiplier) {
+    public Card createCard(String number, Score points, Score multiplier) {
         Card card = null;
-        if(suit.equals(this.suit)){
-            card = new Spade(name,number,value,multiplier);
-        }else{
-            card = this.nextCreator.createCard(suit,name,number,value,multiplier);
+        if (suit.equals(this.suit)) {
+            card = new Spade(number, points, multiplier);
+        } else {
+            card = this.nextCreator.createCard(number, points, multiplier);
         }
         return card;
     }

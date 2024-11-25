@@ -1,17 +1,19 @@
 package model;
 
-import model.reader.JokerReader;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JokerDeckTest {
 
     @Test
-    public void test01JokerDeckShouldBuildSuccesfully() {
-//        JokerDeck deck = new JokerDeck();
-//        assertDoesNotThrow(deck::fillDeck);
-        JokerReader reader = new JokerReader();
-        reader.read();
+    public void test01JokerDeckShouldBeFilledCorrectly() {
+        // Arrange
+        JokerDeck jokerDeck = new JokerDeck();
+        int expectedAmountOfJokers = 33;
+        // Act
+        int obtainedAmountOfJokers = jokerDeck.fillDeck();
+        // Assert
+        assertEquals(expectedAmountOfJokers, obtainedAmountOfJokers);
     }
 }

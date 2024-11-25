@@ -8,8 +8,8 @@ import model.score.Score;
 public class RandomActivation extends Joker {
     protected Probability probability;
 
-    public RandomActivation(String name, ScoreModifier toPoints, ScoreModifier toMultiplier, Probability probability) {
-        super(name, toPoints, toMultiplier);
+    public RandomActivation(String name, String description, ScoreModifier toPoints, ScoreModifier toMultiplier, Probability probability) {
+        super(name, description, toPoints, toMultiplier);
         this.probability = probability;
     }
 

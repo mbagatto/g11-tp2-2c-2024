@@ -1,27 +1,25 @@
 package model;
 
-import model.creators.JokerCreator;
+import model.exceptions.CouldNotReadException;
 import model.jokers.Joker;
 import model.reader.JokerReader;
-import model.reader.Reader;
-
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class JokerDeck {
-    ArrayList<Joker> jokers;
-    Reader reader;
+    private final ArrayList<Joker> jokers;
+    private final JokerReader reader;
 
     public JokerDeck() {
         this.jokers = new ArrayList<>();
-        this.reader = new Reader();
+        this.reader = new JokerReader();
     }
 
-    public void fillDeck() {
+    public int fillDeck() {
         try {
-           // this.jokers = this.reader.readJoker();
-        } catch (Exception e) {
+           this.jokers.addAll(this.reader.read());
+        } catch (CouldNotReadException e) {
             throw new RuntimeException(e);
         }
+        return this.jokers.size();
     }
 }

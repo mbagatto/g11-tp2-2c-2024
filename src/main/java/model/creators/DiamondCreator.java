@@ -2,6 +2,7 @@ package model.creators;
 
 import model.cards.Card;
 import model.cards.Diamond;
+import model.score.Score;
 
 public class DiamondCreator implements CreatorCard {
 
@@ -11,12 +12,12 @@ public class DiamondCreator implements CreatorCard {
         this.nextCreator = new HeartCreator();
     }
 
-    public Card createCard(String suit, String name, String number, int value, int multiplier) {
+    public Card createCard(String number, Score points, Score multiplier) {
         Card card = null;
-        if(suit.equals(this.suit)){
-            card = new Diamond(name,number,value,multiplier);
-        }else{
-            card = this.nextCreator.createCard(suit,name,number,value,multiplier);
+        if (suit.equals(this.suit)) {
+            card = new Diamond(number, points, multiplier);
+        } else {
+            card = this.nextCreator.createCard(number, points, multiplier);
         }
         return card;
     }

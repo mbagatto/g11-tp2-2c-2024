@@ -19,6 +19,7 @@ public class EnglishDeck {
         EnglishDeck englishDeck = (EnglishDeck) o;
         return cards.size() == englishDeck.cards.size();
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(cards.size());
@@ -28,14 +29,6 @@ public class EnglishDeck {
         this.cards = new ArrayList<>();
         this.cardReader = new EnglishCardReader();
         this.cardBuilder = new EnglishCardBuilder();
-    }
-
-    public void generateDeck() {
-        try {
-            this.cards.addAll(this.cardReader.englishCardReader());
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void fillDeck(){

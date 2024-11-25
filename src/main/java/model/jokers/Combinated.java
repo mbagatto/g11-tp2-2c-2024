@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class Combinated extends Joker {
     private final ArrayList<Joker> jokers;
 
-    public Combinated(String name, ArrayList<Joker> jokers) {
-        super(name);
+    public Combinated(String name, String description, ArrayList<Joker> jokers) {
+        super(name, description);
         this.jokers = jokers;
     }
 
