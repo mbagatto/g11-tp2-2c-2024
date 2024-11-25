@@ -6,7 +6,7 @@ import model.score.Score;
 import java.util.ArrayList;
 
 public class Combinated extends Joker {
-    private ArrayList<Joker> jokers;
+    private final ArrayList<Joker> jokers;
 
     public Combinated(String name, ArrayList<Joker> jokers) {
         super(name);

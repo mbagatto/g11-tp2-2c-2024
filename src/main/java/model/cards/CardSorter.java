@@ -3,7 +3,7 @@ package model.cards;
 import java.util.ArrayList;
 
 public class CardSorter {
-    private ArrayList<Card> cards;
+    private final ArrayList<Card> cards;
 
     public CardSorter(ArrayList<Card> cards) {
         this.cards = cards;

@@ -60,15 +60,13 @@ public class PlayerDeck {
                                                                 new TwoPairIdentifier(
                                                                         new PairIdentifier(
                                                                                 new HighCardIdentifier()
+                                                                        )
                                                                 )
                                                         )
                                                 )
                                         )
                                 )
                         )
-                )
-        ));
+                ));
     }
-
-
 }

@@ -6,7 +6,7 @@ import model.score.ScoreModifier;
 import model.score.Score;
 
 public class PlayedHandBonus extends Joker {
-    private Hand hand;
+    private final Hand hand;
 
     public PlayedHandBonus(String name, ScoreModifier toPoints, ScoreModifier toMultiplier, Hand hand) {
         super(name, toPoints, toMultiplier);

@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public abstract class Card {
     protected String number;
-    protected Score value;
+    protected Score points;
     protected Score multiplier;
     protected String suit;
 
@@ -25,9 +25,9 @@ public abstract class Card {
         return Objects.hash(number, suit);
     }
 
-    public Card(String number, Score value, Score multiplier) {
+    public Card(String number, Score points, Score multiplier) {
         this.number = number;
-        this.value = value;
+        this.points = points;
         this.multiplier = multiplier;
     }
 
@@ -54,7 +54,7 @@ public abstract class Card {
     }
 
     public Score addValueTo(Score score) {
-        return score.addWith(this.value);
+        return score.addWith(this.points);
     }
 
     public String toString() {

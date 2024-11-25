@@ -10,7 +10,7 @@ public abstract class Hand {
     protected String name;
     protected Score points;
     protected Score multiplier;
-    protected ArrayList<Card> cards;
+    private final ArrayList<Card> cards;
 
     @Override
     public boolean equals(Object o) {
