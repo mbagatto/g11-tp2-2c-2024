@@ -10,7 +10,7 @@ import java.util.Objects;
 public class EnglishDeck {
     private ArrayList<Card> cards;
     EnglishCardReader cardReader;
-    EnglishCardCreator cardCreator;
+    EnglishCardBuilder cardBuilder;
 
     @Override
     public boolean equals(Object o) {
@@ -19,6 +19,7 @@ public class EnglishDeck {
         EnglishDeck englishDeck = (EnglishDeck) o;
         return cards.size() == englishDeck.cards.size();
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(cards.size());
@@ -27,28 +28,16 @@ public class EnglishDeck {
     public EnglishDeck() {
         this.cards = new ArrayList<>();
         this.cardReader = new EnglishCardReader();
-        this.cardCreator = new EnglishCardCreator();
-    }
-
-    public void generateDeck() {
-        try {
-            this.cards.addAll(this.cardReader.englishCardReader());
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        this.cardBuilder = new EnglishCardBuilder();
     }
 
     public void fillDeck(){
-
-        //this.cards.addAll(this.creator.generateEnglishCards());
         try {
             this.cards.addAll(this.cardReader.englishCardReader());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
-
-
 
     public Card deal() {
         if (this.cards.isEmpty()) {

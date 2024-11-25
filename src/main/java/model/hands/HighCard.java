@@ -7,6 +7,8 @@ import java.util.ArrayList;
 public class HighCard extends Hand {
     public HighCard(ArrayList<Card> cards) {
         super(cards);
-        this.score = new Score(5, 1);
+        this.name = "High Card";
+        this.points = new Score(5);
+        this.multiplier = new Score(1);
     }
 }
