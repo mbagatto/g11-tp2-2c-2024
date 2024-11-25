@@ -258,39 +258,39 @@ public class PlayerDeckTest {
     @Test
     public void test12VerifyThatTheOrderDoesNotChangeTheScore() {
         // Arrange
-        PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Heart("5", new Score(5), new Score(1)));
-        playerDeck.addCard(new Heart("6", new Score(6), new Score(1)));
-        playerDeck.addCard(new Heart("7", new Score(7), new Score(1)));
-        playerDeck.addCard(new Heart("8", new Score(8), new Score(1)));
-        playerDeck.addCard(new Heart("9", new Score(9), new Score(1)));
-        playerDeck.addCard(new Diamond("2", new Score(2), new Score(1)));
-        playerDeck.addCard(new Spade("6", new Score(6), new Score(1)));
-        playerDeck.addCard(new Spade("8", new Score(8), new Score(1)));
+        PlayerDeck firstPlayerDeck = new PlayerDeck();
+        firstPlayerDeck.addCard(new Heart("5", new Score(5), new Score(1)));
+        firstPlayerDeck.addCard(new Heart("6", new Score(6), new Score(1)));
+        firstPlayerDeck.addCard(new Heart("7", new Score(7), new Score(1)));
+        firstPlayerDeck.addCard(new Heart("8", new Score(8), new Score(1)));
+        firstPlayerDeck.addCard(new Heart("9", new Score(9), new Score(1)));
+        firstPlayerDeck.addCard(new Diamond("2", new Score(2), new Score(1)));
+        firstPlayerDeck.addCard(new Spade("6", new Score(6), new Score(1)));
+        firstPlayerDeck.addCard(new Spade("8", new Score(8), new Score(1)));
         // Act
-        playerDeck.selectCard(0);
-        playerDeck.selectCard(1);
-        playerDeck.selectCard(2);
-        playerDeck.selectCard(3);
-        playerDeck.selectCard(4);
-        Score score1 = playerDeck.play(new ArrayList<>());
-        playerDeck.reset();
-        playerDeck.addCard(new Heart("5", new Score(5), new Score(1)));
-        playerDeck.addCard(new Heart("6", new Score(6), new Score(1)));
-        playerDeck.addCard(new Heart("7", new Score(7), new Score(1)));
-        playerDeck.addCard(new Heart("8", new Score(8), new Score(1)));
-        playerDeck.addCard(new Heart("9", new Score(9), new Score(1)));
-        playerDeck.addCard(new Diamond("2", new Score(2), new Score(1)));
-        playerDeck.addCard(new Spade("6", new Score(6), new Score(1)));
-        playerDeck.addCard(new Spade("8", new Score(8), new Score(1)));
-        playerDeck.selectCard(2);
-        playerDeck.selectCard(4);
-        playerDeck.selectCard(1);
-        playerDeck.selectCard(3);
-        playerDeck.selectCard(0);
-        Score score2 = playerDeck.play(new ArrayList<>());
+        firstPlayerDeck.selectCard(0);
+        firstPlayerDeck.selectCard(1);
+        firstPlayerDeck.selectCard(2);
+        firstPlayerDeck.selectCard(3);
+        firstPlayerDeck.selectCard(4);
+        Score firstScore = firstPlayerDeck.play(new ArrayList<>());
+        PlayerDeck secondPlayerDeck = new PlayerDeck();
+        secondPlayerDeck.addCard(new Heart("5", new Score(5), new Score(1)));
+        secondPlayerDeck.addCard(new Heart("6", new Score(6), new Score(1)));
+        secondPlayerDeck.addCard(new Heart("7", new Score(7), new Score(1)));
+        secondPlayerDeck.addCard(new Heart("8", new Score(8), new Score(1)));
+        secondPlayerDeck.addCard(new Heart("9", new Score(9), new Score(1)));
+        secondPlayerDeck.addCard(new Diamond("2", new Score(2), new Score(1)));
+        secondPlayerDeck.addCard(new Spade("6", new Score(6), new Score(1)));
+        secondPlayerDeck.addCard(new Spade("8", new Score(8), new Score(1)));
+        secondPlayerDeck.selectCard(2);
+        secondPlayerDeck.selectCard(4);
+        secondPlayerDeck.selectCard(1);
+        secondPlayerDeck.selectCard(3);
+        secondPlayerDeck.selectCard(0);
+        Score secondScore = secondPlayerDeck.play(new ArrayList<>());
         // Assert
-        assertEquals(score1, score2);
+        assertEquals(firstScore, secondScore);
     }
 
 //    @Test

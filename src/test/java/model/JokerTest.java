@@ -236,4 +236,68 @@ public class JokerTest {
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }
+
+    @Test
+    public void test11DiscardBonusJokerShouldBeAppliedToThePointsCorrectly() {
+        // Arrange
+        PlayerDeck playerDeck = new PlayerDeck();
+        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
+        playerDeck.addCard(new Diamond("6", new Score(6), new Score(1)));
+        playerDeck.addCard(new Spade("5", new Score(5), new Score(1)));
+        playerDeck.addCard(new Spade("3", new Score(3), new Score(1)));
+        playerDeck.addCard(new Spade("7", new Score(7), new Score(1)));
+        playerDeck.selectCard(0);
+        Joker joker = new DiscardBonus("Flag Joker", new Add(new Score(30)), new DoNotModify());
+        ArrayList<Joker> jokers = new ArrayList<>();
+        jokers.add(joker);
+        playerDeck.discard(jokers);
+        playerDeck.selectCard(0);
+        Score expectedScore = new Score(41);
+        // Act
+        Score obtainedScore = playerDeck.play(jokers);
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
+    }
+
+    @Test
+    public void test12DiscardBonusJokerShouldNotBeAppliedWhenThePlayerHasZeroDiscards() {
+        // Arrange
+        PlayerDeck playerDeck = new PlayerDeck();
+        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
+        playerDeck.addCard(new Diamond("6", new Score(6), new Score(1)));
+        playerDeck.addCard(new Spade("5", new Score(5), new Score(1)));
+        playerDeck.addCard(new Spade("3", new Score(3), new Score(1)));
+        playerDeck.addCard(new Spade("7", new Score(7), new Score(1)));
+        playerDeck.selectCard(0);
+        Joker joker = new DiscardBonus("Flag Joker", new Add(new Score(30)), new DoNotModify());
+        ArrayList<Joker> jokers = new ArrayList<>();
+        jokers.add(joker);
+        Score expectedScore = new Score(9);
+        // Act
+        Score obtainedScore = playerDeck.play(jokers);
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
+    }
+
+    @Test
+    public void test13DiscardBonusJokerShouldBeAppliedToTheMultiplierCorrectly() {
+        // Arrange
+        PlayerDeck playerDeck = new PlayerDeck();
+        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
+        playerDeck.addCard(new Diamond("6", new Score(6), new Score(1)));
+        playerDeck.addCard(new Spade("5", new Score(5), new Score(1)));
+        playerDeck.addCard(new Spade("3", new Score(3), new Score(1)));
+        playerDeck.addCard(new Spade("7", new Score(7), new Score(1)));
+        playerDeck.selectCard(0);
+        Joker joker = new DiscardBonus("Mountain Eco", new DoNotModify(), new Multiply(new Score(10)));
+        ArrayList<Joker> jokers = new ArrayList<>();
+        jokers.add(joker);
+        playerDeck.discard(jokers);
+        playerDeck.selectCard(0);
+        Score expectedScore = new Score(110);
+        // Act
+        Score obtainedScore = playerDeck.play(jokers);
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
+    }
 }

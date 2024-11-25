@@ -4,6 +4,7 @@ import model.exceptions.NoSelectedCardsException;
 import model.hands.Hand;
 import model.cards.Card;
 import model.identifiers.*;
+import model.jokers.DiscardBonus;
 import model.jokers.Joker;
 import model.score.Score;
 
@@ -41,11 +42,27 @@ public class PlayerDeck {
             throw new NoSelectedCardsException();
         }
         Hand hand = handIdentifier.identify(this.selectedCards);
-        return hand.calculateScore(jokers);
+        Score score = hand.calculateScore(jokers);
+        this.reset(selectedCards);
+        return score;
     }
 
-    public void reset() {
-        this.cards.clear();
+    public void discard(ArrayList<Joker> jokers) {
+        if (selectedCards.isEmpty()) {
+            throw new NoSelectedCardsException();
+        }
+        DiscardBonus discardBonusJoker = null;
+        for (Joker joker : jokers) {
+            if (joker.equals(new DiscardBonus(joker))) {
+                discardBonusJoker = (DiscardBonus) joker;
+                discardBonusJoker.incrementDiscards();
+            }
+        }
+        this.reset(selectedCards);
+    }
+
+    public void reset(ArrayList<Card> selectedCards) {
+        this.cards.removeAll(selectedCards);
         this.selectedCards.clear();
     }
 

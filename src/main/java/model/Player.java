@@ -2,6 +2,7 @@ package model;
 
 import model.exceptions.EmptyPlayerDeckException;
 import model.exceptions.InvalidJokerException;
+import model.jokers.DiscardBonus;
 import model.jokers.Joker;
 import model.score.Score;
 import java.util.ArrayList;
@@ -42,14 +43,14 @@ public class Player {
         return score;
     }
 
-//    public void discard() {
-//        if (this.playerDeck.isEmpty()) {
-//            throw new EmptyPlayerDeckException();
-//        }
-//        this.playerDeck.discard(this.jokers);
-//        this.completeDeck();
-//        this.discards++;
-//    }
+    public void discard() {
+        if (this.playerDeck.isEmpty()) {
+            throw new EmptyPlayerDeckException();
+        }
+        this.playerDeck.discard(this.jokers);
+        this.completeDeck();
+        this.discards++;
+    }
 
     public void addJoker(Joker joker) {
         if (joker == null) {

@@ -9,6 +9,20 @@ public abstract class Joker {
     protected ScoreModifier toPoints;
     protected ScoreModifier toMultiplier;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Joker joker = (Joker) o;
+        return name.equals(joker.name);
+    }
+
+    public Joker(Joker joker) {
+        this.name = joker.name;
+        this.toPoints = joker.toPoints;
+        this.toMultiplier = joker.toMultiplier;
+    }
+
     public Joker(String name, ScoreModifier toPoints, ScoreModifier toMultiplier) {
         this.name = name;
         this.toPoints = toPoints;
