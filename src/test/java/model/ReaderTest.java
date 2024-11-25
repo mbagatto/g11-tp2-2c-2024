@@ -4,6 +4,7 @@ import model.cards.Card;
 import model.cards.Club;
 import model.cards.Heart;
 import model.cards.Spade;
+import model.decks.EnglishDeck;
 import model.score.Score;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

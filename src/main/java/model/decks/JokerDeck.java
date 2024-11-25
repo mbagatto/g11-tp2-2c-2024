@@ -1,4 +1,4 @@
-package model;
+package model.decks;
 
 import model.exceptions.CouldNotReadException;
 import model.jokers.Joker;

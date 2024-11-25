@@ -1,4 +1,4 @@
-package model;
+package model.decks;
 
 import model.cards.*;
 import model.exceptions.EmptyDeckException;

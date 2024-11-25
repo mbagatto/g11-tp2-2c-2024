@@ -1,5 +1,6 @@
 package model;
 
+import model.decks.EnglishDeck;
 import model.exceptions.EmptyDeckException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

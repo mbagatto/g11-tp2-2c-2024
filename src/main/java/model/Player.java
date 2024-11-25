@@ -1,8 +1,9 @@
 package model;
 
+import model.decks.EnglishDeck;
+import model.decks.PlayerDeck;
 import model.exceptions.EmptyPlayerDeckException;
 import model.exceptions.InvalidJokerException;
-import model.jokers.DiscardBonus;
 import model.jokers.Joker;
 import model.score.Score;
 import java.util.ArrayList;

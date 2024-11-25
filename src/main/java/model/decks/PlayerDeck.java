@@ -1,4 +1,4 @@
-package model;
+package model.decks;
 
 import model.exceptions.NoSelectedCardsException;
 import model.hands.Hand;

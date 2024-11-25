@@ -3,6 +3,7 @@ package model;
 import model.cards.Diamond;
 import model.cards.Heart;
 import model.cards.Spade;
+import model.decks.PlayerDeck;
 import model.hands.Straight;
 import model.jokers.*;
 import model.score.Add;
