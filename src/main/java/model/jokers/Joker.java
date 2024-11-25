@@ -9,6 +9,9 @@ public abstract class Joker {
     protected String description;
     protected String activation;
 
+    public Joker() {}
+
+
     public Joker(String name, String description, String activation, Score effect) {
         this.name = name;
         this.description = description;
@@ -30,4 +33,11 @@ public abstract class Joker {
     }
 
     public abstract void applyEffect(Hand hand);
+
+    public void setAll(String name, String description, String activation, int points, int multiplicator) {
+        this.name = name;
+        this.description = description;
+        this.activation = activation;
+        this.effect = new Score(points, multiplicator);
+    }
 }

@@ -1,4 +1,6 @@
-package model.cards;
+package model.creators;
+
+import model.cards.*;
 
 public class EnglishCardCreator {
 

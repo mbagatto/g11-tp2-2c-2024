@@ -1,15 +1,14 @@
 package model.reader;
 
 import model.cards.Card;
-import model.cards.EnglishCardCreator;
+import model.creators.EnglishCardCreator;
 import model.exceptions.CouldNotReadException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Objects;
+
 
 public class EnglishCardParser implements Parser {
     private EnglishCardCreator creator;

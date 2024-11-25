@@ -7,6 +7,8 @@ public class PlayedHandBonus extends Joker {
 
     private Hand hand;
 
+    public PlayedHandBonus() {}
+
     public PlayedHandBonus(String name, Score effect, Hand hand) {
         super(name, effect);
         this.hand = hand;
