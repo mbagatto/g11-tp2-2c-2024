@@ -1,15 +1,10 @@
 package model.cards;
 
+import model.score.Score;
+
 public class Spade extends Card {
-
-    public Spade(int value) {
-        super(value);
-        this.suit = "Spade";
+    public Spade(String number, Score value, Score multiplier) {
+        super(number, value, multiplier);
+        this.suit = "Spades";
     }
-
-    public Spade(String name,String number, int value,int multiplier) {
-        super(name,number,value,multiplier);
-        this.suit = "Spade";
-    }
-
 }

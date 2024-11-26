@@ -5,25 +5,17 @@ import model.hands.Straight;
 import model.cards.Card;
 import java.util.ArrayList;
 
-public class StraightIdentifier implements HandIdentifier {
-    private HandIdentifier next;
-    private SequenceChecker checker;
+public class StraightIdentifier extends SequenceHandIdentifier {
 
     public StraightIdentifier(HandIdentifier next) {
-        this.next = next;
-        this.checker = new SequenceChecker();
+        super(next);
     }
 
     @Override
-    public Hand identify(ArrayList<Card> cards) {
-        if (cards.size() < 5) { return next.identify(cards); }
-        if (isStraight(cards)) {
+    protected Hand identifyHand(ArrayList<Card> cards) {
+        if (checker.isStraight(cards)) {
             return new Straight(cards);
         }
         return next.identify(cards);
-    }
-
-    private boolean isStraight(ArrayList<Card> cards) {
-        return checker.isStraight(cards);
     }
 }

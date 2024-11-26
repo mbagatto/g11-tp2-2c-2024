@@ -7,6 +7,8 @@ import java.util.ArrayList;
 public class RoyalFlush extends Hand {
     public RoyalFlush(ArrayList<Card> cards) {
         super(cards);
-        this.score = new Score(100, 8);
+        this.name = "Royal Flush";
+        this.points = new Score(100);
+        this.multiplier = new Score(8);
     }
 }

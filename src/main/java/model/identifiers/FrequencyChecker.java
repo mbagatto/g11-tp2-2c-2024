@@ -1,32 +1,14 @@
 package model.identifiers;
 
 import model.cards.Card;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class FrequencyChecker {
-    public boolean isPair(ArrayList<Card> cards) {
-        return hasPairs(cards, 1);
-    }
 
-    public boolean isTwoPair(ArrayList<Card> cards) {
-        return hasPairs(cards, 2);
-    }
-
-    public boolean isThreeOfAKind(ArrayList<Card> cards) {
-        return hasAppearances(cards, 3);
-    }
-
-    public boolean isFullHouse(ArrayList<Card> cards) {
-        return isThreeOfAKind(cards) && isPair(cards);
-    }
-
-    public boolean isFourOfAKind(ArrayList<Card> cards) {
-        return hasAppearances(cards, 4);
-    }
-
-    private boolean hasPairs(ArrayList<Card> cards, int pairs) {
-        HashMap<String, Integer> map = generateMap(cards);
+    public boolean hasPairs(ArrayList<Card> cards, int pairs) {
+        HashMap<String, Integer> map = generateFrequenciesMap(cards);
         int counter = 0;
         for (String key : map.keySet()) {
             if (map.get(key) == 2) {
@@ -36,8 +18,8 @@ public class FrequencyChecker {
         return counter == pairs;
     }
 
-    private boolean hasAppearances(ArrayList<Card> cards, int appearances) {
-        HashMap<String, Integer> map = generateMap(cards);
+    public boolean hasAppearances(ArrayList<Card> cards, int appearances) {
+        HashMap<String, Integer> map = generateFrequenciesMap(cards);
         for (String key : map.keySet()) {
             if (map.get(key) == appearances) {
                 return true;
@@ -46,11 +28,38 @@ public class FrequencyChecker {
         return false;
     }
 
-    public HashMap<String, Integer> generateMap(ArrayList<Card> cards) {
+    public ArrayList<Card> findHandCards(ArrayList<Card> cards, int value) {
+        ArrayList<Card> handCards = new ArrayList<>(cards);
+        HashMap<String, Integer> map = generateFrequenciesMap(cards);
+        for (String key : map.keySet()) {
+            if (map.get(key) != value) {
+                handCards.removeIf(card -> card.isNumber(key));
+            }
+        }
+        return handCards;
+    }
+
+    private HashMap<String, Integer> generateFrequenciesMap(ArrayList<Card> cards) {
         HashMap<String, Integer> map = new HashMap<>();
-        for (Card card : cards) {
-            String value = card.getNumber();
-            map.put(value, map.getOrDefault(value, 0) + 1);
+        map.put("2", 0);
+        map.put("3", 0);
+        map.put("4", 0);
+        map.put("5", 0);
+        map.put("6", 0);
+        map.put("7", 0);
+        map.put("8", 0);
+        map.put("9", 0);
+        map.put("10", 0);
+        map.put("Jota", 0);
+        map.put("Reina", 0);
+        map.put("Rey", 0);
+        map.put("As", 0);
+        for (String key : map.keySet()) {
+            for (Card card : cards) {
+                if (card.isNumber(key)) {
+                    map.put(key, map.get(key) + 1);
+                }
+            }
         }
         return map;
     }

@@ -3,7 +3,7 @@ package model.reader;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.cards.Card;
-import model.cards.EnglishCardCreator;
+import model.cards.EnglishCardBuilder;
 import model.exceptions.CouldNotReadException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

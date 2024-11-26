@@ -3,9 +3,8 @@ package model.jokers;
 import java.util.Random;
 
 public class Probability {
-    private int limit;
-    private Random random;
-    private RandomActivation randomJoker;
+    private final int limit;
+    private final Random random;
 
     public Probability(int limit) {
         this.limit = limit;

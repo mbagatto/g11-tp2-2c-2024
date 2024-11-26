@@ -4,6 +4,7 @@ import model.cards.Card;
 import model.cards.Club;
 import model.cards.Heart;
 import model.cards.Spade;
+import model.decks.EnglishDeck;
 import model.score.Score;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,19 +23,17 @@ public class ReaderTest {
     @BeforeEach
     public void setUp() {
         englishDeckMock = Mockito.mock(EnglishDeck.class);
-
-
         when(englishDeckMock.deal()).thenAnswer(new Answer<Card>() {
             private List<Card> cards = List.of(
-                    new Spade("2 de Picas", "2", 2, 1),
-                    new Club("5 de Trebol", "5", 5, 1),
-                    new Heart("2 de Corazones", "2", 2, 1),
-                    new Spade("12 de Picas", "12", 12, 1),
-                    new Spade("11 de Picas", "11", 11, 1),
-                    new Heart("8 de Corazones", "8", 8, 1),
-                    new Spade("4 de Picas", "4", 4, 1),
-                    new Club("10 de Trebol", "10", 10, 1),
-                    new Club("9 de Trebol", "9", 9, 1)
+                    new Spade("2", new Score(2), new Score(1)),
+                    new Club("5", new Score(5), new Score(1)),
+                    new Heart("2", new Score(2), new Score(1)),
+                    new Spade("Rey", new Score(10), new Score(1)),
+                    new Spade("Reina", new Score(10), new Score(1)),
+                    new Heart("8", new Score(8), new Score(1)),
+                    new Spade("4", new Score(4), new Score(1)),
+                    new Club("10", new Score(10), new Score(1)),
+                    new Club("9", new Score(9), new Score(1))
             );
             private int index = 0;
 
@@ -48,17 +47,18 @@ public class ReaderTest {
         });
     }
 
-
-
     @Test
-    public void shouldLoadEnglishCardsFromJsonFile() throws FileNotFoundException {
+    public void test01ShouldLoadEnglishCardsFromJsonFileCorrectly() throws FileNotFoundException {
+        // Arrange
         String playerName = "ExampleName";
         englishDeckMock.fillDeck();
         Player player = new Player(playerName, englishDeckMock);
         player.completeDeck();
         player.selectCard(1);
-        Score score = player.play();
-        Score expectedScore = new Score(10,1);
-        assertEquals(score,expectedScore);
+        Score expectedScore = new Score(10);
+        // Act
+        Score obtainedScore = player.play();
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
     }
 }

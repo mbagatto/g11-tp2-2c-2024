@@ -1,16 +1,16 @@
-package model;
+package model.decks;
 
 import model.cards.*;
-import model.exceptions.CouldNotReadException;
 import model.exceptions.EmptyDeckException;
-import model.reader.Reader;
-
+import model.reader.EnglishCardReader;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class EnglishDeck {
     private ArrayList<Card> cards;
-    Reader cardReader;
+    EnglishCardReader cardReader;
+    EnglishCardBuilder cardBuilder;
 
     @Override
     public boolean equals(Object o) {
@@ -19,6 +19,7 @@ public class EnglishDeck {
         EnglishDeck englishDeck = (EnglishDeck) o;
         return cards.size() == englishDeck.cards.size();
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(cards.size());
@@ -26,28 +27,17 @@ public class EnglishDeck {
 
     public EnglishDeck() {
         this.cards = new ArrayList<>();
-        this.cardReader = new Reader();
-    }
-
-    public void generateDeck() {
-        try {
-            this.cards.addAll(this.cardReader.readEnglishCards());
-        } catch (Exception e) {
-            throw new CouldNotReadException();
-        }
+        this.cardReader = new EnglishCardReader();
+        this.cardBuilder = new EnglishCardBuilder();
     }
 
     public void fillDeck(){
-
-        //this.cards.addAll(this.creator.generateEnglishCards());
         try {
-            this.cards.addAll(this.cardReader.readEnglishCards());
-        } catch (Exception e) {
-            throw new CouldNotReadException();
+            this.cards.addAll(this.cardReader.englishCardReader());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
-
-
 
     public Card deal() {
         if (this.cards.isEmpty()) {

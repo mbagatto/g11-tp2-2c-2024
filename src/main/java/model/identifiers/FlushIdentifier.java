@@ -6,25 +6,17 @@ import model.cards.Card;
 
 import java.util.ArrayList;
 
-public class FlushIdentifier implements HandIdentifier {
-    private HandIdentifier next;
-    private SequenceChecker checker;
+public class FlushIdentifier extends SequenceHandIdentifier {
 
     public FlushIdentifier(HandIdentifier next) {
-        this.next = next;
-        this.checker = new SequenceChecker();
+        super(next);
     }
 
     @Override
-    public Hand identify(ArrayList<Card> cards) {
-        if (cards.size() < 5) { return next.identify(cards); }
-        if (isFlush(cards)) {
+    protected Hand identifyHand(ArrayList<Card> cards) {
+        if (checker.isFlush(cards)) {
             return new Flush(cards);
         }
         return next.identify(cards);
-    }
-
-    private boolean isFlush(ArrayList<Card> cards) {
-        return checker.isFlush(cards);
     }
 }

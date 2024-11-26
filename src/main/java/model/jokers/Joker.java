@@ -1,20 +1,48 @@
 package model.jokers;
 
 import model.hands.Hand;
+import model.reader.JokerData;
+import model.score.ScoreModifier;
 import model.score.Score;
 
 public abstract class Joker {
     protected String name;
-    protected Score effect;
+    protected String description;
+    protected ScoreModifier toPoints;
+    protected ScoreModifier toMultiplier;
 
-    public Joker(String name, Score effect) {
-        this.name = name;
-        this.effect = effect;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Joker joker = (Joker) o;
+        return name.equals(joker.name);
     }
 
-    public Joker(String name) {
-        this.name = name;
+    public Joker(Joker joker) {
+        this.name = joker.name;
+        this.description = joker.description;
+        this.toPoints = joker.toPoints;
+        this.toMultiplier = joker.toMultiplier;
     }
 
-    public abstract void applyEffect(Hand hand);
+    public Joker(String name, String description, ScoreModifier toPoints, ScoreModifier toMultiplier) {
+        this.name = name;
+        this.description = description;
+        this.toPoints = toPoints;
+        this.toMultiplier = toMultiplier;
+    }
+
+    public Joker(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public abstract Score applyToPoints(Score points, Hand hand);
+
+    public abstract Score applyToMultiplier(Score multiplier, Hand hand);
+
+    public boolean hasName(String aName) {
+        return name.equals(aName);
+    }
 }
