@@ -1,6 +1,4 @@
-package model.specialCards;
-
-import model.score.Score;
+package model.tarots;
 
 //public interface Modifiable {
 //   void modifyByTarot(Score score);
