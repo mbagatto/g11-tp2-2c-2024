@@ -1,15 +1,16 @@
 package model.decks;
 
 import model.cards.*;
+import model.creators.EnglishCardBuilder;
 import model.exceptions.EmptyDeckException;
-import model.reader.EnglishCardReader;
-import java.io.FileNotFoundException;
+import model.reader.DataReader;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class EnglishDeck {
     private ArrayList<Card> cards;
-    EnglishCardReader cardReader;
+    DataReader cardReader;
     EnglishCardBuilder cardBuilder;
 
     @Override
@@ -27,14 +28,14 @@ public class EnglishDeck {
 
     public EnglishDeck() {
         this.cards = new ArrayList<>();
-        this.cardReader = new EnglishCardReader();
+        this.cardReader = new DataReader();
         this.cardBuilder = new EnglishCardBuilder();
     }
 
     public void fillDeck(){
         try {
-            this.cards.addAll(this.cardReader.englishCardReader());
-        } catch (FileNotFoundException e) {
+            this.cards.addAll(this.cardReader.cardsRead());
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public class BalatroData {
-    //    @JsonProperty("rondas")
+//    @JsonProperty("rondas")
 //    private List<RoundData> rounds;
     @JsonProperty("mazo")
     private List<EnglishCardData> deck;
@@ -18,8 +18,5 @@ public class BalatroData {
     public void setDeck(List<EnglishCardData> deck) {
         this.deck = deck;
     }
-
-
-
 
 }
