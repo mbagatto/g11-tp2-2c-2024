@@ -22,4 +22,19 @@ public class JokerDeck {
         }
         return this.jokers.size();
     }
+
+    public Joker findJokerByName(String name) {
+        Joker joker = null;
+        boolean found = false;
+        int counter = 0;
+        while(!found && counter < this.jokers.size()) {
+            if (jokers.get(counter).hasName(name)) {
+                found = true;
+            } else {
+                counter++;
+            }
+        }
+        joker = this.jokers.get(counter);
+        return joker;
+    }
 }

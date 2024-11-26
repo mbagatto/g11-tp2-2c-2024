@@ -1,5 +1,6 @@
-package model.cards;
+package model.creators;
 
+import model.cards.*;
 import model.score.Score;
 
 public class EnglishCardBuilder {

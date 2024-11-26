@@ -1,66 +1,62 @@
 package model.reader;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import model.cards.Card;
-import model.cards.EnglishCardBuilder;
+import model.creators.EnglishCardBuilder;
 import model.exceptions.CouldNotReadException;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import java.io.FileReader;
+import model.score.Score;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 
-//public class EnglishCardParser implements Parser {
-//    private EnglishCardBuilder creator;
-//
-//    public EnglishCardParser() {
-//        this.creator = new EnglishCardBuilder();
-//    }
-//
-//    public ArrayList<Card> parser(String pathEnglishCard ) {
-//
-//        ArrayList<Card> englishCard = new ArrayList<>();
-//        JSONParser jsonParser = new JSONParser();
-//
-//        try(FileReader fileReader = new FileReader( System.getProperty("user.dir") + pathEnglishCard)){
-//            Object obj = jsonParser.parse(fileReader);
-//            JSONObject jsonObject = (JSONObject) obj;
-//            JSONArray jsonDeck = (JSONArray) jsonObject.get("mazo");
-//
-//            for (Object card : jsonDeck) {
-//                JSONObject jsonCard = (JSONObject) card;
-//                Card toAdd = this.cardGenerator(jsonCard);
-//                englishCard.add(toAdd);
-//            }
-//
-//        }catch (Exception e){
-//            throw new CouldNotReadException();
-//        }
-//
-//        return englishCard;
-//    }
-//
-//    private Card cardGenerator(JSONObject jsonCard) {
-//
-//        String name = (String) jsonCard.get("nombre");
-//        String suit = (String) jsonCard.get("palo");
-//        String number = (String) jsonCard.get("numero");
-//        int value = Math.toIntExact((Long) jsonCard.get("puntos"));
-//        int multiplier = Integer.parseInt((String) jsonCard.get("multiplicador"));
-//
-//        return this.creator.createEnglishCard(suit, name, number, value, multiplier);
-//        if (Objects.equals(suit, "Corazones")) {
-//            return this.creator.createHearCard(name, number, value, multiplier);
-//        }
-//        if (Objects.equals(suit, "Trebol")) {
-//            return this.creator.createClubCard(name, number, value, multiplier);
-//        }
-//        if (Objects.equals(suit, "Picas")) {
-//            return this.creator.createSpadeCard(name, number, value, multiplier);
-//        }
-//        if (Objects.equals(suit, "Diamantes")) {
-//            return this.creator.createDiamondCard(name, number, value, multiplier);
-//        }
-//
-//    }
-//}
+public class EnglishCardParser {
+    private EnglishCardBuilder creator;
+
+    public EnglishCardParser() {
+        this.creator = new EnglishCardBuilder();
+    }
+
+    public ArrayList<Card> read(String pathEnglishCard ) {
+
+        ArrayList<Card> englishCards = new ArrayList<>();
+
+        try{
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            File file = new File(System.getProperty("user.dir") + pathEnglishCard);
+            BalatroData balatroData = objectMapper.readValue(file, BalatroData.class);
+            List<EnglishCardData> cardData = balatroData.getDeck();
+
+            for(EnglishCardData englishCardData : cardData) {
+                englishCards.add(this.cardGenerator(englishCardData));
+            }
+
+        }catch (Exception e){
+            throw new CouldNotReadException();
+        }
+        return englishCards;
+    }
+
+    public Card cardGenerator(EnglishCardData jsonCard) {
+
+        String suit = jsonCard.getSuit();
+        String number = jsonCard.getNumber();
+        Score points =  new Score(jsonCard.getPoints()) ;
+        Score multiplier = new Score(jsonCard.getPoints());
+        Card card = null;
+
+        switch(suit) {
+            case "Trebol":
+                card = this.creator.createClubCard(number,points,multiplier);
+            case "Corazones":
+                card = this.creator.createHeartCard(number,points,multiplier);
+            case "Picas":
+                card = this.creator.createSpadeCard(number,points,multiplier);
+            case "Diamantes":
+                card = this.creator.createDiamondCard(number,points,multiplier);
+        }
+        return card;
+    }
+}

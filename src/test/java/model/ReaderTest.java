@@ -5,6 +5,8 @@ import model.cards.Club;
 import model.cards.Heart;
 import model.cards.Spade;
 import model.decks.EnglishDeck;
+import model.reader.DataReader;
+import model.reader.RoundReader;
 import model.score.Score;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -60,5 +62,16 @@ public class ReaderTest {
         Score obtainedScore = player.play();
         // Assert
         assertEquals(expectedScore, obtainedScore);
+    }
+
+    @Test
+    public void test02RoundsMustBeCreatedCorrectlyFromJSON() {
+        // Arrange
+        DataReader dataReader = new DataReader();
+        int expected = 8;
+        // Act
+        int obtained = dataReader.roundsRead().size();
+        // Assert
+        assertEquals(expected, obtained);
     }
 }
