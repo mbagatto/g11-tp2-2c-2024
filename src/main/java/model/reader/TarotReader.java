@@ -33,7 +33,7 @@ public class TarotReader {
                 String ejemplar = tarotNode.get("ejemplar").asText();
                 Tarot tarotExample = new Tarot(nombre);
                 this.tarots.add(tarotExample);
-                System.out.println(tarotExample.getName());
+                //System.out.println(tarotExample.getName());
                 // Aca se deberia elegir que tipo de objeto Tarot se crea
                 /*
                 Tarot tarot = new Tarot();

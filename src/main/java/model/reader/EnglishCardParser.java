@@ -39,7 +39,7 @@ public class EnglishCardParser {
         return englishCards;
     }
 
-    private Card cardGenerator(EnglishCardData jsonCard) {
+    public Card cardGenerator(EnglishCardData jsonCard) {
 
         String suit = jsonCard.getSuit();
         String number = jsonCard.getNumber();

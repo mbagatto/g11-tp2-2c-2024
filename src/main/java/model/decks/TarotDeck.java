@@ -1,6 +1,7 @@
 package model.decks;
 
 import model.exceptions.CouldNotReadException;
+import model.jokers.Joker;
 import model.reader.TarotReader;
 import model.tarots.Tarot;
 
@@ -22,5 +23,20 @@ public class TarotDeck {
             throw new RuntimeException(e);
         }
         return this.tarots.size();
+    }
+
+    public Tarot findTarotByName(String name) {
+        Tarot tarot = null;
+        boolean found = false;
+        int counter = 0;
+        while(!found && counter < this.tarots.size()) {
+            if (tarots.get(counter).hasName(name)) {
+                found = true;
+            } else {
+                counter++;
+            }
+        }
+        tarot = this.tarots.get(counter);
+        return tarot;
     }
 }

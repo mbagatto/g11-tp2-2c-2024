@@ -13,4 +13,8 @@ public class Tarot {
     public String getName() {
         return this.name;
     }
+
+    public boolean hasName(String aName) {
+        return name.equals(aName);
+    }
 }
