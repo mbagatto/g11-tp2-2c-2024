@@ -1,7 +1,4 @@
-package model.specialCards;
-
-import model.cards.Card;
-import model.score.Score;
+package model.tarots;
 
 //public class TarotForCard extends Tarot {
 //

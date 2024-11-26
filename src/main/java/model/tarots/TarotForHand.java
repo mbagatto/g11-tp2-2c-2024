@@ -1,7 +1,4 @@
-package model.specialCards;
-
-import model.hands.Hand;
-import model.score.Score;
+package model.tarots;
 
 //public class TarotForHand extends Tarot{
 //    private Hand hand;
