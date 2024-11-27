@@ -23,7 +23,7 @@ public class TwoPairIdentifierTest {
         cards.add(new Spade("2", new Score(2), new Score(1)));
         cards.add(new Heart("3", new Score(3), new Score(1)));
         cards.add(new Spade("3", new Score(3), new Score(1)));
-        Hand expectedHand = new TwoPair(cards);
+        Hand expectedHand = TwoPair.getInstance();
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);
         // Assert

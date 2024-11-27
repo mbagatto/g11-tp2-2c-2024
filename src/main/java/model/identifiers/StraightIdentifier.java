@@ -14,7 +14,7 @@ public class StraightIdentifier extends SequenceHandIdentifier {
     @Override
     protected Hand identifyHand(ArrayList<Card> cards) {
         if (checker.isStraight(cards)) {
-            return new Straight(cards);
+            return Straight.getInstance();
         }
         return next.identify(cards);
     }

@@ -20,7 +20,7 @@ public class FourOfAKindIdentifierTest {
         cards.add(new Spade("4", new Score(4), new Score(1)));
         cards.add(new Club("4", new Score(4), new Score(1)));
         cards.add(new Diamond("4", new Score(4), new Score(1)));
-        Hand expectedHand = new FourOfAKind(cards);
+        Hand expectedHand = FourOfAKind.getInstance();
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);
         // Assert

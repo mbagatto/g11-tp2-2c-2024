@@ -21,7 +21,7 @@ public class StraightIdentifierTest {
         cards.add(new Club("5",new Score(5),new Score(1)));
         cards.add(new Diamond("4",new Score(4),new Score(1)));
         cards.add(new Heart("6",new Score(6),new Score(1)));
-        Hand expectedHand = new Straight(cards);
+        Hand expectedHand = Straight.getInstance();
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);
         // Assert

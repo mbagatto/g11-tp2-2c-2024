@@ -14,7 +14,7 @@ public class PairIdentifier extends FrequencyHandIdentifier {
     @Override
     protected Hand identifyHand(ArrayList<Card> cards) {
         if (checker.hasPairs(cards, 1)) {
-            return new Pair(findHandCards(cards, 2));
+            return Pair.getInstance();
         }
         return next.identify(cards);
     }

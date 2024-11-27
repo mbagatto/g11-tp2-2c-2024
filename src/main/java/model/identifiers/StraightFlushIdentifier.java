@@ -14,7 +14,7 @@ public class StraightFlushIdentifier extends SequenceHandIdentifier {
     @Override
     protected Hand identifyHand(ArrayList<Card> cards) {
         if (checker.isStraightFlush(cards)) {
-            return new StraightFlush(cards);
+            return StraightFlush.getInstance();
         }
         return next.identify(cards);
     }

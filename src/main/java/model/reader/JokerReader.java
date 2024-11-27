@@ -11,11 +11,8 @@ import model.score.Add;
 import model.score.DoNotModify;
 import model.score.Multiply;
 import model.score.Score;
-import net.bytebuddy.jar.asm.TypeReference;
-
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class JokerReader implements Reader<Joker> {
@@ -64,16 +61,16 @@ public class JokerReader implements Reader<Joker> {
                         if (entry.getKey().equals("Bonus por Mano Jugada")) {
                             JsonNode activation = joker.getActivation();
                             Hand hand = switch (activation.get("Mano Jugada").asText()) {
-                                case "carta alta" -> new HighCard(new ArrayList<>());
-                                case "par" -> new Pair(new ArrayList<>());
-                                case "doble par" -> new TwoPair(new ArrayList<>());
-                                case "trio" -> new ThreeOfAKind(new ArrayList<>());
-                                case "escalera" -> new Straight(new ArrayList<>());
-                                case "color" -> new Flush(new ArrayList<>());
-                                case "full" -> new FullHouse(new ArrayList<>());
-                                case "poker" -> new FourOfAKind(new ArrayList<>());
-                                case "escalera color" -> new StraightFlush(new ArrayList<>());
-                                case "escalera real" -> new RoyalFlush(new ArrayList<>());
+                                case "carta alta" -> HighCard.getInstance();
+                                case "par" -> Pair.getInstance();
+                                case "doble par" -> TwoPair.getInstance();
+                                case "trio" -> ThreeOfAKind.getInstance();
+                                case "escalera" -> Straight.getInstance();
+                                case "color" -> Flush.getInstance();
+                                case "full" -> FullHouse.getInstance();
+                                case "poker" -> FourOfAKind.getInstance();
+                                case "escalera color" -> StraightFlush.getInstance();
+                                case "escalera real" -> RoyalFlush.getInstance();
                                 default -> null;
                             };
                             if (points == 1) {

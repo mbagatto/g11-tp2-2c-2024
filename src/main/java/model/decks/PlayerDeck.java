@@ -42,7 +42,7 @@ public class PlayerDeck {
             throw new NoSelectedCardsException();
         }
         Hand hand = handIdentifier.identify(this.selectedCards);
-        Score score = hand.calculateScore(jokers);
+        Score score = hand.calculateScore(this.selectedCards, jokers);
         this.reset(selectedCards);
         return score;
     }

@@ -26,7 +26,7 @@ public class FullHouseIdentifierTest {
         cards.add(new Club("4", new Score(4), new Score(1)));
         cards.add(new Heart("10", new Score(10), new Score(1)));
         cards.add(new Spade("10", new Score(10), new Score(1)));
-        Hand expectedHand = new FullHouse(cards);
+        Hand expectedHand = FullHouse.getInstance();
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);
         // Assert

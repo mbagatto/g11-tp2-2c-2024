@@ -18,8 +18,4 @@ public abstract class FrequencyHandIdentifier implements HandIdentifier {
     }
 
     protected abstract Hand identifyHand(ArrayList<Card> cards);
-
-    protected ArrayList<Card> findHandCards(ArrayList<Card> cards, int value) {
-        return checker.findHandCards(cards, value);
-    }
 }
