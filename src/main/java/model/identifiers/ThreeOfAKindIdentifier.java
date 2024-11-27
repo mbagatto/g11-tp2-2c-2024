@@ -14,7 +14,7 @@ public class ThreeOfAKindIdentifier extends FrequencyHandIdentifier {
     @Override
     protected Hand identifyHand(ArrayList<Card> cards) {
         if (checker.hasAppearances(cards, 3)) {
-            return new ThreeOfAKind(findHandCards(cards, 3));
+            return ThreeOfAKind.getInstance();
         }
         return next.identify(cards);
     }

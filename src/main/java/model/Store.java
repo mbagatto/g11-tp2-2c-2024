@@ -2,7 +2,7 @@ package model;
 
 import model.cards.Card;
 import model.jokers.Joker;
-import model.tarots.Tarot;
+
 import java.util.List;
 
 public class Store {

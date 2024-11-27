@@ -22,10 +22,8 @@ public class CardSorter {
         return sortedCards;
     }
 
-    public ArrayList<Card> findMax() {
+    public Card findMax() {
         ArrayList<Card> sortedCards = sortCards();
-        ArrayList<Card> maxCard = new ArrayList<>();
-        maxCard.add(sortedCards.getLast());
-        return maxCard;
+        return sortedCards.getLast();
     }
 }

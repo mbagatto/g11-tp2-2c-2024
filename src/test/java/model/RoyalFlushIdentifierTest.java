@@ -22,7 +22,7 @@ public class RoyalFlushIdentifierTest {
         cards.add(new Heart("Reina", new Score(10), new Score(1)));
         cards.add(new Heart("Jota", new Score(10), new Score(1)));
         cards.add(new Heart("As", new Score(10), new Score(1)));
-        Hand expectedHand = new RoyalFlush(cards);
+        Hand expectedHand = RoyalFlush.getInstance();
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);
         // Assert

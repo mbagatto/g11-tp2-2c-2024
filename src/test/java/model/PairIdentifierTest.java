@@ -20,7 +20,7 @@ public class PairIdentifierTest {
         ArrayList<Card> cards = new ArrayList<>();
         cards.add(new Heart("8", new Score(8),new Score(1)));
         cards.add(new Spade("8", new Score(8),new Score(1)));
-        Hand expectedHand = new Pair(cards);
+        Hand expectedHand = Pair.getInstance();
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);
         // Assert

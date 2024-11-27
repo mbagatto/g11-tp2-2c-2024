@@ -1,9 +1,8 @@
 package model.decks;
 
+import model.Tarot;
 import model.exceptions.CouldNotReadException;
-import model.jokers.Joker;
 import model.reader.TarotReader;
-import model.tarots.Tarot;
 
 import java.util.ArrayList;
 
@@ -18,7 +17,8 @@ public class TarotDeck {
 
     public int fillDeck() {
         try {
-            this.tarots.addAll(this.reader.read());
+            String path = "/cardsInfo/tarots.json";
+            this.tarots.addAll(this.reader.read(path));
         } catch (CouldNotReadException e) {
             throw new RuntimeException(e);
         }

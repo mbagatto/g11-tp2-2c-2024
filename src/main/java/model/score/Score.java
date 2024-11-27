@@ -3,7 +3,7 @@ package model.score;
 import java.util.Objects;
 
 public class Score {
-    private final int value;
+    private final double value;
 
     @Override
     public boolean equals(Object o) {
@@ -18,7 +18,7 @@ public class Score {
         return Objects.hashCode(value);
     }
 
-    public Score(int value) {
+    public Score(double value) {
         this.value = value;
     }
 

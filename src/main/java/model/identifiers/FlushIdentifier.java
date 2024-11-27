@@ -15,7 +15,7 @@ public class FlushIdentifier extends SequenceHandIdentifier {
     @Override
     protected Hand identifyHand(ArrayList<Card> cards) {
         if (checker.isFlush(cards)) {
-            return new Flush(cards);
+            return Flush.getInstance();
         }
         return next.identify(cards);
     }

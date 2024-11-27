@@ -35,28 +35,4 @@ public class TarotData {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public Effect getEfecto() {
-        return this.effect;
-    }
-
-    public void setEffect(Effect effect) {
-        this.effect = effect;
-    }
-
-    public String getAbout() {
-        return this.about;
-    }
-
-    public void setAbout(String about) {
-        this.about = about;
-    }
-
-    public String getExampler() {
-        return this.exampler;
-    }
-
-    public void setExampler(String exampler) {
-        this.exampler = exampler;
-    }
 }

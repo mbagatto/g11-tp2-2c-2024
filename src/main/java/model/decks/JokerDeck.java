@@ -16,7 +16,8 @@ public class JokerDeck {
 
     public int fillDeck() {
         try {
-           this.jokers.addAll(this.reader.read());
+            String path = "/cardsInfo/comodines.json";
+            this.jokers.addAll(this.reader.read(path));
         } catch (CouldNotReadException e) {
             throw new RuntimeException(e);
         }

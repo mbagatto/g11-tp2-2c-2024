@@ -14,7 +14,7 @@ public class RoyalFlushIdentifier extends SequenceHandIdentifier {
     @Override
     protected Hand identifyHand(ArrayList<Card> cards) {
         if (checker.isRoyalFlush(cards)) {
-            return new RoyalFlush(cards);
+            return RoyalFlush.getInstance();
         }
         return next.identify(cards);
     }

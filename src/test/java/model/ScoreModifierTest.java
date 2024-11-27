@@ -31,13 +31,25 @@ public class ScoreModifierTest {
     }
 
     @Test
-    public void test02DoNotModifyScoreModifierShouldNotModifyOtherScore() {
+    public void test03DoNotModifyScoreModifierShouldNotModifyOtherScore() {
         // Arrange
         ScoreModifier doNotModifier = new DoNotModify();
         Score toModifyScore = new Score(5);
         Score expectedScore = new Score(5);
         // Act
         Score obtainedScore = doNotModifier.modify(toModifyScore);
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
+    }
+
+    @Test
+    public void test03ChangeScoreModifierShouldChangeOtherScoreCorrectly() {
+        // Arrange
+        ScoreModifier changeModifier = new Change(new Score(10));
+        Score toModifyScore = new Score(5);
+        Score expectedScore = new Score(10);
+        // Act
+        Score obtainedScore = changeModifier.modify(toModifyScore);
         // Assert
         assertEquals(expectedScore, obtainedScore);
     }

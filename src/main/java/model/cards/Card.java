@@ -1,12 +1,14 @@
 package model.cards;
 
 import model.score.Score;
+import model.score.ScoreModifier;
+import model.Modifiable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public abstract class Card {
+public abstract class Card implements Modifiable {
     protected String number;
     protected Score points;
     protected Score multiplier;
@@ -31,6 +33,10 @@ public abstract class Card {
         this.multiplier = multiplier;
     }
 
+    public Score calculateScore() {
+        return this.points.multiplyWith(this.multiplier);
+    }
+
     public boolean isNumber(String key) {
         return number.equals(key);
     }
@@ -53,12 +59,13 @@ public abstract class Card {
         return this.suit.equals(card.suit);
     }
 
-    public Score addValueTo(Score score) {
-        return score.addWith(this.points);
-    }
-
     public String toString() {
         return this.number + " of " + this.suit;
+    }
+
+    public void applyTarot(ScoreModifier toPoints, ScoreModifier toMultiplier) {
+        this.points = toPoints.modify(this.points);
+        this.multiplier = toMultiplier.modify(this.multiplier);
     }
 
     private ArrayList<String> generateOrder() {

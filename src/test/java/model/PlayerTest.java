@@ -4,6 +4,7 @@ import model.cards.*;
 import model.decks.EnglishDeck;
 import model.exceptions.EmptyPlayerDeckException;
 import model.exceptions.NoSelectedCardsException;
+import model.hands.*;
 import model.jokers.DiscardBonus;
 import model.jokers.Joker;
 import model.score.Add;
@@ -15,6 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+
+import java.lang.reflect.Field;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,7 +27,7 @@ public class PlayerTest {
     private EnglishDeck englishDeckMock;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws NoSuchFieldException, IllegalAccessException {
         englishDeckMock = Mockito.mock(EnglishDeck.class);
         when(englishDeckMock.deal()).thenAnswer(new Answer<Card>() {
             private List<Card> cards = List.of(
@@ -48,6 +51,12 @@ public class PlayerTest {
                 return null;
             }
         });
+        Field instance = HighCard.class.getDeclaredField("instance");
+        instance.setAccessible(true);
+        instance.set(null, null);
+        instance = Pair.class.getDeclaredField("instance");
+        instance.setAccessible(true);
+        instance.set(null, null);
     }
 
     @Test

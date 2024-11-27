@@ -41,16 +41,8 @@ public class JokerData {
         return activation;
     }
 
-    public void setActivation(JsonNode activation) {
-        this.activation = activation;
-    }
-
     public Effect getEffect() {
         return effect;
-    }
-
-    public void setEffect(Effect effect) {
-        this.effect = effect;
     }
 
     public List<JokerData> getJokers() {
