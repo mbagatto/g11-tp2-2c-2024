@@ -10,8 +10,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -29,6 +32,9 @@ public class Interface extends Application {
         this.controller = new Controller(this);
         Interface view = new Interface();
         view.setController(this.controller);
+
+        //Font customFont = Font.loadFont(getClass().getResourceAsStream("./src/main/resources/fonts/m6x11plus.ttf"), 16);
+
 
         Image balatroLogo = new Image("file:src/resources/textures/balatro.png");
         ImageView logoImageView = new ImageView(balatroLogo);
@@ -52,6 +58,7 @@ public class Interface extends Application {
         nameField.prefWidthProperty().bind(stage.widthProperty().multiply(0.4));
 
         Button startButton = new Button("Ingresar");
+        //startButton.setFont(customFont);
 
         Image img = new Image("file:src/resources/textures/cards_2.png");
         ImageView imageView = new ImageView(img);
@@ -103,8 +110,6 @@ public class Interface extends Application {
         ImageView logoImageView = new ImageView(balatroLogo);
         logoImageView.setFitWidth(1000);
         logoImageView.setFitHeight(650);
-
-        VBox menuContainer = new VBox(20);
 
         HBox buttonFrame = new HBox(12);
         buttonFrame.setAlignment(Pos.CENTER);
@@ -179,6 +184,7 @@ public class Interface extends Application {
 
         playButton.setOnAction(e -> {
             this.controller.handleButtonClick();
+            this.controller.handlePlayAction();
         });
 
         optionButton.setOnAction(e -> {
@@ -200,5 +206,34 @@ public class Interface extends Application {
         stage.setTitle("Menu Principal");
         stage.setScene(menuScene);
 
+    }
+
+    public void showGameScene() {
+
+        Image staticBackground = new Image("file:src/resources/textures/static_game_background.png");
+        ImageView backgroundView = new ImageView(staticBackground);
+        backgroundView.setFitWidth(1920);
+        backgroundView.setFitHeight(1080);
+
+        StackPane backgroundContainer = new StackPane();
+        backgroundContainer.getChildren().add(backgroundView);
+
+        Pane root = new Pane();
+
+        Rectangle rectangle = new Rectangle();
+        rectangle.setX(50);
+        rectangle.setY(0);
+        rectangle.setWidth(400);
+        rectangle.setHeight(1080);
+        rectangle.setFill(Color.web("#10191D"));
+        root.getChildren().add(rectangle);
+
+        backgroundContainer.getChildren().add(root);
+
+        Scene gameScene = new Scene(backgroundContainer, 1920, 1080);
+
+        stage.setMaximized(true);
+        stage.setTitle("Partida");
+        stage.setScene(gameScene);
     }
 }

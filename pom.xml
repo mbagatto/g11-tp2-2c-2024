@@ -82,11 +82,6 @@
 
     <build>
 
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
 
         <plugins>
             <plugin>
@@ -126,6 +121,15 @@
             </plugin>
 
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory> <!-- Asegura que Maven reconozca la carpeta de recursos -->
+                <includes>
+                    <include>**/*.ogg</include> <!-- Especifica que se copien los archivos .ogg -->
+                </includes>
+            </resource>
+        </resources>
     </build>
 
 </project>

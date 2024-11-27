@@ -10,7 +10,6 @@ public class Controller {
 
     private Interface view;
     private SoundPlayer soundPlayer;
-    private final String buttonSoundPath = "file:src/resources/sounds/button.ogg";
 
     public Controller(Interface view) {
         this.view = view;
@@ -26,7 +25,11 @@ public class Controller {
     }
 
     public void handleButtonClick() {
-        soundPlayer.playSound(buttonSoundPath);
+        soundPlayer.playSound("/resources/sounds/button.ogg");
+    }
+
+    public void handlePlayAction() {
+        view.showGameScene();
     }
 }
 
