@@ -1,5 +1,6 @@
 package model.round;
 
+import model.Tarot;
 import model.cards.Card;
 import model.jokers.Joker;
 

@@ -1,6 +1,7 @@
 package model.round;
 
 import model.Player;
+import model.Tarot;
 import model.jokers.Joker;
 import model.score.Score;
 
@@ -47,4 +48,7 @@ public class Round {
         return this.store.buyJoker(index);
     }
 
+    public Tarot buyTarot(int i) {
+        return this.store.buyTarot(i);
+    }
 }

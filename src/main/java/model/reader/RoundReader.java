@@ -111,7 +111,7 @@ import model.decks.JokerDeck;
 import model.decks.TarotDeck;
 import model.exceptions.CouldNotReadException;
 import model.jokers.Joker;
-import model.tarots.Tarot;
+
 
 import java.io.File;
 import java.util.ArrayList;

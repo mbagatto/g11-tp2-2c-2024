@@ -2,12 +2,14 @@ package model;
 
 import model.cards.*;
 import model.decks.EnglishDeck;
+import model.hands.Hand;
+import model.hands.Pair;
 import model.jokers.Joker;
 import model.reader.DataReader;
 import model.round.Round;
 import model.round.Store;
 import model.score.Score;
-import model.tarots.Tarot;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -154,5 +156,44 @@ public class RoundTest {
         assertTrue(won);
 
     }
+
+//    @Test
+//    public void test03ShouldWinTheFirstRoundWith1HandsPlayedAndJokerPlayed() {
+//        englishDeckMock.fillDeck();
+//        Player player = new Player("Me",englishDeckMock);
+//        player.completeDeck();
+//        ArrayList<Round> rounds = reader.roundsRead();
+//        Round roundOne = rounds.getFirst();
+//
+//        Joker buyJoker = roundOne.buyJoker(1);
+//        player.addJoker(buyJoker);
+//        Tarot buyTarot = roundOne.buyTarot(0);
+//
+//        //Discard 1
+//        player.selectCard(7);
+//        player.selectCard(6);
+//        roundOne.playDiscard(player);
+//
+//        //Discard 1
+//        player.selectCard(7);
+//        player.selectCard(6);
+//        roundOne.playDiscard(player);
+//
+//        //1
+//        player.selectCard(0);
+//        player.selectCard(5);
+//
+//        //apply tarot
+//        Hand pair = Pair.getInstance();
+//        buyTarot.setTarget(pair);
+//        buyTarot.apply();
+//
+//        roundOne.playHand(player);
+//
+//        boolean won = roundOne.wonRound();
+//
+//        assertTrue(won);
+//
+//    }
 
 }
