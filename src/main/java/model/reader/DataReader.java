@@ -1,6 +1,6 @@
 package model.reader;
 
-import model.Round;
+import model.round.Round;
 import model.cards.Card;
 
 import java.util.ArrayList;

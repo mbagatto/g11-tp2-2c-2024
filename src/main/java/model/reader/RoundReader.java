@@ -101,15 +101,13 @@ package model.reader;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.Round;
-import model.Store;
+import model.round.Round;
+import model.round.Store;
 import model.cards.Card;
-import model.creators.EnglishCardBuilder;
 import model.decks.JokerDeck;
 import model.decks.TarotDeck;
 import model.exceptions.CouldNotReadException;
 import model.jokers.Joker;
-import model.score.Score;
 import model.tarots.Tarot;
 
 import java.io.File;
