@@ -2,58 +2,80 @@ package model;
 
 import model.cards.Card;
 import model.cards.Heart;
-
+import model.cards.Spade;
+import model.hands.Hand;
 import model.hands.HighCard;
+import model.hands.Pair;
+import model.score.Add;
+import model.score.DoNotModify;
 import model.score.Score;
+import model.score.Change;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//public class TarotTest {
-//
-//    @Test
-//    public void test01ATarotChangesCardMultiplierToSixCorrectly() {
-//        // Arrange
-//        Tarot tarot = new TarotForCard("La Emperatriz",new Score(1,4));
-//        Card card = new Heart("5 de Corazones", "5", 5, 1);
-//
-//        PlayerDeck Player1Deck = new PlayerDeck();
-//        Player1Deck.addCard(card);
-//        Player1Deck.selectCard(0);
-//
-//
-//
-//        Score expectedScore = new Score(10, 5);
-//        // Act
-//        Player1Deck.applyEffectToCard(tarot,0);
-//        Score obtainedScore =Player1Deck.playSelectedCards(new ArrayList<>());
-//        // Assert
-//        assertEquals(expectedScore, obtainedScore);
-//    }
-//
-//    @Test
-//    public void test02ATarotChangesHandPointsToTenCorrectly() {
-//        // Arrange
-//
-//        ArrayList<Card> cards = new ArrayList<>();
-//        Tarot tarot = new TarotForHand("El tonto",new Score(10,2), new HighCard(cards) );
-//        Card card = new Heart("5 de Corazones", "5", 5, 1);
-//
-//
-//        PlayerDeck Player1Deck = new PlayerDeck();
-//        Player1Deck.addCard(card);
-//        Player1Deck.applyEffectToHand(tarot);
-//        Player1Deck.selectCard(0);
-//
-//
-//
-//        Score expectedScore = new Score(20, 3);
-//        // Act
-//
-//        Score obtainedScore =Player1Deck.playSelectedCards(new ArrayList<>());
-//        // Assert
-//        assertEquals(expectedScore, obtainedScore);
-//    }
-// }
+public class TarotTest {
+
+    @Test
+    public void test01TheFoolTarotChangesHighCardScoreCorrectly() {
+        // Arrange
+        ArrayList<Card> cards = new ArrayList<>();
+        cards.add(new Spade("10", new Score(10), new Score(1)));
+        Hand highCard = HighCard.getInstance();
+        Tarot tarot = new Tarot("The Fool", "", new Add(new Score(10)), new Add(new Score(2)));
+        tarot.setTarget(highCard);
+        tarot.apply();
+        Score expectedScore = new Score(75);
+        // Act
+        Score obtainedScore = highCard.calculateScore(cards, new ArrayList<>());
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
+    }
+
+    @Test
+    public void test02TheMagicianTarotChangesPairScoreCorrectly() {
+        // Arrange
+        ArrayList<Card> cards = new ArrayList<>();
+        cards.add(new Spade("10", new Score(10), new Score(1)));
+        cards.add(new Heart("10", new Score(10), new Score(1)));
+        Hand pair = Pair.getInstance();
+        Tarot tarot = new Tarot("The Magician", "", new Add(new Score(15)), new Add(new Score(2)));
+        tarot.setTarget(pair);
+        tarot.apply();
+        Score expectedScore = new Score(180);
+        // Act
+        Score obtainedScore = pair.calculateScore(cards, new ArrayList<>());
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
+    }
+
+    @Test
+    public void test03TheEmpressTarotChangesCardMultiplierCorrectly() {
+        // Arrange
+        Card card = new Spade("10", new Score(10), new Score(1));
+        Tarot tarot = new Tarot("The Empress", "", new DoNotModify(), new Change(new Score(4)));
+        tarot.setTarget(card);
+        tarot.apply();
+        Score expectedScore = new Score(40);
+        // Act
+        Score obtainedScore = card.calculateScore();
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
+    }
+
+    @Test
+    public void test04TheTowerTarotChangesCardPointsCorrectly() {
+        // Arrange
+        Card card = new Spade("5", new Score(5), new Score(1));
+        Tarot tarot = new Tarot("The Tower", "", new Change(new Score(50)), new DoNotModify());
+        tarot.setTarget(card);
+        tarot.apply();
+        Score expectedScore = new Score(50);
+        // Act
+        Score obtainedScore = card.calculateScore();
+        // Assert
+        assertEquals(expectedScore, obtainedScore);
+    }
+}

@@ -15,7 +15,7 @@ public class FullHouseIdentifier extends FrequencyHandIdentifier {
     @Override
     protected Hand identifyHand(ArrayList<Card> cards) {
         if (checker.hasAppearances(cards, 3) && checker.hasPairs(cards, 1)) {
-            return new FullHouse(cards);
+            return FullHouse.getInstance();
         }
         return next.identify(cards);
     }

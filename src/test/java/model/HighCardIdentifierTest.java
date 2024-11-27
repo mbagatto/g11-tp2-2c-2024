@@ -18,7 +18,7 @@ public class HighCardIdentifierTest {
         HandIdentifier handIdentifier = new HighCardIdentifier();
         ArrayList<Card> cards = new ArrayList<>();
         cards.add(new Heart("8", new Score(8), new Score(1)));
-        Hand expectedHand = new HighCard(cards);
+        Hand expectedHand = HighCard.getInstance();
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);
         // Assert

@@ -44,7 +44,7 @@ public class EnglishCardParser {
         String suit = jsonCard.getSuit();
         String number = jsonCard.getNumber();
         Score points =  new Score(jsonCard.getPoints()) ;
-        Score multiplier = new Score(jsonCard.getPoints());
+        Score multiplier = new Score(jsonCard.getMultiplier());
         Card card = null;
 
         switch(suit) {

@@ -22,7 +22,7 @@ public class StraightFlushIdentifierTest {
         cards.add(new Heart("5", new Score(5), new Score(1)));
         cards.add(new Heart("4", new Score(4), new Score(1)));
         cards.add(new Heart("6", new Score(6), new Score(1)));
-        Hand expectedHand = new StraightFlush(cards);
+        Hand expectedHand = StraightFlush.getInstance();
         // Act
         Hand obtainedHand = handIdentifier.identify(cards);
         // Assert

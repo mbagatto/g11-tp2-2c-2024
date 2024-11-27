@@ -52,7 +52,7 @@ public class CardSorterTest {
         CardSorter cardSorter = new CardSorter(cards);
         Card expectedCard = new Heart("Rey", new Score(10), new Score(1));
         // Act
-        Card obtainedCard = cardSorter.findMax().getFirst();
+        Card obtainedCard = cardSorter.findMax();
         // Assert
         assertEquals(expectedCard, obtainedCard);
     }

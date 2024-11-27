@@ -101,6 +101,9 @@ package model.reader;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+//import model.Round;
+//import model.Store;
+import model.Tarot;
 import model.round.Round;
 import model.round.Store;
 import model.cards.Card;

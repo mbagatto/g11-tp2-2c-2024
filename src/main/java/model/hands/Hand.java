@@ -3,14 +3,15 @@ package model.hands;
 import model.cards.Card;
 import model.jokers.Joker;
 import model.score.Score;
+import model.score.ScoreModifier;
+import model.Modifiable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public abstract class Hand {
+public abstract class Hand implements Modifiable {
     protected String name;
     protected Score points;
     protected Score multiplier;
-    private final ArrayList<Card> cards;
 
     @Override
     public boolean equals(Object o) {
@@ -25,24 +26,26 @@ public abstract class Hand {
         return Objects.hashCode(name);
     }
 
-    public Hand() {
-        this.cards = new ArrayList<>();
-    }
-
-    public Hand(ArrayList<Card> cards) {
-        this.cards = cards;
-    }
-
-    public Score calculateScore(ArrayList<Joker> jokers) {
+    public Score calculateScore(ArrayList<Card> cards, ArrayList<Joker> jokers) {
         Score points = new Score(0).addWith(this.points);
         Score multiplier = new Score(0).addWith(this.multiplier);
-        for (Card card : cards) {
-            points = card.addValueTo(points);
+        ArrayList<Card> handCards = findHandCards(cards);
+        for (Card card : handCards) {
+            points = points.addWith(card.calculateScore());
         }
         for (Joker joker : jokers) {
             points = joker.applyToPoints(points, this);
             multiplier = joker.applyToMultiplier(multiplier, this);
         }
         return points.multiplyWith(multiplier);
+    }
+
+    public void applyTarot(ScoreModifier toPoints, ScoreModifier toMultiplier) {
+        this.points = toPoints.modify(this.points);
+        this.multiplier = toMultiplier.modify(this.multiplier);
+    }
+
+    protected ArrayList<Card> findHandCards(ArrayList<Card> cards) {
+        return cards;
     }
 }

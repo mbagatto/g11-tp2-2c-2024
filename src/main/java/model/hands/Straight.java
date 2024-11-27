@@ -1,14 +1,20 @@
 package model.hands;
 
-import model.cards.Card;
 import model.score.Score;
-import java.util.ArrayList;
 
 public class Straight extends Hand {
-    public Straight(ArrayList<Card> cards) {
-        super(cards);
+    private static Straight instance;
+
+    private Straight() {
         this.name = "Straight";
         this.points = new Score(30);
         this.multiplier = new Score(4);
+    }
+
+    public static Straight getInstance() {
+        if (instance == null) {
+            instance = new Straight();
+        }
+        return instance;
     }
 }
