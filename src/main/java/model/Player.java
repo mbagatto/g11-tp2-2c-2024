@@ -17,6 +17,9 @@ public class Player {
     private ArrayList<Tarot> tarots;
     private int discards;
 
+    public Player(String name) { // Constructor temporal
+        this.name = name;
+    }
 
     public Player(String name, EnglishDeck englishDeck) {
         this.name = name;
@@ -75,5 +78,9 @@ public class Player {
 
     public void useTarot(Tarot tarot) {
         tarot.apply();
+    }
+
+    public String getName() {
+        return this.name;
     }
 }
