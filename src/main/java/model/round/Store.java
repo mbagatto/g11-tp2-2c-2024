@@ -1,5 +1,6 @@
-package model;
+package model.round;
 
+import model.Tarot;
 import model.cards.Card;
 import model.jokers.Joker;
 
@@ -18,4 +19,13 @@ public class Store {
         this.tarots = tarots;
         this.card = card;
     }
+
+    public Joker buyJoker(int index) {
+        return jokers.get(index);
+    }
+
+    public Tarot buyTarot(int index) {
+        return tarots.get(index);
+    }
+
 }

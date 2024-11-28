@@ -29,4 +29,8 @@ public class Score {
     public Score multiplyWith(Score otherScore) {
         return new Score(this.value * otherScore.value);
     }
+
+    public boolean isGreaterThanOrEqualTo(Score otherScore) {
+        return this.value >= otherScore.value;
+    }
 }

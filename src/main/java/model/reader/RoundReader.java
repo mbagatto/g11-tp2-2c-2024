@@ -101,14 +101,17 @@ package model.reader;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.Round;
-import model.Store;
+//import model.Round;
+//import model.Store;
 import model.Tarot;
+import model.round.Round;
+import model.round.Store;
 import model.cards.Card;
 import model.decks.JokerDeck;
 import model.decks.TarotDeck;
 import model.exceptions.CouldNotReadException;
 import model.jokers.Joker;
+
 
 import java.io.File;
 import java.util.ArrayList;
@@ -166,6 +169,7 @@ public class RoundReader {
                 realJokers.add(actualJoker);
             }
         }
+
         ArrayList<Tarot> realTarots = new ArrayList<>();
         TarotDeck tarotDeck = new TarotDeck();
         tarotDeck.fillDeck();
