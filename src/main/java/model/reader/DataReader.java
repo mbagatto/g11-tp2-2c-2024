@@ -5,10 +5,10 @@ import model.round.Round;
 import model.Tarot;
 import model.cards.Card;
 import model.jokers.Joker;
-
 import java.util.ArrayList;
 
 public class DataReader {
+
     private final String JSON_BALATRO = "/cardsInfo/balatro.json";
     private final String JSON_TAROTS = "/cardsInfo/tarots.json";
     private final String JSON_JOKERS = "/cardsInfo/comodines.json";

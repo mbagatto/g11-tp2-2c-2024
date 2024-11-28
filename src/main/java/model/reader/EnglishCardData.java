@@ -56,6 +56,4 @@ public class EnglishCardData {
         this.multiplier = multiplier;
     }
 
-
-
 }
