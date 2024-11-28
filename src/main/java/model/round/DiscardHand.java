@@ -11,7 +11,7 @@ public class DiscardHand implements Turn {
 
     public Score playTurn(Player player){
         player.discard();
-        return null;
+        return new Score(0);
     }
 
 }

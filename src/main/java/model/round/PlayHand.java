@@ -9,11 +9,7 @@ public class PlayHand implements Turn {
 
     public Score playTurn(Player player){
 
-        Score score = player.play();
+        return player.play();
 
-        return score;
     }
-
-
-
 }

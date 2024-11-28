@@ -2,7 +2,7 @@ package model.round;
 
 import java.util.Stack;
 
-public class TurnGenarator {
+public class TurnGenerator {
 
     public Stack<PlayHand> GeneratePlayHands(int numbersOfTurns){
         Stack<PlayHand> turns = new Stack<>();

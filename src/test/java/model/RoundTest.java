@@ -2,12 +2,9 @@ package model;
 
 import model.cards.*;
 import model.decks.EnglishDeck;
-import model.hands.Hand;
-import model.hands.Pair;
 import model.jokers.Joker;
 import model.reader.DataReader;
 import model.round.Round;
-import model.round.Store;
 import model.score.Score;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -111,7 +108,7 @@ public class RoundTest {
         //Discard 1
         player.selectCard(7);
         player.selectCard(6);
-        roundOne.playDiscard(player);
+        roundOne.discardHand(player);
 
         //3
         player.selectCard(0);
@@ -141,7 +138,7 @@ public class RoundTest {
         //Discard 1
         player.selectCard(7);
         player.selectCard(6);
-        roundOne.playDiscard(player);
+        roundOne.discardHand(player);
 
         //1
         player.selectCard(0);
