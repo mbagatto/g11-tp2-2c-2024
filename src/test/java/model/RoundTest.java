@@ -2,17 +2,21 @@ package model;
 
 import model.cards.*;
 import model.decks.EnglishDeck;
+import model.hands.Hand;
+import model.hands.Pair;
 import model.jokers.Joker;
 import model.reader.DataReader;
 import model.round.Round;
 import model.score.Score;
 
+import model.tarots.Tarot;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +28,7 @@ public class RoundTest {
     private EnglishDeck englishDeckMock;
     private DataReader reader;
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws NoSuchFieldException, IllegalAccessException {
         reader = new DataReader();
         englishDeckMock = Mockito.mock(EnglishDeck.class);
         when(englishDeckMock.deal()).thenAnswer(new Answer<Card>() {
@@ -78,6 +82,9 @@ public class RoundTest {
                 return null;
             }
         });
+        Field instance = Pair.class.getDeclaredField("instance");
+        instance.setAccessible(true);
+        instance.set(null, null);
     }
 
     @Test
@@ -87,7 +94,6 @@ public class RoundTest {
         player.completeDeck();
         ArrayList<Round> rounds = reader.roundsRead();
         Round roundOne = rounds.getFirst();
-        Score expectedScore = new Score(28);
 
         //1
         player.selectCard(0);
@@ -154,43 +160,43 @@ public class RoundTest {
 
     }
 
-//    @Test
-//    public void test03ShouldWinTheFirstRoundWith1HandsPlayedAndJokerPlayed() {
-//        englishDeckMock.fillDeck();
-//        Player player = new Player("Me",englishDeckMock);
-//        player.completeDeck();
-//        ArrayList<Round> rounds = reader.roundsRead();
-//        Round roundOne = rounds.getFirst();
-//
-//        Joker buyJoker = roundOne.buyJoker(1);
-//        player.addJoker(buyJoker);
-//        Tarot buyTarot = roundOne.buyTarot(0);
-//
-//        //Discard 1
-//        player.selectCard(7);
-//        player.selectCard(6);
-//        roundOne.playDiscard(player);
-//
-//        //Discard 1
-//        player.selectCard(7);
-//        player.selectCard(6);
-//        roundOne.playDiscard(player);
-//
-//        //1
-//        player.selectCard(0);
-//        player.selectCard(5);
-//
-//        //apply tarot
-//        Hand pair = Pair.getInstance();
-//        buyTarot.setTarget(pair);
-//        buyTarot.apply();
-//
-//        roundOne.playHand(player);
-//
-//        boolean won = roundOne.wonRound();
-//
-//        assertTrue(won);
-//
-//    }
+    @Test
+    public void test03ShouldWinTheFirstRoundWith1HandsPlayedAndJokerPlayed() {
+        englishDeckMock.fillDeck();
+        Player player = new Player("Me",englishDeckMock);
+        player.completeDeck();
+        ArrayList<Round> rounds = reader.roundsRead();
+        Round roundOne = rounds.getFirst();
+
+        Joker buyJoker = roundOne.buyJoker(1);
+        player.addJoker(buyJoker);
+        Tarot buyTarot = roundOne.buyTarot(0);
+
+        //Discard 1
+        player.selectCard(7);
+        player.selectCard(6);
+        roundOne.discardHand(player);
+
+        //Discard 1
+        player.selectCard(7);
+        player.selectCard(6);
+        roundOne.discardHand(player);
+
+        //1
+        player.selectCard(0);
+        player.selectCard(5);
+
+        //apply tarot
+        Hand pair = Pair.getInstance();
+        buyTarot.setTarget(pair);
+        buyTarot.apply();
+
+        roundOne.playHand(player);
+
+        boolean won = roundOne.wonRound();
+
+        assertTrue(won);
+
+    }
 
 }

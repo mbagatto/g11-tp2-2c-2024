@@ -7,6 +7,8 @@ import model.exceptions.InvalidJokerException;
 import model.exceptions.InvalidTarotException;
 import model.jokers.Joker;
 import model.score.Score;
+import model.tarots.Tarot;
+
 import java.util.ArrayList;
 
 public class Player {

@@ -1,6 +1,6 @@
 package model.decks;
 
-import model.Tarot;
+import model.tarots.Tarot;
 import model.exceptions.CouldNotReadException;
 import model.reader.TarotReader;
 

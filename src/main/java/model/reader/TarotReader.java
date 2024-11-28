@@ -2,7 +2,7 @@ package model.reader;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.Tarot;
+import model.tarots.Tarot;
 import model.exceptions.CouldNotReadException;
 import model.hands.*;
 import model.score.Add;

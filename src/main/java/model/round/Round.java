@@ -1,7 +1,7 @@
 package model.round;
 
 import model.Player;
-import model.Tarot;
+import model.tarots.Tarot;
 import model.jokers.Joker;
 import model.score.Score;
 

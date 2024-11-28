@@ -1,5 +1,6 @@
-package model;
+package model.tarots;
 
+import model.Modifiable;
 import model.score.ScoreModifier;
 
 public class Tarot {

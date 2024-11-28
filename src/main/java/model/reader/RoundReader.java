@@ -2,7 +2,7 @@ package model.reader;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.Tarot;
+import model.tarots.Tarot;
 import model.round.Round;
 import model.round.Store;
 import model.cards.Card;

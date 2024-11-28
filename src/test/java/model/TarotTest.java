@@ -10,6 +10,7 @@ import model.score.Add;
 import model.score.DoNotModify;
 import model.score.Score;
 import model.score.Change;
+import model.tarots.Tarot;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
