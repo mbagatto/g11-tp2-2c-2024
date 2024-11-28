@@ -4,6 +4,7 @@ import model.cards.*;
 import model.decks.EnglishDeck;
 import model.hands.Hand;
 import model.hands.Pair;
+import model.hands.RoyalFlush;
 import model.jokers.Joker;
 import model.reader.DataReader;
 import model.round.Round;
@@ -83,6 +84,9 @@ public class RoundTest {
             }
         });
         Field instance = Pair.class.getDeclaredField("instance");
+        instance.setAccessible(true);
+        instance.set(null, null);
+        instance = RoyalFlush.class.getDeclaredField("instance");
         instance.setAccessible(true);
         instance.set(null, null);
     }
