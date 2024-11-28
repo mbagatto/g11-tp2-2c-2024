@@ -6,18 +6,33 @@ import model.cards.Spade;
 import model.hands.Hand;
 import model.hands.HighCard;
 import model.hands.Pair;
+import model.hands.RoyalFlush;
 import model.score.Add;
 import model.score.DoNotModify;
 import model.score.Score;
 import model.score.Change;
 import model.tarots.Tarot;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TarotTest {
+    @BeforeEach
+    void setUp() throws NoSuchFieldException, IllegalAccessException {
+        Field instance = HighCard.class.getDeclaredField("instance");
+        instance.setAccessible(true);
+        instance.set(null, null);
+        instance = Pair.class.getDeclaredField("instance");
+        instance.setAccessible(true);
+        instance.set(null, null);
+        instance = RoyalFlush.class.getDeclaredField("instance");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     @Test
     public void test01TheFoolTarotChangesHighCardScoreCorrectly() {
