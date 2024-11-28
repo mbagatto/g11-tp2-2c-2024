@@ -15,9 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
 
 public class Interface extends Application {
 
@@ -32,9 +30,6 @@ public class Interface extends Application {
         this.controller = new Controller(this);
         Interface view = new Interface();
         view.setController(this.controller);
-
-        //Font customFont = Font.loadFont(getClass().getResourceAsStream("./src/main/resources/fonts/m6x11plus.ttf"), 16);
-
 
         Image balatroLogo = new Image("file:src/resources/textures/balatro.png");
         ImageView logoImageView = new ImageView(balatroLogo);
@@ -58,7 +53,6 @@ public class Interface extends Application {
         nameField.prefWidthProperty().bind(stage.widthProperty().multiply(0.4));
 
         Button startButton = new Button("Ingresar");
-        //startButton.setFont(customFont);
 
         Image img = new Image("file:src/resources/textures/cards_2.png");
         ImageView imageView = new ImageView(img);
@@ -98,7 +92,7 @@ public class Interface extends Application {
         this.controller = controller;
     }
 
-    public static void main(String[] args) { // Sin este main no funciona la interfaz
+    public static void main(String[] args) {
         launch(args);
     }
 

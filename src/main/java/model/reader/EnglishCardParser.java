@@ -10,8 +10,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class EnglishCardParser {
+
     private EnglishCardBuilder creator;
 
     public EnglishCardParser() {

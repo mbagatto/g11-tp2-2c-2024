@@ -1,7 +1,6 @@
 package controller;
 
 import javafx.scene.control.Label;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import view.Interface;
 

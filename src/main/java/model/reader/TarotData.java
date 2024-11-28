@@ -1,6 +1,5 @@
 package model.reader;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TarotData {

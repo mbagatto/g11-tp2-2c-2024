@@ -4,8 +4,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-
-
     <groupId>org.apache.maven</groupId>
     <artifactId>g11-tp2-2c-2024</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -124,9 +122,9 @@
 
         <resources>
             <resource>
-                <directory>src/main/resources</directory> <!-- Asegura que Maven reconozca la carpeta de recursos -->
+                <directory>src/main/resources</directory>
                 <includes>
-                    <include>**/*.ogg</include> <!-- Especifica que se copien los archivos .ogg -->
+                    <include>**/*.ogg</include>
                 </includes>
             </resource>
         </resources>

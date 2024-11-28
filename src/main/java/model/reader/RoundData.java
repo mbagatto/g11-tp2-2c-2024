@@ -58,4 +58,5 @@ public class RoundData {
     public void setStore(StoreData store) {
         this.store = store;
     }
+
 }

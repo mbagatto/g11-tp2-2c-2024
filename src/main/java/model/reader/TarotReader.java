@@ -9,7 +9,6 @@ import model.score.Add;
 import model.score.Change;
 import model.score.DoNotModify;
 import model.score.Score;
-
 import java.io.File;
 import java.util.ArrayList;
 

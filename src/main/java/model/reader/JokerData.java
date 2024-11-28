@@ -2,7 +2,6 @@ package model.reader;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-
 import java.util.List;
 
 public class JokerData {
@@ -52,5 +51,6 @@ public class JokerData {
     public void setJokers(List<JokerData> jokers) {
         this.jokers = jokers;
     }
+
 }
 

@@ -1,7 +1,6 @@
 package model.reader;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
 
 public class StoreData {
@@ -38,4 +37,5 @@ public class StoreData {
     public void setEnglishCardData(EnglishCardData card) {
         this.card = card;
     }
+
 }
