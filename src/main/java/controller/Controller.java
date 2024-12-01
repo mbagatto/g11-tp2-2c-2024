@@ -24,7 +24,7 @@ public class Controller {
     }
 
     public void handleButtonClick() {
-        soundPlayer.playSound("/resources/sounds/button.ogg");
+        soundPlayer.playSound("src/resources/sounds/button2.wav");
     }
 
     public void handlePlayAction() {

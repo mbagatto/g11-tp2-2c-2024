@@ -31,6 +31,8 @@ public class Interface extends Application {
         Interface view = new Interface();
         view.setController(this.controller);
 
+        this.showGameScene();
+
         Image balatroLogo = new Image("file:src/resources/textures/balatro.png");
         ImageView logoImageView = new ImageView(balatroLogo);
         logoImageView.setFitWidth(1000);
@@ -174,16 +176,16 @@ public class Interface extends Application {
         StackPane backgroundContainer = new StackPane();
         backgroundContainer.getChildren().add(backgroundView);
 
-        playButton.setOnAction(e -> {
+        playButton.setOnAction(_ -> {
             this.controller.handleButtonClick();
             this.controller.handlePlayAction();
         });
 
-        optionButton.setOnAction(e -> {
+        optionButton.setOnAction(_ -> {
             this.controller.handleButtonClick();
         });
 
-        quitButton.setOnAction(e -> {
+        quitButton.setOnAction(_ -> {
             this.controller.handleButtonClick();
         });
 
@@ -210,7 +212,7 @@ public class Interface extends Application {
         StackPane backgroundContainer = new StackPane();
         backgroundContainer.getChildren().add(backgroundView);
 
-        Pane root = new Pane();
+        Pane itemsContainer = new Pane();
 
         Rectangle rectangle = new Rectangle();
         rectangle.setX(50);
@@ -218,9 +220,89 @@ public class Interface extends Application {
         rectangle.setWidth(400);
         rectangle.setHeight(1080);
         rectangle.setFill(Color.web("#10191D"));
-        root.getChildren().add(rectangle);
+        rectangle.setStroke(Color.web("#004A7B"));
+        rectangle.setStrokeWidth(3);
 
-        backgroundContainer.getChildren().add(root);
+        HBox roundTitleFrame = new HBox(10);
+        roundTitleFrame.setAlignment(Pos.CENTER);
+        roundTitleFrame.setStyle(
+                "-fx-background-color: #004A7B; " +
+                        "-fx-background-radius: 25px; " +
+                        "-fx-padding: 14px; " +
+                        "-fx-border-color: #004A7B; " +
+                        "-fx-border-radius: 25px; " +
+                        "-fx-border-width: 1px;"
+        );
+        roundTitleFrame.setLayoutX(60);
+        roundTitleFrame.setLayoutY(20);
+        roundTitleFrame.setPrefHeight(8);
+        roundTitleFrame.setPrefWidth(380);
+
+        Label roundLabel = new Label("Ronda 1"); // Deberia ir el numero de ronda actual
+        roundLabel.setStyle("-fx-font-size: 50px; -fx-text-fill: white; -fx-font-weight: 900;");
+
+        roundTitleFrame.getChildren().add(roundLabel);
+
+        Pane roundInfo = new Pane();
+        roundInfo.setLayoutX(60);
+        roundInfo.setLayoutY(135);
+        roundInfo.setPrefHeight(300);
+        roundInfo.setPrefWidth(380);
+        roundInfo.setStyle(
+                "-fx-background-color: #0B2F47; " +
+                        "-fx-background-radius: 25px; " +
+                        "-fx-border-color: #0B2F47; " +
+                        "-fx-border-width: 1px; " +
+                        "-fx-border-radius: 25px;"
+        );
+
+        Image whiteCoin = new Image("file:src/resources/textures/white_coin.png");
+        ImageView whiteCoinView = new ImageView(whiteCoin);
+        whiteCoinView.setFitWidth(130);
+        whiteCoinView.setFitHeight(130);
+        whiteCoinView.setLayoutX(15);
+        whiteCoinView.setLayoutY(75);
+
+        Pane roundScore = new Pane();
+        roundScore.setLayoutX(165);
+        roundScore.setLayoutY(75);
+        roundScore.setPrefHeight(130);
+        roundScore.setPrefWidth(200);
+        roundScore.setStyle(
+                "-fx-background-color: #161D1E; " +
+                        "-fx-background-radius: 25px; " +
+                        "-fx-border-color: #161D1E; " +
+                        "-fx-border-width: 1px; " +
+                        "-fx-border-radius: 25px;"
+        );
+
+        Label scoreInstructionLabel = new Label("Anota al menos");
+        scoreInstructionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;");
+
+        Image chipsImage = new Image("file:src/resources/textures/chips.png");
+        double x = 60;
+        double y = 0;
+        double width = 55;
+        double height = 55;
+        ImageView chipImageView = new ImageView(chipsImage);
+        chipImageView.setViewport(new javafx.geometry.Rectangle2D(x, y, width, height));
+        chipImageView.setFitWidth(30);
+        chipImageView.setFitHeight(30);
+
+        VBox scoreInstructionBox = new VBox(30);
+        scoreInstructionBox.setAlignment(Pos.CENTER);
+        scoreInstructionBox.getChildren().addAll(scoreInstructionLabel, chipImageView);
+        scoreInstructionBox.setLayoutX(0);
+        scoreInstructionBox.setLayoutY(10);
+        scoreInstructionBox.setPrefWidth(roundScore.getPrefWidth());
+
+        roundScore.getChildren().addAll(scoreInstructionBox);
+
+        roundInfo.getChildren().addAll(whiteCoinView, roundScore);
+
+        itemsContainer.getChildren().addAll(rectangle, roundTitleFrame, roundInfo);
+
+        backgroundContainer.getChildren().add(itemsContainer);
 
         Scene gameScene = new Scene(backgroundContainer, 1920, 1080);
 
