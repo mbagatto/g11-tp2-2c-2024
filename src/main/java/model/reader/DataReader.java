@@ -1,6 +1,6 @@
 package model.reader;
 
-import model.round.Round;
+import model.game.Round;
 //import model.Round;
 import model.tarots.Tarot;
 import model.cards.Card;

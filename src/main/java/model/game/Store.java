@@ -1,4 +1,4 @@
-package model.round;
+package model.game;
 
 import model.tarots.Tarot;
 import model.cards.Card;

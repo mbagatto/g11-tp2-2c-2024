@@ -1,10 +1,7 @@
-package model.round;
+package model.game;
 
 import model.Player;
-import model.hands.Hand;
 import model.score.Score;
-
-import java.util.Stack;
 
 public class DiscardHand implements Turn {
 

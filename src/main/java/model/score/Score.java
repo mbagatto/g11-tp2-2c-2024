@@ -33,4 +33,8 @@ public class Score {
     public boolean isGreaterThanOrEqualTo(Score otherScore) {
         return this.value >= otherScore.value;
     }
+
+    public int numericValue() {
+        return (int) this.value;
+    }
 }

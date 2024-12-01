@@ -1,8 +1,15 @@
 package controller;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import model.Player;
+import model.game.Game;
+import model.game.Round;
+import model.reader.RoundReader;
 import view.Interface;
+
+import java.util.ArrayList;
 
 
 public class Controller {
@@ -15,9 +22,9 @@ public class Controller {
         this.soundPlayer = new SoundPlayer();
     }
 
-    public void handleNameButtonAction(String name, Stage stage, Label errorLabel) {
+    public void handleNameButtonAction(String name, Label errorLabel) {
         if (name != null && !name.trim().isEmpty()) {
-            view.showMenuScene();
+            view.showMenuScene(name);
         } else {
             errorLabel.setVisible(true);
         }
@@ -27,8 +34,15 @@ public class Controller {
         soundPlayer.playSound("/resources/sounds/button.ogg");
     }
 
-    public void handlePlayAction() {
-        view.showGameScene();
+    public void handlePlayAction(String playerName) {
+        Player player = new Player(playerName);
+        Game game = new Game(player);
+        view.showRoundMenuScene(game);
+    }
+
+    public void handleQuitAction(Scene scene) {
+        Stage stage = (Stage) scene.getWindow();
+        stage.close();
     }
 }
 

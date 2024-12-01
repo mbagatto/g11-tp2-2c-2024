@@ -1,4 +1,4 @@
-package model.round;
+package model.game;
 
 import model.Player;
 import model.tarots.Tarot;
@@ -9,24 +9,24 @@ import java.util.Stack;
 
 public class Round {
     private int number;
-    private int hands;
-    private int discards;
+    private Score hands;
+    private Score discards;
     private final Score scoreToBeat;
     private Store store;
     private Stack<PlayHand> playHands;
     private Stack<DiscardHand> discardHands;
-    private TurnGenerator turnGenarator;
+    private TurnGenerator turnGenerator;
     private Score actualScore;
 
-    public Round(int number, int hands, int discards, int scoreToBeat, Store store) {
+    public Round(int number, Score hands, Score discards, Score scoreToBeat, Store store) {
         this.number = number;
         this.hands = hands;
         this.discards = discards;
-        this.scoreToBeat = new Score(scoreToBeat);
+        this.scoreToBeat = scoreToBeat;
         this.store = store;
-        this.turnGenarator = new TurnGenerator();
-        this.playHands = turnGenarator.GeneratePlayHands(hands);
-        this.discardHands = turnGenarator.GenerateDiscardHands(discards);
+        this.turnGenerator = new TurnGenerator();
+        this.playHands = turnGenerator.generatePlayHands(hands);
+        this.discardHands = turnGenerator.generateDiscardHands(discards);
         this.actualScore = new Score(0);
     }
 
@@ -38,10 +38,9 @@ public class Round {
     public void discardHand(Player player) {
         DiscardHand discardHand = this.discardHands.pop();
         this.actualScore = this.actualScore.addWith(discardHand.playTurn(player));
-
     }
 
-    public boolean  wonRound(){
+    public boolean wonRound(){
         return (this.actualScore.isGreaterThanOrEqualTo(this.scoreToBeat)) ;
     }
 
@@ -51,5 +50,21 @@ public class Round {
 
     public Tarot buyTarot(int i) {
         return this.store.buyTarot(i);
+    }
+
+    public String getNumber() {
+        return this.number + "";
+    }
+
+    public String getHands() {
+        return this.hands.numericValue() + "";
+    }
+
+    public String getDiscards() {
+        return this.discards.numericValue() + "";
+    }
+
+    public String getScoreToBeat() {
+        return this.scoreToBeat.numericValue() + "";
     }
 }
