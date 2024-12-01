@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -103,8 +104,6 @@ public class Interface extends Application {
 
     public void showMenuScene() {
 
-        //Font customFont = Font.loadFont(getClass().getResourceAsStream("src/resources/fonts/m6x11plus.ttf"), 16);
-
         Image balatroLogo = new Image("file:src/resources/textures/balatro.png");
         ImageView logoImageView = new ImageView(balatroLogo);
         logoImageView.setFitWidth(1000);
@@ -121,50 +120,84 @@ public class Interface extends Application {
             "-fx-border-width: 1px;"
         );
 
+        String initialState = "-fx-background-color: #0087F2; " +
+                "-fx-text-fill: white; " +
+                "-fx-font-size: 50px; " +
+                "-fx-background-radius: 25px; " +
+                "-fx-border-radius: 25px; " +
+                "-fx-border-color: #0087F2; " +
+                "-fx-border-width: 1px;" +
+                "-fx-font-weight: 900;";
+
+        String hoverState = "-fx-background-color: #005094; " +
+                "-fx-text-fill: white; " +
+                "-fx-font-size: 50px; " +
+                "-fx-background-radius: 25px; " +
+                "-fx-border-radius: 25px; " +
+                "-fx-border-color: #005094; " +
+                "-fx-border-width: 1px;" +
+                "-fx-font-weight: 900;";
+
         Button playButton = new Button("JUGAR");
         playButton.setPrefWidth(280);
         playButton.setPrefHeight(95);
-        //playButton.setFont(customFont);
-        playButton.setStyle(
-            "-fx-background-color: #0087F2; " +
-            "-fx-text-fill: white; " +
-            "-fx-font-size: 50px; " +
-            "-fx-background-radius: 25px; " +
-            "-fx-border-radius: 25px; " +
-            "-fx-border-color: #0087F2; " +
-            "-fx-border-width: 1px;" +
-            "-fx-font-weight: 900;"
-        );
+        playButton.setStyle(initialState);
+
+        playButton.setOnMouseEntered(e -> playButton.setStyle(hoverState));
+        playButton.setOnMouseExited(e -> playButton.setStyle(initialState));
+
+        String initialState2 = "-fx-background-color: #EC9C00; " +
+                "-fx-text-fill: white; " +
+                "-fx-font-size: 34px; " +
+                "-fx-background-radius: 25px; " +
+                "-fx-border-radius: 25px; " +
+                "-fx-border-color: #EC9C00; " +
+                "-fx-border-width: 1px;" +
+                "-fx-font-weight: 900;";
+
+        String hoverState2 = "-fx-background-color: #865801; " +
+                "-fx-text-fill: white; " +
+                "-fx-font-size: 34px; " +
+                "-fx-background-radius: 25px; " +
+                "-fx-border-radius: 25px; " +
+                "-fx-border-color: #865801; " +
+                "-fx-border-width: 1px;" +
+                "-fx-font-weight: 900;";
 
         Button optionButton = new Button("OPCIONES");
         optionButton.setPrefWidth(280);
         optionButton.setPrefHeight(95);
-        //optionButton.setFont(customFont);
-        optionButton.setStyle(
-            "-fx-background-color: #EC9C00; " +
-            "-fx-text-fill: white; " +
-            "-fx-font-size: 34px; " +
-            "-fx-background-radius: 25px; " +
-            "-fx-border-radius: 25px; " +
-            "-fx-border-color: #EC9C00; " +
-            "-fx-border-width: 1px;" +
-            "-fx-font-weight: 900;"
-        );
+        optionButton.setStyle(initialState2);
+
+        optionButton.setOnMouseEntered(e -> optionButton.setStyle(hoverState2));
+        optionButton.setOnMouseExited(e -> optionButton.setStyle(initialState2));
+
+
+        String initialState3 = "-fx-background-color: #FF453F; " +
+                "-fx-text-fill: white; " +
+                "-fx-font-size: 50px; " +
+                "-fx-background-radius: 25px; " +
+                "-fx-border-radius: 25px; " +
+                "-fx-border-color: #FF453F; " +
+                "-fx-border-width: 1px;" +
+                "-fx-font-weight: 900;";
+
+        String hoverState3 = "-fx-background-color: #6e0300; " +
+                "-fx-text-fill: white; " +
+                "-fx-font-size: 50px; " +
+                "-fx-background-radius: 25px; " +
+                "-fx-border-radius: 25px; " +
+                "-fx-border-color: #6e0300; " +
+                "-fx-border-width: 1px;" +
+                "-fx-font-weight: 900;";
 
         Button quitButton = new Button("SALIR");
         quitButton.setPrefWidth(280);
         quitButton.setPrefHeight(95);
-        //quitButton.setFont(customFont);
-        quitButton.setStyle(
-            "-fx-background-color: #FF453F; " +
-            "-fx-text-fill: white; " +
-            "-fx-font-size: 50px; " +
-            "-fx-background-radius: 25px; " +
-            "-fx-border-radius: 25px; " +
-            "-fx-border-color: #FF453F; " +
-            "-fx-border-width: 1px;" +
-            "-fx-font-weight: 900;"
-        );
+        quitButton.setStyle(initialState3);
+
+        quitButton.setOnMouseEntered(e -> quitButton.setStyle(hoverState3));
+        quitButton.setOnMouseExited(e -> quitButton.setStyle(initialState3));
 
         buttonFrame.getChildren().addAll(playButton, optionButton, quitButton);
 
@@ -204,7 +237,6 @@ public class Interface extends Application {
         stage.setMaximized(true);
         stage.setTitle("Menu Principal");
         stage.setScene(menuScene);
-
     }
 
     public void showGameScene() {
@@ -238,6 +270,7 @@ public class Interface extends Application {
                         "-fx-border-radius: 25px; " +
                         "-fx-border-width: 1px;"
         );
+
         roundTitleFrame.setLayoutX(60);
         roundTitleFrame.setLayoutY(20);
         roundTitleFrame.setPrefHeight(100);
@@ -284,6 +317,12 @@ public class Interface extends Application {
         Label scoreInstructionLabel = new Label("Anota al menos");
         scoreInstructionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;");
 
+        ColorAdjust colorAdjustBrightness = new ColorAdjust();
+        colorAdjustBrightness.setBrightness(-0.3);
+
+        ColorAdjust colorAdjustSaturation = new ColorAdjust();
+        colorAdjustSaturation.setSaturation(1);
+
         Image chipsImage = new Image("file:src/resources/textures/chips.png");
         double x = 60;
         double y = 0;
@@ -291,8 +330,19 @@ public class Interface extends Application {
         double height = 55;
         ImageView chipImageView = new ImageView(chipsImage);
         chipImageView.setViewport(new javafx.geometry.Rectangle2D(x, y, width, height));
-        chipImageView.setFitWidth(50);
-        chipImageView.setFitHeight(50);
+        chipImageView.setFitWidth(35);
+        chipImageView.setFitHeight(35);
+        chipImageView.setEffect(colorAdjustSaturation);
+        chipImageView.setEffect(colorAdjustBrightness);
+
+
+        ImageView chipImageView2 = new ImageView(chipsImage);
+        chipImageView2.setViewport(new javafx.geometry.Rectangle2D(x, y, width, height));
+        chipImageView2.setFitWidth(35);
+        chipImageView2.setFitHeight(35);
+        chipImageView2.setEffect(colorAdjustSaturation);
+        chipImageView2.setEffect(colorAdjustBrightness);
+
 
         VBox scoreInstructionBox = new VBox(-5);
         scoreInstructionBox.setAlignment(Pos.CENTER);
@@ -301,7 +351,7 @@ public class Interface extends Application {
         scoreInstructionBox.setPrefWidth(roundScore.getPrefWidth());
 
         Label score = new Label("3000"); // Aca va el score necesario para ganar la ronda
-        score.setStyle("-fx-font-size: 45px; -fx-text-fill: red; -fx-font-weight: bold;");
+        score.setStyle("-fx-font-size: 45px; -fx-text-fill: #C03933; -fx-font-weight: bold;");
         score.setPrefHeight(60);
 
         HBox scoreBox = new HBox(5);
@@ -366,10 +416,9 @@ public class Interface extends Application {
         hboxActualScoreChip.setPadding(new Insets(0, 0, 0, 0));
 
         Label actualScore = new Label("0");
-        actualScore.setStyle("-fx-font-size: 45px; -fx-text-fill: white; -fx-font-weight: bold;");
+        actualScore.setStyle("-fx-font-size: 45px; -fx-text-fill: #C0C6C6; -fx-font-weight: bold;");
 
-       //hboxActualScoreChip.getChildren().addAll(chipImageView, actualScore);
-        hboxActualScoreChip.getChildren().addAll(actualScore);
+       hboxActualScoreChip.getChildren().addAll(chipImageView2, actualScore);
 
         hboxActualScore.getChildren().addAll(vboxScoreLabel, hboxActualScoreChip);
 
