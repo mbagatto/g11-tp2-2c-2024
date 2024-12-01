@@ -1,9 +1,8 @@
 package view;
 
 import controller.Controller;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,7 +19,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class Interface extends Application {
 
@@ -225,6 +223,7 @@ public class Interface extends Application {
 
         quitButton.setOnAction(_ -> {
             this.controller.handleButtonClick();
+            Platform.exit();
         });
 
         VBox container = new VBox(20);
