@@ -4,6 +4,7 @@ import controller.Controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -223,34 +224,34 @@ public class Interface extends Application {
         rectangle.setY(0);
         rectangle.setWidth(400);
         rectangle.setHeight(1080);
-        rectangle.setFill(Color.web("#10191D"));
+        rectangle.setFill(Color.web("#212829"));
         rectangle.setStroke(Color.web("#004A7B"));
         rectangle.setStrokeWidth(3);
 
-        HBox roundTitleFrame = new HBox(10);
+        HBox roundTitleFrame = new HBox();
         roundTitleFrame.setAlignment(Pos.CENTER);
         roundTitleFrame.setStyle(
                 "-fx-background-color: #004A7B; " +
                         "-fx-background-radius: 25px; " +
-                        "-fx-padding: 14px; " +
+                        "-fx-padding: 9px; " +
                         "-fx-border-color: #004A7B; " +
                         "-fx-border-radius: 25px; " +
                         "-fx-border-width: 1px;"
         );
         roundTitleFrame.setLayoutX(60);
         roundTitleFrame.setLayoutY(20);
-        roundTitleFrame.setPrefHeight(8);
+        roundTitleFrame.setPrefHeight(100);
         roundTitleFrame.setPrefWidth(380);
 
         Label roundLabel = new Label("Ronda 1"); // Deberia ir el numero de ronda actual
-        roundLabel.setStyle("-fx-font-size: 50px; -fx-text-fill: white; -fx-font-weight: 900;");
+        roundLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white; -fx-font-weight: 900;");
 
         roundTitleFrame.getChildren().add(roundLabel);
 
         Pane roundInfo = new Pane();
         roundInfo.setLayoutX(60);
         roundInfo.setLayoutY(135);
-        roundInfo.setPrefHeight(300);
+        roundInfo.setPrefHeight(240);
         roundInfo.setPrefWidth(380);
         roundInfo.setStyle(
                 "-fx-background-color: #0B2F47; " +
@@ -264,14 +265,14 @@ public class Interface extends Application {
         ImageView whiteCoinView = new ImageView(whiteCoin);
         whiteCoinView.setFitWidth(130);
         whiteCoinView.setFitHeight(130);
-        whiteCoinView.setLayoutX(15);
-        whiteCoinView.setLayoutY(75);
+        whiteCoinView.setLayoutX(10);
+        whiteCoinView.setLayoutY(65);
 
         Pane roundScore = new Pane();
-        roundScore.setLayoutX(165);
-        roundScore.setLayoutY(75);
+        roundScore.setLayoutX(150);
+        roundScore.setLayoutY(65);
         roundScore.setPrefHeight(130);
-        roundScore.setPrefWidth(200);
+        roundScore.setPrefWidth(210);
         roundScore.setStyle(
                 "-fx-background-color: #161D1E; " +
                         "-fx-background-radius: 25px; " +
@@ -290,33 +291,91 @@ public class Interface extends Application {
         double height = 55;
         ImageView chipImageView = new ImageView(chipsImage);
         chipImageView.setViewport(new javafx.geometry.Rectangle2D(x, y, width, height));
-        chipImageView.setFitWidth(30);
-        chipImageView.setFitHeight(30);
+        chipImageView.setFitWidth(50);
+        chipImageView.setFitHeight(50);
 
-        VBox scoreInstructionBox = new VBox(30);
+        VBox scoreInstructionBox = new VBox(-5);
         scoreInstructionBox.setAlignment(Pos.CENTER);
         scoreInstructionBox.setLayoutX(0);
         scoreInstructionBox.setLayoutY(10);
         scoreInstructionBox.setPrefWidth(roundScore.getPrefWidth());
 
-        Label score = new Label("0"); // Aca va el score necesario para ganar la ronda
-        score.setStyle("-fx-font-size: 40px; -fx-text-fill: red; -fx-font-weight: bold;");
+        Label score = new Label("3000"); // Aca va el score necesario para ganar la ronda
+        score.setStyle("-fx-font-size: 45px; -fx-text-fill: red; -fx-font-weight: bold;");
+        score.setPrefHeight(60);
 
-        HBox scoreBox = new HBox(10);
-        scoreBox.setAlignment(Pos.CENTER_LEFT);
-
-
-
+        HBox scoreBox = new HBox(5);
+        scoreBox.setAlignment(Pos.CENTER);
 
         scoreBox.getChildren().addAll(chipImageView, score);
 
-        scoreInstructionBox.getChildren().addAll(scoreInstructionLabel, scoreBox);
+        Label reward = new Label("Sin recompensa"); // Aca va la cantidad de dinero que hay de recompensa
+        reward.setStyle("-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;");
+
+        scoreInstructionBox.getChildren().addAll(scoreInstructionLabel, scoreBox, reward);
 
         roundScore.getChildren().addAll(scoreInstructionBox);
 
         roundInfo.getChildren().addAll(whiteCoinView, roundScore);
 
-        itemsContainer.getChildren().addAll(rectangle, roundTitleFrame, roundInfo);
+        Pane actualScoreInfo = new Pane();
+        actualScoreInfo.setLayoutX(60);
+        actualScoreInfo.setLayoutY(385);
+        actualScoreInfo.setPrefHeight(100);
+        actualScoreInfo.setPrefWidth(380);
+        actualScoreInfo.setStyle(
+                "-fx-background-color: #111D1C; " +
+                        "-fx-background-radius: 25px; " +
+                        "-fx-border-color: #111D1C; " +
+                        "-fx-border-width: 1px; " +
+                        "-fx-border-radius: 25px;"
+        );
+
+        VBox vboxScoreLabel = new VBox(-10);
+        vboxScoreLabel.setAlignment(Pos.CENTER);
+        vboxScoreLabel.setPrefHeight(50); // Ajusta a un valor más pequeño
+
+        Label wordRound = new Label("Ronda");
+        wordRound.setStyle("-fx-font-size: 25px; -fx-text-fill: white; -fx-font-weight: bold;");
+
+        Label puntuation = new Label("puntuacion");
+        puntuation.setStyle("-fx-font-size: 15px; -fx-text-fill: white; -fx-font-weight: bold;");
+
+        vboxScoreLabel.getChildren().addAll(wordRound, puntuation);
+        vboxScoreLabel.setMargin(wordRound, new Insets(0, 0, 0, 0));
+        vboxScoreLabel.setMargin(puntuation, new Insets(0, 0, 0, 0));
+
+        HBox hboxActualScore = new HBox(20);
+        hboxActualScore.setAlignment(Pos.CENTER);
+        hboxActualScore.setLayoutX(10);
+        hboxActualScore.setLayoutY(10);
+        hboxActualScore.setPrefWidth(380);
+
+        HBox hboxActualScoreChip = new HBox(20);
+        hboxActualScoreChip.setAlignment(Pos.CENTER);
+        hboxActualScoreChip.setStyle(
+                "-fx-background-color: #212829; " + //212829
+                        "-fx-background-radius: 17px; " +
+                        "-fx-padding: 5px; " +
+                        "-fx-border-color: #212829; " +
+                        "-fx-border-radius: 17px; " +
+                        "-fx-border-width: 1px;"
+        );
+        hboxActualScoreChip.setPrefWidth(240);
+        hboxActualScoreChip.setPrefHeight(50);
+        hboxActualScoreChip.setPadding(new Insets(0, 0, 0, 0));
+
+        Label actualScore = new Label("0");
+        actualScore.setStyle("-fx-font-size: 45px; -fx-text-fill: white; -fx-font-weight: bold;");
+
+       //hboxActualScoreChip.getChildren().addAll(chipImageView, actualScore);
+        hboxActualScoreChip.getChildren().addAll(actualScore);
+
+        hboxActualScore.getChildren().addAll(vboxScoreLabel, hboxActualScoreChip);
+
+        actualScoreInfo.getChildren().addAll(hboxActualScore);
+
+        itemsContainer.getChildren().addAll(rectangle, roundTitleFrame, roundInfo, actualScoreInfo);
 
         backgroundContainer.getChildren().add(itemsContainer);
 
@@ -325,23 +384,5 @@ public class Interface extends Application {
         stage.setMaximized(true);
         stage.setTitle("Partida");
         stage.setScene(gameScene);
-        startCounting(score);
-    }
-
-    public void startCounting(Label score) {
-        // Crear una Timeline que actualice el valor del score cada segundo
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(1), e -> {
-                    // Obtener el valor actual del score y sumarle 1
-                    int currentScore = Integer.parseInt(score.getText());
-                    score.setText(String.valueOf(currentScore + 1));
-                })
-        );
-
-        // Configurar la Timeline para que se repita infinitamente
-        timeline.setCycleCount(Timeline.INDEFINITE);
-
-        // Iniciar el contador
-        timeline.play();
     }
 }
