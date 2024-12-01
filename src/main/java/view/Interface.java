@@ -1,6 +1,8 @@
 package view;
 
 import controller.Controller;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,11 +18,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Interface extends Application {
 
     private Controller controller;
     private Stage stage;
+    private int points;
 
     @Override
     public void start(Stage stage) {
@@ -164,7 +168,7 @@ public class Interface extends Application {
         buttonFrame.getChildren().addAll(playButton, optionButton, quitButton);
 
         HBox horizontalBox = new HBox(12);
-        horizontalBox.setAlignment(Pos.BOTTOM_CENTER);
+        horizontalBox.setAlignment(Pos.CENTER);
 
         horizontalBox.getChildren().addAll(buttonFrame);
 
@@ -291,10 +295,22 @@ public class Interface extends Application {
 
         VBox scoreInstructionBox = new VBox(30);
         scoreInstructionBox.setAlignment(Pos.CENTER);
-        scoreInstructionBox.getChildren().addAll(scoreInstructionLabel, chipImageView);
         scoreInstructionBox.setLayoutX(0);
         scoreInstructionBox.setLayoutY(10);
         scoreInstructionBox.setPrefWidth(roundScore.getPrefWidth());
+
+        Label score = new Label("0"); // Aca va el score necesario para ganar la ronda
+        score.setStyle("-fx-font-size: 40px; -fx-text-fill: red; -fx-font-weight: bold;");
+
+        HBox scoreBox = new HBox(10);
+        scoreBox.setAlignment(Pos.CENTER_LEFT);
+
+
+
+
+        scoreBox.getChildren().addAll(chipImageView, score);
+
+        scoreInstructionBox.getChildren().addAll(scoreInstructionLabel, scoreBox);
 
         roundScore.getChildren().addAll(scoreInstructionBox);
 
@@ -309,5 +325,23 @@ public class Interface extends Application {
         stage.setMaximized(true);
         stage.setTitle("Partida");
         stage.setScene(gameScene);
+        startCounting(score);
+    }
+
+    public void startCounting(Label score) {
+        // Crear una Timeline que actualice el valor del score cada segundo
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1), e -> {
+                    // Obtener el valor actual del score y sumarle 1
+                    int currentScore = Integer.parseInt(score.getText());
+                    score.setText(String.valueOf(currentScore + 1));
+                })
+        );
+
+        // Configurar la Timeline para que se repita infinitamente
+        timeline.setCycleCount(Timeline.INDEFINITE);
+
+        // Iniciar el contador
+        timeline.play();
     }
 }
