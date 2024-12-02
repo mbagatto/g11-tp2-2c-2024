@@ -1,11 +1,12 @@
 package model.jokers;
 
+import model.Purchasable;
 import model.hands.Hand;
 import model.reader.JokerData;
 import model.score.ScoreModifier;
 import model.score.Score;
 
-public abstract class Joker {
+public abstract class Joker implements Purchasable {
     protected String name;
     protected String description;
     protected ScoreModifier toPoints;
@@ -44,5 +45,15 @@ public abstract class Joker {
 
     public boolean hasName(String aName) {
         return name.equals(aName);
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String getDescription() {
+        return this.description;
     }
 }

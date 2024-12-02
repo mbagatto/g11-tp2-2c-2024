@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'm6x11plus';
+    src: url('fonts/m6x11plus.ttf');
+}
+
+* {
+    -fx-font-family: m6x11plus;
+}

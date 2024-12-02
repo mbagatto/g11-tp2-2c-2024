@@ -109,7 +109,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>view.Interface</mainClass>
+                            <mainClass>view.Main</mainClass>
                             <launcher>app</launcher>
                             <jlinkImageName>myAplication</jlinkImageName>
                             <jlinkZipName>myAplicationZip</jlinkZipName>

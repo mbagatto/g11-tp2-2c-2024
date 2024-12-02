@@ -11,17 +11,14 @@ import model.tarots.Tarot;
 
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements Observable, Purchaser {
     private String name;
     private EnglishDeck englishDeck;
     private PlayerDeck playerDeck;
     private ArrayList<Joker> jokers;
     private ArrayList<Tarot> tarots;
-    private int discards;
-
-    public Player(String name) { // Constructor temporal
-        this.name = name;
-    }
+    private Score discards;
+    private ArrayList<Observer> observers;
 
     public Player(String name, EnglishDeck englishDeck) {
         this.name = name;
@@ -29,7 +26,8 @@ public class Player {
         this.playerDeck = new PlayerDeck();
         this.jokers = new ArrayList<>();
         this.tarots = new ArrayList<>();
-        this.discards = 0;
+        this.discards = new Score(0);
+        this.observers = new ArrayList<>();
     }
 
     public void completeDeck() {
@@ -57,7 +55,7 @@ public class Player {
         }
         this.playerDeck.discard(this.jokers);
         this.completeDeck();
-        this.discards++;
+        this.discards.addWith(new Score(1));
     }
 
     public void addJoker(Joker joker) {
@@ -82,7 +80,23 @@ public class Player {
         tarot.apply();
     }
 
-    public String getName() {
-        return this.name;
+    public void addObserver(Observer observer) {
+        this.observers.add(observer);
+    }
+
+    public void notifyObservers() {
+        for (Observer observer : this.observers) {
+            observer.update();
+        }
+    }
+
+    @Override
+    public ArrayList<Joker> getJokers() {
+        return this.jokers;
+    }
+
+    @Override
+    public ArrayList<Tarot> getTarots() {
+        return this.tarots;
     }
 }

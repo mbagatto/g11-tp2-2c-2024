@@ -2,9 +2,10 @@ package model.reader;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import model.score.Score;
 import model.tarots.Tarot;
-import model.round.Round;
-import model.round.Store;
+import model.game.Round;
+import model.game.Store;
 import model.cards.Card;
 import model.decks.JokerDeck;
 import model.decks.TarotDeck;
@@ -43,9 +44,9 @@ public class RoundReader {
 
     public Round roundGenerator(RoundData round) {
         int number = round.getNumber();
-        int hands = round.getHands();
-        int discards = round.getDiscards();
-        int scoreToBeat  = round.getScoreToBeat();
+        Score hands = new Score(round.getHands());
+        Score discards = new Score(round.getDiscards());
+        Score scoreToBeat  = new Score(round.getScoreToBeat());
         StoreData storeData = round.getStore();
         Store store = this.storeGenerator(storeData);
         return (new Round(number, hands, discards, scoreToBeat, store));

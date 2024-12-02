@@ -1,9 +1,10 @@
 package model.tarots;
 
 import model.Modifiable;
+import model.Purchasable;
 import model.score.ScoreModifier;
 
-public class Tarot {
+public class Tarot implements Purchasable {
     private String name;
     private String description;
     private ScoreModifier toPoints;
@@ -27,5 +28,15 @@ public class Tarot {
 
     public boolean hasName(String name) {
         return this.name.equals(name);
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String getDescription() {
+        return this.description;
     }
 }

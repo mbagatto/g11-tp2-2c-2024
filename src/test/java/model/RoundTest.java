@@ -7,7 +7,7 @@ import model.hands.Pair;
 import model.hands.RoyalFlush;
 import model.jokers.Joker;
 import model.reader.DataReader;
-import model.round.Round;
+import model.game.Round;
 import model.score.Score;
 
 import model.tarots.Tarot;
