@@ -9,7 +9,6 @@ import model.game.Game;
 import model.game.Round;
 import model.reader.DataReader;
 import view.PreparationView;
-
 import java.util.ArrayList;
 
 public class HandlerPlay implements EventHandler<ActionEvent> {
@@ -29,5 +28,7 @@ public class HandlerPlay implements EventHandler<ActionEvent> {
         Scene scene = new Scene(new PreparationView(stage, round, this.player));
         scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
         stage.setScene(scene);
+        stage.setFullScreen(true);
+        stage.setFullScreenExitHint("");
     }
 }

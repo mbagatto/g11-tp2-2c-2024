@@ -310,7 +310,7 @@ public class GameView extends StackPane {
 
 
         // Lo siguiente es un label de prueba arrastrable, idealmente esta funcion tendran las cartas
-        Label draggableItem = new Label("Arrastrable");
+        Label draggableItem = new Label("Soy arrastrable y clickeable !");
         draggableItem.setStyle(
                 "-fx-text-fill: #FFFFFFF7;"
                         + "-fx-font-size: 30px;"
@@ -318,7 +318,7 @@ public class GameView extends StackPane {
                         + "-fx-background-radius: 10px;"
         );
         draggableItem.setAlignment(Pos.CENTER);
-        draggableItem.setPrefWidth(300);
+        draggableItem.setPrefWidth(400);
         draggableItem.setPrefHeight(300);
         draggableItem.setLayoutX(1000);
         draggableItem.setLayoutY(500);

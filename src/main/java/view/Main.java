@@ -22,6 +22,7 @@ public class Main extends Application {
         Scene scene = new Scene(vbox);
         scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
         stage.setScene(scene);
+        stage.setFullScreen(true);
         stage.show();
     }
 

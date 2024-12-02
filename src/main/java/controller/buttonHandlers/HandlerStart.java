@@ -37,6 +37,8 @@ public class HandlerStart implements EventHandler<ActionEvent> {
             Scene scene = new Scene(new MenuView(stage, player));
             scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
             stage.setScene(scene);
+            stage.setFullScreen(true);
+            stage.setFullScreenExitHint("");
         } else {
             errorLabel.setVisible(true);
         }
