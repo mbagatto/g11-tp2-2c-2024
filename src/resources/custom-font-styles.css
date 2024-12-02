@@ -6,7 +6,3 @@
 * {
     -fx-font-family: m6x11plus;
 }
-
-.button:hover {
-    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
-}

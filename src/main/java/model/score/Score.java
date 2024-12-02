@@ -37,4 +37,8 @@ public class Score {
     public int numericValue() {
         return (int) this.value;
     }
+
+    public String toString() {
+        return String.valueOf(numericValue());
+    }
 }

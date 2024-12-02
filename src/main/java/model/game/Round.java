@@ -1,13 +1,17 @@
 package model.game;
 
+import model.Observable;
+import model.Observer;
+import model.Playable;
 import model.Player;
 import model.tarots.Tarot;
 import model.jokers.Joker;
 import model.score.Score;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
-public class Round {
+public class Round implements Observable, Playable {
     private int number;
     private Score hands;
     private Score discards;
@@ -17,6 +21,7 @@ public class Round {
     private Stack<DiscardHand> discardHands;
     private TurnGenerator turnGenerator;
     private Score actualScore;
+    private ArrayList<Observer> observers;
 
     public Round(int number, Score hands, Score discards, Score scoreToBeat, Store store) {
         this.number = number;
@@ -28,6 +33,7 @@ public class Round {
         this.playHands = turnGenerator.generatePlayHands(hands);
         this.discardHands = turnGenerator.generateDiscardHands(discards);
         this.actualScore = new Score(0);
+        this.observers = new ArrayList<>();
     }
 
     public void playHand(Player player) {
@@ -52,19 +58,33 @@ public class Round {
         return this.store.buyTarot(i);
     }
 
-    public String getNumber() {
-        return this.number + "";
+    @Override
+    public int getNumber() {
+        return this.number;
     }
 
-    public String getHands() {
-        return this.hands.numericValue() + "";
+    @Override
+    public Score getHands() {
+        return this.hands;
     }
 
-    public String getDiscards() {
-        return this.discards.numericValue() + "";
+    @Override
+    public Score getDiscards() {
+        return this.discards;
     }
 
-    public String getScoreToBeat() {
-        return this.scoreToBeat.numericValue() + "";
+    @Override
+    public Score getScoreToBeat() {
+        return this.scoreToBeat;
+    }
+
+    public void addObserver(Observer observer) {
+        this.observers.add(observer);
+    }
+
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
     }
 }
