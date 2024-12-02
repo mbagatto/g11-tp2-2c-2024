@@ -438,6 +438,9 @@ public class PreparationView extends VBox implements Observer {
         itemsContainer.getChildren().add(tarotsContainer);
         itemsContainer.getChildren().add(tarotsAmount);
         itemsContainer.getChildren().add(shopContainer);
+        ButtonNextRound nextRoundButton = new ButtonNextRound(this.stage); // boton para pasar a la siguiente ronda
+
+        itemsContainer.getChildren().addAll(rectangle, titleContainer, roundScoreContainer, playsContainer, roundInfoContainer, jokersContainer, nextRoundButton);
 
         backgroundContainer.getChildren().add(itemsContainer);
 
