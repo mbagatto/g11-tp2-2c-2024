@@ -75,7 +75,6 @@ public class PreparationView extends VBox implements Observer {
                         + "-fx-padding: 5px;"
         );
 
-
         Label title = new Label("SHOP");
         title.setStyle(
                 "-fx-text-fill: rgba(255,255,255,0.97);"
@@ -132,7 +131,6 @@ public class PreparationView extends VBox implements Observer {
                         + "-fx-background-radius: 12px;"
                         + "-fx-padding: 5px;"
         );
-
 
         Label playsPoints = new Label("0");
         playsPoints.setMinWidth(150);
@@ -213,105 +211,13 @@ public class PreparationView extends VBox implements Observer {
         discardsContainerValue.setMinWidth(90);
         discardsContainerValue.setStyle(
                 "-fx-font-size: 45px;"
-                + "-fx-background-color: rgba(70,70,70,0.3);"
-                + "-fx-text-fill: rgba(251,56,56,0.5);"
-                + "-fx-background-radius: 10px;"
+                        + "-fx-background-color: rgba(70,70,70,0.3);"
+                        + "-fx-text-fill: rgba(251,56,56,0.5);"
+                        + "-fx-background-radius: 10px;"
         );
 
         roundInfoDiscardsContainer.getChildren().addAll(discardsContainerTitle, discardsContainerValue);
         roundInfoContainer.getChildren().addAll(roundInfoHandsContainer, roundInfoDiscardsContainer);
-
-        HBox jokersContainer = new HBox();
-        jokersContainer.setMinWidth(750);
-        jokersContainer.setMinHeight(150);
-        jokersContainer.setLayoutX(500);
-        jokersContainer.setLayoutY(75);
-        jokersContainer.setSpacing(15);
-        jokersContainer.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.40);"
-                + "-fx-background-radius: 10px;"
-                + "-fx-padding: 15px;"
-        );
-
-        for (Joker joker : this.player.getJokers()) {
-            VBox jokerContainer = new VBox();
-            jokerContainer.setAlignment(Pos.CENTER);
-
-            Label jokerName = new Label(joker.getName());
-            jokerName.setStyle(
-                    "-fx-text-fill: rgba(255,255,255,0.97);"
-                    + "-fx-font-size: 16px;"
-            );
-
-            Image jokerImage = new Image("file:src/resources/textures/jokerImage.png");
-            ImageView jokerImageView = new ImageView(jokerImage);
-            jokerImageView.setFitHeight(100);
-            jokerImageView.setFitWidth(75);
-
-            Label jokerDescription = new Label(joker.getDescription());
-            jokerDescription.setStyle(
-                    "-fx-text-fill: rgba(255,255,255,0.97);"
-                            + "-fx-font-size: 16px;"
-            );
-
-            jokerContainer.getChildren().addAll(jokerName, jokerImageView, jokerDescription);
-
-            jokersContainer.getChildren().add(jokerContainer);
-        }
-
-        Label jokersAmount = new Label(this.player.getJokersSize() + "/5");
-        jokersAmount.setLayoutX(505);
-        jokersAmount.setLayoutY(230);
-        jokersAmount.setStyle(
-                "-fx-text-fill: rgba(255,255,255,0.97);"
-                + "-fx-font-size: 20px;"
-        );
-
-        HBox tarotsContainer = new HBox();
-        tarotsContainer.setMinWidth(300);
-        tarotsContainer.setMinHeight(150);
-        tarotsContainer.setLayoutX(1300);
-        tarotsContainer.setLayoutY(75);
-        tarotsContainer.setSpacing(15);
-        tarotsContainer.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.40);"
-                + "-fx-background-radius: 10px;"
-                + "-fx-padding: 15px;"
-        );
-
-        for (Tarot tarot : this.player.getTarots()) {
-            VBox tarotContainer = new VBox();
-            tarotContainer.setAlignment(Pos.CENTER);
-
-            Label tarotName = new Label(tarot.getName());
-            tarotName.setStyle(
-                    "-fx-text-fill: rgba(255,255,255,0.97);"
-                    + "-fx-font-size: 16px;"
-            );
-
-            Image tarotImage = new Image("file:src/resources/textures/tarotImage.png");
-            ImageView tarotImageView = new ImageView(tarotImage);
-            tarotImageView.setFitHeight(100);
-            tarotImageView.setFitWidth(75);
-
-            Label tarotDescription = new Label(tarot.getDescription());
-            tarotDescription.setStyle(
-                    "-fx-text-fill: rgba(255,255,255,0.97);"
-                            + "-fx-font-size: 16px;"
-            );
-
-            tarotContainer.getChildren().addAll(tarotName, tarotImageView, tarotDescription);
-
-            tarotsContainer.getChildren().add(tarotContainer);
-        }
-
-        Label tarotsAmount = new Label(this.player.getTarotsSize() + "/2");
-        tarotsAmount.setLayoutX(1305);
-        tarotsAmount.setLayoutY(230);
-        tarotsAmount.setStyle(
-                "-fx-text-fill: rgba(255,255,255,0.97);"
-                + "-fx-font-size: 20px;"
-        );
 
         VBox shopContainer = new VBox();
         shopContainer.setAlignment(Pos.TOP_CENTER);
@@ -322,11 +228,11 @@ public class PreparationView extends VBox implements Observer {
         shopContainer.setSpacing(10);
         shopContainer.setStyle(
                 "-fx-background-color: rgba(0,0,0,0.40);"
-                + "-fx-background-radius: 15px;"
-                + "-fx-border-color: rgb(43,37,34);"
-                + "-fx-border-radius: 10px;"
-                + "-fx-border-width: 5px;"
-                + "-fx-padding: 5px;"
+                        + "-fx-background-radius: 15px;"
+                        + "-fx-border-color: rgb(43,37,34);"
+                        + "-fx-border-radius: 10px;"
+                        + "-fx-border-width: 5px;"
+                        + "-fx-padding: 5px;"
         );
 
         ButtonNextRound nextRoundButton = new ButtonNextRound(this.stage);
@@ -339,8 +245,8 @@ public class PreparationView extends VBox implements Observer {
             jokerContainer.setSpacing(10);
             jokerContainer.setStyle(
                     "-fx-background-color: rgba(70,70,70,0.3);"
-                    + "-fx-background-radius: 10px;"
-                    + "-fx-padding: 5px;"
+                            + "-fx-background-radius: 10px;"
+                            + "-fx-padding: 5px;"
             );
 
             VBox jokerNameAndImage =  new VBox();
@@ -366,7 +272,7 @@ public class PreparationView extends VBox implements Observer {
             );
 
             Button addButton = new ButtonAdd();
-            addButton.setOnAction(new HandlerAddJoker(this.player, joker, shopContainer, jokerContainer));
+            addButton.setOnAction(new HandlerAddJoker(this.player, joker, shopContainer, jokerContainer, itemsContainer));
 
             jokerContainer.getChildren().addAll(jokerNameAndImage, jokerDescription, addButton);
 
@@ -379,8 +285,8 @@ public class PreparationView extends VBox implements Observer {
             tarotContainer.setSpacing(10);
             tarotContainer.setStyle(
                     "-fx-background-color: rgba(70,70,70,0.3);"
-                    + "-fx-background-radius: 10px;"
-                    + "-fx-padding: 5px;"
+                            + "-fx-background-radius: 10px;"
+                            + "-fx-padding: 5px;"
             );
 
             VBox tarotNameAndImage =  new VBox();
@@ -406,7 +312,7 @@ public class PreparationView extends VBox implements Observer {
             );
 
             Button addButton = new ButtonAdd();
-            addButton.setOnAction(new HandlerAddTarot(this.player, tarot, shopContainer, tarotContainer));
+            addButton.setOnAction(new HandlerAddTarot(this.player, tarot, shopContainer, tarotContainer, itemsContainer));
 
             tarotContainer.getChildren().addAll(tarotNameAndImage, tarotDescription, addButton);
 
@@ -414,7 +320,7 @@ public class PreparationView extends VBox implements Observer {
         }
 
         Collections.shuffle(products);
-        
+
         shopContainer.getChildren().add(nextRoundButton);
         shopContainer.getChildren().add(products.getFirst());
         shopContainer.getChildren().add(products.get(1));
@@ -426,11 +332,9 @@ public class PreparationView extends VBox implements Observer {
         itemsContainer.getChildren().add(roundScoreContainer);
         itemsContainer.getChildren().add(playsContainer);
         itemsContainer.getChildren().add(roundInfoContainer);
-        itemsContainer.getChildren().add(jokersContainer);
-        itemsContainer.getChildren().add(jokersAmount);
-        itemsContainer.getChildren().add(tarotsContainer);
-        itemsContainer.getChildren().add(tarotsAmount);
         itemsContainer.getChildren().add(shopContainer);
+        itemsContainer.getChildren().add(new PlayerJokersView(itemsContainer, player));
+        itemsContainer.getChildren().add(new PlayerTarotsView(itemsContainer, player));
 
         backgroundContainer.getChildren().add(itemsContainer);
 
