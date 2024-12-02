@@ -1,6 +1,9 @@
 package view;
 
+import controller.buttonHandlers.HandlerAddJoker;
+import controller.buttonHandlers.HandlerAddTarot;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,6 +18,10 @@ import model.Observer;
 import model.Player;
 import model.game.Round;
 import model.jokers.Joker;
+import model.tarots.Tarot;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class PreparationView extends VBox implements Observer {
     private Stage stage;
@@ -44,14 +51,14 @@ public class PreparationView extends VBox implements Observer {
 
         Pane itemsContainer = new Pane();
 
-        Rectangle rectangle = new Rectangle();
-        rectangle.setX(50);
-        rectangle.setY(0);
-        rectangle.setWidth(400);
-        rectangle.setHeight(1080);
-        rectangle.setFill(Color.web("#3B3B3BFF", 0.5));
-        rectangle.setStroke(Color.web("#2B2522FF"));
-        rectangle.setStrokeWidth(3);
+        Rectangle leftRectangle = new Rectangle();
+        leftRectangle.setX(50);
+        leftRectangle.setY(0);
+        leftRectangle.setWidth(400);
+        leftRectangle.setHeight(1080);
+        leftRectangle.setFill(Color.web("#3B3B3BFF", 0.5));
+        leftRectangle.setStroke(Color.web("#2B2522FF"));
+        leftRectangle.setStrokeWidth(3);
 
         VBox titleContainer = new VBox();
         titleContainer.setLayoutX(62);
@@ -206,38 +213,231 @@ public class PreparationView extends VBox implements Observer {
         discardsContainerValue.setMinWidth(90);
         discardsContainerValue.setStyle(
                 "-fx-font-size: 45px;"
-                        + "-fx-background-color: rgba(70,70,70,0.3);"
-                        + "-fx-text-fill: rgba(251,56,56,0.5);"
-                        + "-fx-background-radius: 10px;"
+                + "-fx-background-color: rgba(70,70,70,0.3);"
+                + "-fx-text-fill: rgba(251,56,56,0.5);"
+                + "-fx-background-radius: 10px;"
         );
 
         roundInfoDiscardsContainer.getChildren().addAll(discardsContainerTitle, discardsContainerValue);
         roundInfoContainer.getChildren().addAll(roundInfoHandsContainer, roundInfoDiscardsContainer);
 
         HBox jokersContainer = new HBox();
-        jokersContainer.setMaxWidth(500);
-        jokersContainer.setMaxHeight(150);
-        jokersContainer.setLayoutX(200);
-        jokersContainer.setLayoutY(200);
+        jokersContainer.setMinWidth(750);
+        jokersContainer.setMinHeight(150);
+        jokersContainer.setLayoutX(500);
+        jokersContainer.setLayoutY(75);
+        jokersContainer.setSpacing(15);
         jokersContainer.setStyle(
                 "-fx-background-color: rgba(0,0,0,0.40);"
                 + "-fx-background-radius: 10px;"
+                + "-fx-padding: 15px;"
         );
 
         for (Joker joker : this.player.getJokers()) {
             VBox jokerContainer = new VBox();
+            jokerContainer.setAlignment(Pos.CENTER);
 
             Label jokerName = new Label(joker.getName());
+            jokerName.setStyle(
+                    "-fx-text-fill: rgba(255,255,255,0.97);"
+                    + "-fx-font-size: 16px;"
+            );
 
-            Image jokerImage = new Image("file:src/resources/textures/jokerImage.webp");
+            Image jokerImage = new Image("file:src/resources/textures/jokerImage.png");
             ImageView jokerImageView = new ImageView(jokerImage);
+            jokerImageView.setFitHeight(100);
+            jokerImageView.setFitWidth(75);
 
             Label jokerDescription = new Label(joker.getDescription());
+            jokerDescription.setStyle(
+                    "-fx-text-fill: rgba(255,255,255,0.97);"
+                            + "-fx-font-size: 16px;"
+            );
 
             jokerContainer.getChildren().addAll(jokerName, jokerImageView, jokerDescription);
+
+            jokersContainer.getChildren().add(jokerContainer);
         }
 
-        itemsContainer.getChildren().addAll(rectangle, titleContainer, roundScoreContainer, playsContainer, roundInfoContainer, jokersContainer);
+        Label jokersAmount = new Label(this.player.getJokersSize() + "/5");
+        jokersAmount.setLayoutX(505);
+        jokersAmount.setLayoutY(230);
+        jokersAmount.setStyle(
+                "-fx-text-fill: rgba(255,255,255,0.97);"
+                + "-fx-font-size: 20px;"
+        );
+
+        HBox tarotsContainer = new HBox();
+        tarotsContainer.setMinWidth(300);
+        tarotsContainer.setMinHeight(150);
+        tarotsContainer.setLayoutX(1300);
+        tarotsContainer.setLayoutY(75);
+        tarotsContainer.setSpacing(15);
+        tarotsContainer.setStyle(
+                "-fx-background-color: rgba(0,0,0,0.40);"
+                + "-fx-background-radius: 10px;"
+                + "-fx-padding: 15px;"
+        );
+
+        for (Tarot tarot : this.player.getTarots()) {
+            VBox tarotContainer = new VBox();
+            tarotContainer.setAlignment(Pos.CENTER);
+
+            Label tarotName = new Label(tarot.getName());
+            tarotName.setStyle(
+                    "-fx-text-fill: rgba(255,255,255,0.97);"
+                    + "-fx-font-size: 16px;"
+            );
+
+            Image tarotImage = new Image("file:src/resources/textures/tarotImage.png");
+            ImageView tarotImageView = new ImageView(tarotImage);
+            tarotImageView.setFitHeight(100);
+            tarotImageView.setFitWidth(75);
+
+            Label tarotDescription = new Label(tarot.getDescription());
+            tarotDescription.setStyle(
+                    "-fx-text-fill: rgba(255,255,255,0.97);"
+                            + "-fx-font-size: 16px;"
+            );
+
+            tarotContainer.getChildren().addAll(tarotName, tarotImageView, tarotDescription);
+
+            tarotsContainer.getChildren().add(tarotContainer);
+        }
+
+        Label tarotsAmount = new Label(this.player.getTarotsSize() + "/2");
+        tarotsAmount.setLayoutX(1305);
+        tarotsAmount.setLayoutY(230);
+        tarotsAmount.setStyle(
+                "-fx-text-fill: rgba(255,255,255,0.97);"
+                + "-fx-font-size: 20px;"
+        );
+
+        VBox shopContainer = new VBox();
+        shopContainer.setAlignment(Pos.TOP_CENTER);
+        shopContainer.setLayoutX(550);
+        shopContainer.setLayoutY(375);
+        shopContainer.setMinWidth(850);
+        shopContainer.setMinHeight(750);
+        shopContainer.setSpacing(10);
+        shopContainer.setStyle(
+                "-fx-background-color: rgba(0,0,0,0.40);"
+                + "-fx-background-radius: 15px;"
+                + "-fx-border-color: rgb(43,37,34);"
+                + "-fx-border-radius: 10px;"
+                + "-fx-border-width: 5px;"
+                + "-fx-padding: 5px;"
+        );
+
+        Button nextRoundButton = new Button("Next Round"); // falta setOnAction
+        nextRoundButton.setStyle(
+                "-fx-font-size: 45px;"
+                + "-fx-background-color: rgba(251,56,56,0.5);"
+                + "-fx-text-fill: rgba(255,255,255,0.97);"
+                + "-fx-background-radius: 10px;"
+                + "-fx-cursor: hand;"
+        );
+
+        ArrayList<HBox> products = new ArrayList<>();
+
+        for (Joker joker : this.round.getStore().getJokers()) {
+            HBox jokerContainer = new HBox();
+            jokerContainer.setAlignment(Pos.CENTER);
+            jokerContainer.setSpacing(10);
+            jokerContainer.setStyle(
+                    "-fx-background-color: rgba(70,70,70,0.3);"
+                    + "-fx-background-radius: 10px;"
+                    + "-fx-padding: 5px;"
+            );
+
+            VBox jokerNameAndImage =  new VBox();
+            jokerNameAndImage.setAlignment(Pos.CENTER);
+
+            Label jokerName = new Label(joker.getName());
+            jokerName.setStyle(
+                    "-fx-text-fill: rgba(255,255,255,0.97);"
+                            + "-fx-font-size: 16px;"
+            );
+
+            Image jokerImage = new Image("file:src/resources/textures/jokerImage.png");
+            ImageView jokerImageView = new ImageView(jokerImage);
+            jokerImageView.setFitHeight(100);
+            jokerImageView.setFitWidth(75);
+
+            jokerNameAndImage.getChildren().addAll(jokerName, jokerImageView);
+
+            Label jokerDescription = new Label(joker.getDescription());
+            jokerDescription.setStyle(
+                    "-fx-text-fill: rgba(255,255,255,0.97);"
+                            + "-fx-font-size: 16px;"
+            );
+
+            Button addButton = new ButtonAdd();
+            addButton.setOnAction(new HandlerAddJoker(this.player, joker, shopContainer, jokerContainer));
+
+            jokerContainer.getChildren().addAll(jokerNameAndImage, jokerDescription, addButton);
+
+            products.add(jokerContainer);
+        }
+
+        for (Tarot tarot : this.round.getStore().getTarots()) {
+            HBox tarotContainer = new HBox();
+            tarotContainer.setAlignment(Pos.CENTER);
+            tarotContainer.setSpacing(10);
+            tarotContainer.setStyle(
+                    "-fx-background-color: rgba(70,70,70,0.3);"
+                    + "-fx-background-radius: 10px;"
+                    + "-fx-padding: 5px;"
+            );
+
+            VBox tarotNameAndImage =  new VBox();
+            tarotNameAndImage.setAlignment(Pos.CENTER);
+
+            Label tarotName = new Label(tarot.getName());
+            tarotName.setStyle(
+                    "-fx-text-fill: rgba(255,255,255,0.97);"
+                            + "-fx-font-size: 16px;"
+            );
+
+            Image tarotImage = new Image("file:src/resources/textures/tarotImage.png");
+            ImageView tarotImageView = new ImageView(tarotImage);
+            tarotImageView.setFitHeight(100);
+            tarotImageView.setFitWidth(75);
+
+            tarotNameAndImage.getChildren().addAll(tarotName, tarotImageView);
+
+            Label tarotDescription = new Label(tarot.getDescription());
+            tarotDescription.setStyle(
+                    "-fx-text-fill: rgba(255,255,255,0.97);"
+                            + "-fx-font-size: 16px;"
+            );
+
+            Button addButton = new ButtonAdd();
+            addButton.setOnAction(new HandlerAddTarot(this.player, tarot, shopContainer, tarotContainer));
+
+            tarotContainer.getChildren().addAll(tarotNameAndImage, tarotDescription, addButton);
+
+            products.add(tarotContainer);
+        }
+
+        Collections.shuffle(products);
+
+        shopContainer.getChildren().add(nextRoundButton);
+        shopContainer.getChildren().add(products.getFirst());
+        shopContainer.getChildren().add(products.get(1));
+        shopContainer.getChildren().add(products.get(2));
+        shopContainer.getChildren().add(products.get(3));
+
+        itemsContainer.getChildren().add(leftRectangle);
+        itemsContainer.getChildren().add(titleContainer);
+        itemsContainer.getChildren().add(roundScoreContainer);
+        itemsContainer.getChildren().add(playsContainer);
+        itemsContainer.getChildren().add(roundInfoContainer);
+        itemsContainer.getChildren().add(jokersContainer);
+        itemsContainer.getChildren().add(jokersAmount);
+        itemsContainer.getChildren().add(tarotsContainer);
+        itemsContainer.getChildren().add(tarotsAmount);
+        itemsContainer.getChildren().add(shopContainer);
 
         backgroundContainer.getChildren().add(itemsContainer);
 

@@ -59,14 +59,14 @@ public class Player implements Observable, Purchaser {
     }
 
     public void addJoker(Joker joker) {
-        if (joker == null) {
+        if (joker == null || this.jokers.size() == 5) {
             throw new InvalidJokerException();
         }
         this.jokers.add(joker);
     }
 
     public void addTarot(Tarot tarot) {
-        if (tarot == null) {
+        if (tarot == null || this.tarots.size() == 2) {
             throw new InvalidTarotException();
         }
         this.tarots.add(tarot);
@@ -96,7 +96,17 @@ public class Player implements Observable, Purchaser {
     }
 
     @Override
+    public String getJokersSize() {
+        return this.jokers.size() + "";
+    }
+
+    @Override
     public ArrayList<Tarot> getTarots() {
         return this.tarots;
+    }
+
+    @Override
+    public String getTarotsSize() {
+        return this.tarots.size() + "";
     }
 }
