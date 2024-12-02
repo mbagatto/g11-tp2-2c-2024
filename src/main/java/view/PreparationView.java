@@ -151,6 +151,7 @@ public class PreparationView extends VBox implements Observer {
                         + "-fx-font-size: 80px;"
                         + "-fx-background-color: rgba(251,56,56,0.5);"
                         + "-fx-background-radius: 10px;"
+                        + "-fx-padding: 0 0 0 5px;"
         );
 
         playsContainer.getChildren().addAll(playsPoints, playsSymbol, playsMult);
@@ -161,8 +162,9 @@ public class PreparationView extends VBox implements Observer {
         roundInfoContainer.setAlignment(Pos.CENTER);
         roundInfoContainer.setSpacing(10);
 
-        VBox roundInfoHandsContainer = new VBox();
+        VBox roundInfoHandsContainer = new VBox(5);
         roundInfoHandsContainer.setMinWidth(100);
+        roundInfoHandsContainer.setPrefHeight(100);
         roundInfoHandsContainer.setAlignment(Pos.CENTER);
         roundInfoHandsContainer.setStyle(
                 "-fx-background-color: rgba(0,0,0,0.40);"
@@ -179,16 +181,18 @@ public class PreparationView extends VBox implements Observer {
         handsContainerValue.setAlignment(Pos.CENTER);
         handsContainerValue.setMinWidth(90);
         handsContainerValue.setStyle(
-                "-fx-font-size: 45px;"
+                "-fx-font-size: 50px;"
                         + "-fx-background-color: rgba(70,70,70,0.3);"
                         + "-fx-text-fill: rgba(0,153,255,0.5);"
                         + "-fx-background-radius: 10px;"
+                        + "-fx-padding: 0 0 5 0px;"
         );
 
         roundInfoHandsContainer.getChildren().addAll(handsContainerTitle, handsContainerValue);
 
-        VBox roundInfoDiscardsContainer = new VBox();
+        VBox roundInfoDiscardsContainer = new VBox(5);
         roundInfoDiscardsContainer.setMinWidth(100);
+        roundInfoDiscardsContainer.setPrefHeight(100);
         roundInfoDiscardsContainer.setAlignment(Pos.CENTER);
         roundInfoDiscardsContainer.setStyle(
                 "-fx-background-color: rgba(0,0,0,0.40);"
@@ -205,10 +209,11 @@ public class PreparationView extends VBox implements Observer {
         discardsContainerValue.setAlignment(Pos.CENTER);
         discardsContainerValue.setMinWidth(90);
         discardsContainerValue.setStyle(
-                "-fx-font-size: 45px;"
+                "-fx-font-size: 50px;"
                         + "-fx-background-color: rgba(70,70,70,0.3);"
                         + "-fx-text-fill: rgba(251,56,56,0.5);"
                         + "-fx-background-radius: 10px;"
+                        + "-fx-padding: 0 0 5 0px;"
         );
 
         roundInfoDiscardsContainer.getChildren().addAll(discardsContainerTitle, discardsContainerValue);
@@ -238,6 +243,8 @@ public class PreparationView extends VBox implements Observer {
         }
 
         ButtonNextRound nextRoundButton = new ButtonNextRound(this.stage); // boton para pasar a la siguiente ronda
+        nextRoundButton.setLayoutX(1500);
+        nextRoundButton.setLayoutY(200);
 
         itemsContainer.getChildren().addAll(rectangle, titleContainer, roundScoreContainer, playsContainer, roundInfoContainer, jokersContainer, nextRoundButton);
 
