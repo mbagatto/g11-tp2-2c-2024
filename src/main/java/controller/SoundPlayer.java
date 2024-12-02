@@ -8,7 +8,7 @@ public class SoundPlayer {
 
     public void playSound(String soundFilePath) {
         try {
-            URL soundURL = getClass().getResource(soundFilePath);
+            URL soundURL = getClass().getResource(System.getProperty("user.dir") + soundFilePath);
             if (soundURL == null) {
                 System.out.println("The sound file was not found at the path: " + soundFilePath);
                 return;
@@ -21,5 +21,4 @@ public class SoundPlayer {
             System.err.println("Error al reproducir el sonido: " + e.getMessage());
         }
     }
-
 }

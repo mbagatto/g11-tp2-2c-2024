@@ -1,5 +1,6 @@
 package controller.buttonHandlers;
 
+import controller.SoundPlayer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -18,14 +19,17 @@ public class HandlerStart implements EventHandler<ActionEvent> {
     private TextField text;
     private Label errorLabel;
     private Stage stage;
+    private SoundPlayer soundPlayer;
 
     public HandlerStart(Stage stage, TextField text, Label errorLabel) {
         this.stage = stage;
         this.text = text;
         this.errorLabel = errorLabel;
+        this.soundPlayer = new SoundPlayer();
     }
 
     public void handle(ActionEvent actionEvent) {
+        this.soundPlayer.playSound("src/resources/sounds/button.ogg");
         if (!this.text.getText().trim().isEmpty()) {
             EnglishDeck englishDeck = new EnglishDeck();
             englishDeck.fillDeck();

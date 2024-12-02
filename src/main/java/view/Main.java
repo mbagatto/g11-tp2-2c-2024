@@ -16,7 +16,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         onLaunchView = new OnLaunchView(stage);
 
-        VBox vbox = new VBox();
+        VBox vbox = new VBox(); // Esto se podria remover
         vbox.getChildren().add(onLaunchView);
 
         Scene scene = new Scene(vbox);
