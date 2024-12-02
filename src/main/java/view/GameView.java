@@ -6,17 +6,14 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class GameView extends StackPane {
 
-    public GameView(Stage stage) {
+    public GameView(Stage stage)  {
 
         Image staticBackground = new Image("file:src/resources/textures/static_game_background.png");
         ImageView backgroundView = new ImageView(staticBackground);
@@ -308,48 +305,92 @@ public class GameView extends StackPane {
 
         // Termina
 
+        itemsContainer.getChildren().addAll(rectangle, roundTitleFrame, roundInfo, actualScoreInfo, playsContainer, roundInfoContainer);
 
-        // Lo siguiente es un label de prueba arrastrable, idealmente esta funcion tendran las cartas
-        Label draggableItem = new Label("Soy arrastrable y clickeable !");
-        draggableItem.setStyle(
-                "-fx-text-fill: #FFFFFFF7;"
-                        + "-fx-font-size: 30px;"
-                        + "-fx-background-color: #F700FF;" // color del arrastrable
-                        + "-fx-background-radius: 10px;"
-        );
-        draggableItem.setAlignment(Pos.CENTER);
-        draggableItem.setPrefWidth(400);
-        draggableItem.setPrefHeight(300);
-        draggableItem.setLayoutX(1000);
-        draggableItem.setLayoutY(500);
+        //Todo lo que esta de aca para abajo hay que ordenarlo y refactorizarlo
 
-        // Variables para arrastre y detección de clic
+
+
+        try {
+            Image deckImage = new Image("file:src/resources/textures/Deck.png");
+            int CARD_ROWS = 4;  // filas y columnas del deck.png
+            int CARD_COLS = 13;
+
+            double cardWidth = deckImage.getWidth() / CARD_COLS;
+            double cardHeight = deckImage.getHeight() / CARD_ROWS;
+
+            int cardsInRow = 8;
+            double cardSpacing = 10;
+
+            double startX = ((1920 - (cardsInRow * (cardWidth + cardSpacing) - cardSpacing)) / 2) + 98;
+            double startY = 500;
+
+            int cardCounter = 0;
+
+            for (int row = 0; row < CARD_ROWS; row++) {         //Este for deberia recorrer con el siguiente orden: Corazon, Trebol, Diamante, Pica
+                                                                // Son 13 cartas por cada fila
+                for (int col = 0; col < CARD_COLS; col++) {
+
+                    ImageView cardView = new ImageView(deckImage);
+                    cardView.setViewport(new javafx.geometry.Rectangle2D(
+                            col * cardWidth,  // X de la carta
+                            row * cardHeight, // Y de la carta
+                            cardWidth,        // Ancho de la carta
+                            cardHeight        // Altura de la carta
+                    ));
+
+                    cardView.setFitWidth(160);
+                    cardView.setFitHeight(200);
+                    cardView.setPreserveRatio(true);
+
+                    StackPane cardPane = new StackPane();
+                    cardPane.setStyle(
+                            "-fx-background-color: white; " +
+                                    "-fx-border-color: black; " +
+                                    "-fx-border-radius: 10; " +
+                                    "-fx-background-radius: 10;"
+                    );
+                    cardPane.setPrefSize(160, 200); // esta es la parte blanca de la carta
+                    cardPane.getChildren().add(cardView);
+
+                    makeCardDraggable(cardPane);
+
+                    cardPane.setLayoutX(startX + (cardCounter * (cardWidth + cardSpacing)));
+                    cardPane.setLayoutY(startY);
+
+                    if (cardCounter >= cardsInRow) {
+                        cardPane.setLayoutX(1600);
+                        cardPane.setLayoutY(760);
+                    }
+                    itemsContainer.getChildren().add(cardPane);
+                    cardCounter++;
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error: No se pudo encontrar el archivo " + "src/resources/textures/Deck.png");
+            System.exit(1);
+        }
+        this.getChildren().add(itemsContainer);
+    }
+
+    private void makeCardDraggable(Pane cardPane) {
         final double[] offsetX = {0};
         final double[] offsetY = {0};
         final boolean[] isDragging = {false}; // Variable para saber si hubo arrastre
-
-        // Hacer el elemento arrastrable
-        draggableItem.setOnMousePressed(event -> {
-            offsetX[0] = event.getSceneX() - draggableItem.getLayoutX();
-            offsetY[0] = event.getSceneY() - draggableItem.getLayoutY();
-            isDragging[0] = false; // Reiniciar la variable al presionar
+        cardPane.setOnMousePressed(event -> {
+            offsetX[0] = event.getSceneX() - cardPane.getLayoutX();
+            offsetY[0] = event.getSceneY() - cardPane.getLayoutY();
+            isDragging[0] = false;
         });
-
-        draggableItem.setOnMouseDragged(event -> {
-            draggableItem.setLayoutX(event.getSceneX() - offsetX[0]);
-            draggableItem.setLayoutY(event.getSceneY() - offsetY[0]);
-            isDragging[0] = true; // Indicar que se está arrastrando
+        cardPane.setOnMouseDragged(event -> {
+            cardPane.setLayoutX(event.getSceneX() - offsetX[0]);
+            cardPane.setLayoutY(event.getSceneY() - offsetY[0]);
+            isDragging[0] = true;
         });
-
-        // Mover el Label solo si no hubo arrastre
-        draggableItem.setOnMouseReleased(event -> {
-            if (!isDragging[0]) { // Si no hubo arrastre, se considera un clic
-                draggableItem.setLayoutY(draggableItem.getLayoutY() - 70); // Subir 70 píxeles
+        cardPane.setOnMouseReleased(event -> {
+            if (!isDragging[0]) {
+                cardPane.setLayoutY(cardPane.getLayoutY() - 70); // aca se le dice cuanto debe subir, en este caso 70 pixeles creo que esta bien
             }
         });
-
-        itemsContainer.getChildren().addAll(rectangle, roundTitleFrame, roundInfo, actualScoreInfo, playsContainer, roundInfoContainer, draggableItem);
-
-        this.getChildren().add(itemsContainer);
     }
 }
