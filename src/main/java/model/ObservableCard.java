@@ -3,8 +3,8 @@ package model;
 import model.score.Score;
 
 public interface ObservableCard {
-    void attach(Observer observer);
-    void detach(Observer observer);
+    void attach(ObserverCard observer);
+    void detach(ObserverCard observer);
     void notifyObservers();
 
     String getNumber();
