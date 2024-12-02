@@ -329,14 +329,7 @@ public class PreparationView extends VBox implements Observer {
                 + "-fx-padding: 5px;"
         );
 
-        Button nextRoundButton = new Button("Next Round"); // falta setOnAction
-        nextRoundButton.setStyle(
-                "-fx-font-size: 45px;"
-                + "-fx-background-color: rgba(251,56,56,0.5);"
-                + "-fx-text-fill: rgba(255,255,255,0.97);"
-                + "-fx-background-radius: 10px;"
-                + "-fx-cursor: hand;"
-        );
+        ButtonNextRound nextRoundButton = new ButtonNextRound(this.stage);
 
         ArrayList<HBox> products = new ArrayList<>();
 
@@ -421,7 +414,7 @@ public class PreparationView extends VBox implements Observer {
         }
 
         Collections.shuffle(products);
-
+        
         shopContainer.getChildren().add(nextRoundButton);
         shopContainer.getChildren().add(products.getFirst());
         shopContainer.getChildren().add(products.get(1));
@@ -438,9 +431,6 @@ public class PreparationView extends VBox implements Observer {
         itemsContainer.getChildren().add(tarotsContainer);
         itemsContainer.getChildren().add(tarotsAmount);
         itemsContainer.getChildren().add(shopContainer);
-        ButtonNextRound nextRoundButton = new ButtonNextRound(this.stage); // boton para pasar a la siguiente ronda
-
-        itemsContainer.getChildren().addAll(rectangle, titleContainer, roundScoreContainer, playsContainer, roundInfoContainer, jokersContainer, nextRoundButton);
 
         backgroundContainer.getChildren().add(itemsContainer);
 
