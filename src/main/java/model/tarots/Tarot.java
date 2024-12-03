@@ -39,4 +39,9 @@ public class Tarot implements Purchasable {
     public String getDescription() {
         return this.description;
     }
+
+    @Override
+    public String toString() {
+        return "tarot";
+    }
 }

@@ -56,4 +56,9 @@ public abstract class Joker implements Purchasable {
     public String getDescription() {
         return this.description;
     }
+
+    @Override
+    public String toString() {
+        return "joker";
+    }
 }

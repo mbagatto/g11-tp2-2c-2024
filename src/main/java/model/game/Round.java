@@ -78,6 +78,11 @@ public class Round implements Observable, Playable {
         return this.scoreToBeat;
     }
 
+    @Override
+    public Store getStore() {
+        return this.store;
+    }
+
     public void addObserver(Observer observer) {
         this.observers.add(observer);
     }

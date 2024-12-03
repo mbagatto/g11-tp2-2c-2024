@@ -8,12 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Player;
-import model.cards.Card;
 import model.decks.EnglishDeck;
-import model.reader.DataReader;
 import view.MenuView;
 
-import java.util.ArrayList;
 
 public class HandlerStart implements EventHandler<ActionEvent> {
     private TextField text;

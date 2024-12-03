@@ -4,10 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -15,6 +12,9 @@ import model.Observer;
 import model.Player;
 import model.game.Round;
 import model.jokers.Joker;
+import model.tarots.Tarot;
+
+import java.util.ArrayList;
 
 public class PreparationView extends VBox implements Observer {
     private Stage stage;
@@ -34,8 +34,8 @@ public class PreparationView extends VBox implements Observer {
     public void update() {
         stage.setTitle("Balatro - Preparation");
 
-        Image staticBackground = new Image("file:src/resources/textures/game_background.jpg");
-        ImageView backgroundView = new ImageView(staticBackground);
+        Image background = new Image("file:src/resources/textures/game_background.jpg");
+        ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(1920);
         backgroundView.setFitHeight(1080);
 
@@ -44,14 +44,14 @@ public class PreparationView extends VBox implements Observer {
 
         Pane itemsContainer = new Pane();
 
-        Rectangle rectangle = new Rectangle();
-        rectangle.setX(50);
-        rectangle.setY(0);
-        rectangle.setWidth(400);
-        rectangle.setHeight(1080);
-        rectangle.setFill(Color.web("#3B3B3BFF", 0.5));
-        rectangle.setStroke(Color.web("#2B2522FF"));
-        rectangle.setStrokeWidth(3);
+        Rectangle leftRectangle = new Rectangle();
+        leftRectangle.setX(50);
+        leftRectangle.setY(0);
+        leftRectangle.setWidth(400);
+        leftRectangle.setHeight(1080);
+        leftRectangle.setFill(Color.web("#3B3B3BFF", 0.5));
+        leftRectangle.setStroke(Color.web("#2B2522FF"));
+        leftRectangle.setStrokeWidth(3);
 
         VBox titleContainer = new VBox();
         titleContainer.setLayoutX(62);
@@ -67,7 +67,6 @@ public class PreparationView extends VBox implements Observer {
                         + "-fx-border-width: 5px;"
                         + "-fx-padding: 5px;"
         );
-
 
         Label title = new Label("SHOP");
         title.setStyle(
@@ -126,7 +125,6 @@ public class PreparationView extends VBox implements Observer {
                         + "-fx-padding: 5px;"
         );
 
-
         Label playsPoints = new Label("0");
         playsPoints.setMinWidth(150);
         playsPoints.setAlignment(Pos.CENTER_RIGHT);
@@ -151,7 +149,6 @@ public class PreparationView extends VBox implements Observer {
                         + "-fx-font-size: 80px;"
                         + "-fx-background-color: rgba(251,56,56,0.5);"
                         + "-fx-background-radius: 10px;"
-                        + "-fx-padding: 0 0 0 5px;"
         );
 
         playsContainer.getChildren().addAll(playsPoints, playsSymbol, playsMult);
@@ -162,9 +159,8 @@ public class PreparationView extends VBox implements Observer {
         roundInfoContainer.setAlignment(Pos.CENTER);
         roundInfoContainer.setSpacing(10);
 
-        VBox roundInfoHandsContainer = new VBox(5);
+        VBox roundInfoHandsContainer = new VBox();
         roundInfoHandsContainer.setMinWidth(100);
-        roundInfoHandsContainer.setPrefHeight(100);
         roundInfoHandsContainer.setAlignment(Pos.CENTER);
         roundInfoHandsContainer.setStyle(
                 "-fx-background-color: rgba(0,0,0,0.40);"
@@ -181,18 +177,16 @@ public class PreparationView extends VBox implements Observer {
         handsContainerValue.setAlignment(Pos.CENTER);
         handsContainerValue.setMinWidth(90);
         handsContainerValue.setStyle(
-                "-fx-font-size: 50px;"
+                "-fx-font-size: 45px;"
                         + "-fx-background-color: rgba(70,70,70,0.3);"
                         + "-fx-text-fill: rgba(0,153,255,0.5);"
                         + "-fx-background-radius: 10px;"
-                        + "-fx-padding: 0 0 5 0px;"
         );
 
         roundInfoHandsContainer.getChildren().addAll(handsContainerTitle, handsContainerValue);
 
-        VBox roundInfoDiscardsContainer = new VBox(5);
+        VBox roundInfoDiscardsContainer = new VBox();
         roundInfoDiscardsContainer.setMinWidth(100);
-        roundInfoDiscardsContainer.setPrefHeight(100);
         roundInfoDiscardsContainer.setAlignment(Pos.CENTER);
         roundInfoDiscardsContainer.setStyle(
                 "-fx-background-color: rgba(0,0,0,0.40);"
@@ -209,44 +203,31 @@ public class PreparationView extends VBox implements Observer {
         discardsContainerValue.setAlignment(Pos.CENTER);
         discardsContainerValue.setMinWidth(90);
         discardsContainerValue.setStyle(
-                "-fx-font-size: 50px;"
+                "-fx-font-size: 45px;"
                         + "-fx-background-color: rgba(70,70,70,0.3);"
                         + "-fx-text-fill: rgba(251,56,56,0.5);"
                         + "-fx-background-radius: 10px;"
-                        + "-fx-padding: 0 0 5 0px;"
         );
 
         roundInfoDiscardsContainer.getChildren().addAll(discardsContainerTitle, discardsContainerValue);
         roundInfoContainer.getChildren().addAll(roundInfoHandsContainer, roundInfoDiscardsContainer);
 
-        HBox jokersContainer = new HBox();
-        jokersContainer.setMaxWidth(500);
-        jokersContainer.setMaxHeight(150);
-        jokersContainer.setLayoutX(200);
-        jokersContainer.setLayoutY(200);
-        jokersContainer.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.40);"
-                + "-fx-background-radius: 10px;"
-        );
+        itemsContainer.getChildren().add(leftRectangle);
+        itemsContainer.getChildren().add(titleContainer);
+        itemsContainer.getChildren().add(roundScoreContainer);
+        itemsContainer.getChildren().add(playsContainer);
+        itemsContainer.getChildren().add(roundInfoContainer);
 
-        for (Joker joker : this.player.getJokers()) {
-            VBox jokerContainer = new VBox();
+        ArrayList<Joker> jokers = this.round.getStore().getJokers();
+        ArrayList<Tarot> tarots = this.round.getStore().getTarots();
 
-            Label jokerName = new Label(joker.getName());
+        VBox playerJokers = new PlayerJokersContainer(player);
+        VBox playerTarots = new PlayerTarotsContainer(player);
 
-            Image jokerImage = new Image("file:src/resources/textures/jokerImage.webp");
-            ImageView jokerImageView = new ImageView(jokerImage);
+        itemsContainer.getChildren().add(playerJokers);
+        itemsContainer.getChildren().add(playerTarots);
 
-            Label jokerDescription = new Label(joker.getDescription());
-
-            jokerContainer.getChildren().addAll(jokerName, jokerImageView, jokerDescription);
-        }
-
-        ButtonNextRound nextRoundButton = new ButtonNextRound(this.stage); // boton para pasar a la siguiente ronda
-        nextRoundButton.setLayoutX(1500);
-        nextRoundButton.setLayoutY(200);
-
-        itemsContainer.getChildren().addAll(rectangle, titleContainer, roundScoreContainer, playsContainer, roundInfoContainer, jokersContainer, nextRoundButton);
+        itemsContainer.getChildren().add(new ShopContainer(stage, playerJokers, playerTarots, jokers, tarots, player));
 
         backgroundContainer.getChildren().add(itemsContainer);
 

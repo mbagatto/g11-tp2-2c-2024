@@ -1,5 +1,6 @@
 package model;
 
+import model.game.Store;
 import model.score.Score;
 
 public interface Playable {
@@ -7,4 +8,5 @@ public interface Playable {
     Score getHands();
     Score getDiscards();
     Score getScoreToBeat();
+    Store getStore();
 }
