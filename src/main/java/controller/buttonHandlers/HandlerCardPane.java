@@ -26,11 +26,12 @@ public class HandlerCardPane implements EventHandler<MouseEvent> {
         }
         this.indexs = indexs;
     }
+
     public void handle(MouseEvent event){
         CardPane cardPane = (CardPane) event.getSource();
-        if(this.indexs == null){
+        if (this.indexs == null){
             System.out.println("es nulo en handle");
-        }else{
+        } else{
             System.out.println("handle " + this.indexs.toString());
         }
 
@@ -40,6 +41,4 @@ public class HandlerCardPane implements EventHandler<MouseEvent> {
     public void setMove(Movable move){
         this.move = move;
     }
-
-
 }

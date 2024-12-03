@@ -5,7 +5,7 @@ import view.records.ScoreRecord;
 import java.util.Objects;
 
 public class Score {
-    private final double value;
+    private double value;
 
     @Override
     public boolean equals(Object o) {
@@ -44,7 +44,13 @@ public class Score {
         return String.valueOf(numericValue());
     }
 
+    public boolean isLessThanOrEqualtoZero() { return (this.value <= 0); }
+
     public ScoreRecord toRecord(){
         return new ScoreRecord(this.value);
+    }
+
+    public void subtractOne() {
+        this.value = this.value - 1;
     }
 }
