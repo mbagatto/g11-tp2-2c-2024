@@ -1,8 +1,8 @@
 package view;
 
-import controller.buttonHandlers.HandlerPlay;
 import controller.buttonHandlers.HandlerPlayHand;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -27,21 +27,13 @@ public class ButtonPlayHand extends Button {
             "-fx-border-width: 1px;" +
             "-fx-font-weight: 900;";
 
-    public ButtonPlayHand(PlayerObserver playerObserver, RoundObserver roundObserver, List<Integer> indexsCards) {
+    public ButtonPlayHand(PlayerObserver playerObserver, RoundObserver roundObserver, List<Integer> indexsCards, Stage stage) {
         super("Jugar Mano");
         this.setPrefWidth(280);
         this.setPrefHeight(95);
-//        this.setStyle(
-//                "-fx-background-color: rgb(0,104,216);"
-//                + "-fx-text-fill: white;"
-//                + "-fx-font-size: 50px; "
-//                + "-fx-cursor: hand;"
-//        );
         this.setStyle(this.initialState);
         this.setOnMouseEntered(e -> this.setStyle(hoverState));
         this.setOnMouseExited(e -> this.setStyle(initialState));
-        this.setOnAction(new HandlerPlayHand(playerObserver,roundObserver,indexsCards));
+        this.setOnAction(new HandlerPlayHand(playerObserver,roundObserver,indexsCards, stage));
     }
-
-
 }

@@ -113,4 +113,20 @@ public class Round implements Observable, Playable, ObservableRound {
             observerRound.update(this.toRoundRecord());
         }
     }
+
+    public boolean isGameOver() {
+        return (this.hands.isLessThanOrEqualtoZero() && ! this.isWinner());
+    }
+
+    public boolean isWinner() {
+        return (this.actualScore.isGreaterThanOrEqualTo(this.scoreToBeat));
+    }
+
+    public void subtractHand() {
+        this.hands.subtractOne();
+    }
+
+    public boolean ranOutOfHands() {
+        return (this.hands.isLessThanOrEqualtoZero());
+    }
 }

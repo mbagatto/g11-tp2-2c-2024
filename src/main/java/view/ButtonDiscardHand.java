@@ -1,9 +1,6 @@
 package view;
 
-import controller.buttonHandlers.HandlerPlay;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-import model.Player;
 
 public class ButtonDiscardHand extends Button {
 
@@ -30,16 +27,10 @@ public class ButtonDiscardHand extends Button {
         super("Descartar");
         this.setPrefWidth(280);
         this.setPrefHeight(95);
-//        this.setStyle(
-//                "-fx-background-color: rgb(0,104,216);"
-//                + "-fx-text-fill: white;"
-//                + "-fx-font-size: 50px; "
-//                + "-fx-cursor: hand;"
-//        );
         this.setStyle(this.initialState);
         this.setOnMouseEntered(e -> this.setStyle(hoverState));
         this.setOnMouseExited(e -> this.setStyle(initialState));
-//        this.setOnAction(new HandlerPlay(stage, player));
+        // Aca se deberia descartar
     }
 
 }
