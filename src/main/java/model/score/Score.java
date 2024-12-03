@@ -1,5 +1,7 @@
 package model.score;
 
+import view.records.ScoreRecord;
+
 import java.util.Objects;
 
 public class Score {
@@ -40,5 +42,9 @@ public class Score {
 
     public String toString() {
         return String.valueOf(numericValue());
+    }
+
+    public ScoreRecord toRecord(){
+        return new ScoreRecord(this.value);
     }
 }

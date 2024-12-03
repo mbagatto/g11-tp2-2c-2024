@@ -2,6 +2,7 @@ package view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
@@ -10,10 +11,53 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import model.ObservableRound;
+import model.ObserverPlayer;
+import model.ObserverRound;
+import model.Player;
+import model.decks.EnglishDeck;
+import model.game.Round;
+import model.reader.DataReader;
+import view.records.EnglishCardRecord;
+import view.records.PlayerRecord;
+import view.records.RoundRecord;
 
-public class GameView extends StackPane {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
-    public GameView(Stage stage)  {
+public class GameView extends StackPane implements ObserverPlayer, ObserverRound {
+
+    private HashMap<String,HashMap<String,StackPane>> ImageCards;
+    private List<String> numbersCards = new ArrayList<>();
+    private List<String> suitsCards = new ArrayList<>();
+    //player
+    private PlayerObserver playerObserver;
+    private List<Integer> selectecCardIndex;
+    //round
+    private RoundObserver roundObserver;
+    private Label roundLabel;
+    private Label score;
+    private Label actualScore;
+    private Label handsContainerValue;
+    private Label discardsContainerValue;
+
+    private HBox cardsContainer;
+
+    public GameView(Stage stage,Player player)  {
+        this.selectecCardIndex = new ArrayList<>();
+
+        EnglishDeck deck = new EnglishDeck();
+        deck.fillDeck();
+        deck.shuffleDeck();
+        Player newPlayer = new Player("new",deck);
+        newPlayer.completeDeck();
+        this.playerObserver = new PlayerObserver(newPlayer);
+        DataReader reader = new DataReader();
+        ArrayList<Round> rounds = reader.roundsRead();
+
+        this.roundObserver = new RoundObserver(rounds.getFirst());
 
         Image staticBackground = new Image("file:src/resources/textures/static_game_background.png");
         ImageView backgroundView = new ImageView(staticBackground);
@@ -49,7 +93,7 @@ public class GameView extends StackPane {
         roundTitleFrame.setPrefHeight(100);
         roundTitleFrame.setPrefWidth(380);
 
-        Label roundLabel = new Label("Ronda 1"); // Deberia ir el numero de ronda actual
+        this.roundLabel = new Label("*Ronda-1-*"); // Deberia ir el numero de ronda actual
         roundLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white; -fx-font-weight: 900;");
 
         roundTitleFrame.getChildren().add(roundLabel);
@@ -122,7 +166,7 @@ public class GameView extends StackPane {
         scoreInstructionBox.setLayoutY(10);
         scoreInstructionBox.setPrefWidth(roundScore.getPrefWidth());
 
-        Label score = new Label("3000"); // Aca va el score necesario para ganar la ronda
+        this.score = new Label("9000"); // Aca va el score necesario para ganar la ronda
         score.setStyle("-fx-font-size: 45px; -fx-text-fill: #C03933; -fx-font-weight: bold;");
         score.setPrefHeight(60);
 
@@ -187,7 +231,7 @@ public class GameView extends StackPane {
         hboxActualScoreChip.setPrefHeight(50);
         hboxActualScoreChip.setPadding(new Insets(0, 0, 0, 0));
 
-        Label actualScore = new Label("0");
+        this.actualScore = new Label("666");
         actualScore.setStyle("-fx-font-size: 45px; -fx-text-fill: #C0C6C6; -fx-font-weight: bold;");
 
         hboxActualScoreChip.getChildren().addAll(chipImageView2, actualScore);
@@ -261,7 +305,7 @@ public class GameView extends StackPane {
                         + "-fx-font-size: 30px;"
         );
 
-        Label handsContainerValue = new Label("7");
+        this.handsContainerValue = new Label("7");
         handsContainerValue.setAlignment(Pos.CENTER);
         handsContainerValue.setMinWidth(90);
         handsContainerValue.setStyle(
@@ -272,7 +316,7 @@ public class GameView extends StackPane {
                         + "-fx-padding: 0 0 5 0px;"
         );
 
-        roundInfoHandsContainer.getChildren().addAll(handsContainerTitle, handsContainerValue);
+        roundInfoHandsContainer.getChildren().addAll(handsContainerTitle, this.handsContainerValue);
 
         VBox roundInfoDiscardsContainer = new VBox(5);
         roundInfoDiscardsContainer.setMinWidth(100);
@@ -289,7 +333,7 @@ public class GameView extends StackPane {
                         + "-fx-font-size: 30px;"
         );
 
-        Label discardsContainerValue = new Label("7");
+        this.discardsContainerValue = new Label("7");
         discardsContainerValue.setAlignment(Pos.CENTER);
         discardsContainerValue.setMinWidth(90);
         discardsContainerValue.setStyle(
@@ -305,12 +349,43 @@ public class GameView extends StackPane {
 
         // Termina
 
+
         itemsContainer.getChildren().addAll(rectangle, roundTitleFrame, roundInfo, actualScoreInfo, playsContainer, roundInfoContainer);
 
-        //Todo lo que esta de aca para abajo hay que ordenarlo y refactorizarlo
+        HBox buttonPlayConteiner = new HBox(10);
+        buttonPlayConteiner.setPrefHeight(200);
+        buttonPlayConteiner.setLayoutX(800);
+        buttonPlayConteiner.setLayoutY(950);
+
+        buttonPlayConteiner.getChildren().add(new ButtonPlayHand(this.playerObserver,this.roundObserver,this.selectecCardIndex));
+        buttonPlayConteiner.getChildren().add(new ButtonDiscardHand());
+
+        this.generateImageCard();
+
+        this.cardsContainer = new HBox();
+
+        this.cardsContainer.setPrefHeight(200);
+        this.cardsContainer.setLayoutX(500);
+        this.cardsContainer.setLayoutY(700);
+
+        itemsContainer.getChildren().add(this.cardsContainer);
+        itemsContainer.getChildren().add(buttonPlayConteiner);
 
 
 
+
+        this.roundObserver.addObserverRound(this);
+
+
+        this.playerObserver.addObserverPlayer(this);
+        this.getChildren().add(itemsContainer);
+
+    }
+
+
+
+    public void generateImageCard(){
+            this.ImageCards = new HashMap<>();
         try {
             Image deckImage = new Image("file:src/resources/textures/Deck.png");
             int CARD_ROWS = 4;  // filas y columnas del deck.png
@@ -326,9 +401,13 @@ public class GameView extends StackPane {
             double startY = 500;
 
             int cardCounter = 0;
+            this.suitsCards.addAll(Arrays.asList("Hearts", "Clubs", "Diamonds", "Spades"));
+            this.numbersCards.addAll(Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "Jota", "Reina", "Rey", "As"));
 
             for (int row = 0; row < CARD_ROWS; row++) {         //Este for deberia recorrer con el siguiente orden: Corazon, Trebol, Diamante, Pica
-                                                                // Son 13 cartas por cada fila
+                // Son 13 cartas por cada fila
+                HashMap<String,StackPane> mapNumberCards = new HashMap<>();
+
                 for (int col = 0; col < CARD_COLS; col++) {
 
                     ImageView cardView = new ImageView(deckImage);
@@ -343,17 +422,7 @@ public class GameView extends StackPane {
                     cardView.setFitHeight(200);
                     cardView.setPreserveRatio(true);
 
-                    StackPane cardPane = new StackPane();
-                    cardPane.setStyle(
-                            "-fx-background-color: white; " +
-                                    "-fx-border-color: black; " +
-                                    "-fx-border-radius: 10; " +
-                                    "-fx-background-radius: 10;"
-                    );
-                    cardPane.setPrefSize(160, 200); // esta es la parte blanca de la carta
-                    cardPane.getChildren().add(cardView);
-
-                    makeCardDraggable(cardPane);
+                    CardPane cardPane = new CardPane(cardView);
 
                     cardPane.setLayoutX(startX + (cardCounter * (cardWidth + cardSpacing)));
                     cardPane.setLayoutY(startY);
@@ -362,35 +431,141 @@ public class GameView extends StackPane {
                         cardPane.setLayoutX(1600);
                         cardPane.setLayoutY(760);
                     }
-                    itemsContainer.getChildren().add(cardPane);
+                    System.out.println("number: " + this.numbersCards.get(col));
+                    mapNumberCards.put(this.numbersCards.get(col), cardPane);
                     cardCounter++;
+
                 }
+                System.out.println("Suit: " + this.suitsCards.get(row));
+                this.ImageCards.put(this.suitsCards.get(row),mapNumberCards);
             }
         } catch (Exception e) {
             System.err.println("Error: No se pudo encontrar el archivo " + "src/resources/textures/Deck.png");
             System.exit(1);
         }
-        this.getChildren().add(itemsContainer);
     }
 
-    private void makeCardDraggable(Pane cardPane) {
-        final double[] offsetX = {0};
-        final double[] offsetY = {0};
-        final boolean[] isDragging = {false}; // Variable para saber si hubo arrastre
-        cardPane.setOnMousePressed(event -> {
-            offsetX[0] = event.getSceneX() - cardPane.getLayoutX();
-            offsetY[0] = event.getSceneY() - cardPane.getLayoutY();
-            isDragging[0] = false;
-        });
-        cardPane.setOnMouseDragged(event -> {
-            cardPane.setLayoutX(event.getSceneX() - offsetX[0]);
-            cardPane.setLayoutY(event.getSceneY() - offsetY[0]);
-            isDragging[0] = true;
-        });
-        cardPane.setOnMouseReleased(event -> {
-            if (!isDragging[0]) {
-                cardPane.setLayoutY(cardPane.getLayoutY() - 70); // aca se le dice cuanto debe subir, en este caso 70 pixeles creo que esta bien
-            }
-        });
+    @Override
+    public void updatePlayer(PlayerRecord playerRecord) {
+        System.out.println("UPDATE Player se ejecuto");
+
+        System.out.println("CANTIDAD DE CARTAS: "+playerRecord.playerDeck().cards().size());
+
+        System.out.println("CARTAR A AGREGAR O ACTUALIZAR: "+playerRecord.playerDeck().cards().toString());
+
+        ArrayList<EnglishCardRecord> cardsRecords = playerRecord.playerDeck().cards();
+        List<Node> cards = new ArrayList<>();
+        int indexCounter = 0;
+        for(EnglishCardRecord cardRecord : cardsRecords){
+            System.out.println("cardRecord: " + cardRecord.toString());
+            StackPane card = this.ImageCards.get(cardRecord.suit()).get(cardRecord.number());
+            CardPane newCard = new CardPane(card,indexCounter,this.selectecCardIndex);
+
+            cards.add(newCard);
+            indexCounter++;
+        }
+
+        this.cardsContainer.getChildren().clear();
+        this.cardsContainer.getChildren().addAll(cards);
+    }
+
+    @Override
+    public void update(RoundRecord roundRecord) {
+        System.out.println("UPDATE Round se ejecuto");
+
+        this.roundLabel.setText("Ronda "+roundRecord.number());
+        int score = (int) Math.round(roundRecord.scoreToBeat().value());
+        System.out.println("scoreToBeat: " + score);
+        this.score.setText("" + score);
+        int actualScore = (int) Math.round(roundRecord.actualScore().value());
+        this.actualScore.setText("" + actualScore);
+        System.out.println("hands: " + roundRecord.hands());
+        this.handsContainerValue.setText( "" + roundRecord.hands());
+        this.discardsContainerValue.setText( "" + roundRecord.discards());
     }
 }
+
+//    private void makeCardDraggable(Pane cardPane) {
+//        final double[] offsetX = {0};
+//        final double[] offsetY = {0};
+//        final boolean[] isDragging = {false}; // Variable para saber si hubo arrastre
+//        cardPane.setOnMousePressed(event -> {
+//            offsetX[0] = event.getSceneX() - cardPane.getLayoutX();
+//            offsetY[0] = event.getSceneY() - cardPane.getLayoutY();
+//            isDragging[0] = false;
+//        });
+//        cardPane.setOnMouseDragged(event -> {
+//            cardPane.setLayoutX(event.getSceneX() - offsetX[0]);
+//            cardPane.setLayoutY(event.getSceneY() - offsetY[0]);
+//            isDragging[0] = true;
+//        });
+//        cardPane.setOnMouseReleased(event -> {
+//            if (!isDragging[0]) {
+//                cardPane.setLayoutY(cardPane.getLayoutY() - 70); // aca se le dice cuanto debe subir, en este caso 70 pixeles creo que esta bien
+//            }
+//        });
+//    }
+
+//Todo lo que esta de aca para abajo hay que ordenarlo y refactorizarlo
+
+
+
+//        try {
+//            Image deckImage = new Image("file:src/resources/textures/Deck.png");
+//            int CARD_ROWS = 4;  // filas y columnas del deck.png
+//            int CARD_COLS = 13;
+//
+//            double cardWidth = deckImage.getWidth() / CARD_COLS;
+//            double cardHeight = deckImage.getHeight() / CARD_ROWS;
+//
+//            int cardsInRow = 8;
+//            double cardSpacing = 10;
+//
+//            double startX = ((1920 - (cardsInRow * (cardWidth + cardSpacing) - cardSpacing)) / 2) + 98;
+//            double startY = 500;
+//
+//            int cardCounter = 0;
+//
+//            for (int row = 0; row < CARD_ROWS; row++) {         //Este for deberia recorrer con el siguiente orden: Corazon, Trebol, Diamante, Pica
+//                                                                // Son 13 cartas por cada fila
+//                for (int col = 0; col < CARD_COLS; col++) {
+//
+//                    ImageView cardView = new ImageView(deckImage);
+//                    cardView.setViewport(new javafx.geometry.Rectangle2D(
+//                            col * cardWidth,  // X de la carta
+//                            row * cardHeight, // Y de la carta
+//                            cardWidth,        // Ancho de la carta
+//                            cardHeight        // Altura de la carta
+//                    ));
+//
+//                    cardView.setFitWidth(160);
+//                    cardView.setFitHeight(200);
+//                    cardView.setPreserveRatio(true);
+//
+//                    StackPane cardPane = new StackPane();
+//                    cardPane.setStyle(
+//                            "-fx-background-color: white; " +
+//                                    "-fx-border-color: black; " +
+//                                    "-fx-border-radius: 10; " +
+//                                    "-fx-background-radius: 10;"
+//                    );
+//                    cardPane.setPrefSize(160, 200); // esta es la parte blanca de la carta
+//                    cardPane.getChildren().add(cardView);
+//
+//                    makeCardDraggable(cardPane);
+//
+//                    cardPane.setLayoutX(startX + (cardCounter * (cardWidth + cardSpacing)));
+//                    cardPane.setLayoutY(startY);
+//
+//                    if (cardCounter >= cardsInRow) {
+//                        cardPane.setLayoutX(1600);
+//                        cardPane.setLayoutY(760);
+//                    }
+//                    itemsContainer.getChildren().add(cardPane);
+//                    cardCounter++;
+//                }
+//            }
+//        } catch (Exception e) {
+//            System.err.println("Error: No se pudo encontrar el archivo " + "src/resources/textures/Deck.png");
+//            System.exit(1);
+//        }

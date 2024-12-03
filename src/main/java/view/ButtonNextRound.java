@@ -3,6 +3,7 @@ package view;
 import controller.buttonHandlers.HandlerNextRound;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import model.Player;
 
 public class ButtonNextRound extends Button {
 
@@ -24,13 +25,13 @@ public class ButtonNextRound extends Button {
             "-fx-border-width: 1px;" +
             "-fx-font-weight: 900;";
 
-    public ButtonNextRound(Stage stage) {
+    public ButtonNextRound(Stage stage, Player player) {
         super("Next Round");
         this.setPrefWidth(280);
         this.setPrefHeight(95);
         this.setStyle(initialState);
         this.setOnMouseEntered(e -> this.setStyle(this.hoverState));
         this.setOnMouseExited(e -> this.setStyle(this.initialState));
-        this.setOnAction(new HandlerNextRound(stage));
+        this.setOnAction(new HandlerNextRound(stage,player));
     }
 }

@@ -242,7 +242,7 @@ public class PreparationView extends VBox implements Observer {
             jokerContainer.getChildren().addAll(jokerName, jokerImageView, jokerDescription);
         }
 
-        ButtonNextRound nextRoundButton = new ButtonNextRound(this.stage); // boton para pasar a la siguiente ronda
+        ButtonNextRound nextRoundButton = new ButtonNextRound(this.stage,player); // boton para pasar a la siguiente ronda
         nextRoundButton.setLayoutX(1500);
         nextRoundButton.setLayoutY(200);
 

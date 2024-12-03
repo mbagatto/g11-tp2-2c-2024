@@ -8,10 +8,11 @@ import model.exceptions.InvalidTarotException;
 import model.jokers.Joker;
 import model.score.Score;
 import model.tarots.Tarot;
+import view.records.PlayerRecord;
 
 import java.util.ArrayList;
 
-public class Player implements Observable, Purchaser {
+public class Player implements Observable, Purchaser, ObservablePlayer {
     private String name;
     private EnglishDeck englishDeck;
     private PlayerDeck playerDeck;
@@ -19,6 +20,9 @@ public class Player implements Observable, Purchaser {
     private ArrayList<Tarot> tarots;
     private Score discards;
     private ArrayList<Observer> observers;
+
+    //private ArrayList<ObservablePlayer> observersPlayers;
+    private ArrayList<ObserverPlayer> observersPlayer;
 
     public Player(String name, EnglishDeck englishDeck) {
         this.name = name;
@@ -28,6 +32,8 @@ public class Player implements Observable, Purchaser {
         this.tarots = new ArrayList<>();
         this.discards = new Score(0);
         this.observers = new ArrayList<>();
+
+        this.observersPlayer = new ArrayList<>();
     }
 
     public void completeDeck() {
@@ -84,10 +90,35 @@ public class Player implements Observable, Purchaser {
         this.observers.add(observer);
     }
 
+    @Override
+    public void addObserverPlayer(ObserverPlayer observerPlayer) {
+        this.observersPlayer.add(observerPlayer);
+        observerPlayer.updatePlayer(this.toRecord());
+    }
+
+    @Override
+    public void notifyObserversPlayer() {
+        for (ObserverPlayer observerPlayer : this.observersPlayer) {
+            observerPlayer.updatePlayer(this.toRecord());
+        }
+    }
+
+
+
     public void notifyObservers() {
         for (Observer observer : this.observers) {
             observer.update();
         }
+    }
+
+    public PlayerRecord toRecord() {
+        return new PlayerRecord(
+                this.name,
+                this.playerDeck.toRecord(), // Copia inmutable del mazo
+                new ArrayList<>(this.jokers),               // Copia inmutable de los comodines
+                new ArrayList<>(this.tarots),               // Copia inmutable de las cartas de tarot
+                this.discards.toRecord()                    // Puntuación de descartes
+        );
     }
 
     @Override
@@ -99,4 +130,6 @@ public class Player implements Observable, Purchaser {
     public ArrayList<Tarot> getTarots() {
         return this.tarots;
     }
+
+
 }

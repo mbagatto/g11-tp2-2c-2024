@@ -50,12 +50,16 @@ public class EnglishCardParser {
         switch(suit) {
             case "Trebol":
                 card = this.creator.createClubCard(number,points,multiplier);
+                break;
             case "Corazones":
                 card = this.creator.createHeartCard(number,points,multiplier);
+                break;
             case "Picas":
                 card = this.creator.createSpadeCard(number,points,multiplier);
+                break;
             case "Diamantes":
                 card = this.creator.createDiamondCard(number,points,multiplier);
+                break;
         }
         return card;
     }

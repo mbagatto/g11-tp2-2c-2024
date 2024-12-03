@@ -5,6 +5,8 @@ import model.ObserverCard;
 import model.score.Score;
 import model.score.ScoreModifier;
 import model.Modifiable;
+import view.records.EnglishCardRecord;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -104,4 +106,9 @@ public abstract class Card implements Modifiable, ObservableCard {
     public String getSuit() {
         return suit;
     }
+
+    public EnglishCardRecord toRecord() {
+        return new EnglishCardRecord(suit, number);
+    }
+
 }

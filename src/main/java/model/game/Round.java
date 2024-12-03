@@ -1,17 +1,15 @@
 package model.game;
 
-import model.Observable;
-import model.Observer;
-import model.Playable;
-import model.Player;
+import model.*;
 import model.tarots.Tarot;
 import model.jokers.Joker;
 import model.score.Score;
+import view.records.RoundRecord;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class Round implements Observable, Playable {
+public class Round implements Observable, Playable, ObservableRound {
     private int number;
     private Score hands;
     private Score discards;
@@ -22,6 +20,7 @@ public class Round implements Observable, Playable {
     private TurnGenerator turnGenerator;
     private Score actualScore;
     private ArrayList<Observer> observers;
+    private ArrayList<ObserverRound> observersRound;
 
     public Round(int number, Score hands, Score discards, Score scoreToBeat, Store store) {
         this.number = number;
@@ -34,6 +33,7 @@ public class Round implements Observable, Playable {
         this.discardHands = turnGenerator.generateDiscardHands(discards);
         this.actualScore = new Score(0);
         this.observers = new ArrayList<>();
+        this.observersRound = new ArrayList<>();
     }
 
     public void playHand(Player player) {
@@ -84,7 +84,28 @@ public class Round implements Observable, Playable {
 
     public void notifyObservers() {
         for (Observer observer : observers) {
-            observer.update();
+
+        }
+    }
+
+    public RoundRecord toRoundRecord() {
+        return new RoundRecord(this.number,
+                               this.playHands.size(),
+                                this.discardHands.size(),
+                                this.scoreToBeat.toRecord(),
+                                this.actualScore.toRecord());
+    }
+
+    @Override
+    public void addObserverRound(ObserverRound observerRound) {
+        this.observersRound.add(observerRound);
+        observerRound.update(this.toRoundRecord());
+    }
+
+    @Override
+    public void notifyObserversRound() {
+        for (ObserverRound observerRound : this.observersRound) {
+            observerRound.update(this.toRoundRecord());
         }
     }
 }
