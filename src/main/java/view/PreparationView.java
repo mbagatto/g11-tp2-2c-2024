@@ -1,16 +1,10 @@
 package view;
 
-import controller.buttonHandlers.HandlerAddJoker;
-import controller.buttonHandlers.HandlerAddTarot;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -21,7 +15,6 @@ import model.jokers.Joker;
 import model.tarots.Tarot;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class PreparationView extends VBox implements Observer {
     private Stage stage;
@@ -41,8 +34,8 @@ public class PreparationView extends VBox implements Observer {
     public void update() {
         stage.setTitle("Balatro - Preparation");
 
-        Image staticBackground = new Image("file:src/resources/textures/game_background.jpg");
-        ImageView backgroundView = new ImageView(staticBackground);
+        Image background = new Image("file:src/resources/textures/game_background.jpg");
+        ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(1920);
         backgroundView.setFitHeight(1080);
 
@@ -219,122 +212,22 @@ public class PreparationView extends VBox implements Observer {
         roundInfoDiscardsContainer.getChildren().addAll(discardsContainerTitle, discardsContainerValue);
         roundInfoContainer.getChildren().addAll(roundInfoHandsContainer, roundInfoDiscardsContainer);
 
-        VBox shopContainer = new VBox();
-        shopContainer.setAlignment(Pos.TOP_CENTER);
-        shopContainer.setLayoutX(550);
-        shopContainer.setLayoutY(375);
-        shopContainer.setMinWidth(850);
-        shopContainer.setMinHeight(750);
-        shopContainer.setSpacing(10);
-        shopContainer.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.40);"
-                        + "-fx-background-radius: 15px;"
-                        + "-fx-border-color: rgb(43,37,34);"
-                        + "-fx-border-radius: 10px;"
-                        + "-fx-border-width: 5px;"
-                        + "-fx-padding: 5px;"
-        );
-
-        ButtonNextRound nextRoundButton = new ButtonNextRound(this.stage);
-
-        ArrayList<HBox> products = new ArrayList<>();
-
-        for (Joker joker : this.round.getStore().getJokers()) {
-            HBox jokerContainer = new HBox();
-            jokerContainer.setAlignment(Pos.CENTER);
-            jokerContainer.setSpacing(10);
-            jokerContainer.setStyle(
-                    "-fx-background-color: rgba(70,70,70,0.3);"
-                            + "-fx-background-radius: 10px;"
-                            + "-fx-padding: 5px;"
-            );
-
-            VBox jokerNameAndImage =  new VBox();
-            jokerNameAndImage.setAlignment(Pos.CENTER);
-
-            Label jokerName = new Label(joker.getName());
-            jokerName.setStyle(
-                    "-fx-text-fill: rgba(255,255,255,0.97);"
-                            + "-fx-font-size: 16px;"
-            );
-
-            Image jokerImage = new Image("file:src/resources/textures/jokerImage.png");
-            ImageView jokerImageView = new ImageView(jokerImage);
-            jokerImageView.setFitHeight(100);
-            jokerImageView.setFitWidth(75);
-
-            jokerNameAndImage.getChildren().addAll(jokerName, jokerImageView);
-
-            Label jokerDescription = new Label(joker.getDescription());
-            jokerDescription.setStyle(
-                    "-fx-text-fill: rgba(255,255,255,0.97);"
-                            + "-fx-font-size: 16px;"
-            );
-
-            Button addButton = new ButtonAdd();
-            addButton.setOnAction(new HandlerAddJoker(this.player, joker, shopContainer, jokerContainer, itemsContainer));
-
-            jokerContainer.getChildren().addAll(jokerNameAndImage, jokerDescription, addButton);
-
-            products.add(jokerContainer);
-        }
-
-        for (Tarot tarot : this.round.getStore().getTarots()) {
-            HBox tarotContainer = new HBox();
-            tarotContainer.setAlignment(Pos.CENTER);
-            tarotContainer.setSpacing(10);
-            tarotContainer.setStyle(
-                    "-fx-background-color: rgba(70,70,70,0.3);"
-                            + "-fx-background-radius: 10px;"
-                            + "-fx-padding: 5px;"
-            );
-
-            VBox tarotNameAndImage =  new VBox();
-            tarotNameAndImage.setAlignment(Pos.CENTER);
-
-            Label tarotName = new Label(tarot.getName());
-            tarotName.setStyle(
-                    "-fx-text-fill: rgba(255,255,255,0.97);"
-                            + "-fx-font-size: 16px;"
-            );
-
-            Image tarotImage = new Image("file:src/resources/textures/tarotImage.png");
-            ImageView tarotImageView = new ImageView(tarotImage);
-            tarotImageView.setFitHeight(100);
-            tarotImageView.setFitWidth(75);
-
-            tarotNameAndImage.getChildren().addAll(tarotName, tarotImageView);
-
-            Label tarotDescription = new Label(tarot.getDescription());
-            tarotDescription.setStyle(
-                    "-fx-text-fill: rgba(255,255,255,0.97);"
-                            + "-fx-font-size: 16px;"
-            );
-
-            Button addButton = new ButtonAdd();
-            addButton.setOnAction(new HandlerAddTarot(this.player, tarot, shopContainer, tarotContainer, itemsContainer));
-
-            tarotContainer.getChildren().addAll(tarotNameAndImage, tarotDescription, addButton);
-
-            products.add(tarotContainer);
-        }
-
-        Collections.shuffle(products);
-
-        shopContainer.getChildren().add(nextRoundButton);
-        shopContainer.getChildren().add(products.getFirst());
-        shopContainer.getChildren().add(products.get(1));
-        shopContainer.getChildren().add(products.get(2));
-        shopContainer.getChildren().add(products.get(3));
-
         itemsContainer.getChildren().add(leftRectangle);
         itemsContainer.getChildren().add(titleContainer);
         itemsContainer.getChildren().add(roundScoreContainer);
         itemsContainer.getChildren().add(playsContainer);
         itemsContainer.getChildren().add(roundInfoContainer);
-        itemsContainer.getChildren().add(shopContainer);
-        itemsContainer.getChildren().add(new PlayerJokersView(itemsContainer, player));
-        itemsContainer.getChildren().add(new PlayerTarotsView(itemsContainer, player));
+
+        ArrayList<Joker> jokers = this.round.getStore().getJokers();
+        ArrayList<Tarot> tarots = this.round.getStore().getTarots();
+
+        VBox playerJokers = new PlayerJokersContainer(player);
+        VBox playerTarots = new PlayerTarotsContainer(player);
+
+        itemsContainer.getChildren().add(playerJokers);
+        itemsContainer.getChildren().add(playerTarots);
+
+        itemsContainer.getChildren().add(new ShopContainer(stage, playerJokers, playerTarots, jokers, tarots, player));
 
         backgroundContainer.getChildren().add(itemsContainer);
 

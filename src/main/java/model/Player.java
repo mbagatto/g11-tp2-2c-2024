@@ -96,17 +96,15 @@ public class Player implements Observable, Purchaser {
     }
 
     @Override
-    public String getJokersSize() {
-        return this.jokers.size() + "";
-    }
-
-    @Override
     public ArrayList<Tarot> getTarots() {
         return this.tarots;
     }
 
-    @Override
-    public String getTarotsSize() {
-        return this.tarots.size() + "";
+    public void removeJoker(Joker joker) {
+        this.jokers.remove(joker);
+    }
+
+    public void removeTarot(Tarot tarot) {
+        this.tarots.remove(tarot);
     }
 }

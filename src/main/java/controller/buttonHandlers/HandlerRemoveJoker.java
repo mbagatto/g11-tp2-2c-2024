@@ -9,31 +9,33 @@ import javafx.scene.layout.VBox;
 import model.Player;
 import model.jokers.Joker;
 
-public class HandlerAddJoker implements EventHandler<ActionEvent> {
+public class HandlerRemoveJoker implements EventHandler<ActionEvent> {
     private VBox jokerView;
     private VBox playerJokers;
     private VBox shopContainer;
     private Player player;
     private Joker joker;
+    private Label description;
 
-    public HandlerAddJoker(VBox jokerView, VBox playerJokers, VBox shopContainer, Player player, Joker joker) {
+    public HandlerRemoveJoker(VBox jokerView, VBox playerJokers, VBox shopContainer, Player player, Joker joker, Label description) {
         this.jokerView = jokerView;
         this.playerJokers = playerJokers;
         this.shopContainer = shopContainer;
         this.player = player;
         this.joker = joker;
+        this.description = description;
     }
 
-    public void handle(ActionEvent event) {
-        this.player.addJoker(this.joker);
+    public void handle(ActionEvent actionEvent) {
+        this.player.removeJoker(this.joker);
 
         Button button = (Button) this.jokerView.getChildren().get(1);
-        Label description = (Label) this.jokerView.getChildren().removeLast();
-        button.setOnAction(new HandlerRemoveJoker(this.jokerView, this.playerJokers, this.shopContainer, this.player, this.joker, description));
+        button.setOnAction(new HandlerAddJoker(this.jokerView, this.playerJokers, this.shopContainer, this.player, this.joker));
 
+        this.jokerView.getChildren().add(this.description);
+        this.shopContainer.getChildren().add(this.jokerView);
         HBox jokersContainer = (HBox) this.playerJokers.getChildren().getFirst();
-        jokersContainer.getChildren().add(this.jokerView);
-        this.shopContainer.getChildren().remove(this.jokerView);
+        jokersContainer.getChildren().remove(this.jokerView);
         Label jokerCount = (Label) this.playerJokers.getChildren().getLast();
         jokerCount.setText(this.player.getJokers().size() + "/5");
     }

@@ -1,17 +1,24 @@
 package view;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import model.Player;
 
 public class ButtonAdd extends Button {
-    public ButtonAdd() {
-        super("Add");
-        this.setMinWidth(150);
-        this.setStyle(
-                "-fx-font-size: 30px;"
-                + "-fx-background-color: rgba(251,56,56,0.5);"
-                + "-fx-text-fill: rgba(255,255,255,0.97);"
-                + "-fx-background-radius: 10px;"
-                + "-fx-cursor: hand;"
-        );
+    public ButtonAdd(ImageView imageView, Label name, Label description) {
+        super();
+        this.setId("button-add");
+        this.setGraphic(imageView);
+        this.setStyle("-fx-background-color: transparent;");
+        this.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
+            description.setVisible(true);
+            name.setStyle("-fx-text-fill: rgb(255, 235, 167);");
+        });
+        this.addEventHandler(MouseEvent.MOUSE_EXITED, event -> {
+            description.setVisible(false);
+            name.setStyle("-fx-text-fill: white;");
+        });
     }
 }

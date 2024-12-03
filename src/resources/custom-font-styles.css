@@ -6,3 +6,48 @@
 * {
     -fx-font-family: m6x11plus;
 }
+
+#shop-container {
+    -fx-background-color: rgba(0,0,0,0.5);
+    -fx-background-radius: 15px;
+    -fx-border-color: rgb(255, 235, 167);
+    -fx-border-radius: 10px;
+    -fx-border-width: 5px;
+    -fx-padding: 10px;
+}
+
+#purchasable-name, #player-joker-count, #player-tarot-count {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
+#purchasable-description {
+    -fx-text-fill: rgb(255, 235, 167);
+    -fx-font-size: 20px;
+}
+
+#button-next-round {
+    -fx-font-size: 45px;
+    -fx-background-color: rgba(255, 235, 167, 0.65);
+    -fx-text-fill: white;
+    -fx-background-radius: 10px;
+}
+
+#button-next-round:hover {
+    -fx-background-color: rgb(255, 235, 167);
+    -fx-cursor: hand;
+}
+
+#button-add {
+    -fx-background-color: transparent;
+}
+
+#button-add:hover {
+    -fx-cursor: hand;
+}
+
+#player-jokers, #player-tarots {
+    -fx-background-color: rgba(0,0,0,0.5);
+    -fx-background-radius: 10px;
+    -fx-padding: 25px;
+}

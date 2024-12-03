@@ -37,14 +37,4 @@ public class Store implements Purchaser {
     public ArrayList<Tarot> getTarots() {
         return this.tarots;
     }
-
-    @Override
-    public String getJokersSize() {
-        return this.jokers.size() + "";
-    }
-
-    @Override
-    public String getTarotsSize() {
-        return this.tarots.size() + "";
-    }
 }
