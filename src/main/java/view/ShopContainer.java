@@ -43,7 +43,7 @@ public class ShopContainer extends VBox {
 
         Collections.shuffle(products);
 
-        this.getChildren().add(new ButtonNextRound(stage));
+        this.getChildren().add(new ButtonNextRound(stage, player));
         this.getChildren().addAll(products.subList(0, 4));
     }
 }
