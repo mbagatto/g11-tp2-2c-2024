@@ -2,6 +2,7 @@ package view.buttons;
 
 import controller.buttonHandlers.HandlerPlayHand;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import view.PlayerObserver;
 import view.RoundObserver;
 

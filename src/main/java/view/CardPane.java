@@ -5,6 +5,7 @@ import controller.buttonHandlers.HandlerCardPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import model.Player;
 
 import java.util.List;
 
@@ -22,11 +23,10 @@ public class CardPane extends StackPane {
           this.getChildren().add(cardView);
 //          this.setOnMouseClicked(new HandlerCardPane());
      }
-     CardPane(StackPane stackPane,int index,List<Integer> indexsCards) {
+     CardPane(StackPane stackPane,int index,List<Integer> indexsCards, Player player) {
           super(stackPane);
           this.index = index;
-          this.setOnMouseClicked(new HandlerCardPane(indexsCards));
-
+          this.setOnMouseClicked(new HandlerCardPane(indexsCards, player));
      }
 
      public int getIndex() {

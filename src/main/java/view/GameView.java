@@ -20,10 +20,7 @@ import model.game.Round;
 import model.reader.DataReader;
 import view.buttons.ButtonDiscardHand;
 import view.buttons.ButtonPlayHand;
-import view.records.EnglishCardRecord;
-import view.records.HandRecord;
-import view.records.PlayerRecord;
-import view.records.RoundRecord;
+import view.records.*;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -32,12 +29,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class GameView extends StackPane implements ObserverPlayer, ObserverRound, ObserverHand {
+public class GameView extends StackPane implements ObserverPlayer, ObserverRound, ObserverPlayerDeck {
 
     private HashMap<String,HashMap<String,StackPane>> ImageCards;
     private List<String> numbersCards = new ArrayList<>();
     private List<String> suitsCards = new ArrayList<>();
     //player
+    private Player player;
     private PlayerObserver playerObserver;
     private List<Integer> selectecCardIndex;
     //round
@@ -54,19 +52,18 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
     private HBox cardsContainer;
 
-    public GameView(Stage stage,Player player)  {
+    public GameView(Stage stage, Player player)  {
         this.selectecCardIndex = new ArrayList<>();
 
         EnglishDeck deck = new EnglishDeck();
         deck.fillDeck();
         deck.shuffleDeck();
-        Player newPlayer = new Player("new",deck);
-        newPlayer.completeDeck();
-        this.playerObserver = new PlayerObserver(newPlayer);
+        this.player = new Player("new",deck);
+        this.player.completeDeck();
+        this.playerObserver = new PlayerObserver(this.player);
         DataReader reader = new DataReader();
         ArrayList<Round> rounds = reader.roundsRead();
 
-        player.addObserverForHand(this);
 
         this.roundObserver = new RoundObserver(rounds.getFirst());
 
@@ -403,6 +400,9 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         this.roundObserver.addObserverRound(this);
 
         this.playerObserver.addObserverPlayer(this);
+
+        //this.player.addObserverPlayerDeck(this);
+
         this.getChildren().add(itemsContainer);
 
     }
@@ -450,16 +450,10 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
                     cardPane.setLayoutX(startX + (cardCounter * (cardWidth + cardSpacing)));
                     cardPane.setLayoutY(startY);
 
-//                    if (cardCounter >= cardsInRow) {
-//                        cardPane.setLayoutX(1600);
-//                        cardPane.setLayoutY(760);
-//                    }
-                    System.out.println("number: " + this.numbersCards.get(col));
                     mapNumberCards.put(this.numbersCards.get(col), cardPane);
                     cardCounter++;
 
                 }
-                System.out.println("Suit: " + this.suitsCards.get(row));
                 this.ImageCards.put(this.suitsCards.get(row),mapNumberCards);
             }
         } catch (Exception e) {
@@ -470,19 +464,13 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
     @Override
     public void updatePlayer(PlayerRecord playerRecord) {
-        System.out.println("UPDATE Player se ejecuto");
-
-        System.out.println("CANTIDAD DE CARTAS: "+playerRecord.playerDeck().cards().size());
-
-        System.out.println("CARTA A AGREGAR O ACTUALIZAR: "+playerRecord.playerDeck().cards().toString());
-
         ArrayList<EnglishCardRecord> cardsRecords = playerRecord.playerDeck().cards();
         List<Node> cards = new ArrayList<>();
         int indexCounter = 0;
         for(EnglishCardRecord cardRecord : cardsRecords){
-            System.out.println("cardRecord: " + cardRecord.toString());
+            //System.out.println("cardRecord: " + cardRecord.toString());
             StackPane card = this.ImageCards.get(cardRecord.suit()).get(cardRecord.number());
-            CardPane newCard = new CardPane(card,indexCounter,this.selectecCardIndex);
+            CardPane newCard = new CardPane(card, indexCounter, this.selectecCardIndex, this.player);
 
             cards.add(newCard);
             indexCounter++;
@@ -494,30 +482,39 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
     @Override
     public void update(RoundRecord roundRecord) {
-        System.out.println("UPDATE Round se ejecuto");
+//        System.out.println("UPDATE Round se ejecuto");
 
         this.roundLabel.setText("Ronda "+roundRecord.number());
         int score = (int) Math.round(roundRecord.scoreToBeat().value());
-        System.out.println("scoreToBeat: " + score);
+//        System.out.println("scoreToBeat: " + score);
         this.score.setText("" + score);
         int actualScore = (int) Math.round(roundRecord.actualScore().value());
         this.actualScore.setText("" + actualScore);
-        System.out.println("hands: " + roundRecord.hands());
+//        System.out.println("hands: " + roundRecord.hands());
         this.handsContainerValue.setText( "" + roundRecord.hands());
         this.discardsContainerValue.setText( "" + roundRecord.discards());
     }
 
     public void updateHand(HandRecord handRecord) {  //Este metodo deberia mostrar al jugador la jugada posible que se va a generar cuando seleccione cartas. Todo esto lo muestra en el tablero o Board
         if (handRecord != null && handRecord.multiplier().toString() != null && handRecord.points().toString() != null && this.playsPoints != null && this.playsMult != null) {
-            this.playsMult.setText("" + handRecord.multiplier().toString());
-            this.playsPoints.setText("" + handRecord.points().toString());
+//            this.playsMult.setText("" + );
+//            this.playsPoints.setText("" + handRecord.points().toString());
 
-            PauseTransition pause = new PauseTransition(Duration.seconds(2));
-            pause.setOnFinished(event -> {
-                this.playsMult.setText("0");
-                this.playsPoints.setText("0");
-            });
-            pause.play();
+//            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+//            pause.setOnFinished(event -> {
+//                this.playsMult.setText("0");
+//                this.playsPoints.setText("0");
+//            });
+//            pause.play();
         }
+    }
+
+    @Override
+    public void updatePlayerDeck(PlayerDeckRecord playerDeckRecord) {
+        this.playsPoints.setText("" + playerDeckRecord.handRecord().points().value());
+        this.playsMult.setText("" + playerDeckRecord.handRecord().multiplier().value());
+
+        System.out.println( "Points: " + playerDeckRecord.handRecord().points().value());
+        System.out.println( "Mults: " + playerDeckRecord.handRecord().multiplier().value());
     }
 }

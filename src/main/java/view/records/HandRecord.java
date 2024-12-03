@@ -1,6 +1,4 @@
 package view.records;
 
-import model.score.Score;
-
-public record HandRecord(Score points, Score multiplier) {
+public record HandRecord(ScoreRecord points, ScoreRecord multiplier, String name) {
 }

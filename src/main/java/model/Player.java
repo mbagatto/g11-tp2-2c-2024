@@ -98,6 +98,7 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
 
     @Override
     public void notifyObserversPlayer() {
+        System.out.println("ME EJECUTEEE");
         for (ObserverPlayer observerPlayer : this.observersPlayer) {
             observerPlayer.updatePlayer(this.toRecord());
         }
@@ -139,7 +140,11 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
         this.tarots.remove(tarot);
     }
 
-    public void addObserverForHand(ObserverHand observerHand) {
-        this.playerDeck.addObserverForHand(observerHand);
+    public void addObserverPlayerDeck(ObserverPlayerDeck observerPlayerDeck) {
+        this.playerDeck.addObserverForPlayerDeck(observerPlayerDeck);
+    }
+
+    public void notifyPlayerDeck() {
+        this.playerDeck.notifyObserversPlayerDeck();
     }
 }

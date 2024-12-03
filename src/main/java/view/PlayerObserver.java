@@ -30,6 +30,7 @@ public class PlayerObserver implements ObservablePlayer {
         for (Integer index : indexsCards) {
             this.player.selectCard(index);
         }
+        this.player.notifyPlayerDeck();
     }
 
     public Player getplayer() {

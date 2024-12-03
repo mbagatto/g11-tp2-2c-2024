@@ -1,27 +1,24 @@
 package model.decks;
 
-import model.Observable;
-import model.Observer;
-import model.ObserverHand;
+import model.ObservablePlayerDeck;
+import model.ObserverPlayerDeck;
 import model.exceptions.NoSelectedCardsException;
 import model.hands.Hand;
 import model.cards.Card;
-import model.hands.HighCard;
-import model.hands.Pair;
+import model.hands.NullHand;
 import model.identifiers.*;
 import model.jokers.DiscardBonus;
 import model.jokers.Joker;
 import model.score.Score;
 import view.records.EnglishCardRecord;
 import view.records.PlayerDeckRecord;
-
 import java.util.ArrayList;
 
-public class PlayerDeck implements Observable {
+public class PlayerDeck implements ObservablePlayerDeck {
     private ArrayList<Card> cards;
     private ArrayList<Card> selectedCards;
     private HandIdentifier handIdentifier;
-    private ArrayList<Observer> observers;
+    private ArrayList<ObserverPlayerDeck> observers;
     private Hand actualHand;
 
 
@@ -29,12 +26,11 @@ public class PlayerDeck implements Observable {
         this.cards = new ArrayList<>();
         this.selectedCards = new ArrayList<>();
         this.observers = new ArrayList<>();
-        this.actualHand = Pair.getInstance(); // Cambio medio grave
+        this.actualHand = new NullHand(); // Cambio medio grave
         initializeIdentifiersChain();
     }
 
     public void addCard(Card card) {
-        System.out.println("Desde addCard: "+this.cards.toString());
         this.cards.add(card);
     }
 
@@ -48,20 +44,21 @@ public class PlayerDeck implements Observable {
 
     public void selectCard(int indexCard){
         this.selectedCards.add(this.cards.get(indexCard));
-        System.out.println(this.selectedCards.toString());
+        this.actualHand = handIdentifier.identify(this.selectedCards);
     }
 
     public Score play(ArrayList<Joker> jokers) {
         if (selectedCards.isEmpty()) {
             throw new NoSelectedCardsException();
         }
-        System.out.println("CARTAS JUGADAS: "+this.selectedCards.toString());
-//        Hand hand = handIdentifier.identify(this.selectedCards);
-//        this.actualHand = hand;  // Cambio que puede ser grave
+        //System.out.println("CARTAS JUGADAS: "+this.selectedCards.toString());
 
-        this.actualHand = handIdentifier.identify(this.selectedCards);
+        //Score score = this.actualHand.calculateScore(this.selectedCards, jokers);
+        //this.actualHand = handIdentifier.identify(this.selectedCards);
 
-        Score score = this.actualHand.calculateScore(this.selectedCards, jokers);
+        Hand hand = handIdentifier.identify(this.selectedCards);
+
+        Score score = hand.calculateScore(this.selectedCards, jokers);
         this.reset(selectedCards);
         return score;
     }
@@ -113,22 +110,22 @@ public class PlayerDeck implements Observable {
             cardRecords.add(card.toRecord());
         }
 
-        return new PlayerDeckRecord(cardRecords);
+        return new PlayerDeckRecord(cardRecords, this.actualHand.toRecord());
+    }
+
+    public void addObserverForPlayerDeck(ObserverPlayerDeck observerPlayerDeck) {
+        this.observers.add(observerPlayerDeck);
     }
 
     @Override
-    public void addObserver(Observer observer) {
-        this.observers.add(observer);
+    public void addObserversPlayerDeck(ObserverPlayerDeck observerPlayerDeck) {
+        this.observers.add(observerPlayerDeck);
     }
 
     @Override
-    public void notifyObservers() {
-        for (Observer observer : observers) {
-
+    public void notifyObserversPlayerDeck() {
+        for (ObserverPlayerDeck observerPlayerDeck : this.observers) {
+            observerPlayerDeck.updatePlayerDeck(this.toRecord());
         }
-    }
-
-    public void addObserverForHand(ObserverHand observerHand) {
-        this.actualHand.addObserverHand(observerHand);
     }
 }

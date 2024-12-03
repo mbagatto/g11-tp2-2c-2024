@@ -2,6 +2,7 @@ package controller.buttonHandlers;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import model.Player;
 import view.CardPane;
 import view.PlayerObserver;
 
@@ -11,35 +12,24 @@ public class HandlerCardPane implements EventHandler<MouseEvent> {
     private Movable move;
     private List<Integer> indexs;
     private PlayerObserver playerObserver;
+    private Player player;
 
-    public HandlerCardPane() {
-        this.move = new CardPaneUp();
-    }
+//    public HandlerCardPane() {
+//        this.move = new CardPaneUp();
+//    }
 
-    public HandlerCardPane(List<Integer> indexs) {
+    public HandlerCardPane(List<Integer> indexs, Player player) {
         this.move = new CardPaneUp();
         this.indexs = indexs;
-        if(indexs.isEmpty()){
-            System.out.println("esta vacia");
-        }else{
-            System.out.println("HandlerCardPane " + indexs.toString());
-        }
-        this.indexs = indexs;
+        this.player = player;
     }
     public void handle(MouseEvent event){
         CardPane cardPane = (CardPane) event.getSource();
-        if(this.indexs == null){
-            System.out.println("es nulo en handle");
-        }else{
-            System.out.println("handle " + this.indexs.toString());
-        }
-
-        this.move.move(cardPane,this,this.indexs);
+        this.move.move(cardPane,this, this.indexs, this.player);
     }
 
     public void setMove(Movable move){
         this.move = move;
     }
-
 
 }
