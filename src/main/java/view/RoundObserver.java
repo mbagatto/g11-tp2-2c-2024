@@ -27,7 +27,6 @@ public class RoundObserver implements ObservableRound {
     public void playHand(Player player){
         this.round.playHand(player);
         this.notifyObserversRound();
-        player.notifyObserversPlayer();
     }
 
 }

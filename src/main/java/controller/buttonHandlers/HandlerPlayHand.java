@@ -20,6 +20,7 @@ public class HandlerPlayHand implements EventHandler<ActionEvent> {
     public void handle(ActionEvent event) {
         this.observer.selectCards(this.indexCards);
         this.roundObserver.playHand(this.observer.getplayer());
+        this.observer.notifyObserversPlayer();
         this.indexCards.clear();
         System.out.println("desde boton playHand: " + this.indexCards.toString());
     }
