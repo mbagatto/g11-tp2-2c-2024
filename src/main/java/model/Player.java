@@ -138,4 +138,8 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
     public void removeTarot(Tarot tarot) {
         this.tarots.remove(tarot);
     }
+
+    public void addObserverForHand(ObserverHand observerHand) {
+        this.playerDeck.addObserverForHand(observerHand);
+    }
 }

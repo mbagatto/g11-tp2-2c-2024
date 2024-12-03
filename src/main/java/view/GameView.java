@@ -1,5 +1,7 @@
 package view;
 
+import javafx.animation.PauseTransition;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -11,24 +13,26 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import model.ObserverPlayer;
-import model.ObserverRound;
-import model.Player;
+import javafx.util.Duration;
+import model.*;
 import model.decks.EnglishDeck;
 import model.game.Round;
 import model.reader.DataReader;
 import view.buttons.ButtonDiscardHand;
 import view.buttons.ButtonPlayHand;
 import view.records.EnglishCardRecord;
+import view.records.HandRecord;
 import view.records.PlayerRecord;
 import view.records.RoundRecord;
 
+import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class GameView extends StackPane implements ObserverPlayer, ObserverRound {
+public class GameView extends StackPane implements ObserverPlayer, ObserverRound, ObserverHand {
 
     private HashMap<String,HashMap<String,StackPane>> ImageCards;
     private List<String> numbersCards = new ArrayList<>();
@@ -44,6 +48,10 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
     private Label handsContainerValue;
     private Label discardsContainerValue;
 
+    private Label playsMult;
+    private Label playsPoints;
+
+
     private HBox cardsContainer;
 
     public GameView(Stage stage,Player player)  {
@@ -57,6 +65,8 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         this.playerObserver = new PlayerObserver(newPlayer);
         DataReader reader = new DataReader();
         ArrayList<Round> rounds = reader.roundsRead();
+
+        player.addObserverForHand(this);
 
         this.roundObserver = new RoundObserver(rounds.getFirst());
 
@@ -167,7 +177,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         scoreInstructionBox.setLayoutY(10);
         scoreInstructionBox.setPrefWidth(roundScore.getPrefWidth());
 
-        this.score = new Label("9000"); // Aca va el score necesario para ganar la ronda
+        this.score = new Label("3000"); // Aca va el score necesario para ganar la ronda
         score.setStyle("-fx-font-size: 45px; -fx-text-fill: #C03933; -fx-font-weight: bold;");
         score.setPrefHeight(60);
 
@@ -200,7 +210,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
         VBox vboxScoreLabel = new VBox();
         vboxScoreLabel.setAlignment(Pos.CENTER);
-        vboxScoreLabel.setPrefHeight(50); // Ajusta a un valor más pequeño
+        vboxScoreLabel.setPrefHeight(50);
 
         Label wordRound = new Label("Ronda");
         wordRound.setStyle("-fx-font-size: 40px; -fx-text-fill: white; -fx-font-weight: bold;");
@@ -221,7 +231,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         HBox hboxActualScoreChip = new HBox(5);
         hboxActualScoreChip.setAlignment(Pos.CENTER);
         hboxActualScoreChip.setStyle(
-                "-fx-background-color: #212829; " + //212829
+                "-fx-background-color: #212829; " +
                         "-fx-background-radius: 17px; " +
                         "-fx-padding: 5px; " +
                         "-fx-border-color: #212829; " +
@@ -232,7 +242,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         hboxActualScoreChip.setPrefHeight(50);
         hboxActualScoreChip.setPadding(new Insets(0, 0, 0, 0));
 
-        this.actualScore = new Label("666");
+        this.actualScore = new Label("666");  // Este es el score actual pero se modifica en update() CREO
         actualScore.setStyle("-fx-font-size: 45px; -fx-text-fill: #C0C6C6; -fx-font-weight: bold;");
 
         hboxActualScoreChip.getChildren().addAll(chipImageView2, actualScore);
@@ -257,10 +267,19 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         );
 
 
-        Label playsPoints = new Label("0");
-        playsPoints.setMinWidth(150);
-        playsPoints.setAlignment(Pos.CENTER_RIGHT);
-        playsPoints.setStyle(
+//        Label playsPoints = new Label("0");  // Puntos del tablero
+//        playsPoints.setMinWidth(150);
+//        playsPoints.setAlignment(Pos.CENTER_RIGHT);
+//        playsPoints.setStyle(
+//                "-fx-text-fill: rgba(255,255,255,0.97);"
+//                        + "-fx-font-size: 80px;"
+//                        + "-fx-background-color: rgba(0,153,255,0.5);"
+//                        + "-fx-background-radius: 10px;"
+//        );
+        this.playsPoints = new Label("0");  // Puntos del tablero
+        this.playsPoints.setMinWidth(150);
+        this.playsPoints.setAlignment(Pos.CENTER_RIGHT);
+        this.playsPoints.setStyle(
                 "-fx-text-fill: rgba(255,255,255,0.97);"
                         + "-fx-font-size: 80px;"
                         + "-fx-background-color: rgba(0,153,255,0.5);"
@@ -273,10 +292,20 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
                         + "-fx-font-size: 80px;"
         );
 
-        Label playsMult = new Label("0");
-        playsMult.setMinWidth(150);
-        playsMult.setAlignment(Pos.CENTER_LEFT);
-        playsMult.setStyle(
+//        Label playsMult = new Label("0");    // Multiplicador del tablero
+//        playsMult.setMinWidth(150);
+//        playsMult.setAlignment(Pos.CENTER_LEFT);
+//        playsMult.setStyle(
+//                "-fx-text-fill: rgba(255,255,255,0.97);"
+//                        + "-fx-font-size: 80px;"
+//                        + "-fx-background-color: rgba(251,56,56,0.5);"
+//                        + "-fx-background-radius: 10px;"
+//                        + "-fx-padding: 0 0 0 5px;"
+//        );
+        this.playsMult = new Label("0");    // Multiplicador del tablero
+        this.playsMult.setMinWidth(150);
+        this.playsMult.setAlignment(Pos.CENTER_LEFT);
+        this.playsMult.setStyle(
                 "-fx-text-fill: rgba(255,255,255,0.97);"
                         + "-fx-font-size: 80px;"
                         + "-fx-background-color: rgba(251,56,56,0.5);"
@@ -398,8 +427,8 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
             this.suitsCards.addAll(Arrays.asList("Hearts", "Clubs", "Diamonds", "Spades"));
             this.numbersCards.addAll(Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "Jota", "Reina", "Rey", "As"));
 
-            for (int row = 0; row < CARD_ROWS; row++) {         //Este for deberia recorrer con el siguiente orden: Corazon, Trebol, Diamante, Pica
-                // Son 13 cartas por cada fila
+            for (int row = 0; row < CARD_ROWS; row++) {
+
                 HashMap<String,StackPane> mapNumberCards = new HashMap<>();
 
                 for (int col = 0; col < CARD_COLS; col++) {
@@ -445,7 +474,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
         System.out.println("CANTIDAD DE CARTAS: "+playerRecord.playerDeck().cards().size());
 
-        System.out.println("CARTAR A AGREGAR O ACTUALIZAR: "+playerRecord.playerDeck().cards().toString());
+        System.out.println("CARTA A AGREGAR O ACTUALIZAR: "+playerRecord.playerDeck().cards().toString());
 
         ArrayList<EnglishCardRecord> cardsRecords = playerRecord.playerDeck().cards();
         List<Node> cards = new ArrayList<>();
@@ -477,89 +506,18 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         this.handsContainerValue.setText( "" + roundRecord.hands());
         this.discardsContainerValue.setText( "" + roundRecord.discards());
     }
+
+    public void updateHand(HandRecord handRecord) {  //Este metodo deberia mostrar al jugador la jugada posible que se va a generar cuando seleccione cartas. Todo esto lo muestra en el tablero o Board
+        if (handRecord != null && handRecord.multiplier().toString() != null && handRecord.points().toString() != null && this.playsPoints != null && this.playsMult != null) {
+            this.playsMult.setText("" + handRecord.multiplier().toString());
+            this.playsPoints.setText("" + handRecord.points().toString());
+
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            pause.setOnFinished(event -> {
+                this.playsMult.setText("0");
+                this.playsPoints.setText("0");
+            });
+            pause.play();
+        }
+    }
 }
-
-//    private void makeCardDraggable(Pane cardPane) {
-//        final double[] offsetX = {0};
-//        final double[] offsetY = {0};
-//        final boolean[] isDragging = {false}; // Variable para saber si hubo arrastre
-//        cardPane.setOnMousePressed(event -> {
-//            offsetX[0] = event.getSceneX() - cardPane.getLayoutX();
-//            offsetY[0] = event.getSceneY() - cardPane.getLayoutY();
-//            isDragging[0] = false;
-//        });
-//        cardPane.setOnMouseDragged(event -> {
-//            cardPane.setLayoutX(event.getSceneX() - offsetX[0]);
-//            cardPane.setLayoutY(event.getSceneY() - offsetY[0]);
-//            isDragging[0] = true;
-//        });
-//        cardPane.setOnMouseReleased(event -> {
-//            if (!isDragging[0]) {
-//                cardPane.setLayoutY(cardPane.getLayoutY() - 70); // aca se le dice cuanto debe subir, en este caso 70 pixeles creo que esta bien
-//            }
-//        });
-//    }
-
-//Todo lo que esta de aca para abajo hay que ordenarlo y refactorizarlo
-
-
-
-//        try {
-//            Image deckImage = new Image("file:src/resources/textures/Deck.png");
-//            int CARD_ROWS = 4;  // filas y columnas del deck.png
-//            int CARD_COLS = 13;
-//
-//            double cardWidth = deckImage.getWidth() / CARD_COLS;
-//            double cardHeight = deckImage.getHeight() / CARD_ROWS;
-//
-//            int cardsInRow = 8;
-//            double cardSpacing = 10;
-//
-//            double startX = ((1920 - (cardsInRow * (cardWidth + cardSpacing) - cardSpacing)) / 2) + 98;
-//            double startY = 500;
-//
-//            int cardCounter = 0;
-//
-//            for (int row = 0; row < CARD_ROWS; row++) {         //Este for deberia recorrer con el siguiente orden: Corazon, Trebol, Diamante, Pica
-//                                                                // Son 13 cartas por cada fila
-//                for (int col = 0; col < CARD_COLS; col++) {
-//
-//                    ImageView cardView = new ImageView(deckImage);
-//                    cardView.setViewport(new javafx.geometry.Rectangle2D(
-//                            col * cardWidth,  // X de la carta
-//                            row * cardHeight, // Y de la carta
-//                            cardWidth,        // Ancho de la carta
-//                            cardHeight        // Altura de la carta
-//                    ));
-//
-//                    cardView.setFitWidth(160);
-//                    cardView.setFitHeight(200);
-//                    cardView.setPreserveRatio(true);
-//
-//                    StackPane cardPane = new StackPane();
-//                    cardPane.setStyle(
-//                            "-fx-background-color: white; " +
-//                                    "-fx-border-color: black; " +
-//                                    "-fx-border-radius: 10; " +
-//                                    "-fx-background-radius: 10;"
-//                    );
-//                    cardPane.setPrefSize(160, 200); // esta es la parte blanca de la carta
-//                    cardPane.getChildren().add(cardView);
-//
-//                    makeCardDraggable(cardPane);
-//
-//                    cardPane.setLayoutX(startX + (cardCounter * (cardWidth + cardSpacing)));
-//                    cardPane.setLayoutY(startY);
-//
-//                    if (cardCounter >= cardsInRow) {
-//                        cardPane.setLayoutX(1600);
-//                        cardPane.setLayoutY(760);
-//                    }
-//                    itemsContainer.getChildren().add(cardPane);
-//                    cardCounter++;
-//                }
-//            }
-//        } catch (Exception e) {
-//            System.err.println("Error: No se pudo encontrar el archivo " + "src/resources/textures/Deck.png");
-//            System.exit(1);
-//        }

@@ -89,7 +89,7 @@ public class Round implements Observable, Playable, ObservableRound {
 
     public void notifyObservers() {
         for (Observer observer : observers) {
-
+            observer.update(); // no se cuando se utiliza realmente
         }
     }
 

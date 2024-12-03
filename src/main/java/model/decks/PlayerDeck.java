@@ -2,9 +2,12 @@ package model.decks;
 
 import model.Observable;
 import model.Observer;
+import model.ObserverHand;
 import model.exceptions.NoSelectedCardsException;
 import model.hands.Hand;
 import model.cards.Card;
+import model.hands.HighCard;
+import model.hands.Pair;
 import model.identifiers.*;
 import model.jokers.DiscardBonus;
 import model.jokers.Joker;
@@ -19,14 +22,15 @@ public class PlayerDeck implements Observable {
     private ArrayList<Card> selectedCards;
     private HandIdentifier handIdentifier;
     private ArrayList<Observer> observers;
+    private Hand actualHand;
 
 
     public PlayerDeck() {
         this.cards = new ArrayList<>();
         this.selectedCards = new ArrayList<>();
         this.observers = new ArrayList<>();
+        this.actualHand = Pair.getInstance(); // Cambio medio grave
         initializeIdentifiersChain();
-
     }
 
     public void addCard(Card card) {
@@ -52,8 +56,12 @@ public class PlayerDeck implements Observable {
             throw new NoSelectedCardsException();
         }
         System.out.println("CARTAS JUGADAS: "+this.selectedCards.toString());
-        Hand hand = handIdentifier.identify(this.selectedCards);
-        Score score = hand.calculateScore(this.selectedCards, jokers);
+//        Hand hand = handIdentifier.identify(this.selectedCards);
+//        this.actualHand = hand;  // Cambio que puede ser grave
+
+        this.actualHand = handIdentifier.identify(this.selectedCards);
+
+        Score score = this.actualHand.calculateScore(this.selectedCards, jokers);
         this.reset(selectedCards);
         return score;
     }
@@ -118,5 +126,9 @@ public class PlayerDeck implements Observable {
         for (Observer observer : observers) {
 
         }
+    }
+
+    public void addObserverForHand(ObserverHand observerHand) {
+        this.actualHand.addObserverHand(observerHand);
     }
 }

@@ -5,13 +5,21 @@ import model.jokers.Joker;
 import model.score.Score;
 import model.score.ScoreModifier;
 import model.Modifiable;
+import model.ObservableHand;
+import model.ObserverHand;
+import view.records.HandRecord;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public abstract class Hand implements Modifiable {
+public abstract class Hand implements Modifiable, ObservableHand {
+    protected ArrayList<ObserverHand> observers;
     protected String name;
     protected Score points;
     protected Score multiplier;
+
+    public Hand() {
+        observers = new ArrayList<>();
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -32,11 +40,14 @@ public abstract class Hand implements Modifiable {
         ArrayList<Card> handCards = findHandCards(cards);
         for (Card card : handCards) {
             points = points.addWith(card.calculateScore());
+            this.notifyObserversHand();
         }
         for (Joker joker : jokers) {
             points = joker.applyToPoints(points, this);
             multiplier = joker.applyToMultiplier(multiplier, this);
+            this.notifyObserversHand();
         }
+        this.notifyObserversHand();
         return points.multiplyWith(multiplier);
     }
 
@@ -47,5 +58,20 @@ public abstract class Hand implements Modifiable {
 
     protected ArrayList<Card> findHandCards(ArrayList<Card> cards) {
         return cards;
+    }
+
+    public HandRecord toRecord() {
+        return new HandRecord(this.points, this.multiplier);
+    }
+
+    public void addObserverHand(ObserverHand observer) {
+        this.observers.add(observer);
+        observer.updateHand(this.toRecord());
+    }
+
+    public void notifyObserversHand() {
+        for (ObserverHand observerHand : this.observers) {
+            observerHand.updateHand(this.toRecord());
+        }
     }
 }

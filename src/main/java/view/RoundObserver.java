@@ -10,6 +10,7 @@ import java.util.List;
 
 public class RoundObserver implements ObservableRound {
     private Round round;
+
     public RoundObserver(Round round) {
         this.round = round;
     }
@@ -29,9 +30,9 @@ public class RoundObserver implements ObservableRound {
         this.notifyObserversRound();
     }
 
-public void discardHand(Player player){
+    public void discardHand(Player player){
         this.round.discardHand(player);
         this.notifyObserversRound();
-}
+    }
 
 }

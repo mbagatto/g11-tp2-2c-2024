@@ -10,6 +10,7 @@ import view.GameView;
 public class HandlerNextRound  implements EventHandler<ActionEvent> {
     private Stage stage;
     private Player player;
+
     public HandlerNextRound(Stage stage,Player player) {
         this.stage = stage;
         this.player = player;
