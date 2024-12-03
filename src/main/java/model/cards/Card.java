@@ -1,14 +1,18 @@
 package model.cards;
 
+import model.ObservableCard;
+import model.ObserverCard;
 import model.score.Score;
 import model.score.ScoreModifier;
 import model.Modifiable;
+import view.records.EnglishCardRecord;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public abstract class Card implements Modifiable {
+public abstract class Card implements Modifiable, ObservableCard {
+    protected ArrayList<ObserverCard> observers;
     protected String number;
     protected Score points;
     protected Score multiplier;
@@ -31,6 +35,7 @@ public abstract class Card implements Modifiable {
         this.number = number;
         this.points = points;
         this.multiplier = multiplier;
+        this.observers = new ArrayList<>();
     }
 
     public Score calculateScore() {
@@ -71,4 +76,39 @@ public abstract class Card implements Modifiable {
     private ArrayList<String> generateOrder() {
         return new ArrayList<>(Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "Jota", "Reina", "Rey", "As"));
     }
+
+    public void attach(ObserverCard observer) {
+        this.observers.add(observer);
+    }
+
+    public void detach(ObserverCard observer) {
+        this.observers.remove(observer);
+    }
+
+    public void notifyObservers() {
+        for (ObserverCard observer : observers) {
+            observer.update();
+        }
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public Score getPoints() {
+        return points;
+    }
+
+    public Score getMultiplier() {
+        return multiplier;
+    }
+
+    public String getSuit() {
+        return suit;
+    }
+
+    public EnglishCardRecord toRecord() {
+        return new EnglishCardRecord(suit, number);
+    }
+
 }

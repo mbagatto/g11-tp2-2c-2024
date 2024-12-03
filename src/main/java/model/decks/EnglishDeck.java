@@ -6,6 +6,7 @@ import model.exceptions.EmptyDeckException;
 import model.reader.DataReader;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 
 public class EnglishDeck {
@@ -45,5 +46,8 @@ public class EnglishDeck {
             throw new EmptyDeckException();
         }
         return (this.cards.removeLast());
+    }
+    public void shuffleDeck(){
+        Collections.shuffle(this.cards);
     }
 }
