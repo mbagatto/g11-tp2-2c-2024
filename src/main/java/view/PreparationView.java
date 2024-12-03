@@ -152,6 +152,7 @@ public class PreparationView extends VBox implements Observer {
                         + "-fx-font-size: 80px;"
                         + "-fx-background-color: rgba(251,56,56,0.5);"
                         + "-fx-background-radius: 10px;"
+                        + "-fx-padding: 0 0 0 5px;"
         );
 
         playsContainer.getChildren().addAll(playsPoints, playsSymbol, playsMult);
@@ -183,7 +184,8 @@ public class PreparationView extends VBox implements Observer {
                 "-fx-font-size: 45px;"
                         + "-fx-background-color: rgba(70,70,70,0.3);"
                         + "-fx-text-fill: rgba(0,153,255,0.5);"
-                        + "-fx-background-radius: 10px;"
+                        + "-fx-background-radius: 15px;"
+                        + "-fx-padding: 0 0 5 0px;"
         );
 
         roundInfoHandsContainer.getChildren().addAll(handsContainerTitle, handsContainerValue);
@@ -209,7 +211,8 @@ public class PreparationView extends VBox implements Observer {
                 "-fx-font-size: 45px;"
                         + "-fx-background-color: rgba(70,70,70,0.3);"
                         + "-fx-text-fill: rgba(251,56,56,0.5);"
-                        + "-fx-background-radius: 10px;"
+                        + "-fx-background-radius: 15px;"
+                        + "-fx-padding: 0 0 5 0px;"
         );
 
         roundInfoDiscardsContainer.getChildren().addAll(discardsContainerTitle, discardsContainerValue);

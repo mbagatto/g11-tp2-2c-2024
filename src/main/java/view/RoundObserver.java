@@ -29,4 +29,9 @@ public class RoundObserver implements ObservableRound {
         this.notifyObserversRound();
     }
 
+public void discardHand(Player player){
+        this.round.discardHand(player);
+        this.notifyObserversRound();
+}
+
 }

@@ -1,4 +1,4 @@
-package view;
+package view.buttons;
 
 import controller.buttonHandlers.HandlerStart;
 import javafx.scene.control.Button;

@@ -13,6 +13,5 @@ public class CardPaneUp implements Movable {
             System.out.println(indexs.toString());
             movable.setMove(new CardPaneDown());
         }
-
     }
 }

@@ -11,13 +11,14 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import model.ObservableRound;
 import model.ObserverPlayer;
 import model.ObserverRound;
 import model.Player;
 import model.decks.EnglishDeck;
 import model.game.Round;
 import model.reader.DataReader;
+import view.buttons.ButtonDiscardHand;
+import view.buttons.ButtonPlayHand;
 import view.records.EnglishCardRecord;
 import view.records.PlayerRecord;
 import view.records.RoundRecord;
@@ -349,16 +350,15 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
         // Termina
 
-
         itemsContainer.getChildren().addAll(rectangle, roundTitleFrame, roundInfo, actualScoreInfo, playsContainer, roundInfoContainer);
 
-        HBox buttonPlayConteiner = new HBox(10);
-        buttonPlayConteiner.setPrefHeight(200);
-        buttonPlayConteiner.setLayoutX(800);
-        buttonPlayConteiner.setLayoutY(950);
+        HBox buttonPlayContainer = new HBox(10);
+        buttonPlayContainer.setPrefHeight(200);
+        buttonPlayContainer.setLayoutX(800);
+        buttonPlayContainer.setLayoutY(950);
 
-        buttonPlayConteiner.getChildren().add(new ButtonPlayHand(this.playerObserver,this.roundObserver,this.selectecCardIndex));
-        buttonPlayConteiner.getChildren().add(new ButtonDiscardHand());
+        buttonPlayContainer.getChildren().add(new ButtonPlayHand(this.playerObserver,this.roundObserver,this.selectecCardIndex));
+        buttonPlayContainer.getChildren().add(new ButtonDiscardHand(this.playerObserver,this.roundObserver,this.selectecCardIndex));
 
         this.generateImageCard();
 
@@ -369,20 +369,14 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         this.cardsContainer.setLayoutY(700);
 
         itemsContainer.getChildren().add(this.cardsContainer);
-        itemsContainer.getChildren().add(buttonPlayConteiner);
-
-
-
+        itemsContainer.getChildren().add(buttonPlayContainer);
 
         this.roundObserver.addObserverRound(this);
-
 
         this.playerObserver.addObserverPlayer(this);
         this.getChildren().add(itemsContainer);
 
     }
-
-
 
     public void generateImageCard(){
             this.ImageCards = new HashMap<>();
@@ -427,10 +421,10 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
                     cardPane.setLayoutX(startX + (cardCounter * (cardWidth + cardSpacing)));
                     cardPane.setLayoutY(startY);
 
-                    if (cardCounter >= cardsInRow) {
-                        cardPane.setLayoutX(1600);
-                        cardPane.setLayoutY(760);
-                    }
+//                    if (cardCounter >= cardsInRow) {
+//                        cardPane.setLayoutX(1600);
+//                        cardPane.setLayoutY(760);
+//                    }
                     System.out.println("number: " + this.numbersCards.get(col));
                     mapNumberCards.put(this.numbersCards.get(col), cardPane);
                     cardCounter++;

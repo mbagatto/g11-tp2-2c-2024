@@ -1,9 +1,14 @@
-package view;
+package view.buttons;
 
-import controller.buttonHandlers.HandlerQuit;
+import controller.buttonHandlers.HandlerDiscardHand;
 import javafx.scene.control.Button;
+import view.PlayerObserver;
+import view.RoundObserver;
 
-public class ButtonQuit extends Button {
+import java.util.List;
+
+public class ButtonDiscardHand extends Button {
+
 
     private final String initialState = "-fx-background-color: #FF453F; " +
             "-fx-text-fill: white; " +
@@ -12,8 +17,7 @@ public class ButtonQuit extends Button {
             "-fx-border-radius: 25px; " +
             "-fx-border-color: #FF453F; " +
             "-fx-border-width: 1px;" +
-            "-fx-font-weight: 900;" +
-            "-fx-cursor: hand;";
+            "-fx-font-weight: 900;";
 
     private final String hoverState = "-fx-background-color: #6e0300; " +
             "-fx-text-fill: white; " +
@@ -22,20 +26,16 @@ public class ButtonQuit extends Button {
             "-fx-border-radius: 25px; " +
             "-fx-border-color: #6e0300; " +
             "-fx-border-width: 1px;" +
-            "-fx-font-weight: 900;" +
-            "-fx-cursor: hand;";
+            "-fx-font-weight: 900;";
 
-    public ButtonQuit() {
-        super("QUIT");
+    public ButtonDiscardHand(PlayerObserver playerObserver, RoundObserver roundObserver, List<Integer> indexsCards) {
+        super("Descartar");
         this.setPrefWidth(280);
         this.setPrefHeight(95);
         this.setStyle(this.initialState);
-        this.setOnMouseEntered(e -> this.setStyle(this.hoverState));
-        this.setOnMouseExited(e -> this.setStyle(this.initialState));
-        this.setOnAction(new HandlerQuit());
+        this.setOnMouseEntered(e -> this.setStyle(hoverState));
+        this.setOnMouseExited(e -> this.setStyle(initialState));
+        this.setOnAction(new HandlerDiscardHand(playerObserver,roundObserver,indexsCards));
     }
+
 }
-
-
-
-

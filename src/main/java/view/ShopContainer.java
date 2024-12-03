@@ -4,12 +4,12 @@ import controller.buttonHandlers.HandlerAddJoker;
 import controller.buttonHandlers.HandlerAddTarot;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Player;
 import model.jokers.Joker;
 import model.tarots.Tarot;
+import view.buttons.ButtonNextRound;
 
 import java.util.ArrayList;
 import java.util.Collections;

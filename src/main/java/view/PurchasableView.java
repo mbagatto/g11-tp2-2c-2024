@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import model.Purchasable;
+import view.buttons.ButtonAdd;
 
 public class PurchasableView extends VBox {
     public PurchasableView(Purchasable purchasable) {

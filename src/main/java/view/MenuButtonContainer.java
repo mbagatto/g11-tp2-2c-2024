@@ -4,6 +4,8 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.Player;
+import view.buttons.ButtonPlay;
+import view.buttons.ButtonQuit;
 
 public class MenuButtonContainer extends HBox {
 
