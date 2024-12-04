@@ -1,5 +1,6 @@
 package view;
 
+import controller.SoundPlayer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
@@ -14,6 +15,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+
+        SoundPlayer soundPlayer = new SoundPlayer();
+        soundPlayer.playBackgroundMusic();
+
+
         onLaunchView = new OnLaunchView(stage);
 
         VBox vbox = new VBox(); // Esto se podria remover

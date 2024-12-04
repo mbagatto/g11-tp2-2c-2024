@@ -26,7 +26,7 @@ public class HandlerStart implements EventHandler<ActionEvent> {
     }
 
     public void handle(ActionEvent actionEvent) {
-        this.soundPlayer.playSound("src/resources/sounds/button.ogg");
+        this.soundPlayer.playButtonSound();
         if (!this.text.getText().trim().isEmpty()) {
             EnglishDeck englishDeck = new EnglishDeck();
             englishDeck.fillDeck();

@@ -1,5 +1,6 @@
 package view;
 
+import controller.SoundPlayer;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,6 +25,9 @@ public class WinRoundView extends VBox {
 
         this.setAlignment(Pos.CENTER);
         this.setPrefSize(1920, 1080);
+
+        SoundPlayer soundPlayer = new SoundPlayer();
+        soundPlayer.playWinRound();
 
         this.round = this.game.nextRound();
 

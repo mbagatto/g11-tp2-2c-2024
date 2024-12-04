@@ -1,5 +1,6 @@
 package controller.buttonHandlers;
 
+import controller.SoundPlayer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -15,6 +16,7 @@ public class HandlerAddTarot implements EventHandler<ActionEvent> {
     private VBox shopContainer;
     private Player player;
     private Tarot tarot;
+    private SoundPlayer soundPlayer;
 
     public HandlerAddTarot(VBox tarotView, VBox playerTarots, VBox shopContainer, Player player, Tarot tarot) {
         this.tarotView = tarotView;
@@ -22,9 +24,12 @@ public class HandlerAddTarot implements EventHandler<ActionEvent> {
         this.shopContainer = shopContainer;
         this.player = player;
         this.tarot = tarot;
+        this.soundPlayer = new SoundPlayer();
     }
 
     public void handle(ActionEvent event) {
+        this.soundPlayer.playTarotUp();
+
         this.player.addTarot(this.tarot);
 
         Button button = (Button) this.tarotView.getChildren().get(1);

@@ -1,5 +1,6 @@
 package controller.buttonHandlers;
 
+import controller.SoundPlayer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -15,6 +16,7 @@ public class HandlerAddJoker implements EventHandler<ActionEvent> {
     private VBox shopContainer;
     private Player player;
     private Joker joker;
+    private SoundPlayer soundPlayer;
 
     public HandlerAddJoker(VBox jokerView, VBox playerJokers, VBox shopContainer, Player player, Joker joker) {
         this.jokerView = jokerView;
@@ -22,9 +24,12 @@ public class HandlerAddJoker implements EventHandler<ActionEvent> {
         this.shopContainer = shopContainer;
         this.player = player;
         this.joker = joker;
+        this.soundPlayer = new SoundPlayer();
     }
 
     public void handle(ActionEvent event) {
+        this.soundPlayer.playJokerUp();
+
         this.player.addJoker(this.joker);
 
         Button button = (Button) this.jokerView.getChildren().get(1);

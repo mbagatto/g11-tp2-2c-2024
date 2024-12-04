@@ -1,5 +1,6 @@
 package controller.buttonHandlers;
 
+import controller.SoundPlayer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -14,13 +15,16 @@ import java.util.ArrayList;
 public class HandlerPlay implements EventHandler<ActionEvent> {
     private Stage stage;
     private Player player;
+    private SoundPlayer soundPlayer;
 
     public HandlerPlay(Stage stage, Player player) {
         this.stage = stage;
         this.player = player;
+        this.soundPlayer = new SoundPlayer();
     }
 
     public void handle(ActionEvent actionEvent) {
+        this.soundPlayer.playButtonSound();
         DataReader dataReader = new DataReader();
         ArrayList<Round> rounds = dataReader.roundsRead(); // Aca se crean las rondas
         Game game = new Game(this.player, rounds);

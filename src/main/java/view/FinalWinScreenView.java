@@ -1,5 +1,6 @@
 package view;
 
+import controller.SoundPlayer;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -13,6 +14,9 @@ import javafx.util.Duration;
 public class FinalWinScreenView {
 
     public FinalWinScreenView(Stage stage) {
+        SoundPlayer sound = new SoundPlayer();
+        sound.playWinSound();
+
         Label label = new Label("GANASTE");
         label.setFont(Font.font("Arial", 70));
         label.setTextFill(Color.WHITE);

@@ -1,9 +1,9 @@
 package controller.buttonHandlers;
 
+import controller.SoundPlayer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
-import view.FinalWinScreenView;
 import view.GameOverView;
 import view.PlayerObserver;
 import view.RoundObserver;
@@ -15,15 +15,18 @@ public class HandlerPlayHand implements EventHandler<ActionEvent> {
     private RoundObserver roundObserver;
     private List<Integer> indexCards;
     private Stage stage;
+    private SoundPlayer soundPlayer;
 
     public HandlerPlayHand(PlayerObserver playerObserver, RoundObserver roundObserver, List<Integer> indexCards, Stage stage) {
         this.playerObserver = playerObserver;
         this.roundObserver = roundObserver;
         this.indexCards = indexCards;
         this.stage = stage;
+        this.soundPlayer = new SoundPlayer();
     }
 
     public void handle(ActionEvent event) {
+        this.soundPlayer.playButtonSound();
         if (! this.roundObserver.ranOutOfHands()) {
             this.playerObserver.selectCards(this.indexCards);
             this.roundObserver.playHand(this.playerObserver.getplayer());
