@@ -14,7 +14,7 @@ public class Round implements Observable, Playable, ObservableRound {
     private Score hands;
     private Score discards;
     private final Score scoreToBeat;
-    private Store store;
+    private Shop shop;
     private Stack<PlayHand> playHands;
     private Stack<DiscardHand> discardHands;
     private TurnGenerator turnGenerator;
@@ -22,12 +22,12 @@ public class Round implements Observable, Playable, ObservableRound {
     private ArrayList<Observer> observers;
     private ArrayList<ObserverRound> observersRound;
 
-    public Round(int number, Score hands, Score discards, Score scoreToBeat, Store store) {
+    public Round(int number, Score hands, Score discards, Score scoreToBeat, Shop shop) {
         this.number = number;
         this.hands = hands;
         this.discards = discards;
         this.scoreToBeat = scoreToBeat;
-        this.store = store;
+        this.shop = shop;
         this.turnGenerator = new TurnGenerator();
         this.playHands = turnGenerator.generatePlayHands(hands);
         this.discardHands = turnGenerator.generateDiscardHands(discards);
@@ -51,11 +51,11 @@ public class Round implements Observable, Playable, ObservableRound {
     }
 
     public Joker buyJoker(int index) {
-        return this.store.buyJoker(index);
+        return this.shop.buyJoker(index);
     }
 
     public Tarot buyTarot(int i) {
-        return this.store.buyTarot(i);
+        return this.shop.buyTarot(i);
     }
 
     @Override
@@ -79,8 +79,13 @@ public class Round implements Observable, Playable, ObservableRound {
     }
 
     @Override
-    public Store getStore() {
-        return this.store;
+    public Shop getShop() {
+        return this.shop;
+    }
+
+    @Override
+    public Score getActualScore() {
+        return this.actualScore;
     }
 
     public void addObserver(Observer observer) {

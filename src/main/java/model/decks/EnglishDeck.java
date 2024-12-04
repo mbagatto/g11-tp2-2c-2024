@@ -1,5 +1,6 @@
 package model.decks;
 
+import model.Dealable;
 import model.cards.*;
 import model.creators.EnglishCardBuilder;
 import model.exceptions.EmptyDeckException;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
-public class EnglishDeck {
+public class EnglishDeck implements Dealable {
     private ArrayList<Card> cards;
     DataReader cardReader;
     EnglishCardBuilder cardBuilder;
@@ -47,7 +48,13 @@ public class EnglishDeck {
         }
         return (this.cards.removeLast());
     }
+
     public void shuffleDeck(){
         Collections.shuffle(this.cards);
+    }
+
+    @Override
+    public ArrayList<Card> getCards() {
+        return this.cards;
     }
 }

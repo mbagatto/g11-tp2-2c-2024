@@ -139,7 +139,7 @@ public class PlayerDeck implements ObservablePlayerDeck {
     @Override
     public void notifyObserversPlayerDeck() {
         for (ObserverPlayerDeck observerPlayerDeck : this.observers) {
-            System.out.println("PLEYERDECK: " +this.toRecord().handRecord().name());
+            System.out.println("PLAYERDECK: " +this.toRecord().handRecord().name());
             observerPlayerDeck.updatePlayerDeck(this.toRecord());
         }
     }

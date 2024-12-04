@@ -22,6 +22,7 @@ import view.buttons.ButtonDiscardHand;
 import view.buttons.ButtonPlayHand;
 import view.records.*;
 
+import java.awt.event.MouseEvent;
 import java.util.*;
 
 public class GameView extends StackPane implements ObserverPlayer, ObserverRound, ObserverPlayerDeck {
@@ -61,7 +62,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
         this.roundObserver = new RoundObserver(this.actualRound);
 
-        Image staticBackground = new Image("file:src/resources/textures/static_game_background.png");
+        Image staticBackground = new Image("file:src/resources/textures/game_background.jpg");
         ImageView backgroundView = new ImageView(staticBackground);
         backgroundView.setFitWidth(1920);
         backgroundView.setFitHeight(1080);
@@ -73,48 +74,34 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
         Pane itemsContainer = new Pane();
 
-        Rectangle rectangle = new Rectangle();
-        rectangle.setX(50);
-        rectangle.setY(0);
-        rectangle.setWidth(400);
-        rectangle.setHeight(1080);
-        rectangle.setFill(Color.web("#212829"));
-        rectangle.setStroke(Color.web("#004A7B"));
-        rectangle.setStrokeWidth(3);
+        Rectangle leftRectangle = new Rectangle();
+        leftRectangle.setX(50);
+        leftRectangle.setY(0);
+        leftRectangle.setWidth(400);
+        leftRectangle.setHeight(1080);
+        leftRectangle.setFill(Color.web("#3B3B3B44"));
+        leftRectangle.setStroke(Color.web("#FFEBA7FF"));
+        leftRectangle.setStrokeWidth(5);
 
         HBox roundTitleFrame = new HBox();
+        roundTitleFrame.setId("round-title-frame");
         roundTitleFrame.setAlignment(Pos.CENTER);
-        roundTitleFrame.setStyle(
-                "-fx-background-color: #004A7B; " +
-                        "-fx-background-radius: 25px; " +
-                        "-fx-padding: 9px; " +
-                        "-fx-border-color: #004A7B; " +
-                        "-fx-border-radius: 25px; " +
-                        "-fx-border-width: 1px;"
-        );
-
         roundTitleFrame.setLayoutX(60);
         roundTitleFrame.setLayoutY(20);
         roundTitleFrame.setPrefHeight(100);
         roundTitleFrame.setPrefWidth(380);
 
-        this.roundLabel = new Label("*Ronda-1-*"); // Deberia ir el numero de ronda actual
-        roundLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white; -fx-font-weight: 900;");
+        this.roundLabel = new Label("Ronda " + actualRound.getNumber());
+        roundLabel.setStyle("-fx-font-size: 60px; -fx-text-fill: white;");
 
         roundTitleFrame.getChildren().add(roundLabel);
 
         Pane roundInfo = new Pane();
+        roundInfo.setId("round-info-pane");
         roundInfo.setLayoutX(60);
         roundInfo.setLayoutY(135);
         roundInfo.setPrefHeight(240);
         roundInfo.setPrefWidth(380);
-        roundInfo.setStyle(
-                "-fx-background-color: #0B2F47; " +
-                        "-fx-background-radius: 25px; " +
-                        "-fx-border-color: #0B2F47; " +
-                        "-fx-border-width: 1px; " +
-                        "-fx-border-radius: 25px;"
-        );
 
         Image whiteCoin = new Image("file:src/resources/textures/white_coin.png");
         ImageView whiteCoinView = new ImageView(whiteCoin);
@@ -124,20 +111,14 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         whiteCoinView.setLayoutY(65);
 
         Pane roundScore = new Pane();
+        roundScore.setId("round-score-pane");
         roundScore.setLayoutX(150);
         roundScore.setLayoutY(65);
         roundScore.setPrefHeight(130);
         roundScore.setPrefWidth(210);
-        roundScore.setStyle(
-                "-fx-background-color: #161D1E; " +
-                        "-fx-background-radius: 25px; " +
-                        "-fx-border-color: #161D1E; " +
-                        "-fx-border-width: 1px; " +
-                        "-fx-border-radius: 25px;"
-        );
 
         Label scoreInstructionLabel = new Label("Anota al menos");
-        scoreInstructionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;");
+        scoreInstructionLabel.setStyle("-fx-font-size: 22px; -fx-text-fill: white;");
 
         ColorAdjust colorAdjustBrightness = new ColorAdjust();
         colorAdjustBrightness.setBrightness(-0.3);
@@ -171,8 +152,8 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         scoreInstructionBox.setLayoutY(10);
         scoreInstructionBox.setPrefWidth(roundScore.getPrefWidth());
 
-        this.score = new Label("3000"); // Aca va el score necesario para ganar la ronda
-        score.setStyle("-fx-font-size: 45px; -fx-text-fill: #C03933; -fx-font-weight: bold;");
+        this.score = new Label(actualRound.getScoreToBeat().toString()); // Aca va el score necesario para ganar la ronda
+        score.setStyle("-fx-font-size: 45px; -fx-text-fill: #C03933;");
         score.setPrefHeight(60);
 
         HBox scoreBox = new HBox(5);
@@ -181,7 +162,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         scoreBox.getChildren().addAll(chipImageView, score);
 
         Label reward = new Label("Sin recompensa"); // Aca va la cantidad de dinero que hay de recompensa
-        reward.setStyle("-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;");
+        reward.setStyle("-fx-font-size: 22px; -fx-text-fill: white;");
 
         scoreInstructionBox.getChildren().addAll(scoreInstructionLabel, scoreBox, reward);
 
@@ -190,54 +171,41 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         roundInfo.getChildren().addAll(whiteCoinView, roundScore);
 
         Pane actualScoreInfo = new Pane();
+        actualScoreInfo.setId("actual-score-pane");
         actualScoreInfo.setLayoutX(60);
         actualScoreInfo.setLayoutY(385);
         actualScoreInfo.setPrefHeight(100);
         actualScoreInfo.setPrefWidth(385);
-        actualScoreInfo.setStyle(
-                "-fx-background-color: #111D1C; " +
-                        "-fx-background-radius: 25px; " +
-                        "-fx-border-color: #111D1C; " +
-                        "-fx-border-width: 1px; " +
-                        "-fx-border-radius: 25px;"
-        );
 
         VBox vboxScoreLabel = new VBox();
         vboxScoreLabel.setAlignment(Pos.CENTER);
         vboxScoreLabel.setPrefHeight(50);
 
         Label wordRound = new Label("Ronda");
-        wordRound.setStyle("-fx-font-size: 40px; -fx-text-fill: white; -fx-font-weight: bold;");
+        wordRound.setStyle("-fx-font-size: 40px; -fx-text-fill: white;");
 
         Label puntuation = new Label("puntuacion");
-        puntuation.setStyle("-fx-font-size: 30px; -fx-text-fill: white; -fx-font-weight: bold;");
+        puntuation.setStyle("-fx-font-size: 30px; -fx-text-fill: white;");
 
         vboxScoreLabel.getChildren().addAll(wordRound, puntuation);
         vboxScoreLabel.setMargin(wordRound, new Insets(0, 0, 0, 0));
         vboxScoreLabel.setMargin(puntuation, new Insets(0, 0, 0, 0));
 
-        HBox hboxActualScore = new HBox(5);
+        HBox hboxActualScore = new HBox(10);
         hboxActualScore.setAlignment(Pos.CENTER);
         hboxActualScore.setLayoutX(10);
         hboxActualScore.setLayoutY(15);
         hboxActualScore.setPrefWidth(380);
 
         HBox hboxActualScoreChip = new HBox(5);
+        hboxActualScoreChip.setId("actual-score-chip");
         hboxActualScoreChip.setAlignment(Pos.CENTER);
-        hboxActualScoreChip.setStyle(
-                "-fx-background-color: #212829; " +
-                        "-fx-background-radius: 17px; " +
-                        "-fx-padding: 5px; " +
-                        "-fx-border-color: #212829; " +
-                        "-fx-border-radius: 17px; " +
-                        "-fx-border-width: 1px;"
-        );
-        hboxActualScoreChip.setPrefWidth(240);
+        hboxActualScoreChip.setPrefWidth(200);
         hboxActualScoreChip.setPrefHeight(50);
         hboxActualScoreChip.setPadding(new Insets(0, 0, 0, 0));
 
-        this.actualScore = new Label("666");  // Este es el score actual pero se modifica en update() CREO
-        actualScore.setStyle("-fx-font-size: 45px; -fx-text-fill: #C0C6C6; -fx-font-weight: bold;");
+        this.actualScore = new Label(actualRound.getActualScore().toString());
+        actualScore.setStyle("-fx-font-size: 45px; -fx-text-fill: white;");
 
         hboxActualScoreChip.getChildren().addAll(chipImageView2, actualScore);
 
@@ -252,84 +220,14 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         playsContainerV.setLayoutY(500);
         playsContainerV.setMinWidth(375);
         playsContainerV.setMinHeight(200);
-        playsContainerV.setAlignment(Pos.BOTTOM_CENTER);
-        playsContainerV.setSpacing(10);
-        playsContainerV.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.40);"
-                        + "-fx-background-radius: 12px;"
-                        + "-fx-padding: 5px;"
-        );
 
-        HBox playsContainer = new HBox();
-        playsContainer.setLayoutX(62);
-        playsContainer.setLayoutY(500);
-        playsContainer.setMinWidth(375);
-        playsContainer.setMinHeight(100);
-        playsContainer.setAlignment(Pos.BOTTOM_CENTER);
-        playsContainer.setSpacing(10);
-        playsContainer.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.40);"
-                        + "-fx-background-radius: 12px;"
-                        + "-fx-padding: 5px;"
-        );
+        VBox pointsAndMultView = new PointsAndMultView();
+        this.labelHand = (Label) pointsAndMultView.getChildren().getFirst();
+        HBox pointsAndMult = (HBox) pointsAndMultView.getChildren().getLast();
+        this.playsPoints = (Label) pointsAndMult.getChildren().getFirst();
+        this.playsMult = (Label) pointsAndMult.getChildren().getLast();
 
-
-//        Label playsPoints = new Label("0");  // Puntos del tablero
-//        playsPoints.setMinWidth(150);
-//        playsPoints.setAlignment(Pos.CENTER_RIGHT);
-//        playsPoints.setStyle(
-//                "-fx-text-fill: rgba(255,255,255,0.97);"
-//                        + "-fx-font-size: 80px;"
-//                        + "-fx-background-color: rgba(0,153,255,0.5);"
-//                        + "-fx-background-radius: 10px;"
-//        );
-
-        this.labelHand = new Label(""); // Nombre de mano jugada
-        this.labelHand.setStyle("-fx-font-size: 60px; -fx-text-fill: white; -fx-font-weight: bold;");
-
-
-
-        this.playsPoints = new Label("0");  // Puntos del tablero
-        this.playsPoints.setMinWidth(150);
-        this.playsPoints.setAlignment(Pos.CENTER_RIGHT);
-        this.playsPoints.setStyle(
-                "-fx-text-fill: rgba(255,255,255,0.97);"
-                        + "-fx-font-size: 80px;"
-                        + "-fx-background-color: rgba(0,153,255,0.5);"
-                        + "-fx-background-radius: 10px;"
-        );
-
-        Label playsSymbol = new Label("X");
-        playsSymbol.setStyle(
-                "-fx-text-fill: rgba(255,255,255,0.97);"
-                        + "-fx-font-size: 80px;"
-        );
-
-//        Label playsMult = new Label("0");    // Multiplicador del tablero
-//        playsMult.setMinWidth(150);
-//        playsMult.setAlignment(Pos.CENTER_LEFT);
-//        playsMult.setStyle(
-//                "-fx-text-fill: rgba(255,255,255,0.97);"
-//                        + "-fx-font-size: 80px;"
-//                        + "-fx-background-color: rgba(251,56,56,0.5);"
-//                        + "-fx-background-radius: 10px;"
-//                        + "-fx-padding: 0 0 0 5px;"
-//        );
-        this.playsMult = new Label("0");    // Multiplicador del tablero
-        this.playsMult.setMinWidth(150);
-        this.playsMult.setAlignment(Pos.CENTER_LEFT);
-        this.playsMult.setStyle(
-                "-fx-text-fill: rgba(255,255,255,0.97);"
-                        + "-fx-font-size: 80px;"
-                        + "-fx-background-color: rgba(251,56,56,0.5);"
-                        + "-fx-background-radius: 10px;"
-                        + "-fx-padding: 0 0 0 5px;"
-        );
-
-        playsContainer.getChildren().addAll(playsPoints, playsSymbol, playsMult);
-
-        playsContainerV.getChildren().add(this.labelHand);
-        playsContainerV.getChildren().addAll(playsContainer);
+        playsContainerV.getChildren().add(pointsAndMultView);
 
         HBox roundInfoContainer = new HBox(10);
         roundInfoContainer.setLayoutX(145);
@@ -337,7 +235,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         roundInfoContainer.setAlignment(Pos.CENTER);
 
         VBox roundInfoHandsContainer = new VBox(5);
-        roundInfoHandsContainer.setMinWidth(100);
+        roundInfoHandsContainer.setMinWidth(125);
         roundInfoHandsContainer.setPrefHeight(100);
         roundInfoHandsContainer.setAlignment(Pos.CENTER);
         roundInfoHandsContainer.setStyle(
@@ -345,13 +243,13 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
                         + "-fx-background-radius: 10px;"
         );
 
-        Label handsContainerTitle = new Label("Hands");
+        Label handsContainerTitle = new Label("Manos");
         handsContainerTitle.setStyle(
                 "-fx-text-fill: rgba(255,255,255,0.97);"
                         + "-fx-font-size: 30px;"
         );
 
-        this.handsContainerValue = new Label("7");
+        this.handsContainerValue = new Label();
         handsContainerValue.setAlignment(Pos.CENTER);
         handsContainerValue.setMinWidth(90);
         handsContainerValue.setStyle(
@@ -365,7 +263,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         roundInfoHandsContainer.getChildren().addAll(handsContainerTitle, this.handsContainerValue);
 
         VBox roundInfoDiscardsContainer = new VBox(5);
-        roundInfoDiscardsContainer.setMinWidth(100);
+        roundInfoDiscardsContainer.setMinWidth(125);
         roundInfoDiscardsContainer.setPrefHeight(100);
         roundInfoDiscardsContainer.setAlignment(Pos.CENTER);
         roundInfoDiscardsContainer.setStyle(
@@ -373,13 +271,13 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
                         + "-fx-background-radius: 10px;"
         );
 
-        Label discardsContainerTitle = new Label("Discards");
+        Label discardsContainerTitle = new Label("Descartes");
         discardsContainerTitle.setStyle(
                 "-fx-text-fill: rgba(255,255,255,0.97);"
                         + "-fx-font-size: 30px;"
         );
 
-        this.discardsContainerValue = new Label("7");
+        this.discardsContainerValue = new Label();
         discardsContainerValue.setAlignment(Pos.CENTER);
         discardsContainerValue.setMinWidth(90);
         discardsContainerValue.setStyle(
@@ -395,7 +293,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
         // Termina
 
-        itemsContainer.getChildren().addAll(rectangle, roundTitleFrame, roundInfo, actualScoreInfo, playsContainerV, roundInfoContainer);
+        itemsContainer.getChildren().addAll(leftRectangle, roundTitleFrame, roundInfo, actualScoreInfo, playsContainerV, roundInfoContainer);
 
         HBox buttonPlayContainer = new HBox(10);
         buttonPlayContainer.setPrefHeight(200);

@@ -1,6 +1,5 @@
 package view.records;
 
-import model.cards.Card;
 import model.jokers.Joker;
 import model.tarots.Tarot;
 

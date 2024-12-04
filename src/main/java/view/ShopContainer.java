@@ -23,9 +23,9 @@ public class ShopContainer extends VBox {
         this.setAlignment(Pos.TOP_CENTER);
         this.setSpacing(8);
         this.setLayoutX(550);
-        this.setLayoutY(305);
-        this.setMinWidth(900);
-        this.setMinHeight(750);
+        this.setLayoutY(295);
+        this.setPrefWidth(900);
+        this.setPrefHeight(800);
 
         ArrayList<VBox> products = new ArrayList<>();
 
@@ -45,7 +45,7 @@ public class ShopContainer extends VBox {
 
         Collections.shuffle(products);
 
-        this.getChildren().add(new ButtonNextRound(stage, player, actualRound,game));
+        this.getChildren().add(new ButtonNextRound(stage, player, actualRound, game));
         this.getChildren().addAll(products.subList(0, 4));
     }
 }

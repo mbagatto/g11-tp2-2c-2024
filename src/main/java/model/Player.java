@@ -21,7 +21,6 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
     private Score discards;
     private ArrayList<Observer> observers;
 
-    //private ArrayList<ObservablePlayer> observersPlayers;
     private ArrayList<ObserverPlayer> observersPlayer;
 
     public Player(String name, EnglishDeck englishDeck) {
@@ -122,7 +121,7 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
                 this.name,
                 this.playerDeck.toRecord(), // Copia inmutable del mazo
                 new ArrayList<>(this.jokers),               // Copia inmutable de los comodines
-                new ArrayList<>(this.tarots),               // Copia inmutable de las cartas de tarot
+                new ArrayList<>(this.tarots), // Copia inmutable de las cartas de tarot
                 this.discards.toRecord()                    // Puntuación de descartes
         );
     }
@@ -135,6 +134,10 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
     @Override
     public ArrayList<Tarot> getTarots() {
         return this.tarots;
+    }
+
+    public EnglishDeck getEnglishDeck() {
+        return this.englishDeck;
     }
 
     public void removeJoker(Joker joker) {
@@ -160,5 +163,6 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
     public void shuffleDeck() {
         this.englishDeck.shuffleDeck();
     }
+
 
 }
