@@ -18,11 +18,12 @@ public class PlayerJokersContainer extends VBox {
         jokersContainer.setId("player-jokers");
         jokersContainer.setAlignment(Pos.CENTER_LEFT);
         jokersContainer.setPrefWidth(750);
-        jokersContainer.setPrefHeight(185);
+        jokersContainer.setPrefHeight(190);
         jokersContainer.setSpacing(30);
 
         for (Joker joker : player.getJokers()) {
             VBox jokerView = new PurchasableView(joker);
+            jokerView.getChildren().removeLast();
             jokersContainer.getChildren().add(jokerView);
         }
 

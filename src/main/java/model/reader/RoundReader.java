@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import model.score.Score;
 import model.tarots.Tarot;
 import model.game.Round;
-import model.game.Store;
+import model.game.Shop;
 import model.cards.Card;
 import model.decks.JokerDeck;
 import model.decks.TarotDeck;
@@ -48,11 +48,11 @@ public class RoundReader {
         Score discards = new Score(round.getDiscards());
         Score scoreToBeat  = new Score(round.getScoreToBeat());
         StoreData storeData = round.getStore();
-        Store store = this.storeGenerator(storeData);
-        return (new Round(number, hands, discards, scoreToBeat, store));
+        Shop shop = this.storeGenerator(storeData);
+        return (new Round(number, hands, discards, scoreToBeat, shop));
     }
 
-    public Store storeGenerator(StoreData storeData) {
+    public Shop storeGenerator(StoreData storeData) {
         List<JokerData> jokers = storeData.getJokers();
         List<TarotData> tarots = storeData.getTarots();
         EnglishCardData cardData = storeData.getEnglishCardData();
@@ -78,6 +78,6 @@ public class RoundReader {
         }
         EnglishCardParser englishCardParser = new EnglishCardParser();
         Card card = englishCardParser.cardGenerator(cardData);
-        return (new Store(realJokers, realTarots, card));
+        return (new Shop(realJokers, realTarots, card));
     }
 }

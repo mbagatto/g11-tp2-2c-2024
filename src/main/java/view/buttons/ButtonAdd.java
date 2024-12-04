@@ -1,10 +1,9 @@
-package view;
+package view.buttons;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import model.Player;
 
 public class ButtonAdd extends Button {
     public ButtonAdd(ImageView imageView, Label name, Label description) {

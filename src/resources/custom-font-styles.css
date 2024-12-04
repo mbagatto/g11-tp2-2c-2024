@@ -7,6 +7,68 @@
     -fx-font-family: m6x11plus;
 }
 
+#namefield-container {
+    -fx-background-color: rgba(0,0,0,0.5);
+    -fx-background-radius: 12px;
+    -fx-border-width: 2px;
+    -fx-border-color: rgba(0, 0, 0, 0.18);
+    -fx-border-radius: 10px;
+
+}
+
+#namefield {
+    -fx-font-size: 25px;
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+#button-continue {
+    -fx-font-size: 30px;
+    -fx-background-color: rgba(255, 235, 167, 0.65);
+    -fx-text-fill: white;
+    -fx-background-radius: 0 10 10 0px;
+}
+
+#button-start {
+    -fx-font-size: 30px;
+    -fx-background-color: rgba(255, 235, 167, 0.65);
+    -fx-text-fill: white;
+    -fx-background-radius: 10px;
+}
+
+#button-start:hover, #button-continue:hover {
+    -fx-background-color: rgb(255, 235, 167);
+    -fx-cursor: hand;
+}
+
+#menu-button-container {
+    -fx-background-color: transparent;
+}
+
+#button-play, #button-play-hand {
+    -fx-text-fill: white;
+    -fx-background-color: rgba(1, 115, 191, 0.5);
+    -fx-font-size: 50px;
+    -fx-background-radius: 20px;
+}
+
+#button-play:hover, #button-play-hand:hover {
+    -fx-background-color: rgba(0,153,255,0.5);
+    -fx-cursor: hand;
+}
+
+#button-quit, #button-discard-hand {
+    -fx-text-fill: white;
+    -fx-background-color: rgba(177, 39, 39, 0.5);
+    -fx-font-size: 50px;
+    -fx-background-radius: 20px;
+}
+
+#button-quit:hover, #button-discard-hand:hover {
+    -fx-background-color: rgba(251,56,56,0.5);
+    -fx-cursor: hand;
+}
+
 #shop-container {
     -fx-background-color: rgba(0,0,0,0.5);
     -fx-background-radius: 15px;
@@ -14,6 +76,59 @@
     -fx-border-radius: 10px;
     -fx-border-width: 5px;
     -fx-padding: 10px;
+}
+
+#shop-title-container, #round-title-frame {
+    -fx-background-color: rgba(0,0,0,0.5);
+    -fx-background-radius: 15px;
+    -fx-border-color: rgb(255, 235, 167);
+    -fx-border-radius: 10px;
+    -fx-border-width: 5px;
+    -fx-padding: 5px;
+}
+
+#round-score-container, #points-and-mult, #round-info-pane, #actual-score-pane {
+    -fx-background-color: rgba(0,0,0,0.5);
+    -fx-background-radius: 12px;
+    -fx-padding: 5px;
+}
+
+#round-score-value {
+    -fx-text-fill: white;
+    -fx-font-size: 50px;
+    -fx-background-color: rgba(59, 59, 59, 0.27);
+    -fx-background-radius: 10px;
+}
+
+#plays-points {
+    -fx-text-fill: white;
+    -fx-font-size: 80px;
+    -fx-background-color: rgba(0,153,255,0.5);
+    -fx-background-radius: 10px;
+}
+
+#plays-mult {
+    -fx-text-fill: white;
+    -fx-font-size: 80px;
+    -fx-background-color: rgba(251,56,56,0.5);
+    -fx-background-radius: 10px;
+    -fx-padding: 0 0 0 5px;
+}
+
+#hands-value-container {
+    -fx-font-size: 45px;
+    -fx-background-color: rgba(59, 59, 59, 0.27);
+    -fx-text-fill: rgba(0,153,255,0.5);
+    -fx-background-radius: 15px;
+    -fx-padding: 0 0 5 0px;
+}
+
+#discards-value-container {
+    -fx-font-size: 45px;
+    -fx-background-color: rgba(59, 59, 59, 0.27);
+    -fx-text-fill: rgba(251,56,56,0.5);
+    -fx-background-radius: 15px;
+    -fx-padding: 0 0 5 0px;
 }
 
 #purchasable-name, #player-joker-count, #player-tarot-count {
@@ -50,4 +165,16 @@
     -fx-background-color: rgba(0,0,0,0.5);
     -fx-background-radius: 10px;
     -fx-padding: 25px;
+}
+
+#game-button-joker, #game-button-tarot {
+    -fx-cursor: default;
+}
+
+#round-score-pane, #actual-score-chip {
+    -fx-background-color: rgba(59, 59, 59, 0.27);
+    -fx-background-radius: 25px;
+    -fx-border-width: 1px;
+    -fx-border-color: rgb(255, 235, 167);
+    -fx-border-radius: 25px;
 }

@@ -21,7 +21,6 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
     private Score discards;
     private ArrayList<Observer> observers;
 
-    //private ArrayList<ObservablePlayer> observersPlayers;
     private ArrayList<ObserverPlayer> observersPlayer;
 
     public Player(String name, EnglishDeck englishDeck) {
@@ -44,6 +43,11 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
 
     public void selectCard(int indexSelectCard){
         this.playerDeck.selectCard(indexSelectCard);
+    }
+
+
+    public void noSelectCard(){
+        this.playerDeck.noSelectCard();
     }
 
     public Score play() {
@@ -98,6 +102,7 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
 
     @Override
     public void notifyObserversPlayer() {
+        System.out.println("ME EJECUTEEE notifyObserversPlayer()");
         for (ObserverPlayer observerPlayer : this.observersPlayer) {
             observerPlayer.updatePlayer(this.toRecord());
         }
@@ -116,7 +121,7 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
                 this.name,
                 this.playerDeck.toRecord(), // Copia inmutable del mazo
                 new ArrayList<>(this.jokers),               // Copia inmutable de los comodines
-                new ArrayList<>(this.tarots),               // Copia inmutable de las cartas de tarot
+                new ArrayList<>(this.tarots), // Copia inmutable de las cartas de tarot
                 this.discards.toRecord()                    // Puntuación de descartes
         );
     }
@@ -131,6 +136,10 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
         return this.tarots;
     }
 
+    public EnglishDeck getEnglishDeck() {
+        return this.englishDeck;
+    }
+
     public void removeJoker(Joker joker) {
         this.jokers.remove(joker);
     }
@@ -138,4 +147,22 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
     public void removeTarot(Tarot tarot) {
         this.tarots.remove(tarot);
     }
+
+    public void addObserverPlayerDeck(ObserverPlayerDeck observerPlayerDeck) {
+        this.playerDeck.addObserverForPlayerDeck(observerPlayerDeck);
+    }
+
+    public void notifyPlayerDeck() {
+        this.playerDeck.notifyObserversPlayerDeck();
+    }
+
+    public void clearSelectedCards() {
+        this.playerDeck.clearSelectedCards();
+    }
+
+    public void shuffleDeck() {
+        this.englishDeck.shuffleDeck();
+    }
+
+
 }

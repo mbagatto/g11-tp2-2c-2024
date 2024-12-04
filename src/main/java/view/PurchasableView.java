@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import model.Purchasable;
+import view.buttons.ButtonAdd;
 
 public class PurchasableView extends VBox {
     public PurchasableView(Purchasable purchasable) {
@@ -18,8 +19,8 @@ public class PurchasableView extends VBox {
 
         Image image = new Image("file:src/resources/textures/" + purchasable.toString() + ".png");
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(100);
-        imageView.setFitWidth(75);
+        imageView.setFitHeight(110);
+        imageView.setFitWidth(85);
 
         Label description = new Label(purchasable.getDescription());
         description.setId("purchasable-description");

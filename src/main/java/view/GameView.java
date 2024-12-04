@@ -3,113 +3,105 @@ package view;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.ObserverPlayer;
-import model.ObserverRound;
-import model.Player;
+import model.*;
 import model.decks.EnglishDeck;
+import model.game.Game;
 import model.game.Round;
 import model.reader.DataReader;
-import view.records.EnglishCardRecord;
-import view.records.PlayerRecord;
-import view.records.RoundRecord;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import view.buttons.ButtonDiscardHand;
+import view.buttons.ButtonPlayHand;
+import view.records.*;
 
-public class GameView extends StackPane implements ObserverPlayer, ObserverRound {
+import java.awt.event.MouseEvent;
+import java.util.*;
 
+public class GameView extends StackPane implements ObserverPlayer, ObserverRound, ObserverPlayerDeck {
+    private Stage stage;
+    private Game game;
     private HashMap<String,HashMap<String,StackPane>> ImageCards;
     private List<String> numbersCards = new ArrayList<>();
     private List<String> suitsCards = new ArrayList<>();
     //player
+    private Player player;
     private PlayerObserver playerObserver;
     private List<Integer> selectecCardIndex;
     //round
+    private Round actualRound;
     private RoundObserver roundObserver;
     private Label roundLabel;
     private Label score;
     private Label actualScore;
     private Label handsContainerValue;
     private Label discardsContainerValue;
+    //hand
+    private Label labelHand;
+    private Label playsMult;
+    private Label playsPoints;
 
     private HBox cardsContainer;
 
-
-    public GameView(Stage stage,Player player)  {
-
+    public GameView(Stage stage, Player player, Round actualRound, Game game)  {
         this.selectecCardIndex = new ArrayList<>();
+        this.player = player;
+        this.player.shuffleDeck();
+        this.player.completeDeck();
+        this.playerObserver = new PlayerObserver(this.player);
+        this.actualRound = actualRound;
+        this.stage = stage;
+        this.game = game;
 
-        EnglishDeck deck = new EnglishDeck();
-        deck.fillDeck();
-        deck.shuffleDeck();
-        Player newPlayer = new Player("new",deck);
-        newPlayer.completeDeck();
-        this.playerObserver = new PlayerObserver(newPlayer);
-        DataReader reader = new DataReader();
-        ArrayList<Round> rounds = reader.roundsRead();
+        this.roundObserver = new RoundObserver(this.actualRound);
 
-        this.roundObserver = new RoundObserver(rounds.getFirst());
-
-        Image staticBackground = new Image("file:src/resources/textures/static_game_background.png");
+        Image staticBackground = new Image("file:src/resources/textures/game_background.jpg");
         ImageView backgroundView = new ImageView(staticBackground);
         backgroundView.setFitWidth(1920);
         backgroundView.setFitHeight(1080);
 
         this.getChildren().add(backgroundView);
 
+        VBox playerJokers = new PlayerJokersContainer(player);
+        VBox playerTarots = new PlayerTarotsContainer(player);
+
         Pane itemsContainer = new Pane();
 
-        Rectangle rectangle = new Rectangle();
-        rectangle.setX(50);
-        rectangle.setY(0);
-        rectangle.setWidth(400);
-        rectangle.setHeight(1080);
-        rectangle.setFill(Color.web("#212829"));
-        rectangle.setStroke(Color.web("#004A7B"));
-        rectangle.setStrokeWidth(3);
+        Rectangle leftRectangle = new Rectangle();
+        leftRectangle.setX(50);
+        leftRectangle.setY(0);
+        leftRectangle.setWidth(400);
+        leftRectangle.setHeight(1080);
+        leftRectangle.setFill(Color.web("#3B3B3B44"));
+        leftRectangle.setStroke(Color.web("#FFEBA7FF"));
+        leftRectangle.setStrokeWidth(5);
 
         HBox roundTitleFrame = new HBox();
+        roundTitleFrame.setId("round-title-frame");
         roundTitleFrame.setAlignment(Pos.CENTER);
-        roundTitleFrame.setStyle(
-                "-fx-background-color: #004A7B; " +
-                        "-fx-background-radius: 25px; " +
-                        "-fx-padding: 9px; " +
-                        "-fx-border-color: #004A7B; " +
-                        "-fx-border-radius: 25px; " +
-                        "-fx-border-width: 1px;"
-        );
-
         roundTitleFrame.setLayoutX(60);
         roundTitleFrame.setLayoutY(20);
         roundTitleFrame.setPrefHeight(100);
         roundTitleFrame.setPrefWidth(380);
 
-        this.roundLabel = new Label("*Ronda-1-*"); // Deberia ir el numero de ronda actual
-        roundLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white; -fx-font-weight: 900;");
+        this.roundLabel = new Label("Ronda " + actualRound.getNumber());
+        roundLabel.setStyle("-fx-font-size: 60px; -fx-text-fill: white;");
 
         roundTitleFrame.getChildren().add(roundLabel);
 
         Pane roundInfo = new Pane();
+        roundInfo.setId("round-info-pane");
         roundInfo.setLayoutX(60);
         roundInfo.setLayoutY(135);
         roundInfo.setPrefHeight(240);
         roundInfo.setPrefWidth(380);
-        roundInfo.setStyle(
-                "-fx-background-color: #0B2F47; " +
-                        "-fx-background-radius: 25px; " +
-                        "-fx-border-color: #0B2F47; " +
-                        "-fx-border-width: 1px; " +
-                        "-fx-border-radius: 25px;"
-        );
 
         Image whiteCoin = new Image("file:src/resources/textures/white_coin.png");
         ImageView whiteCoinView = new ImageView(whiteCoin);
@@ -119,20 +111,14 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         whiteCoinView.setLayoutY(65);
 
         Pane roundScore = new Pane();
+        roundScore.setId("round-score-pane");
         roundScore.setLayoutX(150);
         roundScore.setLayoutY(65);
         roundScore.setPrefHeight(130);
         roundScore.setPrefWidth(210);
-        roundScore.setStyle(
-                "-fx-background-color: #161D1E; " +
-                        "-fx-background-radius: 25px; " +
-                        "-fx-border-color: #161D1E; " +
-                        "-fx-border-width: 1px; " +
-                        "-fx-border-radius: 25px;"
-        );
 
         Label scoreInstructionLabel = new Label("Anota al menos");
-        scoreInstructionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;");
+        scoreInstructionLabel.setStyle("-fx-font-size: 22px; -fx-text-fill: white;");
 
         ColorAdjust colorAdjustBrightness = new ColorAdjust();
         colorAdjustBrightness.setBrightness(-0.3);
@@ -166,8 +152,8 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         scoreInstructionBox.setLayoutY(10);
         scoreInstructionBox.setPrefWidth(roundScore.getPrefWidth());
 
-        this.score = new Label("9000"); // Aca va el score necesario para ganar la ronda
-        score.setStyle("-fx-font-size: 45px; -fx-text-fill: #C03933; -fx-font-weight: bold;");
+        this.score = new Label(actualRound.getScoreToBeat().toString()); // Aca va el score necesario para ganar la ronda
+        score.setStyle("-fx-font-size: 45px; -fx-text-fill: #C03933;");
         score.setPrefHeight(60);
 
         HBox scoreBox = new HBox(5);
@@ -176,7 +162,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         scoreBox.getChildren().addAll(chipImageView, score);
 
         Label reward = new Label("Sin recompensa"); // Aca va la cantidad de dinero que hay de recompensa
-        reward.setStyle("-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;");
+        reward.setStyle("-fx-font-size: 22px; -fx-text-fill: white;");
 
         scoreInstructionBox.getChildren().addAll(scoreInstructionLabel, scoreBox, reward);
 
@@ -185,54 +171,41 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         roundInfo.getChildren().addAll(whiteCoinView, roundScore);
 
         Pane actualScoreInfo = new Pane();
+        actualScoreInfo.setId("actual-score-pane");
         actualScoreInfo.setLayoutX(60);
         actualScoreInfo.setLayoutY(385);
         actualScoreInfo.setPrefHeight(100);
         actualScoreInfo.setPrefWidth(385);
-        actualScoreInfo.setStyle(
-                "-fx-background-color: #111D1C; " +
-                        "-fx-background-radius: 25px; " +
-                        "-fx-border-color: #111D1C; " +
-                        "-fx-border-width: 1px; " +
-                        "-fx-border-radius: 25px;"
-        );
 
         VBox vboxScoreLabel = new VBox();
         vboxScoreLabel.setAlignment(Pos.CENTER);
-        vboxScoreLabel.setPrefHeight(50); // Ajusta a un valor más pequeño
+        vboxScoreLabel.setPrefHeight(50);
 
         Label wordRound = new Label("Ronda");
-        wordRound.setStyle("-fx-font-size: 40px; -fx-text-fill: white; -fx-font-weight: bold;");
+        wordRound.setStyle("-fx-font-size: 40px; -fx-text-fill: white;");
 
         Label puntuation = new Label("puntuacion");
-        puntuation.setStyle("-fx-font-size: 30px; -fx-text-fill: white; -fx-font-weight: bold;");
+        puntuation.setStyle("-fx-font-size: 30px; -fx-text-fill: white;");
 
         vboxScoreLabel.getChildren().addAll(wordRound, puntuation);
         vboxScoreLabel.setMargin(wordRound, new Insets(0, 0, 0, 0));
         vboxScoreLabel.setMargin(puntuation, new Insets(0, 0, 0, 0));
 
-        HBox hboxActualScore = new HBox(5);
+        HBox hboxActualScore = new HBox(10);
         hboxActualScore.setAlignment(Pos.CENTER);
         hboxActualScore.setLayoutX(10);
         hboxActualScore.setLayoutY(15);
         hboxActualScore.setPrefWidth(380);
 
         HBox hboxActualScoreChip = new HBox(5);
+        hboxActualScoreChip.setId("actual-score-chip");
         hboxActualScoreChip.setAlignment(Pos.CENTER);
-        hboxActualScoreChip.setStyle(
-                "-fx-background-color: #212829; " + //212829
-                        "-fx-background-radius: 17px; " +
-                        "-fx-padding: 5px; " +
-                        "-fx-border-color: #212829; " +
-                        "-fx-border-radius: 17px; " +
-                        "-fx-border-width: 1px;"
-        );
-        hboxActualScoreChip.setPrefWidth(240);
+        hboxActualScoreChip.setPrefWidth(200);
         hboxActualScoreChip.setPrefHeight(50);
         hboxActualScoreChip.setPadding(new Insets(0, 0, 0, 0));
 
-        this.actualScore = new Label("666");
-        actualScore.setStyle("-fx-font-size: 45px; -fx-text-fill: #C0C6C6; -fx-font-weight: bold;");
+        this.actualScore = new Label(actualRound.getActualScore().toString());
+        actualScore.setStyle("-fx-font-size: 45px; -fx-text-fill: white;");
 
         hboxActualScoreChip.getChildren().addAll(chipImageView2, actualScore);
 
@@ -242,48 +215,19 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
         //Arranca
 
-        HBox playsContainer = new HBox();
-        playsContainer.setLayoutX(62);
-        playsContainer.setLayoutY(500);
-        playsContainer.setMinWidth(375);
-        playsContainer.setMinHeight(200);
-        playsContainer.setAlignment(Pos.BOTTOM_CENTER);
-        playsContainer.setSpacing(10);
-        playsContainer.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.40);"
-                        + "-fx-background-radius: 12px;"
-                        + "-fx-padding: 5px;"
-        );
+        VBox playsContainerV = new VBox();
+        playsContainerV.setLayoutX(62);
+        playsContainerV.setLayoutY(500);
+        playsContainerV.setMinWidth(375);
+        playsContainerV.setMinHeight(200);
 
+        VBox pointsAndMultView = new PointsAndMultView();
+        this.labelHand = (Label) pointsAndMultView.getChildren().getFirst();
+        HBox pointsAndMult = (HBox) pointsAndMultView.getChildren().getLast();
+        this.playsPoints = (Label) pointsAndMult.getChildren().getFirst();
+        this.playsMult = (Label) pointsAndMult.getChildren().getLast();
 
-        Label playsPoints = new Label("0");
-        playsPoints.setMinWidth(150);
-        playsPoints.setAlignment(Pos.CENTER_RIGHT);
-        playsPoints.setStyle(
-                "-fx-text-fill: rgba(255,255,255,0.97);"
-                        + "-fx-font-size: 80px;"
-                        + "-fx-background-color: rgba(0,153,255,0.5);"
-                        + "-fx-background-radius: 10px;"
-        );
-
-        Label playsSymbol = new Label("X");
-        playsSymbol.setStyle(
-                "-fx-text-fill: rgba(255,255,255,0.97);"
-                        + "-fx-font-size: 80px;"
-        );
-
-        Label playsMult = new Label("0");
-        playsMult.setMinWidth(150);
-        playsMult.setAlignment(Pos.CENTER_LEFT);
-        playsMult.setStyle(
-                "-fx-text-fill: rgba(255,255,255,0.97);"
-                        + "-fx-font-size: 80px;"
-                        + "-fx-background-color: rgba(251,56,56,0.5);"
-                        + "-fx-background-radius: 10px;"
-                        + "-fx-padding: 0 0 0 5px;"
-        );
-
-        playsContainer.getChildren().addAll(playsPoints, playsSymbol, playsMult);
+        playsContainerV.getChildren().add(pointsAndMultView);
 
         HBox roundInfoContainer = new HBox(10);
         roundInfoContainer.setLayoutX(145);
@@ -291,7 +235,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         roundInfoContainer.setAlignment(Pos.CENTER);
 
         VBox roundInfoHandsContainer = new VBox(5);
-        roundInfoHandsContainer.setMinWidth(100);
+        roundInfoHandsContainer.setMinWidth(125);
         roundInfoHandsContainer.setPrefHeight(100);
         roundInfoHandsContainer.setAlignment(Pos.CENTER);
         roundInfoHandsContainer.setStyle(
@@ -299,13 +243,13 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
                         + "-fx-background-radius: 10px;"
         );
 
-        Label handsContainerTitle = new Label("Hands");
+        Label handsContainerTitle = new Label("Manos");
         handsContainerTitle.setStyle(
                 "-fx-text-fill: rgba(255,255,255,0.97);"
                         + "-fx-font-size: 30px;"
         );
 
-        this.handsContainerValue = new Label("7");
+        this.handsContainerValue = new Label();
         handsContainerValue.setAlignment(Pos.CENTER);
         handsContainerValue.setMinWidth(90);
         handsContainerValue.setStyle(
@@ -319,7 +263,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         roundInfoHandsContainer.getChildren().addAll(handsContainerTitle, this.handsContainerValue);
 
         VBox roundInfoDiscardsContainer = new VBox(5);
-        roundInfoDiscardsContainer.setMinWidth(100);
+        roundInfoDiscardsContainer.setMinWidth(125);
         roundInfoDiscardsContainer.setPrefHeight(100);
         roundInfoDiscardsContainer.setAlignment(Pos.CENTER);
         roundInfoDiscardsContainer.setStyle(
@@ -327,13 +271,13 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
                         + "-fx-background-radius: 10px;"
         );
 
-        Label discardsContainerTitle = new Label("Discards");
+        Label discardsContainerTitle = new Label("Descartes");
         discardsContainerTitle.setStyle(
                 "-fx-text-fill: rgba(255,255,255,0.97);"
                         + "-fx-font-size: 30px;"
         );
 
-        this.discardsContainerValue = new Label("7");
+        this.discardsContainerValue = new Label();
         discardsContainerValue.setAlignment(Pos.CENTER);
         discardsContainerValue.setMinWidth(90);
         discardsContainerValue.setStyle(
@@ -349,15 +293,15 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
         // Termina
 
-        itemsContainer.getChildren().addAll(rectangle, roundTitleFrame, roundInfo, actualScoreInfo, playsContainer, roundInfoContainer);
+        itemsContainer.getChildren().addAll(leftRectangle, roundTitleFrame, roundInfo, actualScoreInfo, playsContainerV, roundInfoContainer);
 
-        HBox buttonPlayConteiner = new HBox(10);
-        buttonPlayConteiner.setPrefHeight(200);
-        buttonPlayConteiner.setLayoutX(800);
-        buttonPlayConteiner.setLayoutY(950);
+        HBox buttonPlayContainer = new HBox(10);
+        buttonPlayContainer.setPrefHeight(200);
+        buttonPlayContainer.setLayoutX(800);
+        buttonPlayContainer.setLayoutY(950);
 
-        buttonPlayConteiner.getChildren().add(new ButtonPlayHand(this.playerObserver,this.roundObserver,this.selectecCardIndex, stage));
-        buttonPlayConteiner.getChildren().add(new ButtonDiscardHand());
+        buttonPlayContainer.getChildren().add(new ButtonPlayHand(this.playerObserver,this.roundObserver,this.selectecCardIndex));
+        buttonPlayContainer.getChildren().add(new ButtonDiscardHand(this.playerObserver,this.roundObserver,this.selectecCardIndex));
 
         this.generateImageCard();
 
@@ -368,12 +312,18 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         this.cardsContainer.setLayoutY(700);
 
         itemsContainer.getChildren().add(this.cardsContainer);
-        itemsContainer.getChildren().add(buttonPlayConteiner);
+        itemsContainer.getChildren().add(buttonPlayContainer);
+        itemsContainer.getChildren().add(playerJokers);
+        itemsContainer.getChildren().add(playerTarots);
 
         this.roundObserver.addObserverRound(this);
 
         this.playerObserver.addObserverPlayer(this);
+
+        this.player.addObserverPlayerDeck(this);
+        player.addObserverPlayerDeck(this);
         this.getChildren().add(itemsContainer);
+
     }
 
     public void generateImageCard(){
@@ -396,8 +346,8 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
             this.suitsCards.addAll(Arrays.asList("Hearts", "Clubs", "Diamonds", "Spades"));
             this.numbersCards.addAll(Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "Jota", "Reina", "Rey", "As"));
 
-            for (int row = 0; row < CARD_ROWS; row++) {         //Este for deberia recorrer con el siguiente orden: Corazon, Trebol, Diamante, Pica
-                // Son 13 cartas por cada fila
+            for (int row = 0; row < CARD_ROWS; row++) {
+
                 HashMap<String,StackPane> mapNumberCards = new HashMap<>();
 
                 for (int col = 0; col < CARD_COLS; col++) {
@@ -419,16 +369,10 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
                     cardPane.setLayoutX(startX + (cardCounter * (cardWidth + cardSpacing)));
                     cardPane.setLayoutY(startY);
 
-                    if (cardCounter >= cardsInRow) {
-                        cardPane.setLayoutX(1600);
-                        cardPane.setLayoutY(760);
-                    }
-                    System.out.println("number: " + this.numbersCards.get(col));
                     mapNumberCards.put(this.numbersCards.get(col), cardPane);
                     cardCounter++;
 
                 }
-                System.out.println("Suit: " + this.suitsCards.get(row));
                 this.ImageCards.put(this.suitsCards.get(row),mapNumberCards);
             }
         } catch (Exception e) {
@@ -439,39 +383,74 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
     @Override
     public void updatePlayer(PlayerRecord playerRecord) {
-        System.out.println("UPDATE Player se ejecuto");
-
-        System.out.println("CANTIDAD DE CARTAS: "+playerRecord.playerDeck().cards().size());
-
-        System.out.println("CARTAR A AGREGAR O ACTUALIZAR: "+playerRecord.playerDeck().cards().toString());
-
         ArrayList<EnglishCardRecord> cardsRecords = playerRecord.playerDeck().cards();
         List<Node> cards = new ArrayList<>();
         int indexCounter = 0;
         for(EnglishCardRecord cardRecord : cardsRecords){
-            System.out.println("cardRecord: " + cardRecord.toString());
+            //System.out.println("cardRecord: " + cardRecord.toString());
             StackPane card = this.ImageCards.get(cardRecord.suit()).get(cardRecord.number());
-            CardPane newCard = new CardPane(card,indexCounter,this.selectecCardIndex);
+            CardPane newCard = new CardPane(card, indexCounter, this.selectecCardIndex, this.player, this.playerObserver);
 
             cards.add(newCard);
             indexCounter++;
         }
-
+        this.labelHand.setText("");
+        this.playsPoints.setText("0");
+        this.playsMult.setText("0");
         this.cardsContainer.getChildren().clear();
         this.cardsContainer.getChildren().addAll(cards);
     }
 
     @Override
     public void update(RoundRecord roundRecord) {
-        System.out.println("UPDATE Round se ejecuto");
+//        System.out.println("UPDATE Round se ejecuto");
+
         this.roundLabel.setText("Ronda "+roundRecord.number());
         int score = (int) Math.round(roundRecord.scoreToBeat().value());
-        System.out.println("scoreToBeat: " + score);
+//        System.out.println("scoreToBeat: " + score);
         this.score.setText("" + score);
         int actualScore = (int) Math.round(roundRecord.actualScore().value());
         this.actualScore.setText("" + actualScore);
-        System.out.println("hands: " + roundRecord.hands());
+//        System.out.println("hands: " + roundRecord.hands());
         this.handsContainerValue.setText( "" + roundRecord.hands());
         this.discardsContainerValue.setText( "" + roundRecord.discards());
+
+
+
+        if(this.roundObserver.winRound()){
+            WinRoundView winRoundView = new WinRoundView(this.stage,this.player,this.actualRound,this.game);
+            this.getChildren().add(winRoundView);
+        }
+    }
+
+    public void updateHand(HandRecord handRecord) {  //Este metodo deberia mostrar al jugador la jugada posible que se va a generar cuando seleccione cartas. Todo esto lo muestra en el tablero o Board
+        if (handRecord != null && handRecord.multiplier().toString() != null && handRecord.points().toString() != null && this.playsPoints != null && this.playsMult != null) {
+//            this.playsMult.setText("" + );
+//            this.playsPoints.setText("" + handRecord.points().toString());
+
+//            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+//            pause.setOnFinished(event -> {
+//                this.playsMult.setText("0");
+//                this.playsPoints.setText("0");
+//            });
+//            pause.play();
+        }
+    }
+
+    @Override
+    public void updatePlayerDeck(PlayerDeckRecord playerDeckRecord) {
+
+        int points = (int) Math.round(playerDeckRecord.handRecord().points().value());
+        int mults = (int) Math.round(playerDeckRecord.handRecord().multiplier().value());
+
+        this.playsPoints.setText("" + points);
+        this.playsMult.setText("" + mults);
+
+        this.labelHand.setText(playerDeckRecord.handRecord().name());
+
+
+
+        System.out.println( "Points: " + playerDeckRecord.handRecord().points().value());
+        System.out.println( "Mults: " + playerDeckRecord.handRecord().multiplier().value());
     }
 }

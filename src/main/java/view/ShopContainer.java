@@ -4,26 +4,28 @@ import controller.buttonHandlers.HandlerAddJoker;
 import controller.buttonHandlers.HandlerAddTarot;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Player;
+import model.game.Game;
+import model.game.Round;
 import model.jokers.Joker;
 import model.tarots.Tarot;
+import view.buttons.ButtonNextRound;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class ShopContainer extends VBox {
-    public ShopContainer(Stage stage, VBox playerJokers, VBox playerTarots, ArrayList<Joker> jokers, ArrayList<Tarot> tarots, Player player) {
+    public ShopContainer(Stage stage, VBox playerJokers, VBox playerTarots, ArrayList<Joker> jokers, ArrayList<Tarot> tarots, Player player, Round actualRound, Game game) {
         super();
         this.setId("shop-container");
         this.setAlignment(Pos.TOP_CENTER);
         this.setSpacing(8);
         this.setLayoutX(550);
-        this.setLayoutY(305);
-        this.setMinWidth(900);
-        this.setMinHeight(750);
+        this.setLayoutY(295);
+        this.setPrefWidth(900);
+        this.setPrefHeight(800);
 
         ArrayList<VBox> products = new ArrayList<>();
 
@@ -43,7 +45,7 @@ public class ShopContainer extends VBox {
 
         Collections.shuffle(products);
 
-        this.getChildren().add(new ButtonNextRound(stage, player));
+        this.getChildren().add(new ButtonNextRound(stage, player, actualRound, game));
         this.getChildren().addAll(products.subList(0, 4));
     }
 }

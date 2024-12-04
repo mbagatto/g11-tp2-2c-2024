@@ -9,6 +9,7 @@ public class RoundObserver implements ObservableRound {
     private Round round;
 
 
+
     public RoundObserver(Round round) {
         this.round = round;
     }
@@ -26,6 +27,15 @@ public class RoundObserver implements ObservableRound {
     public void playHand(Player player){
         this.round.playHand(player);
         this.notifyObserversRound();
+    }
+
+    public void discardHand(Player player){
+        this.round.discardHand(player);
+        this.notifyObserversRound();
+    }
+
+    public boolean winRound(){
+        return this.round.wonRound();
     }
 
     public void subtractHand() {

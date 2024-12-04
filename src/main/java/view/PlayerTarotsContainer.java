@@ -18,11 +18,12 @@ public class PlayerTarotsContainer extends VBox {
         tarotsContainer.setId("player-tarots");
         tarotsContainer.setAlignment(Pos.CENTER_LEFT);
         tarotsContainer.setPrefWidth(325);
-        tarotsContainer.setPrefHeight(185);
+        tarotsContainer.setPrefHeight(190);
         tarotsContainer.setSpacing(30);
 
         for (Tarot tarot : player.getTarots()) {
             VBox tarotView = new PurchasableView(tarot);
+            tarotView.getChildren().removeLast();
             tarotsContainer.getChildren().add(tarotView);
         }
 

@@ -7,14 +7,14 @@ import model.jokers.Joker;
 
 import java.util.ArrayList;
 
-public class Store implements Purchaser {
+public class Shop implements Purchaser {
 
     private ArrayList<Joker> jokers;
     private ArrayList<Tarot> tarots;
 
     private Card card;
 
-    public Store(ArrayList<Joker> jokers, ArrayList<Tarot> tarots, Card card) {
+    public Shop(ArrayList<Joker> jokers, ArrayList<Tarot> tarots, Card card) {
         this.jokers = jokers;
         this.tarots = tarots;
         this.card = card;

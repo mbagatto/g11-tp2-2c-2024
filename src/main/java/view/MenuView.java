@@ -23,7 +23,7 @@ public class MenuView extends VBox {
         horizontalBox.setAlignment(Pos.BOTTOM_CENTER);
         horizontalBox.getChildren().add(new MenuButtonContainer(stage, player));
 
-        Image staticBackground = new Image("file:src/resources/textures/static_background.png");
+        Image staticBackground = new Image("file:src/resources/textures/game_background.jpg");
         ImageView backgroundView = new ImageView(staticBackground);
         backgroundView.setFitWidth(1920);
         backgroundView.setFitHeight(1080);

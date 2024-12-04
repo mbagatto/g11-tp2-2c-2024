@@ -5,6 +5,8 @@ import model.jokers.Joker;
 import model.score.Score;
 import model.score.ScoreModifier;
 import model.Modifiable;
+import model.ObservablePlayerDeck;
+import view.records.HandRecord;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -12,6 +14,7 @@ public abstract class Hand implements Modifiable {
     protected String name;
     protected Score points;
     protected Score multiplier;
+
 
     @Override
     public boolean equals(Object o) {
@@ -35,7 +38,7 @@ public abstract class Hand implements Modifiable {
         }
         for (Joker joker : jokers) {
             points = joker.applyToPoints(points, this);
-            multiplier = joker.applyToMultiplier(multiplier, this);
+            multiplier = joker.applyToMultiplier(multiplier, this);;
         }
         return points.multiplyWith(multiplier);
     }
@@ -47,5 +50,9 @@ public abstract class Hand implements Modifiable {
 
     protected ArrayList<Card> findHandCards(ArrayList<Card> cards) {
         return cards;
+    }
+
+    public HandRecord toRecord() {
+        return new HandRecord(this.points.toRecord(), this.multiplier.toRecord(), this.name);
     }
 }
