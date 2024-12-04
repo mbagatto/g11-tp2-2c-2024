@@ -102,7 +102,7 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
 
     @Override
     public void notifyObserversPlayer() {
-        System.out.println("ME EJECUTEEE notifyObserversPlayer()");
+        //System.out.println("ME EJECUTEEE notifyObserversPlayer()");
         for (ObserverPlayer observerPlayer : this.observersPlayer) {
             observerPlayer.updatePlayer(this.toRecord());
         }

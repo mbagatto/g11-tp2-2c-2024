@@ -7,25 +7,23 @@ import javafx.stage.Stage;
 import model.Player;
 import model.game.Game;
 import model.game.Round;
-import model.reader.DataReader;
 import view.PreparationView;
-import java.util.ArrayList;
 
-public class HandlerPlay implements EventHandler<ActionEvent> {
+public class HandlerNextGame implements EventHandler<ActionEvent> {
     private Stage stage;
     private Player player;
+    private Round round;
+    private Game game;
 
-    public HandlerPlay(Stage stage, Player player) {
+    public HandlerNextGame(Stage stage, Player player, Round round, Game game) {
         this.stage = stage;
         this.player = player;
+        this.round = round;
+        this.game = game;
     }
 
     public void handle(ActionEvent actionEvent) {
-        DataReader dataReader = new DataReader();
-        ArrayList<Round> rounds = dataReader.roundsRead(); // Aca se crean las rondas
-        Game game = new Game(this.player, rounds);
-        Round round = game.nextRound();
-        Scene scene = new Scene(new PreparationView(stage, round, this.player, game));
+        Scene scene = new Scene(new PreparationView(this.stage, this.round, this.player, this.game));
         scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
         stage.setScene(scene);
         stage.setFullScreen(true);

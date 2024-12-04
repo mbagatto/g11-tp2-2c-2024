@@ -3,7 +3,6 @@ package view;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
@@ -11,18 +10,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.*;
-import model.decks.EnglishDeck;
 import model.game.Game;
 import model.game.Round;
-import model.reader.DataReader;
 import view.buttons.ButtonDiscardHand;
 import view.buttons.ButtonPlayHand;
 import view.records.*;
-
-import java.awt.event.MouseEvent;
 import java.util.*;
 
 public class GameView extends StackPane implements ObserverPlayer, ObserverRound, ObserverPlayerDeck {
