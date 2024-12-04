@@ -1,11 +1,9 @@
 package controller.buttonHandlers;
 
-import javafx.animation.PauseTransition;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+import view.FinalWinScreenView;
 import view.GameOverView;
 import view.PlayerObserver;
 import view.RoundObserver;
@@ -31,22 +29,14 @@ public class HandlerPlayHand implements EventHandler<ActionEvent> {
             this.roundObserver.playHand(this.playerObserver.getplayer());
             this.playerObserver.notifyObserversPlayer();
             this.indexCards.clear();
-            //System.out.println("desde boton playHand: " + this.indexCards.toString());
             this.roundObserver.subtractHand();
         }
-        checkWinnerAndLoserStatus();
+        checkLoserStatus();
     }
 
-    public void checkWinnerAndLoserStatus() {
+    public void checkLoserStatus() {
         if (this.roundObserver.isGameOver()) { // Aca se decide que pasa cuando se pierde
-            GameOverView finalScreen = new GameOverView(this.stage);
-        }
-        if (this.roundObserver.winRound()) { // Aca se debe codear que pasa cuando se gana la partida
-            PauseTransition pause = new PauseTransition(Duration.seconds(3));
-            pause.setOnFinished(event -> {
-                Platform.exit(); // Por ahora simplemente se cierra. Deberia pasar a la siguiente Ronda
-            });
-            pause.play();
+            GameOverView gameOverView = new GameOverView(this.stage);
         }
     }
 }

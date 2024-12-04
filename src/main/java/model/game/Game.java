@@ -1,7 +1,6 @@
 package model.game;
 
 import model.Player;
-
 import java.util.ArrayList;
 
 public class Game {
@@ -12,12 +11,21 @@ public class Game {
     public Game(Player player, ArrayList<Round> rounds) {
         this.player = player;
         this.rounds = rounds;
-        this.currentRound = rounds.getFirst();
+        //this.currentRound = rounds.getFirst();
+        this.currentRound = null;
     }
 
     public Round nextRound() {
-        Round round = currentRound;
-        this.currentRound = rounds.get(this.rounds.indexOf(currentRound) + 1);
-        return round;
+        if (this.currentRound == null) {
+            this.currentRound = this.rounds.get(0);
+            return this.currentRound;
+        }
+        int currentIndex = this.rounds.indexOf(this.currentRound);
+        if (currentIndex == rounds.size() - 1) {
+            return null;
+        }
+        this.currentRound = this.rounds.get(currentIndex + 1);
+        return this.currentRound;
     }
+
 }
