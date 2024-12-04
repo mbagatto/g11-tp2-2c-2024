@@ -27,7 +27,6 @@ public class PlayerDeck implements ObservablePlayerDeck {
         this.observers = new ArrayList<>();
         initializeIdentifiersChain();
         this.actualHand = this.handIdentifier.identify(this.selectedCards);
-
     }
 
     public void addCard(Card card) {
@@ -132,7 +131,7 @@ public class PlayerDeck implements ObservablePlayerDeck {
     @Override
     public void notifyObserversPlayerDeck() {
         for (ObserverPlayerDeck observerPlayerDeck : this.observers) {
-            System.out.println("PLAYERDECK: " +this.toRecord().handRecord().name());
+            //System.out.println("PLAYERDECK: " +this.toRecord().handRecord().name());
             observerPlayerDeck.updatePlayerDeck(this.toRecord());
         }
     }
@@ -140,5 +139,4 @@ public class PlayerDeck implements ObservablePlayerDeck {
     public void clearSelectedCards() {
         this.selectedCards.clear();
     }
-
 }

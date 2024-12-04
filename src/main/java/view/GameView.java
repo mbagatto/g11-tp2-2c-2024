@@ -436,7 +436,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
         this.labelHand.setText(playerDeckRecord.handRecord().name());
 
-        System.out.println( "Points: " + playerDeckRecord.handRecord().points().value());
-        System.out.println( "Mults: " + playerDeckRecord.handRecord().multiplier().value());
+        //System.out.println( "Points: " + playerDeckRecord.handRecord().points().value());
+        //System.out.println( "Mults: " + playerDeckRecord.handRecord().multiplier().value());
     }
 }
