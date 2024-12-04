@@ -21,13 +21,11 @@ public class PlayerDeck implements ObservablePlayerDeck {
     private ArrayList<ObserverPlayerDeck> observers;
     private Hand actualHand;
 
-
     public PlayerDeck() {
         this.cards = new ArrayList<>();
         this.selectedCards = new ArrayList<>();
         this.observers = new ArrayList<>();
         initializeIdentifiersChain();
-//        this.actualHand = new NullHand(); // Cambio medio grave
         this.actualHand = this.handIdentifier.identify(this.selectedCards);
 
     }
@@ -35,8 +33,6 @@ public class PlayerDeck implements ObservablePlayerDeck {
     public void addCard(Card card) {
         this.cards.add(card);
     }
-
-
 
     public boolean isComplete() {
         return (this.cards.size() == 8);
@@ -48,10 +44,10 @@ public class PlayerDeck implements ObservablePlayerDeck {
 
     public void selectCard(int indexCard){
         this.selectedCards.add(this.cards.get(indexCard));
-
         this.actualHand = handIdentifier.identify(this.selectedCards);
-        System.out.println("selectCard(): " +this.actualHand.toRecord().name());
-        System.out.println("Lista de cartas: " +this.selectedCards.toString());
+
+        //System.out.println("selectCard(): " +this.actualHand.toRecord().name());
+        //System.out.println("Lista de cartas: " +this.selectedCards.toString());
     }
 
     public void noSelectCard(){
@@ -63,9 +59,6 @@ public class PlayerDeck implements ObservablePlayerDeck {
             throw new NoSelectedCardsException();
         }
         //System.out.println("CARTAS JUGADAS: "+this.selectedCards.toString());
-
-        //Score score = this.actualHand.calculateScore(this.selectedCards, jokers);
-        //this.actualHand = handIdentifier.identify(this.selectedCards);
 
         Hand hand = handIdentifier.identify(this.selectedCards);
 

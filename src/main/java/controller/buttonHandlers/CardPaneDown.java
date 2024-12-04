@@ -13,7 +13,7 @@ public class CardPaneDown implements Movable{
         cardPane.setTranslateY(cardPane.getTranslateY() + 50);
         Integer index = cardPane.getIndex() ;
         indexs.remove(index);
-        System.out.println(indexs.toString());
+        //System.out.println(indexs.toString());
         playerObserver.clearSelectCards();
         playerObserver.selectCards(indexs);
         movable.setMove(new CardPaneUp());

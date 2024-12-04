@@ -5,12 +5,13 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class GameOverView {
+public class GameOverView extends VBox {
 
     public GameOverView(Stage stage) {
         Label label = new Label("PERDISTE");

@@ -14,6 +14,7 @@ public class HandlerNextRound  implements EventHandler<ActionEvent> {
     private Player player;
     private Round round;
     private Game game;
+
     public HandlerNextRound(Stage stage, Player player, Round round, Game game) {
         this.stage = stage;
         this.player = player;

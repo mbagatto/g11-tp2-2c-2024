@@ -5,7 +5,6 @@ import javafx.scene.input.MouseEvent;
 import model.Player;
 import view.CardPane;
 import view.PlayerObserver;
-
 import java.util.List;
 
 public class HandlerCardPane implements EventHandler<MouseEvent> {
@@ -13,10 +12,6 @@ public class HandlerCardPane implements EventHandler<MouseEvent> {
     private List<Integer> indexs;
     private PlayerObserver playerObserver;
     private Player player;
-
-//    public HandlerCardPane() {
-//        this.move = new CardPaneUp();
-//    }
 
     public HandlerCardPane(List<Integer> indexs, Player player, PlayerObserver playerObserver) {
         this.move = new CardPaneUp();

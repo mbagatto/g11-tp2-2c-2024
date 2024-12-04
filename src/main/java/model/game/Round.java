@@ -46,10 +46,6 @@ public class Round implements Observable, Playable, ObservableRound {
         this.actualScore = this.actualScore.addWith(discardHand.playTurn(player));
     }
 
-    public boolean wonRound(){
-        return (this.actualScore.isGreaterThanOrEqualTo(this.scoreToBeat)) ;
-    }
-
     public Joker buyJoker(int index) {
         return this.shop.buyJoker(index);
     }
@@ -120,11 +116,11 @@ public class Round implements Observable, Playable, ObservableRound {
     }
 
     public boolean isGameOver() {
-        return (this.hands.isLessThanOrEqualtoZero() && ! this.isWinner());
+        return (this.hands.isLessThanOrEqualtoZero() && ! this.wonRound());
     }
 
-    public boolean isWinner() {
-        return (this.actualScore.isGreaterThanOrEqualTo(this.scoreToBeat));
+    public boolean wonRound(){
+        return (this.actualScore.isGreaterThanOrEqualTo(this.scoreToBeat)) ;
     }
 
     public void subtractHand() {

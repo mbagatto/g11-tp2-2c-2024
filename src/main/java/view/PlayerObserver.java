@@ -31,7 +31,7 @@ public class PlayerObserver implements ObservablePlayer {
             this.player.noSelectCard();
         }else{
             for (Integer index : indexsCards) {
-                System.out.println("ENTRA EN EL FOR");
+                //System.out.println("ENTRA EN EL FOR");
                 this.player.selectCard(index);
             }
         }

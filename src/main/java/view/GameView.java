@@ -300,7 +300,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         buttonPlayContainer.setLayoutX(800);
         buttonPlayContainer.setLayoutY(950);
 
-        buttonPlayContainer.getChildren().add(new ButtonPlayHand(this.playerObserver,this.roundObserver,this.selectecCardIndex));
+        buttonPlayContainer.getChildren().add(new ButtonPlayHand(this.playerObserver,this.roundObserver,this.selectecCardIndex, stage));
         buttonPlayContainer.getChildren().add(new ButtonDiscardHand(this.playerObserver,this.roundObserver,this.selectecCardIndex));
 
         this.generateImageCard();
@@ -415,25 +415,13 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         this.handsContainerValue.setText( "" + roundRecord.hands());
         this.discardsContainerValue.setText( "" + roundRecord.discards());
 
-
-
-        if(this.roundObserver.winRound()){
+        if (this.roundObserver.isGameOver()) {
+            GameOverView finalScreen = new GameOverView(this.stage);
+            this.getChildren().add(finalScreen);
+        }
+        if (this.roundObserver.winRound()) {
             WinRoundView winRoundView = new WinRoundView(this.stage,this.player,this.actualRound,this.game);
             this.getChildren().add(winRoundView);
-        }
-    }
-
-    public void updateHand(HandRecord handRecord) {  //Este metodo deberia mostrar al jugador la jugada posible que se va a generar cuando seleccione cartas. Todo esto lo muestra en el tablero o Board
-        if (handRecord != null && handRecord.multiplier().toString() != null && handRecord.points().toString() != null && this.playsPoints != null && this.playsMult != null) {
-//            this.playsMult.setText("" + );
-//            this.playsPoints.setText("" + handRecord.points().toString());
-
-//            PauseTransition pause = new PauseTransition(Duration.seconds(2));
-//            pause.setOnFinished(event -> {
-//                this.playsMult.setText("0");
-//                this.playsPoints.setText("0");
-//            });
-//            pause.play();
         }
     }
 
@@ -447,8 +435,6 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         this.playsMult.setText("" + mults);
 
         this.labelHand.setText(playerDeckRecord.handRecord().name());
-
-
 
         System.out.println( "Points: " + playerDeckRecord.handRecord().points().value());
         System.out.println( "Mults: " + playerDeckRecord.handRecord().multiplier().value());

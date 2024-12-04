@@ -3,7 +3,6 @@ package controller.buttonHandlers;
 import model.Player;
 import view.CardPane;
 import view.PlayerObserver;
-
 import java.util.List;
 
 public class CardPaneUp implements Movable {

@@ -12,7 +12,3 @@ public class ButtonQuit extends Button {
         this.setOnAction(new HandlerQuit());
     }
 }
-
-
-
-
