@@ -46,6 +46,11 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
         this.playerDeck.selectCard(indexSelectCard);
     }
 
+
+    public void noSelectCard(){
+        this.playerDeck.noSelectCard();
+    }
+
     public Score play() {
         if (this.playerDeck.isEmpty()) {
             throw new EmptyPlayerDeckException();
@@ -98,7 +103,7 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
 
     @Override
     public void notifyObserversPlayer() {
-        System.out.println("ME EJECUTEEE");
+        System.out.println("ME EJECUTEEE notifyObserversPlayer()");
         for (ObserverPlayer observerPlayer : this.observersPlayer) {
             observerPlayer.updatePlayer(this.toRecord());
         }
@@ -147,4 +152,13 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
     public void notifyPlayerDeck() {
         this.playerDeck.notifyObserversPlayerDeck();
     }
+
+    public void clearSelectedCards() {
+        this.playerDeck.clearSelectedCards();
+    }
+
+    public void shuffleDeck() {
+        this.englishDeck.shuffleDeck();
+    }
+
 }

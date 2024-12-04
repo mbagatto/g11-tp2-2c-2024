@@ -7,6 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Player;
+import model.game.Game;
+import model.game.Round;
 import model.jokers.Joker;
 import model.tarots.Tarot;
 import view.buttons.ButtonNextRound;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class ShopContainer extends VBox {
-    public ShopContainer(Stage stage, VBox playerJokers, VBox playerTarots, ArrayList<Joker> jokers, ArrayList<Tarot> tarots, Player player) {
+    public ShopContainer(Stage stage, VBox playerJokers, VBox playerTarots, ArrayList<Joker> jokers, ArrayList<Tarot> tarots, Player player, Round actualRound, Game game) {
         super();
         this.setId("shop-container");
         this.setAlignment(Pos.TOP_CENTER);
@@ -43,7 +45,7 @@ public class ShopContainer extends VBox {
 
         Collections.shuffle(products);
 
-        this.getChildren().add(new ButtonNextRound(stage, player));
+        this.getChildren().add(new ButtonNextRound(stage, player, actualRound,game));
         this.getChildren().addAll(products.subList(0, 4));
     }
 }

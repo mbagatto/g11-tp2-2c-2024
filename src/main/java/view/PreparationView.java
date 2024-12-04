@@ -13,6 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.Observer;
 import model.Player;
+import model.game.Game;
 import model.game.Round;
 import model.jokers.Joker;
 import model.tarots.Tarot;
@@ -23,11 +24,13 @@ public class PreparationView extends VBox implements Observer {
     private Stage stage;
     private Round round;
     private Player player;
+    private Game game;
 
-    public PreparationView(Stage stage, Round round, Player player) {
+    public PreparationView(Stage stage, Round round, Player player, Game game) {
         this.stage = stage;
         this.round = round;
         this.player = player;
+        this.game = game;
         round.addObserver(this);
         player.addObserver(this);
         this.update();
@@ -233,7 +236,7 @@ public class PreparationView extends VBox implements Observer {
         itemsContainer.getChildren().add(playerJokers);
         itemsContainer.getChildren().add(playerTarots);
 
-        itemsContainer.getChildren().add(new ShopContainer(stage, playerJokers, playerTarots, jokers, tarots, player));
+        itemsContainer.getChildren().add(new ShopContainer(stage, playerJokers, playerTarots, jokers, tarots, player, round, this.game));
 
         backgroundContainer.getChildren().add(itemsContainer);
 

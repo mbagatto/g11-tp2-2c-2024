@@ -30,6 +30,7 @@ public class HandlerStart implements EventHandler<ActionEvent> {
         if (!this.text.getText().trim().isEmpty()) {
             EnglishDeck englishDeck = new EnglishDeck();
             englishDeck.fillDeck();
+            englishDeck.shuffleDeck();
             Player player = new Player(this.text.getText(), englishDeck);
             Scene scene = new Scene(new MenuView(stage, player));
             scene.getStylesheets().add("file:src/resources/custom-font-styles.css");

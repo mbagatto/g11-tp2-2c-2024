@@ -26,13 +26,17 @@ public class PlayerDeck implements ObservablePlayerDeck {
         this.cards = new ArrayList<>();
         this.selectedCards = new ArrayList<>();
         this.observers = new ArrayList<>();
-        this.actualHand = new NullHand(); // Cambio medio grave
         initializeIdentifiersChain();
+//        this.actualHand = new NullHand(); // Cambio medio grave
+        this.actualHand = this.handIdentifier.identify(this.selectedCards);
+
     }
 
     public void addCard(Card card) {
         this.cards.add(card);
     }
+
+
 
     public boolean isComplete() {
         return (this.cards.size() == 8);
@@ -44,6 +48,13 @@ public class PlayerDeck implements ObservablePlayerDeck {
 
     public void selectCard(int indexCard){
         this.selectedCards.add(this.cards.get(indexCard));
+
+        this.actualHand = handIdentifier.identify(this.selectedCards);
+        System.out.println("selectCard(): " +this.actualHand.toRecord().name());
+        System.out.println("Lista de cartas: " +this.selectedCards.toString());
+    }
+
+    public void noSelectCard(){
         this.actualHand = handIdentifier.identify(this.selectedCards);
     }
 
@@ -93,7 +104,9 @@ public class PlayerDeck implements ObservablePlayerDeck {
                                                         new ThreeOfAKindIdentifier(
                                                                 new TwoPairIdentifier(
                                                                         new PairIdentifier(
-                                                                                new HighCardIdentifier()
+                                                                                new HighCardIdentifier(
+                                                                                        new NullCardIdentifier()
+                                                                                )
                                                                         )
                                                                 )
                                                         )
@@ -120,12 +133,19 @@ public class PlayerDeck implements ObservablePlayerDeck {
     @Override
     public void addObserversPlayerDeck(ObserverPlayerDeck observerPlayerDeck) {
         this.observers.add(observerPlayerDeck);
+        observerPlayerDeck.updatePlayerDeck(this.toRecord());
     }
 
     @Override
     public void notifyObserversPlayerDeck() {
         for (ObserverPlayerDeck observerPlayerDeck : this.observers) {
+            System.out.println("PLEYERDECK: " +this.toRecord().handRecord().name());
             observerPlayerDeck.updatePlayerDeck(this.toRecord());
         }
     }
+
+    public void clearSelectedCards() {
+        this.selectedCards.clear();
+    }
+
 }

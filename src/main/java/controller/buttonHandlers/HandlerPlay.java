@@ -25,7 +25,7 @@ public class HandlerPlay implements EventHandler<ActionEvent> {
         ArrayList<Round> rounds = dataReader.roundsRead();
         Game game = new Game(this.player, rounds);
         Round round = game.nextRound();
-        Scene scene = new Scene(new PreparationView(stage, round, this.player));
+        Scene scene = new Scene(new PreparationView(stage, round, this.player,game));
         scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
         stage.setScene(scene);
         stage.setFullScreen(true);

@@ -23,10 +23,10 @@ public class CardPane extends StackPane {
           this.getChildren().add(cardView);
 //          this.setOnMouseClicked(new HandlerCardPane());
      }
-     CardPane(StackPane stackPane,int index,List<Integer> indexsCards, Player player) {
+     CardPane(StackPane stackPane,int index,List<Integer> indexsCards, Player player, PlayerObserver playerObserver) {
           super(stackPane);
           this.index = index;
-          this.setOnMouseClicked(new HandlerCardPane(indexsCards, player));
+          this.setOnMouseClicked(new HandlerCardPane(indexsCards, player, playerObserver));
      }
 
      public int getIndex() {

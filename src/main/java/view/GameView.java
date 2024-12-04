@@ -1,36 +1,32 @@
 package view;
 
-import javafx.animation.PauseTransition;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import model.*;
 import model.decks.EnglishDeck;
+import model.game.Game;
 import model.game.Round;
 import model.reader.DataReader;
 import view.buttons.ButtonDiscardHand;
 import view.buttons.ButtonPlayHand;
 import view.records.*;
 
-import javax.swing.*;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class GameView extends StackPane implements ObserverPlayer, ObserverRound, ObserverPlayerDeck {
-
+    private Stage stage;
+    private Game game;
     private HashMap<String,HashMap<String,StackPane>> ImageCards;
     private List<String> numbersCards = new ArrayList<>();
     private List<String> suitsCards = new ArrayList<>();
@@ -39,33 +35,31 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
     private PlayerObserver playerObserver;
     private List<Integer> selectecCardIndex;
     //round
+    private Round actualRound;
     private RoundObserver roundObserver;
     private Label roundLabel;
     private Label score;
     private Label actualScore;
     private Label handsContainerValue;
     private Label discardsContainerValue;
-
+    //hand
+    private Label labelHand;
     private Label playsMult;
     private Label playsPoints;
 
-
     private HBox cardsContainer;
 
-    public GameView(Stage stage, Player player)  {
+    public GameView(Stage stage, Player player, Round actualRound, Game game)  {
         this.selectecCardIndex = new ArrayList<>();
-
-        EnglishDeck deck = new EnglishDeck();
-        deck.fillDeck();
-        deck.shuffleDeck();
-        this.player = new Player("new",deck);
+        this.player = player;
+        this.player.shuffleDeck();
         this.player.completeDeck();
         this.playerObserver = new PlayerObserver(this.player);
-        DataReader reader = new DataReader();
-        ArrayList<Round> rounds = reader.roundsRead();
+        this.actualRound = actualRound;
+        this.stage = stage;
+        this.game = game;
 
-
-        this.roundObserver = new RoundObserver(rounds.getFirst());
+        this.roundObserver = new RoundObserver(this.actualRound);
 
         Image staticBackground = new Image("file:src/resources/textures/static_game_background.png");
         ImageView backgroundView = new ImageView(staticBackground);
@@ -73,6 +67,9 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         backgroundView.setFitHeight(1080);
 
         this.getChildren().add(backgroundView);
+
+        VBox playerJokers = new PlayerJokersContainer(player);
+        VBox playerTarots = new PlayerTarotsContainer(player);
 
         Pane itemsContainer = new Pane();
 
@@ -250,11 +247,24 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
         //Arranca
 
+        VBox playsContainerV = new VBox();
+        playsContainerV.setLayoutX(62);
+        playsContainerV.setLayoutY(500);
+        playsContainerV.setMinWidth(375);
+        playsContainerV.setMinHeight(200);
+        playsContainerV.setAlignment(Pos.BOTTOM_CENTER);
+        playsContainerV.setSpacing(10);
+        playsContainerV.setStyle(
+                "-fx-background-color: rgba(0,0,0,0.40);"
+                        + "-fx-background-radius: 12px;"
+                        + "-fx-padding: 5px;"
+        );
+
         HBox playsContainer = new HBox();
         playsContainer.setLayoutX(62);
         playsContainer.setLayoutY(500);
         playsContainer.setMinWidth(375);
-        playsContainer.setMinHeight(200);
+        playsContainer.setMinHeight(100);
         playsContainer.setAlignment(Pos.BOTTOM_CENTER);
         playsContainer.setSpacing(10);
         playsContainer.setStyle(
@@ -273,6 +283,12 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 //                        + "-fx-background-color: rgba(0,153,255,0.5);"
 //                        + "-fx-background-radius: 10px;"
 //        );
+
+        this.labelHand = new Label(""); // Nombre de mano jugada
+        this.labelHand.setStyle("-fx-font-size: 60px; -fx-text-fill: white; -fx-font-weight: bold;");
+
+
+
         this.playsPoints = new Label("0");  // Puntos del tablero
         this.playsPoints.setMinWidth(150);
         this.playsPoints.setAlignment(Pos.CENTER_RIGHT);
@@ -311,6 +327,9 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         );
 
         playsContainer.getChildren().addAll(playsPoints, playsSymbol, playsMult);
+
+        playsContainerV.getChildren().add(this.labelHand);
+        playsContainerV.getChildren().addAll(playsContainer);
 
         HBox roundInfoContainer = new HBox(10);
         roundInfoContainer.setLayoutX(145);
@@ -376,7 +395,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
         // Termina
 
-        itemsContainer.getChildren().addAll(rectangle, roundTitleFrame, roundInfo, actualScoreInfo, playsContainer, roundInfoContainer);
+        itemsContainer.getChildren().addAll(rectangle, roundTitleFrame, roundInfo, actualScoreInfo, playsContainerV, roundInfoContainer);
 
         HBox buttonPlayContainer = new HBox(10);
         buttonPlayContainer.setPrefHeight(200);
@@ -396,13 +415,15 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
         itemsContainer.getChildren().add(this.cardsContainer);
         itemsContainer.getChildren().add(buttonPlayContainer);
+        itemsContainer.getChildren().add(playerJokers);
+        itemsContainer.getChildren().add(playerTarots);
 
         this.roundObserver.addObserverRound(this);
 
         this.playerObserver.addObserverPlayer(this);
 
-        //this.player.addObserverPlayerDeck(this);
-
+        this.player.addObserverPlayerDeck(this);
+        player.addObserverPlayerDeck(this);
         this.getChildren().add(itemsContainer);
 
     }
@@ -470,12 +491,14 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         for(EnglishCardRecord cardRecord : cardsRecords){
             //System.out.println("cardRecord: " + cardRecord.toString());
             StackPane card = this.ImageCards.get(cardRecord.suit()).get(cardRecord.number());
-            CardPane newCard = new CardPane(card, indexCounter, this.selectecCardIndex, this.player);
+            CardPane newCard = new CardPane(card, indexCounter, this.selectecCardIndex, this.player, this.playerObserver);
 
             cards.add(newCard);
             indexCounter++;
         }
-
+        this.labelHand.setText("");
+        this.playsPoints.setText("0");
+        this.playsMult.setText("0");
         this.cardsContainer.getChildren().clear();
         this.cardsContainer.getChildren().addAll(cards);
     }
@@ -493,6 +516,13 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 //        System.out.println("hands: " + roundRecord.hands());
         this.handsContainerValue.setText( "" + roundRecord.hands());
         this.discardsContainerValue.setText( "" + roundRecord.discards());
+
+
+
+        if(this.roundObserver.winRound()){
+            WinRoundView winRoundView = new WinRoundView(this.stage,this.player,this.actualRound,this.game);
+            this.getChildren().add(winRoundView);
+        }
     }
 
     public void updateHand(HandRecord handRecord) {  //Este metodo deberia mostrar al jugador la jugada posible que se va a generar cuando seleccione cartas. Todo esto lo muestra en el tablero o Board
@@ -511,8 +541,16 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
     @Override
     public void updatePlayerDeck(PlayerDeckRecord playerDeckRecord) {
-        this.playsPoints.setText("" + playerDeckRecord.handRecord().points().value());
-        this.playsMult.setText("" + playerDeckRecord.handRecord().multiplier().value());
+
+        int points = (int) Math.round(playerDeckRecord.handRecord().points().value());
+        int mults = (int) Math.round(playerDeckRecord.handRecord().multiplier().value());
+
+        this.playsPoints.setText("" + points);
+        this.playsMult.setText("" + mults);
+
+        this.labelHand.setText(playerDeckRecord.handRecord().name());
+
+
 
         System.out.println( "Points: " + playerDeckRecord.handRecord().points().value());
         System.out.println( "Mults: " + playerDeckRecord.handRecord().multiplier().value());

@@ -18,14 +18,15 @@ public class HandlerCardPane implements EventHandler<MouseEvent> {
 //        this.move = new CardPaneUp();
 //    }
 
-    public HandlerCardPane(List<Integer> indexs, Player player) {
+    public HandlerCardPane(List<Integer> indexs, Player player, PlayerObserver playerObserver) {
         this.move = new CardPaneUp();
         this.indexs = indexs;
         this.player = player;
+        this.playerObserver = playerObserver;
     }
     public void handle(MouseEvent event){
         CardPane cardPane = (CardPane) event.getSource();
-        this.move.move(cardPane,this, this.indexs, this.player);
+        this.move.move(cardPane,this, this.indexs, this.player, this.playerObserver);
     }
 
     public void setMove(Movable move){

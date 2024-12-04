@@ -35,4 +35,8 @@ public class RoundObserver implements ObservableRound {
         this.notifyObserversRound();
     }
 
+    public boolean winRound(){
+        return this.round.wonRound();
+    }
+
 }
