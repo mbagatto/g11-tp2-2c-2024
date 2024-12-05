@@ -33,7 +33,7 @@ public class HandlerAddTarot implements EventHandler<ActionEvent> {
     }
 
     public void handle(ActionEvent event) {
-        this.soundPlayer.playJokerUp();
+        this.soundPlayer.playTarotUp();
         this.player.addTarot(this.tarot);
         this.shopContainer.removeProduct(this.shopProductView);
 

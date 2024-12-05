@@ -28,8 +28,8 @@ public class PlayerProductView extends VBox {
         this.setAlignment(Pos.CENTER);
         Label name = new Label(purchasable.getName());
         name.setId("purchasable-name");
-
-        Image image = new Image("file:src/resources/textures/" + purchasable.toString() + ".png");
+        Image image = new Image("file:src/resources/textures/specialCards/" + purchasable.getName() + ".png");
+        System.out.println(image.getUrl());
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(110);
         imageView.setFitWidth(85);

@@ -1,6 +1,5 @@
 package view;
 
-import controller.buttonHandlers.HandlerAddJoker;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,8 +16,8 @@ public class ShopProductView extends VBox {
         this.setAlignment(Pos.CENTER);
         Label name = new Label(purchasable.getName());
         name.setId("purchasable-name");
-
-        Image image = new Image("file:src/resources/textures/" + purchasable.toString() + ".png");
+        System.out.println(purchasable.getName());
+        Image image = new Image("file:src/resources/textures/specialCards/" + purchasable.getName() + ".png");
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(110);
         imageView.setFitWidth(85);
