@@ -2,7 +2,6 @@ package model.jokers;
 
 import model.Purchasable;
 import model.hands.Hand;
-import model.reader.JokerData;
 import model.score.ScoreModifier;
 import model.score.Score;
 

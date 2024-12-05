@@ -5,7 +5,6 @@ import model.jokers.Joker;
 import model.score.Score;
 import model.score.ScoreModifier;
 import model.Modifiable;
-import model.ObservablePlayerDeck;
 import view.records.HandRecord;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -46,8 +45,6 @@ public abstract class Hand extends Modifiable {
 
     @Override
     public boolean applyTarot(ScoreModifier toPoints, ScoreModifier toMultiplier, Modifiable hand) {
-        System.out.println(this);
-        System.out.println(hand);
         if (!hand.equals(this)) {
             return false;
         }

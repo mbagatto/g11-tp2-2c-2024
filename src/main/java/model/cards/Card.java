@@ -3,7 +3,6 @@ package model.cards;
 import model.ObservableCard;
 import model.ObserverCard;
 import model.score.Score;
-import model.score.ScoreModifier;
 import model.Modifiable;
 import view.records.EnglishCardRecord;
 
