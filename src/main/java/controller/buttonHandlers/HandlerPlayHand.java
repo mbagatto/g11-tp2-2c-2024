@@ -32,7 +32,6 @@ public class HandlerPlayHand implements EventHandler<ActionEvent> {
     public void handle(ActionEvent event) {
         this.soundPlayer.playButtonSound();
         if (! this.roundObserver.ranOutOfHands()) {
-            this.playerObserver.selectCards(this.indexCards);
             this.roundObserver.playHand(this.playerObserver.getplayer());
             this.turnedDeckView.updateLabel();
             this.playerObserver.notifyObserversPlayer();

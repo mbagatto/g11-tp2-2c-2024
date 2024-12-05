@@ -27,7 +27,6 @@ public class HandlerDiscardHand implements EventHandler<ActionEvent> {
 
     public void handle(ActionEvent event) {
         this.soundPlayer.playButtonSound();
-        this.playerObserver.selectCards(this.indexCards);
         this.roundObserver.discardHand(this.playerObserver.getplayer());
         this.turnedDeckView.updateLabel();
         this.playerObserver.notifyObserversPlayer();

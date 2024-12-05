@@ -58,7 +58,6 @@ public class PlayerDeck implements ObservablePlayerDeck {
         if (selectedCards.isEmpty()) {
             throw new NoSelectedCardsException();
         }
-        //System.out.println("CARTAS JUGADAS: "+this.selectedCards.toString());
 
         Hand hand = handIdentifier.identify(this.selectedCards);
 

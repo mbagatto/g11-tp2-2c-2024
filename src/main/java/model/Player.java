@@ -51,6 +51,7 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
     }
 
     public Score play() {
+
         if (this.playerDeck.isEmpty()) {
             throw new EmptyPlayerDeckException();
         }
