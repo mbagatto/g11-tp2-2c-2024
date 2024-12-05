@@ -8,8 +8,11 @@ import javafx.scene.layout.VBox;
 import model.decks.EnglishDeck;
 
 public class TurnedDeckView extends VBox {
+    private EnglishDeck deck;
+
     public TurnedDeckView(EnglishDeck deck) {
         super();
+        this.deck = deck;
         this.setLayoutX(1650);
         this.setLayoutY(750);
         this.setSpacing(1);
@@ -25,5 +28,9 @@ public class TurnedDeckView extends VBox {
 
         this.getChildren().add(turnedCardView);
         this.getChildren().add(cardsCount);
+    }
+
+    public void updateLabel() {
+        ((Label) this.getChildren().getLast()).setText(this.deck.getCards().size() + "/52");
     }
 }

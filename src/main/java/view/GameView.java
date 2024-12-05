@@ -296,8 +296,10 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         buttonPlayContainer.setLayoutX(800);
         buttonPlayContainer.setLayoutY(950);
 
-        buttonPlayContainer.getChildren().add(new ButtonPlayHand(this.playerObserver,this.roundObserver,this.selectecCardIndex, stage));
-        buttonPlayContainer.getChildren().add(new ButtonDiscardHand(this.playerObserver,this.roundObserver,this.selectecCardIndex));
+        TurnedDeckView turnedDeckView = new TurnedDeckView(player.getEnglishDeck());
+
+        buttonPlayContainer.getChildren().add(new ButtonPlayHand(this.playerObserver,this.roundObserver,this.selectecCardIndex, stage, turnedDeckView));
+        buttonPlayContainer.getChildren().add(new ButtonDiscardHand(this.playerObserver,this.roundObserver,this.selectecCardIndex, turnedDeckView));
 
         this.generateImageCard();
 
@@ -315,7 +317,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
         playerTarotsView.changeButtons();
         itemsContainer.getChildren().add(playerTarotsView);
-        itemsContainer.getChildren().add(new TurnedDeckView(player.getEnglishDeck()));
+        itemsContainer.getChildren().add(turnedDeckView);
 
         this.roundObserver.addObserverRound(this);
 

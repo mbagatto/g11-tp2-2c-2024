@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 import view.GameOverView;
 import view.PlayerObserver;
 import view.RoundObserver;
+import view.TurnedDeckView;
+
 import java.util.List;
 
 public class HandlerPlayHand implements EventHandler<ActionEvent> {
@@ -15,13 +17,15 @@ public class HandlerPlayHand implements EventHandler<ActionEvent> {
     private RoundObserver roundObserver;
     private List<Integer> indexCards;
     private Stage stage;
+    private TurnedDeckView turnedDeckView;
     private SoundPlayer soundPlayer;
 
-    public HandlerPlayHand(PlayerObserver playerObserver, RoundObserver roundObserver, List<Integer> indexCards, Stage stage) {
+    public HandlerPlayHand(PlayerObserver playerObserver, RoundObserver roundObserver, List<Integer> indexCards, Stage stage, TurnedDeckView turnedDeckView) {
         this.playerObserver = playerObserver;
         this.roundObserver = roundObserver;
         this.indexCards = indexCards;
         this.stage = stage;
+        this.turnedDeckView = turnedDeckView;
         this.soundPlayer = new SoundPlayer();
     }
 
@@ -30,6 +34,7 @@ public class HandlerPlayHand implements EventHandler<ActionEvent> {
         if (! this.roundObserver.ranOutOfHands()) {
             this.playerObserver.selectCards(this.indexCards);
             this.roundObserver.playHand(this.playerObserver.getplayer());
+            this.turnedDeckView.updateLabel();
             this.playerObserver.notifyObserversPlayer();
             this.indexCards.clear();
             this.roundObserver.subtractHand();
