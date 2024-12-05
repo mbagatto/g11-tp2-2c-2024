@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class PlayerDeck implements ObservablePlayerDeck {
     private ArrayList<Card> cards;
     private ArrayList<Card> selectedCards;
+    private ArrayList<Card> playedCards;
     private HandIdentifier handIdentifier;
     private ArrayList<ObserverPlayerDeck> observers;
     private Hand actualHand;
@@ -25,6 +26,7 @@ public class PlayerDeck implements ObservablePlayerDeck {
     public PlayerDeck() {
         this.cards = new ArrayList<>();
         this.selectedCards = new ArrayList<>();
+        this.playedCards = new ArrayList<>();
         this.observers = new ArrayList<>();
         initializeIdentifiersChain();
         this.actualHand = this.handIdentifier.identify(this.selectedCards);
@@ -62,6 +64,7 @@ public class PlayerDeck implements ObservablePlayerDeck {
         Hand hand = handIdentifier.identify(this.selectedCards);
 
         Score score = hand.calculateScore(this.selectedCards, jokers);
+        this.playedCards.addAll(this.selectedCards);
         this.reset(selectedCards);
         return score;
     }
@@ -77,6 +80,7 @@ public class PlayerDeck implements ObservablePlayerDeck {
                 discardBonusJoker.incrementDiscards();
             }
         }
+        this.playedCards.addAll(this.selectedCards);
         this.reset(selectedCards);
     }
 
@@ -146,4 +150,10 @@ public class PlayerDeck implements ObservablePlayerDeck {
         }
         return tarot.apply();
     }
+
+    public void reorderDeck(EnglishDeck deck){
+        deck.reorderDeck(this.playedCards);
+        this.playedCards.clear();
+    }
+
 }

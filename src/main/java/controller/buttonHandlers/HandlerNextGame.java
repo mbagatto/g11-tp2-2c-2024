@@ -29,6 +29,7 @@ public class HandlerNextGame implements EventHandler<ActionEvent> {
 
     public void handle(ActionEvent actionEvent) {
         this.soundPlayer.playButtonSound();
+        this.player.reorderDeck();
         Scene scene = new Scene(new PreparationView(this.stage, this.round, this.player, this.game));
         scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
         stage.setScene(scene);

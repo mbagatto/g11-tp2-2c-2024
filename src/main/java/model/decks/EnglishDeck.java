@@ -57,4 +57,8 @@ public class EnglishDeck implements Dealable {
     public ArrayList<Card> getCards() {
         return this.cards;
     }
+
+    public void reorderDeck(ArrayList<Card> playedCards) {
+        this.cards.addAll(playedCards);
+    }
 }

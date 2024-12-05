@@ -161,5 +161,9 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
         this.englishDeck.shuffleDeck();
     }
 
+    public void reorderDeck() {
+        this.playerDeck.reorderDeck(this.englishDeck);
+    }
+
 
 }
