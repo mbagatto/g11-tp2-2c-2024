@@ -2,6 +2,11 @@ package model.score;
 
 import view.records.ScoreRecord;
 
+import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Score {
@@ -41,7 +46,7 @@ public class Score {
     }
 
     public String toString() {
-        return String.valueOf(numericValue());
+        return String.valueOf(this.value);
     }
 
     public boolean isLessThanOrEqualtoZero() { return (this.value <= 0); }

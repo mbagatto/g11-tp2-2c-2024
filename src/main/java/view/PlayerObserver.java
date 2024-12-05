@@ -3,10 +3,8 @@ package view;
 import model.ObservablePlayer;
 import model.ObserverPlayer;
 import model.Player;
-import model.cards.Card;
 
 import java.util.List;
-
 
 public class PlayerObserver implements ObservablePlayer {
 

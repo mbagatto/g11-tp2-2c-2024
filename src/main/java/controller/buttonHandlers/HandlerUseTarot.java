@@ -24,6 +24,7 @@ public class HandlerUseTarot implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent) {
         if (this.player.useTarot(this.tarot)) {
             this.tarotsContainer.getChildren().remove(this.tarotView);
+            this.player.removeTarot(this.tarot);
         }
     }
 }

@@ -2,6 +2,7 @@ package view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 import model.*;
 import model.game.Game;
 import model.game.Round;
+import model.score.Score;
 import view.buttons.ButtonDiscardHand;
 import view.buttons.ButtonPlayHand;
 import view.records.*;
@@ -129,14 +131,14 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         double height = 55;
 
         ImageView chipImageView = new ImageView(chipsImage);
-        chipImageView.setViewport(new javafx.geometry.Rectangle2D(x, y, width, height));
+        chipImageView.setViewport(new Rectangle2D(x, y, width, height));
         chipImageView.setFitWidth(35);
         chipImageView.setFitHeight(35);
         chipImageView.setEffect(colorAdjustSaturation);
         chipImageView.setEffect(colorAdjustBrightness);
 
         ImageView chipImageView2 = new ImageView(chipsImage);
-        chipImageView2.setViewport(new javafx.geometry.Rectangle2D(x, y, width, height));
+        chipImageView2.setViewport(new Rectangle2D(x, y, width, height));
         chipImageView2.setFitWidth(35);
         chipImageView2.setFitHeight(35);
         chipImageView2.setEffect(colorAdjustSaturation);
@@ -199,6 +201,8 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         hboxActualScoreChip.setPrefWidth(200);
         hboxActualScoreChip.setPrefHeight(50);
         hboxActualScoreChip.setPadding(new Insets(0, 0, 0, 0));
+
+        Score score = actualRound.getActualScore();
 
         this.actualScore = new Label(actualRound.getActualScore().toString());
         actualScore.setStyle("-fx-font-size: 45px; -fx-text-fill: white;");
@@ -357,7 +361,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
                 for (int col = 0; col < CARD_COLS; col++) {
 
                     ImageView cardView = new ImageView(deckImage);
-                    cardView.setViewport(new javafx.geometry.Rectangle2D(
+                    cardView.setViewport(new Rectangle2D(
                             col * cardWidth,  // X de la carta
                             row * cardHeight, // Y de la carta
                             cardWidth,        // Ancho de la carta
@@ -425,7 +429,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         }
 
         if(this.roundObserver.win()){
-            WinView winView = new WinView(this.stage,this.player,this.actualRound,this.game,this.playerJokersView,this.playerTarotsView);
+            WinView winView = new WinView(this.stage);
             this.getChildren().add(winView);
         }else {
             if (this.roundObserver.winRound()) {
