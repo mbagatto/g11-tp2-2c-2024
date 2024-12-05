@@ -4,42 +4,41 @@ import controller.SoundPlayer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Player;
 import model.jokers.Joker;
+import view.PlayerJokersView;
+import view.PlayerProductView;
+import view.ShopContainer;
 
 public class HandlerAddJoker implements EventHandler<ActionEvent> {
-    private VBox jokerView;
-    private VBox playerJokers;
-    private VBox shopContainer;
     private Player player;
     private Joker joker;
+    private ShopContainer shopContainer;
+    private VBox shopProductView;
+    private PlayerJokersView playerJokersView;
     private SoundPlayer soundPlayer;
 
-    public HandlerAddJoker(VBox jokerView, VBox playerJokers, VBox shopContainer, Player player, Joker joker) {
-        this.jokerView = jokerView;
-        this.playerJokers = playerJokers;
-        this.shopContainer = shopContainer;
+    public HandlerAddJoker(Player player, Joker joker, ShopContainer shopContainer, VBox shopProductView, PlayerJokersView playerJokersView) {
         this.player = player;
         this.joker = joker;
+        this.shopContainer = shopContainer;
+        this.shopProductView = shopProductView;
+        this.playerJokersView = playerJokersView;
         this.soundPlayer = new SoundPlayer();
     }
 
     public void handle(ActionEvent event) {
         this.soundPlayer.playJokerUp();
-
         this.player.addJoker(this.joker);
+        this.shopContainer.removeProduct(this.shopProductView);
 
-        Button button = (Button) this.jokerView.getChildren().get(1);
-        Label description = (Label) this.jokerView.getChildren().removeLast();
-        button.setOnAction(new HandlerRemoveJoker(this.jokerView, this.playerJokers, this.shopContainer, this.player, this.joker, description));
+        VBox playerJokerView = new PlayerProductView(joker, player);
+        this.playerJokersView.addView(playerJokerView);
 
-        HBox jokersContainer = (HBox) this.playerJokers.getChildren().getFirst();
-        jokersContainer.getChildren().add(this.jokerView);
-        this.shopContainer.getChildren().remove(this.jokerView);
-        Label jokerCount = (Label) this.playerJokers.getChildren().getLast();
-        jokerCount.setText(this.player.getJokers().size() + "/5");
+        Button removeButton = (Button) playerJokerView.getChildren().getLast();
+        removeButton.setOnAction(new HandlerRemoveJoker(this.player, this.joker, this.shopContainer, playerJokerView, this.playerJokersView));
+
+        this.playerJokersView.updateLabel();
     }
 }

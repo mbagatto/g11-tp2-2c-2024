@@ -17,9 +17,10 @@ public class CardPane extends StackPane {
                   "-fx-background-color: white; " +
                           "-fx-border-color: black; " +
                           "-fx-border-radius: 10; " +
-                          "-fx-background-radius: 10;"
+                          "-fx-background-radius: 10;" +
+                          "-fx-cursor: hand;"
           );
-          this.setPrefSize(160, 200); // esta es la parte blanca de la carta
+          this.setPrefSize(140, 10);// esta es la parte blanca de la carta
           this.getChildren().add(cardView);
 //          this.setOnMouseClicked(new HandlerCardPane());
      }

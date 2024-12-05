@@ -10,6 +10,7 @@ import model.identifiers.*;
 import model.jokers.DiscardBonus;
 import model.jokers.Joker;
 import model.score.Score;
+import model.tarots.Tarot;
 import view.records.EnglishCardRecord;
 import view.records.PlayerDeckRecord;
 import java.util.ArrayList;
@@ -138,5 +139,12 @@ public class PlayerDeck implements ObservablePlayerDeck {
 
     public void clearSelectedCards() {
         this.selectedCards.clear();
+    }
+
+    public boolean useTarot(Tarot tarot) {
+        if (this.selectedCards.size() == 1) {
+            tarot.setTarget(this.selectedCards.getFirst());
+        }
+        return tarot.apply();
     }
 }

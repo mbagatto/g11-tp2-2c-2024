@@ -10,9 +10,8 @@ public class FourOfAKind extends Hand {
     private static FourOfAKind instance;
 
     private FourOfAKind() {
+        super(new Score(60), new Score(7));
         this.name = "Four Of A Kind";
-        this.points = new Score(60);
-        this.multiplier = new Score(7);
     }
 
     public static FourOfAKind getInstance() {

@@ -32,34 +32,39 @@ public class TarotReader implements Reader<Tarot> {
                 int points = effectNode.get("puntos").asInt();
                 double multiplier = effectNode.get("multiplicador").asDouble();
                 String ejemplar = tarotNode.get("ejemplar").asText();
+                String appliesTo = tarotNode.get("sobre").asText();
 
-                if (ejemplar.equals("cualquiera")) {
+                if (appliesTo.equals("carta") && !name.equals("El Tonto")) {
+                    Tarot tarot = null;
                     if (points == 1) {
-                        tarots.add(new Tarot(name, description, new DoNotModify(), new Change(new Score(multiplier))));
+                        tarot = new Tarot(name, description, new DoNotModify(), new Change(new Score(multiplier)));
                     } else {
-                        tarots.add(new Tarot(name, description, new Change(new Score(points)), new DoNotModify()));
+                        tarot = new Tarot(name, description, new Change(new Score(points)), new DoNotModify());
                     }
+                    tarots.add(tarot);
                 } else {
                     Tarot tarot = new Tarot(name, description, new Add(new Score(points)), new Add(new Score(multiplier)));
                     switch (ejemplar) {
+                        case "cualquiera":
+                            tarot.setTarget(HighCard.getInstance()); break;
                         case "par":
-                            tarot.setTarget(Pair.getInstance());
+                            tarot.setTarget(Pair.getInstance()); break;
                         case "doble par":
-                            tarot.setTarget(TwoPair.getInstance());
+                            tarot.setTarget(TwoPair.getInstance()); break;
                         case "trio":
-                            tarot.setTarget(ThreeOfAKind.getInstance());
+                            tarot.setTarget(ThreeOfAKind.getInstance()); break;
                         case "escalera":
-                            tarot.setTarget(Straight.getInstance());
+                            tarot.setTarget(Straight.getInstance()); break;
                         case "color":
-                            tarot.setTarget(Flush.getInstance());
+                            tarot.setTarget(Flush.getInstance()); break;
                         case "full":
-                            tarot.setTarget(FullHouse.getInstance());
+                            tarot.setTarget(FullHouse.getInstance()); break;
                         case "poker":
-                            tarot.setTarget(FourOfAKind.getInstance());
+                            tarot.setTarget(FourOfAKind.getInstance()); break;
                         case "escalera de color":
-                            tarot.setTarget(StraightFlush.getInstance());
+                            tarot.setTarget(StraightFlush.getInstance()); break;
                         case "escalera real":
-                            tarot.setTarget(RoyalFlush.getInstance());
+                            tarot.setTarget(RoyalFlush.getInstance()); break;
                     }
                     tarots.add(tarot);
                 }

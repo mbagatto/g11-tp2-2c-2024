@@ -44,7 +44,10 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
     private HBox cardsContainer;
 
-    public GameView(Stage stage, Player player, Round actualRound, Game game)  {
+    private PlayerJokersView playerJokersView;
+    private PlayerTarotsView playerTarotsView;
+
+    public GameView(Stage stage, Player player, Round actualRound, Game game, PlayerJokersView playerJokersView, PlayerTarotsView playerTarotsView)  {
         this.selectecCardIndex = new ArrayList<>();
         this.player = player;
         this.player.shuffleDeck();
@@ -53,6 +56,8 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         this.actualRound = actualRound;
         this.stage = stage;
         this.game = game;
+        this.playerJokersView = playerJokersView;
+        this.playerTarotsView = playerTarotsView;
 
         this.roundObserver = new RoundObserver(this.actualRound);
 
@@ -62,9 +67,6 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
         backgroundView.setFitHeight(1080);
 
         this.getChildren().add(backgroundView);
-
-        VBox playerJokers = new PlayerJokersContainer(player);
-        VBox playerTarots = new PlayerTarotsContainer(player);
 
         Pane itemsContainer = new Pane();
 
@@ -307,8 +309,13 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
         itemsContainer.getChildren().add(this.cardsContainer);
         itemsContainer.getChildren().add(buttonPlayContainer);
-        itemsContainer.getChildren().add(playerJokers);
-        itemsContainer.getChildren().add(playerTarots);
+
+        playerJokersView.disableButtons();
+        itemsContainer.getChildren().add(playerJokersView);
+
+        playerTarotsView.changeButtons();
+        itemsContainer.getChildren().add(playerTarotsView);
+        itemsContainer.getChildren().add(new TurnedDeckView(player.getEnglishDeck()));
 
         this.roundObserver.addObserverRound(this);
 
@@ -316,7 +323,8 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
 
         this.player.addObserverPlayerDeck(this);
         player.addObserverPlayerDeck(this);
-        this.getChildren().add(itemsContainer);
+
+        this.getChildren().addAll(itemsContainer);
 
     }
 
@@ -354,8 +362,8 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
                             cardHeight        // Altura de la carta
                     ));
 
-                    cardView.setFitWidth(160);
-                    cardView.setFitHeight(200);
+                    cardView.setFitWidth(215);
+                    cardView.setFitHeight(175);
                     cardView.setPreserveRatio(true);
 
                     CardPane cardPane = new CardPane(cardView);
@@ -414,7 +422,7 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
             this.getChildren().add(finalScreen);
         }
         if (this.roundObserver.winRound()) {
-            WinRoundView winRoundView = new WinRoundView(this.stage,this.player,this.actualRound,this.game);
+            WinRoundView winRoundView = new WinRoundView(this.stage,this.player,this.actualRound,this.game,this.playerJokersView,this.playerTarotsView);
             this.getChildren().add(winRoundView);
         }
     }

@@ -82,12 +82,8 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
         this.tarots.add(tarot);
     }
 
-    public Tarot selectTarot(int indexSelectTarot) {
-        return this.tarots.get(indexSelectTarot);
-    }
-
-    public void useTarot(Tarot tarot) {
-        tarot.apply();
+    public boolean useTarot(Tarot tarot) {
+        return this.playerDeck.useTarot(tarot);
     }
 
     public void addObserver(Observer observer) {

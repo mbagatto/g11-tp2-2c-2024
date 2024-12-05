@@ -9,10 +9,9 @@ import java.util.ArrayList;
 public class NullHand extends Hand {
     private static NullHand instance;
 
-    public NullHand() {
+    private NullHand() {
+        super(new Score(0), new Score(0));
         this.name = "";
-        this.points = new Score(0);
-        this.multiplier = new Score(0);
     }
 
     public static NullHand getInstance() {

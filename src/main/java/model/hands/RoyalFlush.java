@@ -6,9 +6,8 @@ public class RoyalFlush extends Hand {
     private static RoyalFlush instance;
 
     private RoyalFlush() {
+        super(new Score(100), new Score(8));
         this.name = "Royal Flush";
-        this.points = new Score(100);
-        this.multiplier = new Score(8);
     }
 
     public static RoyalFlush getInstance() {

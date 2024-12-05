@@ -6,9 +6,8 @@ public class StraightFlush extends Hand {
     private static StraightFlush instance;
 
     private StraightFlush() {
+        super(new Score(100), new Score(8));
         this.name = "Straight Flush";
-        this.points = new Score(100);
-        this.multiplier = new Score(8);
     }
 
     public static StraightFlush getInstance() {

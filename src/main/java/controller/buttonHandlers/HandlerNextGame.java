@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import model.Player;
 import model.game.Game;
 import model.game.Round;
+import view.PlayerJokersView;
+import view.PlayerTarotsView;
 import view.PreparationView;
 
 public class HandlerNextGame implements EventHandler<ActionEvent> {
