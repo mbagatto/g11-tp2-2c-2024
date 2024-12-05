@@ -6,9 +6,8 @@ public class Straight extends Hand {
     private static Straight instance;
 
     private Straight() {
+        super(new Score(30), new Score(4));
         this.name = "Straight";
-        this.points = new Score(30);
-        this.multiplier = new Score(4);
     }
 
     public static Straight getInstance() {

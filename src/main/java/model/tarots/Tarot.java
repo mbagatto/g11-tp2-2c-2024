@@ -2,7 +2,10 @@ package model.tarots;
 
 import model.Modifiable;
 import model.Purchasable;
+import model.cards.Card;
 import model.score.ScoreModifier;
+
+import java.util.ArrayList;
 
 public class Tarot implements Purchasable {
     private String name;
@@ -22,8 +25,8 @@ public class Tarot implements Purchasable {
         this.target = target;
     }
 
-    public void apply() {
-        this.target.applyTarot(this.toPoints, this.toMultiplier);
+    public boolean apply() {
+        return this.target.applyTarot(this.toPoints, this.toMultiplier, this.target);
     }
 
     public boolean hasName(String name) {

@@ -2,14 +2,14 @@ package view;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import model.Observer;
-import model.Player;
+import model.*;
 import model.game.Game;
 import model.game.Round;
 import model.jokers.Joker;
@@ -17,34 +17,31 @@ import model.tarots.Tarot;
 
 import java.util.ArrayList;
 
-public class PreparationView extends VBox implements Observer {
+public class PreparationView extends StackPane implements Observer {
     private Stage stage;
     private Round round;
     private Player player;
     private Game game;
 
     public PreparationView(Stage stage, Round round, Player player, Game game) {
+        super();
         this.stage = stage;
         this.round = round;
         this.player = player;
         this.game = game;
         round.addObserver(this);
         player.addObserver(this);
-        this.update();
-    }
-
-    @Override
-    public void update() {
-        stage.setTitle("Balatro - Preparation");
 
         Image background = new Image("file:src/resources/textures/game_background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(1920);
         backgroundView.setFitHeight(1080);
+        this.getChildren().add(backgroundView);
+        this.update();
+    }
 
-        StackPane backgroundContainer = new StackPane();
-        backgroundContainer.getChildren().add(backgroundView);
-
+    @Override
+    public void update() {
         Pane itemsContainer = new Pane();
 
         Rectangle leftRectangle = new Rectangle();
@@ -62,18 +59,15 @@ public class PreparationView extends VBox implements Observer {
 
         ArrayList<Joker> jokers = this.round.getShop().getJokers();
         ArrayList<Tarot> tarots = this.round.getShop().getTarots();
+        PlayerJokersView playerJokersView = new PlayerJokersView(player);
+        PlayerTarotsView playerTarotsView = new PlayerTarotsView(player);
 
-        VBox playerJokers = new PlayerJokersContainer(player);
-        VBox playerTarots = new PlayerTarotsContainer(player);
+        itemsContainer.getChildren().add(playerJokersView);
+        itemsContainer.getChildren().add(playerTarotsView);
 
-        itemsContainer.getChildren().add(playerJokers);
-        itemsContainer.getChildren().add(playerTarots);
-
-        itemsContainer.getChildren().add(new ShopContainer(stage, playerJokers, playerTarots, jokers, tarots, player, round, this.game));
+        itemsContainer.getChildren().add(new ShopContainer(stage, round, player, game, jokers, tarots, playerJokersView, playerTarotsView));
         itemsContainer.getChildren().add(new TurnedDeckView(player.getEnglishDeck()));
 
-        backgroundContainer.getChildren().add(itemsContainer);
-
-        this.getChildren().addAll(backgroundContainer);
+        this.getChildren().add(itemsContainer);
     }
 }

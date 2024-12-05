@@ -153,11 +153,11 @@
     -fx-cursor: hand;
 }
 
-#button-add {
+#button-add, #button-remove {
     -fx-background-color: transparent;
 }
 
-#button-add:hover {
+#button-add:hover, #button-remove:hover {
     -fx-cursor: hand;
 }
 
@@ -177,4 +177,19 @@
     -fx-border-width: 1px;
     -fx-border-color: rgb(255, 235, 167);
     -fx-border-radius: 25px;
+}
+
+#win-round-view {
+    -fx-background-color: rgba(0,0,0,0.5);
+    -fx-border-width: 1px;
+    -fx-border-color: rgb(255, 235, 167);
+}
+
+#product-popup {
+    -fx-font-size: 16px;
+    -fx-background-color: rgba(0,0,0,0.5);
+    -fx-background-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-border-color: rgb(255, 235, 167);
+    -fx-border-radius: 10px;
 }

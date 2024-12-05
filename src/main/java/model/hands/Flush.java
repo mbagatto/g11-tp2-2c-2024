@@ -6,9 +6,8 @@ public class Flush extends Hand {
     private static Flush instance;
 
     private Flush() {
+        super(new Score(35), new Score(4));
         this.name = "Flush";
-        this.points = new Score(35);
-        this.multiplier = new Score(4);
     }
 
     public static Flush getInstance() {

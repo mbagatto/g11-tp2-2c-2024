@@ -9,38 +9,39 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Player;
 import model.tarots.Tarot;
+import view.PlayerProductView;
+import view.PlayerTarotsView;
+import view.ShopContainer;
+import view.ShopProductView;
 
 public class HandlerRemoveTarot implements EventHandler<ActionEvent> {
-    private VBox tarotView;
-    private VBox playerTarots;
-    private VBox shopContainer;
     private Player player;
     private Tarot tarot;
-    private Label description;
+    private ShopContainer shopContainer;
+    private VBox playerTarotView;
+    private PlayerTarotsView playerTarotsView;
     private SoundPlayer soundPlayer;
 
-    public HandlerRemoveTarot(VBox tarotView, VBox playerTarots, VBox shopContainer, Player player, Tarot tarot, Label description) {
-        this.tarotView = tarotView;
-        this.playerTarots = playerTarots;
-        this.shopContainer = shopContainer;
+    public HandlerRemoveTarot(Player player, Tarot tarot, ShopContainer shopContainer, VBox playerTarotView, PlayerTarotsView playerTarotsView) {
         this.player = player;
         this.tarot = tarot;
-        this.description = description;
+        this.shopContainer = shopContainer;
+        this.playerTarotView = playerTarotView;
+        this.playerTarotsView = playerTarotsView;
         this.soundPlayer = new SoundPlayer();
     }
 
-    public void handle(ActionEvent actionEvent) {
-        this.soundPlayer.playTarotDown();
+    public void handle(ActionEvent event) {
+        this.soundPlayer.playJokerUp();
         this.player.removeTarot(this.tarot);
+        this.playerTarotsView.removeProduct(this.playerTarotView);
 
-        Button button = (Button) this.tarotView.getChildren().get(1);
-        button.setOnAction(new HandlerAddTarot(this.tarotView, this.playerTarots, this.shopContainer, this.player, this.tarot));
+        VBox shopTarotView = new ShopProductView(tarot);
+        this.shopContainer.addProduct(shopTarotView);
 
-        this.tarotView.getChildren().add(this.description);
-        this.shopContainer.getChildren().add(this.tarotView);
-        HBox tarotsContainer = (HBox) this.playerTarots.getChildren().getFirst();
-        tarotsContainer.getChildren().remove(this.tarotView);
-        Label tarotCount = (Label) this.playerTarots.getChildren().getLast();
-        tarotCount.setText(this.player.getTarots().size() + "/2");
+        Button addButton = (Button) shopTarotView.getChildren().get(1);
+        addButton.setOnAction(new HandlerAddTarot(this.player, this.tarot, this.shopContainer, shopTarotView, this.playerTarotsView));
+
+        this.playerTarotsView.updateLabel();
     }
 }

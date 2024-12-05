@@ -11,9 +11,8 @@ public class HighCard extends Hand {
     private static HighCard instance;
 
     private HighCard() {
+        super(new Score(5), new Score(1));
         this.name = "High Card";
-        this.points = new Score(5);
-        this.multiplier = new Score(1);
     }
 
     public static HighCard getInstance() {

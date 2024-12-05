@@ -1,5 +1,6 @@
 package view;
 
+import controller.buttonHandlers.HandlerAddJoker;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,8 +10,8 @@ import javafx.scene.layout.VBox;
 import model.Purchasable;
 import view.buttons.ButtonAdd;
 
-public class PurchasableView extends VBox {
-    public PurchasableView(Purchasable purchasable) {
+public class ShopProductView extends VBox {
+    public ShopProductView(Purchasable purchasable) {
         super();
         this.setId("purchasable-view");
         this.setAlignment(Pos.CENTER);

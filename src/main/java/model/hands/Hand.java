@@ -10,11 +10,8 @@ import view.records.HandRecord;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public abstract class Hand implements Modifiable {
+public abstract class Hand extends Modifiable {
     protected String name;
-    protected Score points;
-    protected Score multiplier;
-
 
     @Override
     public boolean equals(Object o) {
@@ -27,6 +24,10 @@ public abstract class Hand implements Modifiable {
     @Override
     public int hashCode() {
         return Objects.hashCode(name);
+    }
+
+    public Hand(Score points, Score multiplier) {
+        super(points, multiplier);
     }
 
     public Score calculateScore(ArrayList<Card> cards, ArrayList<Joker> jokers) {
@@ -43,9 +44,14 @@ public abstract class Hand implements Modifiable {
         return points.multiplyWith(multiplier);
     }
 
-    public void applyTarot(ScoreModifier toPoints, ScoreModifier toMultiplier) {
-        this.points = toPoints.modify(this.points);
-        this.multiplier = toMultiplier.modify(this.multiplier);
+    @Override
+    public boolean applyTarot(ScoreModifier toPoints, ScoreModifier toMultiplier, Modifiable hand) {
+        System.out.println(this);
+        System.out.println(hand);
+        if (!hand.equals(this)) {
+            return false;
+        }
+        return super.applyTarot(toPoints, toMultiplier, hand);
     }
 
     protected ArrayList<Card> findHandCards(ArrayList<Card> cards) {

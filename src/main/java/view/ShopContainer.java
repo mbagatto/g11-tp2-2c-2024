@@ -17,35 +17,43 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class ShopContainer extends VBox {
-    public ShopContainer(Stage stage, VBox playerJokers, VBox playerTarots, ArrayList<Joker> jokers, ArrayList<Tarot> tarots, Player player, Round actualRound, Game game) {
+    public ShopContainer(Stage stage, Round round, Player player, Game game, ArrayList<Joker> jokers, ArrayList<Tarot> tarots, PlayerJokersView playerJokersView, PlayerTarotsView playerTarotsView) {
         super();
         this.setId("shop-container");
         this.setAlignment(Pos.TOP_CENTER);
         this.setSpacing(8);
         this.setLayoutX(550);
-        this.setLayoutY(295);
+        this.setLayoutY(305);
         this.setPrefWidth(900);
         this.setPrefHeight(800);
 
-        ArrayList<VBox> products = new ArrayList<>();
+        ArrayList<VBox> productViews = new ArrayList<>();
 
         for (Joker joker : jokers) {
-            VBox jokerView = new PurchasableView(joker);
-            Button addButton = (Button) jokerView.getChildren().get(1);
-            addButton.setOnAction(new HandlerAddJoker(jokerView, playerJokers, this, player, joker));
-            products.add(jokerView);
+            VBox shopProductView = new ShopProductView(joker);
+            Button addButton = ((Button) shopProductView.getChildren().get(1));
+            addButton.setOnAction(new HandlerAddJoker(player, joker, this, shopProductView, playerJokersView));
+            productViews.add(shopProductView);
         }
 
         for (Tarot tarot : tarots) {
-            VBox tarotView = new PurchasableView(tarot);
-            Button addButton = (Button) tarotView.getChildren().get(1);
-            addButton.setOnAction(new HandlerAddTarot(tarotView, playerTarots, this, player, tarot));
-            products.add(tarotView);
+            VBox shopProductView = new ShopProductView(tarot);
+            Button addButton = ((Button) shopProductView.getChildren().get(1));
+            addButton.setOnAction(new HandlerAddTarot(player, tarot, this, shopProductView, playerTarotsView));
+            productViews.add(shopProductView);
         }
 
-        Collections.shuffle(products);
+        Collections.shuffle(productViews);
 
-        this.getChildren().add(new ButtonNextRound(stage, player, actualRound, game));
-        this.getChildren().addAll(products.subList(0, 4));
+        this.getChildren().add(new ButtonNextRound(stage, player, round, game, playerJokersView, playerTarotsView));
+        this.getChildren().addAll(productViews.subList(0, 4));
+    }
+
+    public void addProduct(VBox productView) {
+        this.getChildren().add(productView);
+    }
+
+    public void removeProduct(VBox productView) {
+        this.getChildren().remove(productView);
     }
 }

@@ -11,11 +11,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public abstract class Card implements Modifiable, ObservableCard {
+public abstract class Card extends Modifiable implements ObservableCard {
     protected ArrayList<ObserverCard> observers;
     protected String number;
-    protected Score points;
-    protected Score multiplier;
     protected String suit;
 
     @Override
@@ -32,9 +30,8 @@ public abstract class Card implements Modifiable, ObservableCard {
     }
 
     public Card(String number, Score points, Score multiplier) {
+        super(points, multiplier);
         this.number = number;
-        this.points = points;
-        this.multiplier = multiplier;
         this.observers = new ArrayList<>();
     }
 
@@ -66,11 +63,6 @@ public abstract class Card implements Modifiable, ObservableCard {
 
     public String toString() {
         return this.number + " of " + this.suit;
-    }
-
-    public void applyTarot(ScoreModifier toPoints, ScoreModifier toMultiplier) {
-        this.points = toPoints.modify(this.points);
-        this.multiplier = toMultiplier.modify(this.multiplier);
     }
 
     private ArrayList<String> generateOrder() {

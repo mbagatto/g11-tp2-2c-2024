@@ -10,9 +10,8 @@ public class TwoPair extends Hand {
     private static TwoPair instance;
 
     private TwoPair() {
+        super(new Score(20), new Score(2));
         this.name = "Two Pair";
-        this.points = new Score(20);
-        this.multiplier = new Score(2);
     }
 
     public static TwoPair getInstance() {
