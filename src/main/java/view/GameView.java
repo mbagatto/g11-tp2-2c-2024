@@ -423,9 +423,16 @@ public class GameView extends StackPane implements ObserverPlayer, ObserverRound
             GameOverView finalScreen = new GameOverView(this.stage);
             this.getChildren().add(finalScreen);
         }
-        if (this.roundObserver.winRound()) {
-            WinRoundView winRoundView = new WinRoundView(this.stage,this.player,this.actualRound,this.game,this.playerJokersView,this.playerTarotsView);
-            this.getChildren().add(winRoundView);
+
+        if(this.roundObserver.win()){
+            WinView winView = new WinView(this.stage,this.player,this.actualRound,this.game,this.playerJokersView,this.playerTarotsView);
+            this.getChildren().add(winView);
+        }else {
+            if (this.roundObserver.winRound()) {
+
+                WinRoundView winRoundView = new WinRoundView(this.stage, this.player, this.actualRound, this.game, this.playerJokersView, this.playerTarotsView);
+                this.getChildren().add(winRoundView);
+            }
         }
     }
 

@@ -152,6 +152,8 @@ public class PlayerDeck implements ObservablePlayerDeck {
     }
 
     public void reorderDeck(EnglishDeck deck){
+        this.playedCards.addAll(this.cards);
+        this.cards.clear();
         deck.reorderDeck(this.playedCards);
         this.playedCards.clear();
     }

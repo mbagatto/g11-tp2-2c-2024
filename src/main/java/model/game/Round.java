@@ -123,6 +123,10 @@ public class Round implements Observable, Playable, ObservableRound {
         return (this.actualScore.isGreaterThanOrEqualTo(this.scoreToBeat)) ;
     }
 
+    public boolean won(){
+        return (this.number == 8 && this.wonRound());
+    }
+
     public void subtractHand() {
         this.hands.subtractOne();
     }
