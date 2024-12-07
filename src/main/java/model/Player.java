@@ -8,20 +8,18 @@ import model.exceptions.InvalidTarotException;
 import model.jokers.Joker;
 import model.score.Score;
 import model.tarots.Tarot;
-import view.records.PlayerRecord;
+import view.records.PlayerDTO;
 
 import java.util.ArrayList;
 
-public class Player implements Observable, Purchaser, ObservablePlayer {
+public class Player implements ObservablePlayer {
     private String name;
     private EnglishDeck englishDeck;
     private PlayerDeck playerDeck;
     private ArrayList<Joker> jokers;
     private ArrayList<Tarot> tarots;
     private Score discards;
-    private ArrayList<Observer> observers;
-
-    private ArrayList<ObserverPlayer> observersPlayer;
+    private ArrayList<PlayerObserver> observers;
 
     public Player(String name, EnglishDeck englishDeck) {
         this.name = name;
@@ -31,8 +29,6 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
         this.tarots = new ArrayList<>();
         this.discards = new Score(0);
         this.observers = new ArrayList<>();
-
-        this.observersPlayer = new ArrayList<>();
     }
 
     public void completeDeck() {
@@ -45,18 +41,17 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
         this.playerDeck.selectCard(indexSelectCard);
     }
 
-
     public void noSelectCard(){
         this.playerDeck.noSelectCard();
     }
 
     public Score play() {
-
         if (this.playerDeck.isEmpty()) {
             throw new EmptyPlayerDeckException();
         }
         Score score = this.playerDeck.play(this.jokers);
         this.completeDeck();
+        this.notifyObservers();
         return score;
     }
 
@@ -67,6 +62,7 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
         this.playerDeck.discard(this.jokers);
         this.completeDeck();
         this.discards.addWith(new Score(1));
+        this.notifyObservers();
     }
 
     public void addJoker(Joker joker) {
@@ -74,6 +70,7 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
             throw new InvalidJokerException();
         }
         this.jokers.add(joker);
+        this.notifyObservers();
     }
 
     public void addTarot(Tarot tarot) {
@@ -81,76 +78,31 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
             throw new InvalidTarotException();
         }
         this.tarots.add(tarot);
+        this.notifyObservers();
     }
 
-    public boolean useTarot(Tarot tarot) {
-        return this.playerDeck.useTarot(tarot);
-    }
-
-    public void addObserver(Observer observer) {
-        this.observers.add(observer);
-    }
-
-    @Override
-    public void addObserverPlayer(ObserverPlayer observerPlayer) {
-        this.observersPlayer.add(observerPlayer);
-        observerPlayer.updatePlayer(this.toRecord());
-    }
-
-    @Override
-    public void notifyObserversPlayer() {
-        //System.out.println("ME EJECUTEEE notifyObserversPlayer()");
-        for (ObserverPlayer observerPlayer : this.observersPlayer) {
-            observerPlayer.updatePlayer(this.toRecord());
-        }
-    }
-
-
-
-    public void notifyObservers() {
-        for (Observer observer : this.observers) {
-            observer.update();
-        }
-    }
-
-    public PlayerRecord toRecord() {
-        return new PlayerRecord(
-                this.name,
-                this.playerDeck.toRecord(), // Copia inmutable del mazo
-                new ArrayList<>(this.jokers),               // Copia inmutable de los comodines
-                new ArrayList<>(this.tarots), // Copia inmutable de las cartas de tarot
-                this.discards.toRecord()                    // Puntuación de descartes
-        );
-    }
-
-    @Override
-    public ArrayList<Joker> getJokers() {
-        return this.jokers;
-    }
-
-    @Override
-    public ArrayList<Tarot> getTarots() {
-        return this.tarots;
-    }
-
-    public EnglishDeck getEnglishDeck() {
-        return this.englishDeck;
+    public void useTarot(Tarot tarot) {
+        this.playerDeck.useTarot(tarot, this);
     }
 
     public void removeJoker(Joker joker) {
         this.jokers.remove(joker);
+        this.notifyObservers();
     }
 
     public void removeTarot(Tarot tarot) {
         this.tarots.remove(tarot);
+        this.notifyObservers();
     }
 
-    public void addObserverPlayerDeck(ObserverPlayerDeck observerPlayerDeck) {
-        this.playerDeck.addObserverForPlayerDeck(observerPlayerDeck);
+    public void addObserver(PlayerObserver observer) {
+        this.observers.add(observer);
     }
 
-    public void notifyPlayerDeck() {
-        this.playerDeck.notifyObserversPlayerDeck();
+    public void notifyObservers() {
+        for (PlayerObserver observer : this.observers) {
+            observer.update(this.toDTO());
+        }
     }
 
     public void clearSelectedCards() {
@@ -162,10 +114,16 @@ public class Player implements Observable, Purchaser, ObservablePlayer {
     }
 
     public void reorderDeck() {
-
         this.playerDeck.reorderDeck(this.englishDeck);
         this.englishDeck.shuffleDeck();
     }
 
-
+    public PlayerDTO toDTO() {
+        return new PlayerDTO(
+                this.name,
+                this.jokers,
+                this.tarots,
+                this.englishDeck
+        );
+    }
 }

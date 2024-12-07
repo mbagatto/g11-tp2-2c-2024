@@ -1,7 +1,6 @@
 package model;
 
-import model.decks.EnglishDeck;
-
 public interface ObservableEnglishDeck {
-    EnglishDeck getEnglishDeck();
+    void addObserver(EnglishDeckObserver observer);
+    void notifyObservers();
 }

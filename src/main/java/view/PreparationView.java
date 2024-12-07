@@ -1,73 +1,81 @@
 package view;
 
+import controller.buttonHandlers.HandlerMainMenuButton;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import model.*;
-import model.game.Game;
-import model.game.Round;
-import model.jokers.Joker;
-import model.tarots.Tarot;
+import model.game.GameDTO;
+import model.game.Shop;
 
-import java.util.ArrayList;
-
-public class PreparationView extends StackPane implements Observer {
-    private Stage stage;
-    private Round round;
-    private Player player;
-    private Game game;
-
-    public PreparationView(Stage stage, Round round, Player player, Game game) {
+public class PreparationView extends Group {
+    public PreparationView(Stage stage, MainMenuView mainMenuView, GameDTO gameDTO) {
         super();
-        this.stage = stage;
-        this.round = round;
-        this.player = player;
-        this.game = game;
-        round.addObserver(this);
-        player.addObserver(this);
 
         Image background = new Image("file:src/resources/textures/game_background.jpg");
         ImageView backgroundView = new ImageView(background);
         backgroundView.setFitWidth(1920);
         backgroundView.setFitHeight(1080);
-        this.getChildren().add(backgroundView);
-        this.update();
+
+        Rectangle rectangle = new Rectangle();
+        rectangle.setX(50);
+        rectangle.setY(0);
+        rectangle.setWidth(400);
+        rectangle.setHeight(1080);
+        rectangle.setFill(Color.web("#3B3B3B44"));
+        rectangle.setStroke(Color.web("#FFEBA7FF"));
+        rectangle.setStrokeWidth(5);
+
+        VBox titleContainer = new VBox();
+        titleContainer.setId("title-container");
+        titleContainer.setLayoutX(62);
+        titleContainer.setLayoutY(100);
+        titleContainer.setMinWidth(375);
+        titleContainer.setAlignment(Pos.CENTER);
+        titleContainer.setSpacing(2);
+
+        Label title = new Label("TIENDA");
+        title.setStyle("-fx-font-size: 100px; -fx-text-fill: white;");
+
+        Label subtitle = new Label("¡Preparate para la siguiente ronda!");
+        subtitle.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
+
+        titleContainer.getChildren().addAll(title, subtitle);
+
+        Button mainMenuButton = new Button("Menú Principal");
+        mainMenuButton.setId("main-menu-button");
+        mainMenuButton.setLayoutX(100);
+        mainMenuButton.setLayoutY(900);
+        mainMenuButton.setPrefWidth(300);
+        mainMenuButton.setPrefHeight(80);
+        mainMenuButton.setOnAction(new HandlerMainMenuButton(stage, mainMenuView, this));
+
+        this.addView(backgroundView);
+        this.addView(rectangle);
+        this.addView(titleContainer);
+        this.addView(new RoundInfoView(this, gameDTO.round()));
+        this.addView(mainMenuButton);
+
+        Shop shop =  gameDTO.round().toDTO().shop();
+        this.addView(new PlayerJokersContainer(this, gameDTO.player(), shop));
+        this.addView(new PlayerTarotsContainer(this, gameDTO.player(), shop));
+        this.addView(new ProductsContainer(stage, this, gameDTO.player(), shop));
+        this.addView(new EnglishDeckView(this, gameDTO.player().toDTO().englishDeck()));
     }
 
-    @Override
-    public void update() {
-        Pane itemsContainer = new Pane();
+    public void addView(Node view) {
+        this.getChildren().add(view);
+    }
 
-        Rectangle leftRectangle = new Rectangle();
-        leftRectangle.setX(50);
-        leftRectangle.setY(0);
-        leftRectangle.setWidth(400);
-        leftRectangle.setHeight(1080);
-        leftRectangle.setFill(Color.web("#3B3B3B44"));
-        leftRectangle.setStroke(Color.web("#FFEBA7FF"));
-        leftRectangle.setStrokeWidth(5);
-
-        itemsContainer.getChildren().add(leftRectangle);
-        itemsContainer.getChildren().add(new ShopTitleContainer());
-        itemsContainer.getChildren().add(new LeftPanelView(round));
-
-        ArrayList<Joker> jokers = this.round.getShop().getJokers();
-        ArrayList<Tarot> tarots = this.round.getShop().getTarots();
-        PlayerJokersView playerJokersView = new PlayerJokersView(player);
-        PlayerTarotsView playerTarotsView = new PlayerTarotsView(player);
-
-        itemsContainer.getChildren().add(playerJokersView);
-        itemsContainer.getChildren().add(playerTarotsView);
-
-        itemsContainer.getChildren().add(new ShopContainer(stage, round, player, game, jokers, tarots, playerJokersView, playerTarotsView));
-        itemsContainer.getChildren().add(new TurnedDeckView(player.getEnglishDeck()));
-
-        this.getChildren().add(itemsContainer);
+    public void updateView(Node view) {
+        this.getChildren().remove(view);
+        this.getChildren().add(view);
     }
 }

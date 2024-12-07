@@ -5,9 +5,13 @@ import model.decks.EnglishDeck;
 import model.hands.Hand;
 import model.hands.Pair;
 import model.hands.RoyalFlush;
+import model.jokers.DiscardBonus;
 import model.jokers.Joker;
 import model.reader.DataReader;
 import model.game.Round;
+import model.score.Add;
+import model.score.Change;
+import model.score.DoNotModify;
 import model.score.Score;
 
 import model.tarots.Tarot;
@@ -28,6 +32,7 @@ import static org.mockito.Mockito.when;
 public class RoundTest {
     private EnglishDeck englishDeckMock;
     private DataReader reader;
+
     @BeforeEach
     public void setUp() throws NoSuchFieldException, IllegalAccessException {
         reader = new DataReader();
@@ -137,13 +142,13 @@ public class RoundTest {
     @Test
     public void test02ShouldWinTheFirstRoundWith1HandsPlayedAndJokerPlayed() {
         englishDeckMock.fillDeck();
-        Player player = new Player("Me",englishDeckMock);
+        Player player = new Player("Me", englishDeckMock);
         player.completeDeck();
         ArrayList<Round> rounds = reader.roundsRead();
         Round roundOne = rounds.getFirst();
 
-        Joker buyJoker = roundOne.buyJoker(1);
-        player.addJoker(buyJoker);
+        Joker joker = new DiscardBonus("Cumbre Mistica", "", new DoNotModify(), new Add(new Score(15)));
+        player.addJoker(joker);
 
         //Discard 1
         player.selectCard(7);
@@ -172,29 +177,34 @@ public class RoundTest {
         ArrayList<Round> rounds = reader.roundsRead();
         Round roundOne = rounds.getFirst();
 
-        Joker buyJoker = roundOne.buyJoker(1);
-        player.addJoker(buyJoker);
-        Tarot buyTarot = roundOne.buyTarot(0);
+        Joker joker = new DiscardBonus("Cumbre Mistica", "", new DoNotModify(), new Add(new Score(15)));
+        player.addJoker(joker);
+        Tarot tarot = new Tarot("El Mago", "", new Change(new Score(15)), new Change(new Score(2)));
+        tarot.setTarget(Pair.getInstance());
+        player.addTarot(tarot);
 
         //Discard 1
         player.selectCard(7);
         player.selectCard(6);
         roundOne.discardHand(player);
 
-        //Discard 1
+        //Discard 2
         player.selectCard(7);
         player.selectCard(6);
+        roundOne.discardHand(player);
+
+        //Discard 3
+        player.selectCard(0);
         roundOne.discardHand(player);
 
         //1
         player.selectCard(0);
-        player.selectCard(5);
+        player.selectCard(1);
+        player.selectCard(2);
+        player.selectCard(3);
+        player.selectCard(4);
 
-        //apply tarot
-        Hand pair = Pair.getInstance();
-        buyTarot.setTarget(pair);
-        buyTarot.apply();
-
+        tarot.apply(player);
         roundOne.playHand(player);
 
         boolean won = roundOne.wonRound();

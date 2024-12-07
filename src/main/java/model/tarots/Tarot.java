@@ -1,13 +1,11 @@
 package model.tarots;
 
 import model.Modifiable;
-import model.Purchasable;
-import model.cards.Card;
+import model.Player;
 import model.score.ScoreModifier;
+import view.records.TarotDTO;
 
-import java.util.ArrayList;
-
-public class Tarot implements Purchasable {
+public class Tarot {
     private String name;
     private String description;
     private ScoreModifier toPoints;
@@ -25,26 +23,17 @@ public class Tarot implements Purchasable {
         this.target = target;
     }
 
-    public boolean apply() {
-        return this.target.applyTarot(this.toPoints, this.toMultiplier, this.target);
+    public void apply(Player player) {
+        if (this.target.applyTarot(this.toPoints, this.toMultiplier)) {
+            player.removeTarot(this);
+        }
     }
 
     public boolean hasName(String name) {
         return this.name.equals(name);
     }
 
-    @Override
-    public String getName() {
-        return this.name;
-    }
-
-    @Override
-    public String getDescription() {
-        return this.description;
-    }
-
-    @Override
-    public String toString() {
-        return "tarot";
+    public TarotDTO toDTO() {
+        return new TarotDTO(this.name, this.description);
     }
 }

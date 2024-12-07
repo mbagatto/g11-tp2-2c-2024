@@ -45,13 +45,8 @@ public abstract class Hand extends Modifiable {
     }
 
     @Override
-    public boolean applyTarot(ScoreModifier toPoints, ScoreModifier toMultiplier, Modifiable hand) {
-        System.out.println(this);
-        System.out.println(hand);
-        if (!hand.equals(this)) {
-            return false;
-        }
-        return super.applyTarot(toPoints, toMultiplier, hand);
+    public boolean applyTarot(ScoreModifier toPoints, ScoreModifier toMultiplier) {
+        return super.applyTarot(toPoints, toMultiplier);
     }
 
     protected ArrayList<Card> findHandCards(ArrayList<Card> cards) {

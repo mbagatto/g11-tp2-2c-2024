@@ -3,6 +3,7 @@ package model;
 import model.decks.EnglishDeck;
 import model.exceptions.EmptyDeckException;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EnglishDeckTest {
@@ -13,7 +14,7 @@ public class EnglishDeckTest {
     }
 
     @Test
-    public void test02ADeckThatDealtACardIsNotEqualToAFullDeck() {
+    public void test02ADeckThatDealtACardIsNotEqualToOtherDeckThatDidNotDeal() {
         // Arrange
         EnglishDeck englishDeck = new EnglishDeck();
         englishDeck.fillDeck();

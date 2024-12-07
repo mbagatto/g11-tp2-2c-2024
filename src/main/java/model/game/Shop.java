@@ -1,40 +1,55 @@
 package model.game;
 
-import model.Purchaser;
+import model.ObservableShop;
+import model.ShopObserver;
 import model.tarots.Tarot;
-import model.cards.Card;
 import model.jokers.Joker;
+import view.records.ShopDTO;
 
 import java.util.ArrayList;
 
-public class Shop implements Purchaser {
-
+public class Shop implements ObservableShop  {
     private ArrayList<Joker> jokers;
     private ArrayList<Tarot> tarots;
+    private ArrayList<ShopObserver> observers;
 
-    private Card card;
-
-    public Shop(ArrayList<Joker> jokers, ArrayList<Tarot> tarots, Card card) {
-        this.jokers = jokers;
-        this.tarots = tarots;
-        this.card = card;
+    public Shop() {
+        this.jokers = new ArrayList<>();
+        this.tarots = new ArrayList<>();
+        this.observers = new ArrayList<>();
     }
 
-    public Joker buyJoker(int index) {
-        return jokers.get(index);
+    public void addJoker(Joker joker) {
+        this.jokers.add(joker);
+        this.notifyObservers();
     }
 
-    public Tarot buyTarot(int index) {
-        return tarots.get(index);
+    public void removeJoker(Joker joker) {
+        this.jokers.remove(joker);
+        this.notifyObservers();
     }
 
-    @Override
-    public ArrayList<Joker> getJokers() {
-        return this.jokers;
+    public void addTarot(Tarot tarot) {
+        this.tarots.add(tarot);
+        this.notifyObservers();
     }
 
-    @Override
-    public ArrayList<Tarot> getTarots() {
-        return this.tarots;
+    public void removeTarot(Tarot tarot) {
+        this.tarots.remove(tarot);
+        this.notifyObservers();
+    }
+
+    public void addObserver(ShopObserver observer) {
+        this.observers.add(observer);
+    }
+
+    public void notifyObservers() {
+        for (ShopObserver observer : observers) {
+            observer.update(this.toDTO());
+        }
+    }
+
+    public ShopDTO toDTO() {
+        return new ShopDTO(this.jokers, this.tarots);
     }
 }

@@ -2,6 +2,7 @@ package model.decks;
 
 import model.ObservablePlayerDeck;
 import model.ObserverPlayerDeck;
+import model.Player;
 import model.exceptions.NoSelectedCardsException;
 import model.hands.Hand;
 import model.cards.Card;
@@ -144,11 +145,11 @@ public class PlayerDeck implements ObservablePlayerDeck {
         this.selectedCards.clear();
     }
 
-    public boolean useTarot(Tarot tarot) {
+    public void useTarot(Tarot tarot, Player player) {
         if (this.selectedCards.size() == 1) {
             tarot.setTarget(this.selectedCards.getFirst());
         }
-        return tarot.apply();
+        tarot.apply(player);
     }
 
     public void reorderDeck(EnglishDeck deck){
