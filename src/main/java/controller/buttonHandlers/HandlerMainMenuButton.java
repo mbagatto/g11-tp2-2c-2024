@@ -24,7 +24,7 @@ public class HandlerMainMenuButton implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent) {
         this.soundPlayer.playButtonSound();
         this.mainMenuView.getChildren().removeLast();
-        ButtonContinueGame continueButton = new ButtonContinueGame(this.stage);
+        ButtonContinueGame continueButton = new ButtonContinueGame();
         continueButton.setHandler(new HandlerContinueGame(this.stage, this.preparationView));
         this.mainMenuView.getChildren().add(continueButton);
         this.stage.setScene(this.mainMenuView.getScene());

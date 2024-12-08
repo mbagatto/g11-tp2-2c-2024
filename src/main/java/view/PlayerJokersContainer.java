@@ -21,7 +21,7 @@ public class PlayerJokersContainer extends VBox implements PlayerObserver {
         PlayerDTO playerDTO = player.toDTO();
 
         this.setLayoutX(500);
-        this.setLayoutY(60);
+        this.setLayoutY(100);
         this.setSpacing(5);
 
         this.getChildren().add(new JokersContainerView(player, playerDTO.jokers(), shop));

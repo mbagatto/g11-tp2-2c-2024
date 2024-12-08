@@ -19,6 +19,7 @@ public class Main extends Application {
         scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
         stage.setScene(scene);
         stage.setFullScreen(true);
+        stage.setFullScreenExitHint("");
         stage.show();
     }
 }

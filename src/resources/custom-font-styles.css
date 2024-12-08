@@ -175,11 +175,47 @@
     -fx-border-color: rgb(255, 235, 167);
 }
 
-#joker-popup, #tarot-popup {
-    -fx-font-size: 16px;
+#joker-popup {
     -fx-background-color: rgba(0,0,0,0.5);
     -fx-background-radius: 10px;
-    -fx-border-width: 1px;
-    -fx-border-color: rgb(255, 235, 167);
+    -fx-border-width: 2px;
+    -fx-border-color: rgb(0,153,255);
     -fx-border-radius: 10px;
+    -fx-padding: 10px;
+}
+
+#tarot-popup {
+    -fx-background-color: rgba(0,0,0,0.5);
+    -fx-background-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-border-color: rgb(251,56,56);
+    -fx-border-radius: 10px;
+    -fx-padding: 10px;
+}
+
+#joker-popup-name, #tarot-popup-name {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+}
+
+#joker-popup-description, #tarot-popup-description {
+    -fx-background-color: rgba(59, 59, 59, 0.27);
+    -fx-background-radius: 10px;
+    -fx-text-fill: rgb(255, 235, 167);
+    -fx-font-size: 16px;
+    -fx-padding: 5px;
+}
+
+#joker-popup-type {
+    -fx-background-color: rgb(0,153,255);
+    -fx-background-radius: 15px;
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+}
+
+#tarot-popup-type {
+    -fx-background-color: rgb(251,56,56);
+    -fx-background-radius: 15px;
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
 }

@@ -26,7 +26,7 @@ public class ProductsContainer extends VBox implements ShopObserver {
         this.setAlignment(Pos.TOP_CENTER);
         this.setSpacing(125);
         this.setLayoutX(550);
-        this.setLayoutY(305);
+        this.setLayoutY(405);
         this.setPrefWidth(900);
         this.setPrefHeight(800);
 

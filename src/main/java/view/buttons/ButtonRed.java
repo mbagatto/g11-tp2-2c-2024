@@ -6,7 +6,7 @@ public class ButtonRed extends Button {
     public ButtonRed(String text) {
         super(text);
         this.setId("button-red");
-        this.setPrefWidth(280);
+        this.setPrefWidth(315);
         this.setPrefHeight(95);
     }
 }

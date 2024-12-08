@@ -43,7 +43,7 @@ public class MainMenuView extends VBox {
         errorLabel.setVisible(false);
 
         MainMenuButtonContainer buttonContainer = new MainMenuButtonContainer(stage, this, nameField, errorLabel);
-        Button continueButton = new ButtonContinueGame(stage);
+        Button continueButton = new ButtonContinueGame();
         continueButton.setVisible(false);
 
         this.getChildren().add(logoImageView);

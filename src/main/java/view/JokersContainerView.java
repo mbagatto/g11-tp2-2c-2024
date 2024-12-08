@@ -16,8 +16,9 @@ public class JokersContainerView extends HBox {
         this.setId("player-jokers-container");
         this.setAlignment(Pos.CENTER_LEFT);
         this.setPrefWidth(775);
+        this.setMaxWidth(775);
         this.setPrefHeight(190);
-        this.setSpacing(30);
+        this.setSpacing(0);
 
         for (Joker joker : jokers) {
             JokerView jokerView = new JokerView(joker, player);

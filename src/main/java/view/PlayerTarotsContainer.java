@@ -21,7 +21,7 @@ public class PlayerTarotsContainer extends VBox implements PlayerObserver {
         PlayerDTO playerDTO = player.toDTO();
 
         this.setLayoutX(1300);
-        this.setLayoutY(60);
+        this.setLayoutY(100);
         this.setSpacing(5);
 
         this.getChildren().add(new TarotsContainerView(player, playerDTO.tarots(), shop));

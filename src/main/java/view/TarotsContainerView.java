@@ -15,7 +15,8 @@ public class TarotsContainerView extends HBox {
         super();
         this.setId("player-tarots-container");
         this.setAlignment(Pos.CENTER_LEFT);
-        this.setPrefWidth(350);
+        this.setPrefWidth(315);
+        this.setMaxWidth(315);
         this.setPrefHeight(190);
         this.setSpacing(30);
 

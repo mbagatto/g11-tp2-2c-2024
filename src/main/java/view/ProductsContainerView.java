@@ -17,8 +17,8 @@ public class ProductsContainerView extends HBox {
         super();
         this.setId("products-container-view");
         this.setAlignment(Pos.CENTER);
-        this.setSpacing(50);
-        this.setPrefWidth(300);
+        this.setSpacing(20);
+        this.setMaxWidth(500);
         this.setPrefHeight(250);
 
         for (Joker joker : jokers) {
