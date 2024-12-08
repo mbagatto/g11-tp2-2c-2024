@@ -18,7 +18,7 @@ public class HandlerMainMenuButton implements EventHandler<ActionEvent> {
         this.stage = stage;
         this.mainMenuView = mainMenuView;
         this.preparationView = pView;
-        this.soundPlayer = new SoundPlayer();
+        this.soundPlayer = SoundPlayer.getInstance();
     }
 
     public void handle(ActionEvent actionEvent) {
