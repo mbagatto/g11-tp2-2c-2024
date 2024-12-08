@@ -1,32 +1,33 @@
 package view;
 
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 import view.buttons.ButtonContinueGame;
 import view.buttons.MainMenuButtonContainer;
 
 public class MainMenuView extends VBox {
 
-    public MainMenuView(Stage stage) {
+    public MainMenuView(Rectangle2D bounds) {
         super();
-        stage.setTitle("Balatro");
         this.setAlignment(Pos.CENTER);
         this.setSpacing(10);
+        double widthFactor = bounds.getWidth()/1920;
+        double heightFactor = bounds.getHeight()/1080;
 
         Image backgroundGif = new Image("file:src/resources/textures/backgroundGIF.gif");
-        BackgroundSize backgroundSize = new BackgroundSize(1920, 1080, true, true, true, true);
+        BackgroundSize backgroundSize = new BackgroundSize(1920*widthFactor, 1080*heightFactor, true, true, true, true);
         this.setBackground(new Background(new BackgroundImage(backgroundGif, null, null, null, backgroundSize)));
 
         Image balatroLogo = new Image("file:src/resources/textures/balatro.png");
         ImageView logoImageView = new ImageView(balatroLogo);
-        logoImageView.setFitWidth(900);
-        logoImageView.setFitHeight(500);
+        logoImageView.setFitWidth(900*widthFactor);
+        logoImageView.setFitHeight(500*heightFactor);
 
         Label welcomeLabel = new Label("¡Bienvenido!");
         welcomeLabel.setStyle("-fx-font-size: 90px; -fx-text-fill: white;");
@@ -42,7 +43,7 @@ public class MainMenuView extends VBox {
         errorLabel.setStyle("-fx-font-size: 36px; -fx-text-fill: rgb(251,56,56);");
         errorLabel.setVisible(false);
 
-        MainMenuButtonContainer buttonContainer = new MainMenuButtonContainer(stage, this, nameField, errorLabel);
+        MainMenuButtonContainer buttonContainer = new MainMenuButtonContainer(this, nameField, errorLabel);
         Button continueButton = new ButtonContinueGame();
         continueButton.setVisible(false);
 

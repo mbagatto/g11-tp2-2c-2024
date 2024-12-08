@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.Node;
 import javafx.stage.Stage;
 import model.Player;
 import model.decks.EnglishDeck;
@@ -16,15 +17,13 @@ import view.MainMenuView;
 import view.PreparationView;
 import java.util.ArrayList;
 
-public class HandlerPlay implements EventHandler<ActionEvent> {
-    private Stage stage;
+public class HandlerPlay extends StageButtonHandler {
     private MainMenuView mainMenuView;
     private TextField playerName;
     private SoundPlayer soundPlayer;
     private Label errorLabel;
 
-    public HandlerPlay(Stage stage, MainMenuView mainMenuView, TextField playerName, Label errorLabel) {
-        this.stage = stage;
+    public HandlerPlay(MainMenuView mainMenuView, TextField playerName, Label errorLabel) {
         this.mainMenuView = mainMenuView;
         this.playerName = playerName;
         this.errorLabel = errorLabel;
@@ -32,6 +31,7 @@ public class HandlerPlay implements EventHandler<ActionEvent> {
     }
 
     public void handle(ActionEvent actionEvent) {
+        Stage stage = getStage(actionEvent);
         this.soundPlayer.playButtonSound();
         String playerName = this.playerName.getText();
 
@@ -43,7 +43,7 @@ public class HandlerPlay implements EventHandler<ActionEvent> {
 
             Game game = new Game(new Player(playerName, englishDeck), rounds.getFirst());
 
-            Scene scene = new Scene(new PreparationView(this.stage, this.mainMenuView, game.toDTO()));
+            Scene scene = new Scene(new PreparationView(this.mainMenuView, game.toDTO()));
             scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
             stage.setScene(scene);
         } else {

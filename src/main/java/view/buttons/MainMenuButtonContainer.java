@@ -11,13 +11,13 @@ import javafx.stage.Stage;
 import view.MainMenuView;
 
 public class MainMenuButtonContainer extends HBox {
-    public MainMenuButtonContainer(Stage stage, MainMenuView mainMenuView, TextField playerName, Label errorLabel) {
+    public MainMenuButtonContainer(MainMenuView mainMenuView, TextField playerName, Label errorLabel) {
         super(12);
         this.setId("menu-button-container");
         this.setAlignment(Pos.CENTER);
 
         Button playButton = new ButtonBlue("Nueva Partida");
-        playButton.setOnAction(new HandlerPlay(stage, mainMenuView, playerName, errorLabel));
+        playButton.setOnAction(new HandlerPlay(mainMenuView, playerName, errorLabel));
 
         Button quitButton = new ButtonRed("Salir");
         quitButton.setOnAction(new HandlerQuit());
