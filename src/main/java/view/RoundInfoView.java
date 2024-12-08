@@ -43,7 +43,7 @@ public class RoundInfoView extends VBox implements RoundObserver {
         playsPoints.setAlignment(Pos.CENTER_RIGHT);
 
         Label playsSymbol = new Label("X");
-        playsSymbol.setStyle("-fx-text-fill: rgb(255, 235, 167); -fx-font-size: 46px;");
+        playsSymbol.setStyle("-fx-text-fill: rgb(255, 235, 167); -fx-font-size: 25px;");
 
         Label playsMult = new Label("0");
         playsMult.setId("plays-mult");

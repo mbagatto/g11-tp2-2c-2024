@@ -3,7 +3,7 @@ package controller;
 import javax.sound.sampled.*;
 import java.io.File;
 
-public class SoundPlayer {
+public final class SoundPlayer { //Aplica Singleton
 
     private String buttonPath = "src/resources/sounds/button.wav";
     private String musicPath = "src/resources/sounds/music.wav";
@@ -13,10 +13,19 @@ public class SoundPlayer {
     private String jokerUpPath = "src/resources/sounds/jokerUp.wav";
     private String winRoundPath = "src/resources/sounds/winRound.wav";
     private Clip musicClip;
+    private static SoundPlayer instance;
+
+    private SoundPlayer() {}
+
+    public static SoundPlayer getInstance() {
+        if (instance == null) {
+            instance = new SoundPlayer();
+        }
+        return instance;
+    }
 
     public void playSound(String soundPath) {
         try {
-            // Cargar el archivo de sonido
             File soundFile = new File(soundPath);
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
             Clip clip = AudioSystem.getClip();
@@ -88,5 +97,4 @@ public class SoundPlayer {
     public void playWinRound() {
         this.playSound(this.winRoundPath);
     }
-
 }

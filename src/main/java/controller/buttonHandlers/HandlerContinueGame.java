@@ -15,7 +15,7 @@ public class HandlerContinueGame implements EventHandler<ActionEvent> {
     public HandlerContinueGame(Stage stage, PreparationView pView) {
         this.stage = stage;
         this.preparationView = pView;
-        this.soundPlayer = new SoundPlayer();
+        this.soundPlayer = SoundPlayer.getInstance();
     }
 
     public void handle(ActionEvent event) {

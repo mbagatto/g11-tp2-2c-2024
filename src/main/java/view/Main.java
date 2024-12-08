@@ -12,7 +12,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        SoundPlayer soundPlayer = new SoundPlayer();
+        SoundPlayer soundPlayer = SoundPlayer.getInstance();
         soundPlayer.playBackgroundMusic();
 
         Scene scene = new Scene(new MainMenuView(stage));

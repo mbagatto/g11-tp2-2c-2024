@@ -9,7 +9,7 @@ public class HandlerQuit implements EventHandler<ActionEvent> {
     private SoundPlayer soundPlayer;
 
     public HandlerQuit() {
-        this.soundPlayer = new SoundPlayer();
+        this.soundPlayer = SoundPlayer.getInstance();
     }
 
     @Override

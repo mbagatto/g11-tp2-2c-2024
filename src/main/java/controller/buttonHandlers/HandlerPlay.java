@@ -28,7 +28,7 @@ public class HandlerPlay implements EventHandler<ActionEvent> {
         this.mainMenuView = mainMenuView;
         this.playerName = playerName;
         this.errorLabel = errorLabel;
-        this.soundPlayer = new SoundPlayer();
+        this.soundPlayer = SoundPlayer.getInstance();
     }
 
     public void handle(ActionEvent actionEvent) {
@@ -46,6 +46,7 @@ public class HandlerPlay implements EventHandler<ActionEvent> {
             Scene scene = new Scene(new PreparationView(this.stage, this.mainMenuView, game.toDTO()));
             scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
             stage.setScene(scene);
+
         } else {
             this.errorLabel.setVisible(true);
         }
