@@ -33,8 +33,7 @@ public class PlayerTarotsContainer extends VBox implements PlayerObserver {
 
     @Override
     public void update(PlayerDTO playerDTO) {
-        this.getChildren().removeFirst();
-        this.getChildren().removeFirst();
+        this.getChildren().clear();
 
         this.getChildren().add(new TarotsContainerView(player, playerDTO.tarots(), shop));
 

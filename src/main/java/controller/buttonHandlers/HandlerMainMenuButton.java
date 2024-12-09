@@ -3,10 +3,11 @@ package controller.buttonHandlers;
 import controller.SoundPlayer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import view.MainMenuView;
 import view.PreparationView;
-import view.buttons.ButtonContinueGame;
+import view.buttons.ButtonYellow;
 
 public class HandlerMainMenuButton implements EventHandler<ActionEvent> {
     private Stage stage;
@@ -23,10 +24,14 @@ public class HandlerMainMenuButton implements EventHandler<ActionEvent> {
 
     public void handle(ActionEvent actionEvent) {
         this.soundPlayer.playButtonSound();
-        this.mainMenuView.getChildren().removeLast();
-        ButtonContinueGame continueButton = new ButtonContinueGame();
-        continueButton.setHandler(new HandlerContinueGame(this.stage, this.preparationView));
-        this.mainMenuView.getChildren().add(continueButton);
+        this.mainMenuView.getChildren().remove(5);
+
+        Button continueButton = new ButtonYellow("Continuar");
+        continueButton.setOnAction(new HandlerContinueGame(this.stage, this.preparationView));
+        this.mainMenuView.getChildren().add(5, continueButton);
+
+        this.preparationView.getChildren().removeLast();
+
         this.stage.setScene(this.mainMenuView.getScene());
     }
 }

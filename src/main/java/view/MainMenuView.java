@@ -1,5 +1,9 @@
 package view;
 
+import controller.SoundPlayer;
+import controller.buttonHandlers.HandlerActivateMusic;
+import controller.buttonHandlers.HandlerContinueGame;
+import controller.buttonHandlers.HandlerDeactivateMusic;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,7 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import view.buttons.ButtonContinueGame;
+import view.buttons.ButtonYellow;
 import view.buttons.MainMenuButtonContainer;
 
 public class MainMenuView extends VBox {
@@ -43,8 +47,21 @@ public class MainMenuView extends VBox {
         errorLabel.setVisible(false);
 
         MainMenuButtonContainer buttonContainer = new MainMenuButtonContainer(stage, this, nameField, errorLabel);
-        Button continueButton = new ButtonContinueGame();
+
+        Button continueButton = new ButtonYellow("Continuar");
         continueButton.setVisible(false);
+
+        SoundPlayer soundPlayer = SoundPlayer.getInstance();
+
+        Button musicButton = new Button();
+        musicButton.setId("main-menu-music-button");
+        if (soundPlayer.isMusicPlaying()) {
+            musicButton.setText("Desactivar Música");
+            musicButton.setOnAction(new HandlerDeactivateMusic(musicButton, soundPlayer));
+        } else {
+            musicButton.setText("Activar Música");
+            musicButton.setOnAction(new HandlerActivateMusic(musicButton, soundPlayer));
+        }
 
         this.getChildren().add(logoImageView);
         this.getChildren().add(welcomeLabel);
@@ -52,5 +69,6 @@ public class MainMenuView extends VBox {
         this.getChildren().add(errorLabel);
         this.getChildren().add(buttonContainer);
         this.getChildren().add(continueButton);
+        this.getChildren().add(musicButton);
     }
 }

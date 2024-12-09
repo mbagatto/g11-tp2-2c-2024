@@ -1,6 +1,6 @@
 package view;
 
-import controller.buttonHandlers.HandlerMainMenuButton;
+import controller.buttonHandlers.HandlerOptionsButton;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -49,19 +49,19 @@ public class PreparationView extends Group {
 
         titleContainer.getChildren().addAll(title, subtitle);
 
-        Button mainMenuButton = new Button("Menú Principal");
-        mainMenuButton.setId("main-menu-button");
-        mainMenuButton.setLayoutX(100);
-        mainMenuButton.setLayoutY(900);
-        mainMenuButton.setPrefWidth(300);
-        mainMenuButton.setPrefHeight(80);
-        mainMenuButton.setOnAction(new HandlerMainMenuButton(stage, mainMenuView, this));
+        Button optionsButton = new Button("Opciones");
+        optionsButton.setId("options-button");
+        optionsButton.setLayoutX(100);
+        optionsButton.setLayoutY(900);
+        optionsButton.setPrefWidth(300);
+        optionsButton.setPrefHeight(80);
+        optionsButton.setOnAction(new HandlerOptionsButton(stage, mainMenuView, this));
 
         this.addView(backgroundView);
         this.addView(rectangle);
         this.addView(titleContainer);
         this.addView(new RoundInfoView(this, gameDTO.round()));
-        this.addView(mainMenuButton);
+        this.addView(optionsButton);
 
         Shop shop =  gameDTO.round().toDTO().shop();
         this.addView(new PlayerJokersContainer(this, gameDTO.player(), shop));

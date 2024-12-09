@@ -78,6 +78,10 @@ public final class SoundPlayer { //Aplica Singleton
         }
     }
 
+    public boolean isMusicPlaying() {
+        return musicClip != null && musicClip.isRunning();
+    }
+
     public void playWinSound() {
         this.playSound(this.winPath);
     }

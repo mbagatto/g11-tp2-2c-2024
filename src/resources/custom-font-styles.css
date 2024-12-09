@@ -17,7 +17,7 @@
 #button-blue {
     -fx-text-fill: white;
     -fx-background-color: rgba(0,153,255,0.5);
-    -fx-font-size: 50px;
+    -fx-font-size: 40px;
     -fx-background-radius: 20px;
 }
 
@@ -29,7 +29,7 @@
 #button-red {
     -fx-text-fill: white;
     -fx-background-color: rgba(251,56,56,0.5);
-    -fx-font-size: 50px;
+    -fx-font-size: 40px;
     -fx-background-radius: 20px;
 }
 
@@ -47,15 +47,39 @@
     -fx-padding: 5px;
 }
 
-#main-menu-button {
+#options-button {
     -fx-text-fill: white;
     -fx-background-color: rgba(255, 235, 167, 0.65);
     -fx-font-size: 40px;
     -fx-background-radius: 20px;
 }
 
-#main-menu-button:hover {
+#options-button:hover {
     -fx-background-color: rgb(255, 235, 167);
+    -fx-cursor: hand;
+}
+
+#button-yellow {
+    -fx-text-fill: white;
+    -fx-background-color: rgba(255, 235, 167, 0.65);
+    -fx-font-size: 40px;
+    -fx-background-radius: 20px;
+}
+
+#button-yellow:hover {
+    -fx-background-color: rgb(255, 235, 167);
+    -fx-cursor: hand
+}
+
+#main-menu-music-button {
+    -fx-background-color: rgba(0,0,0,0.5);
+    -fx-font-size: 26px;
+    -fx-background-radius: 20px;
+    -fx-text-fill: white;
+}
+
+#main-menu-music-button:hover {
+    -fx-text-fill: rgb(255, 235, 167);
     -fx-cursor: hand;
 }
 
