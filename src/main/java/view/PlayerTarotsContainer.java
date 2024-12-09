@@ -1,5 +1,6 @@
 package view;
 
+import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import model.Player;
@@ -8,11 +9,12 @@ import model.game.Shop;
 import view.records.PlayerDTO;
 
 public class PlayerTarotsContainer extends VBox implements PlayerObserver {
-    private PreparationView stage;
+    private Group stage;
     private Player player;
     private Shop shop;
+    private TarotsContainerView tarotsContainerView;
 
-    public PlayerTarotsContainer(PreparationView stage, Player player, Shop shop) {
+    public PlayerTarotsContainer(Group stage, Player player, Shop shop) {
         super();
         this.stage = stage;
         this.player = player;
@@ -24,7 +26,8 @@ public class PlayerTarotsContainer extends VBox implements PlayerObserver {
         this.setLayoutY(100);
         this.setSpacing(5);
 
-        this.getChildren().add(new TarotsContainerView(player, playerDTO.tarots(), shop));
+        this.tarotsContainerView = new TarotsContainerView(player, playerDTO.tarots(), shop);
+        this.getChildren().add(tarotsContainerView);
 
         Label tarotsCount = new Label(playerDTO.jokers().size() + "/2");
         tarotsCount.setId("player-tarots-count");
@@ -41,6 +44,11 @@ public class PlayerTarotsContainer extends VBox implements PlayerObserver {
         tarotsCount.setId("player-tarots-count");
         this.getChildren().add(tarotsCount);
 
-        this.stage.updateView(this);
+        this.stage.getChildren().remove(this);
+        this.stage.getChildren().add(this);
+    }
+
+    public void setUseButtons() {
+        this.tarotsContainerView.setUseButtons();
     }
 }

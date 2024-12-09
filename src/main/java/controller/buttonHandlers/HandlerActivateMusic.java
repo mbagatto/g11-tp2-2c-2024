@@ -1,22 +1,17 @@
 package controller.buttonHandlers;
 
-import controller.SoundPlayer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
+import view.buttons.ButtonMusic;
 
 public class HandlerActivateMusic implements EventHandler<ActionEvent> {
-    private Button modifyMusicButton;
-    private SoundPlayer soundPlayer;
+    private ButtonMusic musicButton;
 
-    public HandlerActivateMusic(Button modifyMusicButton, SoundPlayer soundPlayer) {
-        this.modifyMusicButton = modifyMusicButton;
-        this.soundPlayer = soundPlayer;
+    public HandlerActivateMusic(ButtonMusic musicButton) {
+        this.musicButton = musicButton;
     }
 
     public void handle(ActionEvent actionEvent) {
-        this.soundPlayer.resumeBackgroundMusic();
-        this.modifyMusicButton.setText("Desactivar Música");
-        this.modifyMusicButton.setOnAction(new HandlerDeactivateMusic(this.modifyMusicButton, this.soundPlayer));
+        this.musicButton.unmute();
     }
 }

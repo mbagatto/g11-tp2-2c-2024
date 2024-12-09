@@ -3,22 +3,22 @@ package controller.buttonHandlers;
 import controller.SoundPlayer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import view.MainMenuView;
-import view.PreparationView;
 import view.buttons.ButtonYellow;
 
 public class HandlerMainMenuButton implements EventHandler<ActionEvent> {
     private Stage stage;
     private MainMenuView mainMenuView;
-    private PreparationView preparationView;
+    private Group groupView;
     private SoundPlayer soundPlayer;
 
-    public HandlerMainMenuButton(Stage stage, MainMenuView mainMenuView, PreparationView pView) {
+    public HandlerMainMenuButton(Stage stage, MainMenuView mainMenuView, Group groupView) {
         this.stage = stage;
         this.mainMenuView = mainMenuView;
-        this.preparationView = pView;
+        this.groupView = groupView;
         this.soundPlayer = SoundPlayer.getInstance();
     }
 
@@ -27,10 +27,10 @@ public class HandlerMainMenuButton implements EventHandler<ActionEvent> {
         this.mainMenuView.getChildren().remove(5);
 
         Button continueButton = new ButtonYellow("Continuar");
-        continueButton.setOnAction(new HandlerContinueGame(this.stage, this.preparationView));
+        continueButton.setOnAction(new HandlerContinueGame(this.stage, this.groupView));
         this.mainMenuView.getChildren().add(5, continueButton);
 
-        this.preparationView.getChildren().removeLast();
+        this.groupView.getChildren().removeLast();
 
         this.stage.setScene(this.mainMenuView.getScene());
     }

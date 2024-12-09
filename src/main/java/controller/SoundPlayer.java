@@ -60,12 +60,6 @@ public final class SoundPlayer { //Aplica Singleton
         }
     }
 
-    public void stopBackgroundMusic() {
-        if (musicClip != null && musicClip.isRunning()) {
-            musicClip.stop();
-        }
-    }
-
     public void pauseBackgroundMusic() {
         if (musicClip != null && musicClip.isRunning()) {
             musicClip.stop();
@@ -76,10 +70,6 @@ public final class SoundPlayer { //Aplica Singleton
         if (musicClip != null && !musicClip.isRunning()) {
             musicClip.start();
         }
-    }
-
-    public boolean isMusicPlaying() {
-        return musicClip != null && musicClip.isRunning();
     }
 
     public void playWinSound() {
@@ -100,5 +90,9 @@ public final class SoundPlayer { //Aplica Singleton
 
     public void playWinRound() {
         this.playSound(this.winRoundPath);
+    }
+
+    public boolean isPlayingMusic() {
+        return musicClip != null && musicClip.isRunning();
     }
 }

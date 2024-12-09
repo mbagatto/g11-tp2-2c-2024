@@ -3,23 +3,22 @@ package controller.buttonHandlers;
 import controller.SoundPlayer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
+import javafx.scene.Group;
 import javafx.stage.Stage;
-import view.PreparationView;
 
 public class HandlerContinueGame implements EventHandler<ActionEvent> {
     private Stage stage;
-    private PreparationView preparationView;
+    private Group groupView;
     private SoundPlayer soundPlayer;
 
-    public HandlerContinueGame(Stage stage, PreparationView pView) {
+    public HandlerContinueGame(Stage stage, Group groupView) {
         this.stage = stage;
-        this.preparationView = pView;
+        this.groupView = groupView;
         this.soundPlayer = SoundPlayer.getInstance();
     }
 
     public void handle(ActionEvent event) {
         this.soundPlayer.playButtonSound();
-        this.stage.setScene(this.preparationView.getScene());
+        this.stage.setScene(this.groupView.getScene());
     }
 }

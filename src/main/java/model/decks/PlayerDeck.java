@@ -146,6 +146,9 @@ public class PlayerDeck implements ObservablePlayerDeck {
     }
 
     public void useTarot(Tarot tarot, Player player) {
+        if (this.selectedCards.isEmpty()) {
+            throw new NoSelectedCardsException();
+        }
         if (this.selectedCards.size() == 1) {
             tarot.setTarget(this.selectedCards.getFirst());
         }

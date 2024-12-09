@@ -1,22 +1,24 @@
 package view;
 
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Player;
 import model.ShopObserver;
+import model.game.GameDTO;
 import model.game.Shop;
 import view.buttons.ButtonNextRound;
 import view.records.ShopDTO;
 
 public class ProductsContainer extends VBox implements ShopObserver {
-    private PreparationView pView;
+    private Group groupView;
     private Player player;
     private Shop shop;
 
-    public ProductsContainer(Stage stage, PreparationView pView, Player player, Shop shop) {
+    public ProductsContainer(Stage stage, Group groupView, Player player, Shop shop, MainMenuView mainMenuView, GameDTO gameDTO) {
         super();
-        this.pView = pView;
+        this.groupView = groupView;
         this.player = player;
         this.shop = shop;
         shop.addObserver(this);
@@ -30,7 +32,7 @@ public class ProductsContainer extends VBox implements ShopObserver {
         this.setPrefWidth(900);
         this.setPrefHeight(800);
 
-        this.getChildren().add(new ButtonNextRound(stage));
+        this.getChildren().add(new ButtonNextRound(stage, mainMenuView, gameDTO));
         this.getChildren().add(new ProductsContainerView(player, shopDTO.jokers(), shopDTO.tarots(), shop));
     }
 
@@ -40,6 +42,7 @@ public class ProductsContainer extends VBox implements ShopObserver {
 
         this.getChildren().add(new ProductsContainerView(this.player, shopDTO.jokers(), shopDTO.tarots(), this.shop));
 
-        this.pView.updateView(this);
+        this.groupView.getChildren().remove(this);
+        this.groupView.getChildren().add(this);
     }
 }

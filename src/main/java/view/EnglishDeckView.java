@@ -1,6 +1,7 @@
 package view;
 
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -13,9 +14,9 @@ import model.decks.EnglishDeck;
 import view.records.EnglishDeckDTO;
 
 public class EnglishDeckView extends VBox implements EnglishDeckObserver {
-    private PreparationView stage;
+    private Group stage;
 
-    public EnglishDeckView(PreparationView stage, EnglishDeck englishDeck) {
+    public EnglishDeckView(Group stage, EnglishDeck englishDeck) {
         super();
         this.stage = stage;
         englishDeck.addObserver(this);
@@ -60,6 +61,7 @@ public class EnglishDeckView extends VBox implements EnglishDeckObserver {
         cardsCount.setStyle("-fx-font-size: 20px;" + "-fx-text-fill: white;");
         this.getChildren().add(cardsCount);
 
-        this.stage.updateView(this);
+        this.stage.getChildren().remove(this);
+        this.stage.getChildren().add(this);
     }
 }
