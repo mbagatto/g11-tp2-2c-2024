@@ -1,5 +1,6 @@
 package view;
 
+import controller.buttonHandlers.HandlerPlay;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
@@ -43,7 +44,9 @@ public class MainMenuView extends VBox {
         errorLabel.setStyle("-fx-font-size: 36px; -fx-text-fill: rgb(251,56,56);");
         errorLabel.setVisible(false);
 
-        MainMenuButtonContainer buttonContainer = new MainMenuButtonContainer(this, nameField, errorLabel);
+        nameField.setOnAction(new HandlerPlay(nameField, errorLabel));
+
+        MainMenuButtonContainer buttonContainer = new MainMenuButtonContainer(nameField, errorLabel);
         Button continueButton = new ButtonContinueGame();
         continueButton.setVisible(false);
 

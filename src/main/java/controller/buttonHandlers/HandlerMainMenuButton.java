@@ -11,21 +11,20 @@ import view.buttons.ButtonContinueGame;
 
 public class HandlerMainMenuButton extends StageButtonHandler {
     private MainMenuView mainMenuView;
-    private PreparationView preparationView;
     private SoundPlayer soundPlayer;
 
-    public HandlerMainMenuButton(MainMenuView mainMenuView, PreparationView pView) {
+    public HandlerMainMenuButton(MainMenuView mainMenuView) {
         this.mainMenuView = mainMenuView;
-        this.preparationView = pView;
         this.soundPlayer = new SoundPlayer();
     }
 
     public void handle(ActionEvent actionEvent) {
         Stage stage = getStage(actionEvent);
+        PreparationView preparationView = (PreparationView) stage.getScene().getRoot();
         this.soundPlayer.playButtonSound();
         this.mainMenuView.getChildren().removeLast();
         ButtonContinueGame continueButton = new ButtonContinueGame();
-        continueButton.setHandler(new HandlerContinueGame(stage, this.preparationView));
+        continueButton.setHandler(new HandlerContinueGame(preparationView));
         this.mainMenuView.getChildren().add(continueButton);
         stage.setScene(this.mainMenuView.getScene());
     }

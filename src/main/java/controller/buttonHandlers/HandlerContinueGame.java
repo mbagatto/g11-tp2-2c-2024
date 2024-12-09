@@ -5,21 +5,21 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import view.MainMenuView;
 import view.PreparationView;
 
-public class HandlerContinueGame implements EventHandler<ActionEvent> {
-    private Stage stage;
+public class HandlerContinueGame extends StageButtonHandler {
     private PreparationView preparationView;
     private SoundPlayer soundPlayer;
 
-    public HandlerContinueGame(Stage stage, PreparationView pView) {
-        this.stage = stage;
-        this.preparationView = pView;
+    public HandlerContinueGame(PreparationView preparationView) {
+        this.preparationView = preparationView;
         this.soundPlayer = new SoundPlayer();
     }
 
     public void handle(ActionEvent event) {
         this.soundPlayer.playButtonSound();
-        this.stage.setScene(this.preparationView.getScene());
+        Stage stage = getStage(event);
+        stage.setScene(preparationView.getScene());
     }
 }

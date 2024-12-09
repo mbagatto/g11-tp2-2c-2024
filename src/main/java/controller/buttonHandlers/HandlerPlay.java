@@ -18,13 +18,11 @@ import view.PreparationView;
 import java.util.ArrayList;
 
 public class HandlerPlay extends StageButtonHandler {
-    private MainMenuView mainMenuView;
     private TextField playerName;
     private SoundPlayer soundPlayer;
     private Label errorLabel;
 
-    public HandlerPlay(MainMenuView mainMenuView, TextField playerName, Label errorLabel) {
-        this.mainMenuView = mainMenuView;
+    public HandlerPlay(TextField playerName, Label errorLabel) {
         this.playerName = playerName;
         this.errorLabel = errorLabel;
         this.soundPlayer = new SoundPlayer();
@@ -32,6 +30,8 @@ public class HandlerPlay extends StageButtonHandler {
 
     public void handle(ActionEvent actionEvent) {
         Stage stage = getStage(actionEvent);
+        // Knowing that this button can only be found in the Main Menu
+        MainMenuView mainMenuView = (MainMenuView) stage.getScene().getRoot();
         this.soundPlayer.playButtonSound();
         String playerName = this.playerName.getText();
 
@@ -43,7 +43,7 @@ public class HandlerPlay extends StageButtonHandler {
 
             Game game = new Game(new Player(playerName, englishDeck), rounds.getFirst());
 
-            Scene scene = new Scene(new PreparationView(this.mainMenuView, game.toDTO()));
+            Scene scene = new Scene(new PreparationView(mainMenuView, game.toDTO()));
             scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
             stage.setScene(scene);
         } else {

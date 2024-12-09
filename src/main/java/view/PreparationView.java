@@ -13,7 +13,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
-import javafx.stage.Stage;
 import model.game.GameDTO;
 import model.game.Shop;
 
@@ -61,7 +60,7 @@ public class PreparationView extends Group {
         mainMenuButton.setLayoutY(900);
         mainMenuButton.setPrefWidth(300);
         mainMenuButton.setPrefHeight(80);
-        mainMenuButton.setOnAction(new HandlerMainMenuButton(mainMenuView, this));
+        mainMenuButton.setOnAction(new HandlerMainMenuButton(mainMenuView));
 
         this.addView(backgroundView);
         this.addView(rectangle);
