@@ -33,7 +33,7 @@ public class RoundReader {
             List<RoundData> roundData = balatroData.getRounds();
 
             for(int i = 0; i < roundData.size(); i++) {
-                Round round = this.roundGenerator(roundData.get(i));
+                    Round round = this.roundGenerator(roundData.get(i));
                 if (i != 0) {
                     this.rounds.get(i - 1).setNextRound(round);
                 } else if (i == roundData.size() - 1) {

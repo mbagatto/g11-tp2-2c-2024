@@ -41,7 +41,7 @@ public class HandlerPlay implements EventHandler<ActionEvent> {
             englishDeck.fillDeck();
             ArrayList<Round> rounds = dataReader.roundsRead();
 
-            Game game = new Game(new Player(playerName, englishDeck), rounds.getFirst());
+            Game game = new Game(new Player(playerName, englishDeck), rounds);
 
             Scene scene = new Scene(new PreparationView(this.stage, this.mainMenuView, game.toDTO()));
             scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
