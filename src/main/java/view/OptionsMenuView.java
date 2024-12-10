@@ -1,8 +1,5 @@
 package view;
 
-import controller.SoundPlayer;
-import controller.buttonHandlers.HandlerActivateMusic;
-import controller.buttonHandlers.HandlerDeactivateMusic;
 import controller.buttonHandlers.HandlerMainMenuButton;
 import controller.buttonHandlers.HandlerQuit;
 import javafx.geometry.Pos;

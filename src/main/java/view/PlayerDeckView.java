@@ -9,23 +9,21 @@ import view.records.PlayerDTO;
 import java.util.ArrayList;
 
 public class PlayerDeckView extends HBox implements Drawable {
-    private Player player;
+    private ArrayList<EnglishCardDTO> cards;
     private EnglishCardImageGenerator cardViewGenerator;
 
-    public PlayerDeckView(Player player) {
+    public PlayerDeckView(ArrayList<EnglishCardDTO> cards) {
         super();
-        this.player = player;
+        this.cards = cards;
         this.cardViewGenerator = new EnglishCardImageGenerator();
         this.draw();
     }
 
     @Override
     public void draw() {
-        ArrayList<EnglishCardDTO> cardsDTOS = this.player.toDTO().playerDeck().cards();
         int superPosition = 0;
-        System.out.println(cardsDTOS);
-        for(EnglishCardDTO cardDTO : cardsDTOS) {
-            ImageView imageCard = this.cardViewGenerator.searchImageCard(cardDTO.suit(),cardDTO.number());
+        for(EnglishCardDTO cardDTO : cards) {
+            ImageView imageCard = this.cardViewGenerator.searchImageCard(cardDTO.suit(), cardDTO.number());
             EnglishCardView englishCardView = new EnglishCardView(imageCard);
             englishCardView.setTranslateX(superPosition);
             this.getChildren().add(englishCardView);

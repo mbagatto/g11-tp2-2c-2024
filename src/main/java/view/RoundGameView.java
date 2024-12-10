@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import model.decks.PlayerDeck;
 import model.game.GameDTO;
 import model.game.Shop;
 
@@ -54,7 +55,8 @@ public class RoundGameView extends Group {
         playerTarotsContainer.setUseButtons();
         this.addView(playerTarotsContainer);
 
-        PlayerDeckContainer playerDeckContainer = new PlayerDeckContainer(this, gameDTO.player());
+        PlayerDeck playerDeck = gameDTO.player().toDTO().playerDeck();
+        PlayerDeckContainer playerDeckContainer = new PlayerDeckContainer(this, playerDeck);
         this.addView(playerDeckContainer);
 
         this.addView(new EnglishDeckView(this, gameDTO.player().toDTO(). englishDeck()));

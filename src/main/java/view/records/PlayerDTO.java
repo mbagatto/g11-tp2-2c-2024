@@ -2,6 +2,7 @@ package view.records;
 
 import model.ClassDTO;
 import model.decks.EnglishDeck;
+import model.decks.PlayerDeck;
 import model.jokers.Joker;
 import model.tarots.Tarot;
 
@@ -13,5 +14,5 @@ public record PlayerDTO
         ArrayList<Joker> jokers,
         ArrayList<Tarot> tarots,
         EnglishDeck englishDeck,
-        PlayerDeckDTO playerDeck
+        PlayerDeck playerDeck
         ) implements ClassDTO {}

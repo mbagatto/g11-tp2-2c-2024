@@ -41,7 +41,7 @@ public class PreparationView extends Group {
         titleContainer.setAlignment(Pos.CENTER);
         titleContainer.setSpacing(2);
 
-        Label title = new Label("TIENDA");
+        Label title = new Label("Tienda");
         title.setStyle("-fx-font-size: 100px; -fx-text-fill: white;");
 
         Label subtitle = new Label("¡Preparate para la siguiente ronda!");

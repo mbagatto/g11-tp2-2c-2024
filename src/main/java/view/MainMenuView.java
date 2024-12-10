@@ -48,16 +48,12 @@ public class MainMenuView extends VBox {
         Button continueButton = new ButtonYellow("Continuar");
         continueButton.setVisible(false);
 
-        ButtonMusic musicButton = new ButtonMusic();
-        musicButton.setId("music-button");
-        musicButton.setPrefWidth(275);
-
         this.getChildren().add(logoImageView);
         this.getChildren().add(welcomeLabel);
         this.getChildren().add(nameField);
         this.getChildren().add(errorLabel);
         this.getChildren().add(buttonContainer);
         this.getChildren().add(continueButton);
-        this.getChildren().add(musicButton);
+        this.getChildren().add(new ButtonMusic());
     }
 }

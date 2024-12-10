@@ -2,29 +2,30 @@ package view;
 
 import javafx.scene.Group;
 import javafx.scene.layout.VBox;
-import model.Player;
-import model.PlayerObserver;
-import view.records.PlayerDTO;
+import model.PlayerDeckObserver;
+import model.decks.PlayerDeck;
+import view.records.PlayerDeckDTO;
 
-public class PlayerDeckContainer extends VBox implements PlayerObserver {
+public class PlayerDeckContainer extends VBox implements PlayerDeckObserver {
     private Group stage;
-    private Player player;
-    public PlayerDeckContainer(Group stage, Player player) {
+
+    public PlayerDeckContainer(Group stage, PlayerDeck playerDeck) {
         this.stage = stage;
-        this.player = player;
-        player.addObserver(this);
         this.setLayoutX(500);
         this.setLayoutY(700);
         this.setSpacing(5);
-        PlayerDeckView playerDeckView = new PlayerDeckView(this.player);
-        this.getChildren().add(playerDeckView);
+        playerDeck.addObserver(this);
 
+        PlayerDeckDTO playerDeckDTO = playerDeck.toDTO();
+        this.getChildren().add(new PlayerDeckView(playerDeckDTO.cards()));
     }
 
     @Override
-    public void update(PlayerDTO playerDTO) {
+    public void update(PlayerDeckDTO playerDeckDTO) {
         this.getChildren().clear();
-        this.getChildren().add(new PlayerDeckContainer(this.stage, this.player));
+
+        this.getChildren().add(new PlayerDeckView(playerDeckDTO.cards()));
+
         this.stage.getChildren().remove(this);
         this.stage.getChildren().add(this);
     }

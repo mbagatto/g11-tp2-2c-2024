@@ -3,6 +3,7 @@ package model.decks;
 import model.ObservablePlayerDeck;
 import model.ObserverPlayerDeck;
 import model.Player;
+import model.PlayerDeckObserver;
 import model.exceptions.NoSelectedCardsException;
 import model.hands.Hand;
 import model.cards.Card;
@@ -20,7 +21,7 @@ public class PlayerDeck implements ObservablePlayerDeck {
     private ArrayList<Card> selectedCards;
     private ArrayList<Card> playedCards;
     private HandIdentifier handIdentifier;
-    private ArrayList<ObserverPlayerDeck> observers;
+    private ArrayList<PlayerDeckObserver> observers;
     private Hand actualHand;
 
     public PlayerDeck() {
@@ -47,9 +48,6 @@ public class PlayerDeck implements ObservablePlayerDeck {
     public void selectCard(int indexCard){
         this.selectedCards.add(this.cards.get(indexCard));
         this.actualHand = handIdentifier.identify(this.selectedCards);
-
-        //System.out.println("selectCard(): " +this.actualHand.toRecord().name());
-        //System.out.println("Lista de cartas: " +this.selectedCards.toString());
     }
 
     public void noSelectCard(){
@@ -113,6 +111,16 @@ public class PlayerDeck implements ObservablePlayerDeck {
                 ));
     }
 
+    public void addObserver(PlayerDeckObserver observer) {
+        this.observers.add(observer);
+    }
+
+    public void notifyObservers() {
+        for (PlayerDeckObserver observer : observers) {
+            observer.update(this.toDTO());
+        }
+    }
+
     public PlayerDeckDTO toDTO(){
         ArrayList<EnglishCardDTO> cardRecords = new ArrayList<>();
         for(Card card : this.cards){
@@ -120,24 +128,6 @@ public class PlayerDeck implements ObservablePlayerDeck {
         }
 
         return new PlayerDeckDTO(cardRecords, this.actualHand.toRecord());
-    }
-
-    public void addObserverForPlayerDeck(ObserverPlayerDeck observerPlayerDeck) {
-        this.observers.add(observerPlayerDeck);
-    }
-
-    @Override
-    public void addObserversPlayerDeck(ObserverPlayerDeck observerPlayerDeck) {
-        this.observers.add(observerPlayerDeck);
-        observerPlayerDeck.updatePlayerDeck(this.toDTO());
-    }
-
-    @Override
-    public void notifyObserversPlayerDeck() {
-        for (ObserverPlayerDeck observerPlayerDeck : this.observers) {
-            //System.out.println("PLAYERDECK: " +this.toRecord().handRecord().name());
-            observerPlayerDeck.updatePlayerDeck(this.toDTO());
-        }
     }
 
     public void clearSelectedCards() {

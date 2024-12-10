@@ -46,7 +46,7 @@ public class Score {
     }
 
     public String toString() {
-        return String.valueOf(this.value);
+        return String.valueOf((int) this.value);
     }
 
     public boolean isLessThanOrEqualtoZero() { return (this.value <= 0); }

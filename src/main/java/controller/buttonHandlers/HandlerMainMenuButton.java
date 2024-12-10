@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import view.MainMenuView;
+import view.buttons.ButtonMusic;
 import view.buttons.ButtonYellow;
 
 public class HandlerMainMenuButton implements EventHandler<ActionEvent> {
@@ -24,11 +25,14 @@ public class HandlerMainMenuButton implements EventHandler<ActionEvent> {
 
     public void handle(ActionEvent actionEvent) {
         this.soundPlayer.playButtonSound();
-        this.mainMenuView.getChildren().remove(5);
 
+        this.mainMenuView.getChildren().removeLast(); // remuevo el boton de musica
+        this.mainMenuView.getChildren().add(new ButtonMusic()); // agrego uno nuevo
+
+        this.mainMenuView.getChildren().remove(5); // remuevo boton de continuar
         Button continueButton = new ButtonYellow("Continuar");
         continueButton.setOnAction(new HandlerContinueGame(this.stage, this.groupView));
-        this.mainMenuView.getChildren().add(5, continueButton);
+        this.mainMenuView.getChildren().add(5, continueButton); // agrego uno nuevo
 
         this.groupView.getChildren().removeLast();
 
