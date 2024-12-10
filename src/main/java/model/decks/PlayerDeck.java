@@ -45,8 +45,13 @@ public class PlayerDeck implements ObservablePlayerDeck {
         return (this.cards.isEmpty());
     }
 
-    public void selectCard(int indexCard){
-        this.selectedCards.add(this.cards.get(indexCard));
+    public void selectCard(Card card){
+        this.selectedCards.add(card);
+        this.actualHand = handIdentifier.identify(this.selectedCards);
+    }
+
+    public void unselectCard(Card card) {
+        this.selectedCards.remove(card);
         this.actualHand = handIdentifier.identify(this.selectedCards);
     }
 
@@ -150,5 +155,4 @@ public class PlayerDeck implements ObservablePlayerDeck {
         deck.reorderDeck(this.playedCards);
         this.playedCards.clear();
     }
-
 }

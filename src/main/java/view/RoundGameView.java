@@ -56,7 +56,7 @@ public class RoundGameView extends Group {
         this.addView(playerTarotsContainer);
 
         PlayerDeck playerDeck = gameDTO.player().toDTO().playerDeck();
-        PlayerDeckContainer playerDeckContainer = new PlayerDeckContainer(this, playerDeck);
+        PlayerDeckContainer playerDeckContainer = new PlayerDeckContainer(this, playerDeck, gameDTO.player());
         this.addView(playerDeckContainer);
 
         this.addView(new EnglishDeckView(this, gameDTO.player().toDTO(). englishDeck()));

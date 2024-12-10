@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Player;
+import model.cards.Card;
 import model.decks.EnglishDeck;
 import model.game.Game;
 import model.game.Round;
@@ -37,10 +38,12 @@ public class HandlerPlay implements EventHandler<ActionEvent> {
 
         if (!playerName.trim().isEmpty()) {
             DataReader dataReader = new DataReader();
-            EnglishDeck englishDeck = new EnglishDeck();
-            englishDeck.fillDeck();
+
+            ArrayList<Card> cards = dataReader.cardsRead();
             ArrayList<Round> rounds = dataReader.roundsRead();
 
+            EnglishDeck englishDeck = new EnglishDeck();
+            englishDeck.fillDeck(cards);
             Game game = new Game(new Player(playerName, englishDeck), rounds);
 
             Scene scene = new Scene(new PreparationView(this.stage, this.mainMenuView, game.toDTO()));

@@ -20,6 +20,8 @@ public class DataReader {
     public DataReader() {
         this.cardParser = new EnglishCardParser();
         this.roundReader = new RoundReader();
+        this.jokerReader = new JokerReader();
+        this.tarotReader = new TarotReader();
     }
 
     public ArrayList<Card> cardsRead() {

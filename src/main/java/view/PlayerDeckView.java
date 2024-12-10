@@ -1,10 +1,10 @@
 package view;
+
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import model.Drawable;
-import model.Player;
+
 import view.records.EnglishCardDTO;
-import view.records.PlayerDTO;
 
 import java.util.ArrayList;
 

@@ -34,12 +34,9 @@ public class EnglishDeck implements ObservableEnglishDeck {
         this.observers = new ArrayList<>();
     }
 
-    public void fillDeck() {
-        try {
-            this.cards.addAll(this.cardReader.cardsRead());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public int fillDeck(ArrayList<Card> cards) {
+        this.cards.addAll(cards);
+        return this.cards.size();
     }
 
     public Card deal() {

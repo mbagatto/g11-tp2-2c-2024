@@ -11,6 +11,8 @@ import model.decks.JokerDeck;
 import model.decks.TarotDeck;
 import model.exceptions.CouldNotReadException;
 import model.jokers.Joker;
+
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,23 +62,21 @@ public class RoundReader {
 
     public Shop shopGenerator(StoreData storeData) {
         Shop shop = new Shop();
-//        EnglishCardData cardData = storeData.getEnglishCardData();
 
         JokerDeck jokerDeck = new JokerDeck();
-        jokerDeck.fillDeck();
+        jokerDeck.fillDeck((new DataReader()).jokersRead());
         for (JokerData jokerData : storeData.getJokers()) {
             Joker joker = jokerDeck.findJokerByName(jokerData.getName());
             shop.addJoker(joker);
         }
 
         TarotDeck tarotDeck = new TarotDeck();
-        tarotDeck.fillDeck();
+        tarotDeck.fillDeck((new DataReader()).tarotsRead());
         for (TarotData tarotData : storeData.getTarots()) {
             Tarot tarot = tarotDeck.findTarotByName(tarotData.getName());
             shop.addTarot(tarot);
         }
-//        EnglishCardParser englishCardParser = new EnglishCardParser();
-//        Card card = englishCardParser.cardGenerator(cardData);
+
         return shop;
     }
 }

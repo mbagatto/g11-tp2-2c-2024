@@ -1,5 +1,6 @@
 package model;
 
+import model.cards.Card;
 import model.decks.EnglishDeck;
 import model.decks.PlayerDeck;
 import model.exceptions.EmptyPlayerDeckException;
@@ -37,12 +38,12 @@ public class Player implements ObservablePlayer {
         }
     }
 
-    public void selectCard(int indexSelectCard){
-        this.playerDeck.selectCard(indexSelectCard);
+    public void selectCard(Card card) {
+        this.playerDeck.selectCard(card);
     }
 
-    public void noSelectCard(){
-        this.playerDeck.noSelectCard();
+    public void unselectCard(Card card) {
+        this.playerDeck.unselectCard(card);
     }
 
     public Score play() {
