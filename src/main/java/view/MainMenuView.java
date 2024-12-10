@@ -1,6 +1,7 @@
 package view;
 
 import controller.buttonHandlers.HandlerPlay;
+import controller.SoundPlayer;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
@@ -9,7 +10,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import view.buttons.ButtonContinueGame;
+import javafx.stage.Stage;
+import view.buttons.ButtonMusic;
+import view.buttons.ButtonYellow;
 import view.buttons.MainMenuButtonContainer;
 
 public class MainMenuView extends VBox {
@@ -47,8 +50,13 @@ public class MainMenuView extends VBox {
         nameField.setOnAction(new HandlerPlay(nameField, errorLabel));
 
         MainMenuButtonContainer buttonContainer = new MainMenuButtonContainer(nameField, errorLabel);
-        Button continueButton = new ButtonContinueGame();
+
+        Button continueButton = new ButtonYellow("Continuar");
         continueButton.setVisible(false);
+
+        ButtonMusic musicButton = new ButtonMusic();
+        musicButton.setId("music-button");
+        musicButton.setPrefWidth(275);
 
         this.getChildren().add(logoImageView);
         this.getChildren().add(welcomeLabel);
@@ -56,5 +64,6 @@ public class MainMenuView extends VBox {
         this.getChildren().add(errorLabel);
         this.getChildren().add(buttonContainer);
         this.getChildren().add(continueButton);
+        this.getChildren().add(musicButton);
     }
 }

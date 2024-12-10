@@ -17,7 +17,7 @@ public class HandlerAddTarot implements EventHandler<ActionEvent> {
         this.player = player;
         this.tarot = tarot;
         this.shop = shop;
-        this.soundPlayer = new SoundPlayer();
+        this.soundPlayer = SoundPlayer.getInstance();
     }
 
     public void handle(ActionEvent actionEvent) {

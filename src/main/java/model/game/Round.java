@@ -1,12 +1,8 @@
 package model.game;
 
 import model.*;
-import model.tarots.Tarot;
-import model.jokers.Joker;
 import model.score.Score;
 import view.records.RoundDTO;
-import view.records.RoundRecord;
-
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -58,14 +54,6 @@ public class Round implements ObservableRound {
         }
     }
 
-//    public Joker buyJoker(int index) {
-//        return this.shop.buyJoker(index);
-//    }
-//
-//    public Tarot buyTarot(int i) {
-//        return this.shop.buyTarot(i);
-//    }
-
     public void addObserver(RoundObserver observer) {
         this.observers.add(observer);
     }
@@ -74,14 +62,6 @@ public class Round implements ObservableRound {
         for (RoundObserver observer : observers) {
             observer.update(this.toDTO());
         }
-    }
-
-    public RoundRecord toRoundRecord() {
-        return new RoundRecord(this.number,
-                               this.playHands.size(),
-                                this.discardHands.size(),
-                                this.scoreToBeat.toRecord(),
-                                this.actualScore.toRecord());
     }
 
     public boolean wonRound(){

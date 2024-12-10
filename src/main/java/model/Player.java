@@ -83,6 +83,7 @@ public class Player implements ObservablePlayer {
 
     public void useTarot(Tarot tarot) {
         this.playerDeck.useTarot(tarot, this);
+        this.notifyObservers();
     }
 
     public void removeJoker(Joker joker) {

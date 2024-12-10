@@ -3,6 +3,7 @@ package view;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -13,6 +14,7 @@ import javafx.scene.text.TextAlignment;
 import model.Drawable;
 import model.Player;
 import model.jokers.Joker;
+import view.buttons.ButtonSpecialCard;
 import view.records.JokerDTO;
 
 public class JokerView extends VBox implements Drawable {
@@ -84,5 +86,12 @@ public class JokerView extends VBox implements Drawable {
         });
         button.setOnMouseExited(e -> this.popup.setVisible(false));
         this.pane.getChildren().add(button);
+    }
+
+    public void disableButton() {
+        this.pane.getChildren().removeLast();
+        ButtonSpecialCard button = new ButtonSpecialCard();
+        button.setStyle("-fx-cursor: default;");
+        this.addButton(button, null);
     }
 }

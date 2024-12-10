@@ -25,6 +25,7 @@ public class Tarot {
 
     public void apply(Player player) {
         if (this.target.applyTarot(this.toPoints, this.toMultiplier)) {
+
             player.removeTarot(this);
         }
     }

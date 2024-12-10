@@ -14,7 +14,7 @@ import javafx.util.Duration;
 public class FinalWinScreenView {
 
     public FinalWinScreenView(Stage stage) {
-        SoundPlayer sound = new SoundPlayer();
+        SoundPlayer sound = SoundPlayer.getInstance();
         sound.playWinSound();
 
         Label label = new Label("GANASTE");

@@ -1,5 +1,6 @@
 package view;
 
+import controller.buttonHandlers.HandlerUseTarot;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -13,6 +14,7 @@ import javafx.scene.text.TextAlignment;
 import model.Drawable;
 import model.Player;
 import model.tarots.Tarot;
+import view.buttons.ButtonSpecialCard;
 import view.records.TarotDTO;
 
 public class TarotView extends VBox implements Drawable {
@@ -87,5 +89,10 @@ public class TarotView extends VBox implements Drawable {
         });
         button.setOnMouseExited(e -> this.popup.setVisible(false));
         this.pane.getChildren().add(button);
+    }
+
+    public void setUseButton() {
+        this.pane.getChildren().removeLast();
+        this.addButton(new ButtonSpecialCard(), new HandlerUseTarot(this.player, this.tarot));
     }
 }

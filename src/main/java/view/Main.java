@@ -14,7 +14,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        SoundPlayer soundPlayer = new SoundPlayer();
+        SoundPlayer soundPlayer = SoundPlayer.getInstance();
         soundPlayer.playBackgroundMusic();
 
         // Set stage bounds

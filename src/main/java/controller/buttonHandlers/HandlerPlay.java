@@ -25,7 +25,7 @@ public class HandlerPlay extends StageButtonHandler {
     public HandlerPlay(TextField playerName, Label errorLabel) {
         this.playerName = playerName;
         this.errorLabel = errorLabel;
-        this.soundPlayer = new SoundPlayer();
+        this.soundPlayer = SoundPlayer.getInstance();
     }
 
     public void handle(ActionEvent actionEvent) {
@@ -41,11 +41,12 @@ public class HandlerPlay extends StageButtonHandler {
             englishDeck.fillDeck();
             ArrayList<Round> rounds = dataReader.roundsRead();
 
-            Game game = new Game(new Player(playerName, englishDeck), rounds.getFirst());
+            Game game = new Game(new Player(playerName, englishDeck), rounds);
 
             Scene scene = new Scene(new PreparationView(mainMenuView, game.toDTO()));
             scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
             stage.setScene(scene);
+
         } else {
             this.errorLabel.setVisible(true);
         }
