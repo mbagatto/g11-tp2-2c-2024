@@ -124,7 +124,8 @@ public class Player implements ObservablePlayer {
                 this.name,
                 this.jokers,
                 this.tarots,
-                this.englishDeck
+                this.englishDeck,
+                this.playerDeck.toDTO()
         );
     }
 }

@@ -1,6 +1,7 @@
 package model.game;
 
 import model.Player;
+import model.decks.EnglishDeck;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,6 +9,7 @@ import java.util.Iterator;
 public class Game {
     private Player player;
     private Round currentRound;
+    private EnglishDeck deck;
     private Iterator<Round> roundIterator;
 
     public Game(Player player, ArrayList<Round> rounds) {

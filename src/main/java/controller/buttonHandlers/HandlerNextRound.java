@@ -25,6 +25,12 @@ public class HandlerNextRound  implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent) {
         this.soundPlayer.playButtonSound();
 
+        //sujeto a cambios
+        this.gameDTO.player().reorderDeck();
+        this.gameDTO.player().shuffleDeck();
+        this.gameDTO.player().completeDeck();
+
+
         Scene scene = new Scene(new RoundGameView(this.stage, this.mainMenuView, this.gameDTO));
         scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
         stage.setScene(scene);

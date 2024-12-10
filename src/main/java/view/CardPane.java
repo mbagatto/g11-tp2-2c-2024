@@ -22,7 +22,7 @@
 //          );
 //          this.setPrefSize(140, 10);// esta es la parte blanca de la carta
 //          this.getChildren().add(cardView);
-////          this.setOnMouseClicked(new HandlerCardPane());
+//          this.setOnMouseClicked(new HandlerCardPane());
 //     }
 //     CardPane(StackPane stackPane,int index,List<Integer> indexsCards, Player player, PlayerObserver playerObserver) {
 //          super(stackPane);

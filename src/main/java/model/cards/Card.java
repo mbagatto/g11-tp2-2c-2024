@@ -3,9 +3,8 @@ package model.cards;
 import model.ObservableCard;
 import model.ObserverCard;
 import model.score.Score;
-import model.score.ScoreModifier;
 import model.Modifiable;
-import view.records.EnglishCardRecord;
+import view.records.EnglishCardDTO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -99,8 +98,8 @@ public abstract class Card extends Modifiable implements ObservableCard {
         return suit;
     }
 
-    public EnglishCardRecord toRecord() {
-        return new EnglishCardRecord(suit, number);
+    public EnglishCardDTO toRecord() {
+        return new EnglishCardDTO(suit, number);
     }
 
 }

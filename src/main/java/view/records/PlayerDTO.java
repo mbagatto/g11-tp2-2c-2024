@@ -12,5 +12,6 @@ public record PlayerDTO
         String name,
         ArrayList<Joker> jokers,
         ArrayList<Tarot> tarots,
-        EnglishDeck englishDeck
+        EnglishDeck englishDeck,
+        PlayerDeckDTO playerDeck
         ) implements ClassDTO {}

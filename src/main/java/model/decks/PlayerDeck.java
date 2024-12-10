@@ -6,14 +6,13 @@ import model.Player;
 import model.exceptions.NoSelectedCardsException;
 import model.hands.Hand;
 import model.cards.Card;
-import model.hands.NullHand;
 import model.identifiers.*;
 import model.jokers.DiscardBonus;
 import model.jokers.Joker;
 import model.score.Score;
 import model.tarots.Tarot;
-import view.records.EnglishCardRecord;
-import view.records.PlayerDeckRecord;
+import view.records.EnglishCardDTO;
+import view.records.PlayerDeckDTO;
 import java.util.ArrayList;
 
 public class PlayerDeck implements ObservablePlayerDeck {
@@ -114,13 +113,13 @@ public class PlayerDeck implements ObservablePlayerDeck {
                 ));
     }
 
-    public PlayerDeckRecord toRecord(){
-        ArrayList<EnglishCardRecord> cardRecords = new ArrayList<>();
+    public PlayerDeckDTO toDTO(){
+        ArrayList<EnglishCardDTO> cardRecords = new ArrayList<>();
         for(Card card : this.cards){
             cardRecords.add(card.toRecord());
         }
 
-        return new PlayerDeckRecord(cardRecords, this.actualHand.toRecord());
+        return new PlayerDeckDTO(cardRecords, this.actualHand.toRecord());
     }
 
     public void addObserverForPlayerDeck(ObserverPlayerDeck observerPlayerDeck) {
@@ -130,14 +129,14 @@ public class PlayerDeck implements ObservablePlayerDeck {
     @Override
     public void addObserversPlayerDeck(ObserverPlayerDeck observerPlayerDeck) {
         this.observers.add(observerPlayerDeck);
-        observerPlayerDeck.updatePlayerDeck(this.toRecord());
+        observerPlayerDeck.updatePlayerDeck(this.toDTO());
     }
 
     @Override
     public void notifyObserversPlayerDeck() {
         for (ObserverPlayerDeck observerPlayerDeck : this.observers) {
             //System.out.println("PLAYERDECK: " +this.toRecord().handRecord().name());
-            observerPlayerDeck.updatePlayerDeck(this.toRecord());
+            observerPlayerDeck.updatePlayerDeck(this.toDTO());
         }
     }
 
