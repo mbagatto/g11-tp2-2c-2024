@@ -35,26 +35,22 @@ public class Round implements ObservableRound {
         if (! this.ranOutOfHands()) {
             PlayHand playHand = this.playHands.pop();
             this.actualScore = this.actualScore.addWith(playHand.playTurn(player));
-            this.subtractOne(this.hands);
+            this.hands = this.hands.subtractWith(new Score(1));
             this.notifyObservers();
         }
     }
 
     public void discardHand(Player player) {
-        if (! this.ranOutOfDiscards()) {
+        if (!this.ranOutOfDiscards()) {
             DiscardHand discardHand = this.discardHands.pop();
-            this.actualScore = this.actualScore.addWith(discardHand.playTurn(player));
-            this.subtractOne(this.discards);
+            discardHand.playTurn(player);
+            this.discards = this.discards.subtractWith(new Score(1));
             this.notifyObservers();
         }
     }
 
     public boolean wonRound(){
         return (this.actualScore.isGreaterThanOrEqualTo(this.scoreToBeat)) ;
-    }
-
-    public void subtractOne(Score score) {
-        score.subtractOne();
     }
 
     public boolean ranOutOfHands() {
