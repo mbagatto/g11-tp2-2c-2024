@@ -24,6 +24,7 @@ public class HandlerNewRound implements EventHandler<ActionEvent> {
 
     public void handle(ActionEvent actionEvent) {
         this.soundPlayer.playButtonSound();
+        this.game.buildNewRound();
         Scene scene = new Scene(new PreparationView(this.stage, this.mainMenuView, this.game));
         scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
         this.stage.setScene(scene);

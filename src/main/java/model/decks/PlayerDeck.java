@@ -64,7 +64,6 @@ public class PlayerDeck implements ObservablePlayerDeck {
         Hand hand = handIdentifier.identify(this.selectedCards);
 
         Score score = hand.calculateScore(this.selectedCards, jokers);
-        this.playedCards.addAll(this.selectedCards);
         this.reset(selectedCards);
         return score;
     }
@@ -83,17 +82,12 @@ public class PlayerDeck implements ObservablePlayerDeck {
             }
         }
 
-        this.playedCards.addAll(this.selectedCards);
         this.reset(selectedCards);
     }
 
     public void reset(ArrayList<Card> selectedCards) {
-        ArrayList<Card> discardCards = new ArrayList<>(selectedCards);
+        this.playedCards.addAll(selectedCards);
         this.cards.removeAll(selectedCards);
-        this.selectedCards.clear();
-    }
-
-    public void clearSelectedCards() {
         this.selectedCards.clear();
     }
 
@@ -111,10 +105,10 @@ public class PlayerDeck implements ObservablePlayerDeck {
         return (this.selectedCards.size() >= 5);
     }
 
-    public void reorderDeck(EnglishDeck deck){
-        this.playedCards.addAll(this.cards);
+    public void reorderDeck(EnglishDeck deck) {
+        deck.fillDeck(this.playedCards);
+        deck.fillDeck(this.cards);
         this.cards.clear();
-        deck.reorderDeck(this.playedCards);
         this.playedCards.clear();
     }
 

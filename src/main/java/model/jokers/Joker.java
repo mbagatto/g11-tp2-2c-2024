@@ -54,7 +54,4 @@ public abstract class Joker {
     public JokerDTO toDTO() {
         return new JokerDTO(this.name, this.description);
     }
-
-    public void incrementDiscards() {
-    }
 }

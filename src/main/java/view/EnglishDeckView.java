@@ -24,7 +24,7 @@ public class EnglishDeckView extends VBox implements EnglishDeckObserver {
         this.setLayoutY(725);
         this.setSpacing(8);
         this.setAlignment(Pos.CENTER_RIGHT);
-        EnglishDeckDTO englishDeckDTO = englishDeck.toDTO();
+        englishDeck.addObserver(this);
 
         StackPane deckView = new StackPane();
         Image cardImage = new Image("file:src/resources/textures/english-deck.png");
@@ -46,7 +46,7 @@ public class EnglishDeckView extends VBox implements EnglishDeckObserver {
             deckView.getChildren().add(cardView);
         }
 
-        Label cardsCount = new Label(englishDeckDTO.cardsCount() + "/52");
+        Label cardsCount = new Label(englishDeck.toDTO().cardsCount() + "/52");
         cardsCount.setStyle("-fx-font-size: 20px;" + "-fx-text-fill: white;");
 
         this.getChildren().add(deckView);

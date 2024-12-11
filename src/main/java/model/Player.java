@@ -104,21 +104,21 @@ public class Player implements ObservablePlayer {
 
     public void resetDiscards() {
         this.discards = new Score(0);
+
+        ArrayList<Joker> resetJokers = new ArrayList<>();
         for (Joker joker : this.jokers) {
             if (joker.hasType("Discard Bonus")) {
                 DiscardBonus discardBonus = new DiscardBonus(joker);
                 discardBonus.setDiscards(this.discards);
-                this.jokers.add(discardBonus);
-                this.jokers.remove(discardBonus);
+                resetJokers.add(discardBonus);
+            } else {
+                resetJokers.add(joker);
             }
         }
+        this.jokers = resetJokers;
     }
 
-    public void shuffleDeck() {
-        this.englishDeck.shuffleDeck();
-    }
-
-    public void reorderDeck() {
+    public void resetDecks() {
         this.playerDeck.reorderDeck(this.englishDeck);
         this.englishDeck.shuffleDeck();
     }

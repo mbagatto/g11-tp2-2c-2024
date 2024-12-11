@@ -26,7 +26,15 @@ public class Game {
 
     public void setNextRound() {
         this.currentRound = roundIterator.next();
+    }
+
+    public void buildNewRound() {
         this.player.resetDiscards();
+        this.player.resetDecks();
+    }
+
+    public void completePlayerDeck() {
+        this.player.completeDeck();
     }
 
     public boolean wonRound() {
