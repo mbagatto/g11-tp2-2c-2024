@@ -1,4 +1,3 @@
 package model.exceptions;
 
-public class InvalidJokerException extends RuntimeException {
-}
+public class InvalidJokerException extends RuntimeException {}

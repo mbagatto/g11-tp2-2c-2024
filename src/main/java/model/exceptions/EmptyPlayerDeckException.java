@@ -1,4 +1,3 @@
 package model.exceptions;
 
-public class EmptyPlayerDeckException extends RuntimeException {
-}
+public class EmptyPlayerDeckException extends RuntimeException {}

@@ -2,5 +2,5 @@ package view.dtos;
 
 public record EnglishDeckDTO
         (
-            int cardsCount
+                int cardsCount
         ) implements ClassDTO {}

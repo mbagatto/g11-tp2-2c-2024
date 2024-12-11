@@ -1,7 +1,6 @@
 package model.decks;
 
 import model.tarots.Tarot;
-
 import java.util.ArrayList;
 
 public class TarotDeck {
@@ -11,9 +10,8 @@ public class TarotDeck {
         this.tarots = new ArrayList<>();
     }
 
-    public int fillDeck(ArrayList<Tarot> tarots) {
+    public void fillDeck(ArrayList<Tarot> tarots) {
         this.tarots.addAll(tarots);
-        return this.tarots.size();
     }
 
     public Tarot findTarotByName(String name) {

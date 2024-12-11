@@ -51,8 +51,10 @@ public class Player implements ObservablePlayer {
             throw new EmptyPlayerDeckException();
         }
         Score score = this.playerDeck.play(this.jokers);
+
         this.completeDeck();
         this.notifyObservers();
+
         return score;
     }
 
@@ -61,8 +63,10 @@ public class Player implements ObservablePlayer {
             throw new EmptyPlayerDeckException();
         }
         this.playerDeck.discard(this.jokers);
+
         this.completeDeck();
         this.discards.addWith(new Score(1));
+
         this.notifyObservers();
     }
 
@@ -97,20 +101,6 @@ public class Player implements ObservablePlayer {
         this.notifyObservers();
     }
 
-    public void addObserver(PlayerObserver observer) {
-        this.observers.add(observer);
-    }
-
-    public void notifyObservers() {
-        for (PlayerObserver observer : this.observers) {
-            observer.update(this.toDTO());
-        }
-    }
-
-    public void clearSelectedCards() {
-        this.playerDeck.clearSelectedCards();
-    }
-
     public void shuffleDeck() {
         this.englishDeck.shuffleDeck();
     }
@@ -122,6 +112,16 @@ public class Player implements ObservablePlayer {
 
     public boolean maxSelectedReached() {
         return (this.playerDeck.maxSelectedReached());
+    }
+
+    public void addObserver(PlayerObserver observer) {
+        this.observers.add(observer);
+    }
+
+    public void notifyObservers() {
+        for (PlayerObserver observer : this.observers) {
+            observer.update(this.toDTO());
+        }
     }
 
     public PlayerDTO toDTO() {

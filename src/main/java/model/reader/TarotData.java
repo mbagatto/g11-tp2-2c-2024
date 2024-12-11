@@ -3,7 +3,6 @@ package model.reader;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TarotData {
-
     @JsonProperty("nombre")
     private String name;
 

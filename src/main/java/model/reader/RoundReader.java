@@ -14,8 +14,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoundReader {
-
+public class RoundReader implements Reader<Round> {
     private ArrayList<Round> rounds;
 
     public RoundReader() {
@@ -23,7 +22,6 @@ public class RoundReader {
     }
 
     public ArrayList<Round> read(String pathRound) {
-
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

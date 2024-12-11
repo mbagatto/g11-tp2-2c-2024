@@ -1,6 +1,6 @@
 package model;
 
 public interface ObservableCard {
-    void addObserver(ObserverCard observer);
+    void addObserver(CardObserver observer);
     void notifyObservers();
 }

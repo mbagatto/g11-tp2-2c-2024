@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TwoPairIdentifierTest {
-
     @Test
     public void test01TwoPairIdentifierIdentifiesATwoPairCorrectly() {
         // Arrange
@@ -29,6 +28,4 @@ public class TwoPairIdentifierTest {
         // Assert
         assertEquals(expectedHand, obtainedHand);
     }
-
-
 }

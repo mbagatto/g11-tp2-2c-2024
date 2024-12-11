@@ -1,12 +1,10 @@
 package model.identifiers;
 
 import model.cards.Card;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class FrequencyChecker {
-
     public boolean hasPairs(ArrayList<Card> cards, int pairs) {
         HashMap<String, Integer> map = generateFrequenciesMap(cards);
         int counter = 0;

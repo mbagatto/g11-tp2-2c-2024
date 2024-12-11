@@ -6,9 +6,7 @@ import model.decks.EnglishDeck;
 import model.exceptions.EmptyDeckException;
 import model.score.Score;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EnglishDeckTest {

@@ -9,8 +9,7 @@ import model.decks.PlayerDeck;
 import view.dtos.PlayerDeckDTO;
 
 public class PointsAndMultView extends VBox implements PlayerDeckObserver {
-
-        public PointsAndMultView(PlayerDeck playerDeck) {
+    public PointsAndMultView(PlayerDeck playerDeck) {
         super();
         this.setId("points-and-mult");
         this.setMinHeight(200);

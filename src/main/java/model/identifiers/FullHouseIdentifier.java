@@ -3,11 +3,9 @@ package model.identifiers;
 import model.hands.FullHouse;
 import model.hands.Hand;
 import model.cards.Card;
-
 import java.util.ArrayList;
 
 public class FullHouseIdentifier extends FrequencyHandIdentifier {
-
     public FullHouseIdentifier(HandIdentifier next) {
         super(next);
     }

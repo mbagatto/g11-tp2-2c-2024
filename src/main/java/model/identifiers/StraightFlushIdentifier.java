@@ -6,7 +6,6 @@ import model.hands.StraightFlush;
 import java.util.ArrayList;
 
 public class StraightFlushIdentifier extends SequenceHandIdentifier {
-
     public StraightFlushIdentifier(HandIdentifier next) {
         super(next);
     }

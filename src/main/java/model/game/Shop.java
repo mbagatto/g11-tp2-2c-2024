@@ -56,6 +56,4 @@ public class Shop implements ObservableShop  {
     public ShopDTO toDTO() {
         return new ShopDTO(this.jokers, this.tarots);
     }
-
-
 }

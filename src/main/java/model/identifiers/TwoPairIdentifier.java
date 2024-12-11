@@ -6,7 +6,6 @@ import model.hands.TwoPair;
 import java.util.ArrayList;
 
 public class TwoPairIdentifier extends FrequencyHandIdentifier {
-
     public TwoPairIdentifier(HandIdentifier next) {
         super(next);
     }

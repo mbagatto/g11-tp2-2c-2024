@@ -25,7 +25,6 @@ public class PlayerDeckView extends HBox implements Drawable {
 
     @Override
     public void draw() {
-
         int superPosition = 0;
 
         for (Card card : cards) {

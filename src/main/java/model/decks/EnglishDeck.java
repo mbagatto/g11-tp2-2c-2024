@@ -4,7 +4,6 @@ import model.EnglishDeckObserver;
 import model.ObservableEnglishDeck;
 import model.cards.*;
 import model.exceptions.EmptyDeckException;
-import model.reader.DataReader;
 import view.dtos.EnglishDeckDTO;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +11,6 @@ import java.util.Objects;
 
 public class EnglishDeck implements ObservableEnglishDeck {
     private ArrayList<Card> cards;
-    private DataReader cardReader;
     private ArrayList<EnglishDeckObserver> observers;
 
     @Override
@@ -30,13 +28,11 @@ public class EnglishDeck implements ObservableEnglishDeck {
 
     public EnglishDeck() {
         this.cards = new ArrayList<>();
-        this.cardReader = new DataReader();
         this.observers = new ArrayList<>();
     }
 
-    public int fillDeck(ArrayList<Card> cards) {
+    public void fillDeck(ArrayList<Card> cards) {
         this.cards.addAll(cards);
-        return this.cards.size();
     }
 
     public Card deal() {

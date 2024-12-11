@@ -8,7 +8,6 @@ import model.game.Game;
 import view.MainMenuView;
 
 public class ButtonPlayHand extends Button {
-
     public ButtonPlayHand(Stage stage, Group previousScene, Game game, MainMenuView mainMenuView) {
         super("Jugar Mano");
         this.setId("button-blue");

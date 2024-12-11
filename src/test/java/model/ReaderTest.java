@@ -1,9 +1,7 @@
 package model;
 
-import model.decks.EnglishDeck;
 import model.reader.DataReader;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ReaderTest {

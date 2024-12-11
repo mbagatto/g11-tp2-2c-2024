@@ -7,6 +7,6 @@ import java.util.ArrayList;
 
 public record ShopDTO
         (
-            ArrayList<Joker> jokers,
-            ArrayList<Tarot> tarots
+                ArrayList<Joker> jokers,
+                ArrayList<Tarot> tarots
         ) implements ClassDTO {}

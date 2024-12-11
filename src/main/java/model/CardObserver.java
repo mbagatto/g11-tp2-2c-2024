@@ -2,6 +2,6 @@ package model;
 
 import view.dtos.EnglishCardDTO;
 
-public interface ObserverCard {
+public interface CardObserver {
     void update(EnglishCardDTO cardDTO);
 }

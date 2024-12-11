@@ -26,16 +26,16 @@ public abstract class Joker {
         this.toMultiplier = joker.toMultiplier;
     }
 
+    public Joker(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public Joker(String name, String description, ScoreModifier toPoints, ScoreModifier toMultiplier) {
         this.name = name;
         this.description = description;
         this.toPoints = toPoints;
         this.toMultiplier = toMultiplier;
-    }
-
-    public Joker(String name, String description) {
-        this.name = name;
-        this.description = description;
     }
 
     public abstract Score applyToPoints(Score points, Hand hand);

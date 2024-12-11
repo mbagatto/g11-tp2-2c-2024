@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 
 public class DeckData {
-
     @JsonProperty("mazo")
     private ArrayList<EnglishCardData> deck;
 
@@ -15,5 +14,4 @@ public class DeckData {
     public void setDeck(ArrayList<EnglishCardData> deck) {
         this.deck = deck;
     }
-
 }

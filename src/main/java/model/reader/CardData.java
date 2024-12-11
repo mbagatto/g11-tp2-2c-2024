@@ -3,7 +3,6 @@ package model.reader;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CardData {
-
     @JsonProperty("nombre")
     private String name;
 

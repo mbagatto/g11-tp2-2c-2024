@@ -5,6 +5,6 @@ import java.util.ArrayList;
 
 public record PlayerDeckDTO
         (
-        ArrayList<Card> cards,
-        HandDTO handDTO
+                ArrayList<Card> cards,
+                HandDTO handDTO
         ) implements ClassDTO {}

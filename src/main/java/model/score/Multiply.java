@@ -1,7 +1,6 @@
 package model.score;
 
 public class Multiply extends ScoreModifier {
-
     public Multiply(Score score) {
         super(score);
     }

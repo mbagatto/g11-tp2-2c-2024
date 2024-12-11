@@ -9,7 +9,6 @@ import model.Drawable;
 import java.util.Random;
 
 public class EnglishCardView extends VBox implements Drawable {
-
     private ImageView imageView;
 
     public EnglishCardView(ImageView cardView){
@@ -48,5 +47,4 @@ public class EnglishCardView extends VBox implements Drawable {
 
         swing.play();
     }
-
 }

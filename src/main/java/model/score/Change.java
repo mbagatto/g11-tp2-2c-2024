@@ -1,7 +1,6 @@
 package model.score;
 
 public class Change extends ScoreModifier {
-
     public Change(Score score) {
         super(score);
     }

@@ -5,7 +5,6 @@ import model.cards.CardSorter;
 import java.util.ArrayList;
 
 public class SequenceChecker {
-
     public boolean isStraight(ArrayList<Card> cards) {
         ArrayList<Card> cardsCopy = new ArrayList<>(cards);
         ArrayList<Card> sortedCards = this.sortCards(cardsCopy);

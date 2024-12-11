@@ -21,6 +21,7 @@ public class ProductsContainerView extends HBox {
             jokerView.setAddButton();
             this.getChildren().add(jokerView);
         }
+
         for (Tarot tarot : tarots) {
             TarotView tarotView = new TarotView(tarot, player, shop);
             tarotView.setAddButton();

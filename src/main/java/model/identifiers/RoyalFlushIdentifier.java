@@ -6,7 +6,6 @@ import model.hands.RoyalFlush;
 import java.util.ArrayList;
 
 public class RoyalFlushIdentifier extends SequenceHandIdentifier {
-
     public RoyalFlushIdentifier(HandIdentifier next) {
         super(next);
     }

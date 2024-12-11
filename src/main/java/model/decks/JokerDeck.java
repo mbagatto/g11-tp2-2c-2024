@@ -10,9 +10,8 @@ public class JokerDeck {
         this.jokers = new ArrayList<>();
     }
 
-    public int fillDeck(ArrayList<Joker> jokers) {
+    public void fillDeck(ArrayList<Joker> jokers) {
         this.jokers.addAll(jokers);
-        return this.jokers.size();
     }
 
     public Joker findJokerByName(String name) {

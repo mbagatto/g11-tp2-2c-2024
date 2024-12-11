@@ -4,7 +4,6 @@ import javax.sound.sampled.*;
 import java.io.File;
 
 public final class SoundPlayer { //Aplica Singleton
-
     private String buttonPath = "src/resources/sounds/button.wav";
     private String musicPath = "src/resources/sounds/music.wav";
     private String winPath = "src/resources/sounds/win.wav";

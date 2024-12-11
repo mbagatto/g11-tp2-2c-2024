@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 public record PlayerDTO
         (
-        String name,
-        ArrayList<Joker> jokers,
-        ArrayList<Tarot> tarots,
-        EnglishDeck englishDeck,
-        PlayerDeck playerDeck
+                String name,
+                ArrayList<Joker> jokers,
+                ArrayList<Tarot> tarots,
+                EnglishDeck englishDeck,
+                PlayerDeck playerDeck
         ) implements ClassDTO {}

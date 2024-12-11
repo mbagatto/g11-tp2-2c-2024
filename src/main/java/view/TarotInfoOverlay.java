@@ -31,7 +31,7 @@ public class TarotInfoOverlay extends VBox {
         description.setMinHeight(60);
         description.setMaxHeight(60);
 
-        Label type = new Label("Comodin");
+        Label type = new Label("Tarot");
         type.setId("tarot-popup-type");
         type.setPrefWidth(80);
         type.setAlignment(Pos.CENTER);

@@ -2,7 +2,6 @@ package model;
 
 import model.cards.*;
 import model.decks.EnglishDeck;
-import model.decks.PlayerDeck;
 import model.exceptions.EmptyPlayerDeckException;
 import model.exceptions.NoSelectedCardsException;
 import model.hands.*;
@@ -13,16 +12,11 @@ import model.score.DoNotModify;
 import model.score.Score;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest {
-    private EnglishDeck englishDeck;
-
     @BeforeEach
     public void setUp() throws NoSuchFieldException, IllegalAccessException {
         Field instance = HighCard.class.getDeclaredField("instance");

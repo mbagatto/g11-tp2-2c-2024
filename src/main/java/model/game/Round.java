@@ -49,16 +49,6 @@ public class Round implements ObservableRound {
         }
     }
 
-    public void addObserver(RoundObserver observer) {
-        this.observers.add(observer);
-    }
-
-    public void notifyObservers() {
-        for (RoundObserver observer : observers) {
-            observer.update(this.toDTO());
-        }
-    }
-
     public boolean wonRound(){
         return (this.actualScore.isGreaterThanOrEqualTo(this.scoreToBeat)) ;
     }
@@ -73,6 +63,16 @@ public class Round implements ObservableRound {
 
     public boolean ranOutOfDiscards() {
         return (this.discards.isLessThanOrEqualtoZero());
+    }
+
+    public void addObserver(RoundObserver observer) {
+        this.observers.add(observer);
+    }
+
+    public void notifyObservers() {
+        for (RoundObserver observer : observers) {
+            observer.update(this.toDTO());
+        }
     }
 
     public RoundDTO toDTO() {

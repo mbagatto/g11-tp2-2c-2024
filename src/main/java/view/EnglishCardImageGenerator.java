@@ -3,7 +3,6 @@ package view;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
