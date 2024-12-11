@@ -18,6 +18,7 @@ public class MainMenuView extends VBox {
         stage.setTitle("Balatro");
         this.setAlignment(Pos.CENTER);
         this.setSpacing(10);
+        this.setPrefSize(1920, 1080);
 
         Image backgroundGif = new Image("file:src/resources/textures/backgroundGIF.gif");
         BackgroundSize backgroundSize = new BackgroundSize(1920, 1080, true, true, true, true);

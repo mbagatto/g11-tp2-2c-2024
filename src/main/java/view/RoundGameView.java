@@ -1,22 +1,21 @@
 package view;
 
-import controller.buttonHandlers.HandlerOptionsButton;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.decks.PlayerDeck;
+import model.game.Game;
 import view.buttons.ButtonOptions;
-import view.dtos.GameDTO;
 import model.game.Shop;
+import view.dtos.GameDTO;
 
 public class RoundGameView extends Group {
-    public RoundGameView(Stage stage, MainMenuView mainMenuView, GameDTO gameDTO) {
+    public RoundGameView(Stage stage, MainMenuView mainMenuView, Game game) {
         super();
 
         Image background = new Image("file:src/resources/textures/game_background.jpg");
@@ -33,6 +32,8 @@ public class RoundGameView extends Group {
         rectangle.setStroke(Color.web("#FFEBA7FF"));
         rectangle.setStrokeWidth(5);
 
+        GameDTO gameDTO = game.toDTO();
+
         Button optionsButton = new ButtonOptions(stage, mainMenuView, this);
 
         PlayerDeck playerDeck = gameDTO.player().toDTO().playerDeck();
@@ -40,7 +41,7 @@ public class RoundGameView extends Group {
         this.addView(backgroundView);
         this.addView(rectangle);
         this.addView(new RoundTitleView(gameDTO.round()));
-        this.addView(new RoundInfoView(this, gameDTO.round(), playerDeck));
+        this.addView(new RoundInfoView(this, game.toDTO().round(), playerDeck));
         this.addView(optionsButton);
 
         Shop shop = gameDTO.round().toDTO().shop();
@@ -53,7 +54,7 @@ public class RoundGameView extends Group {
         playerTarotsContainer.setUseButtons();
         this.addView(playerTarotsContainer);
 
-        PlayerDeckContainer playerDeckContainer = new PlayerDeckContainer(this, playerDeck, gameDTO.player(), gameDTO.round(), stage);
+        PlayerDeckContainer playerDeckContainer = new PlayerDeckContainer(this, playerDeck, gameDTO.player(), gameDTO.round(), stage, mainMenuView, game);
         this.addView(playerDeckContainer);
 
         this.addView(new EnglishDeckView(this, gameDTO.player().toDTO(). englishDeck()));

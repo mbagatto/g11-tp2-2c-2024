@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import model.Player;
 import model.RoundObserver;
 import model.decks.PlayerDeck;
+import model.game.Game;
 import model.game.Round;
 import view.dtos.PlayerDeckDTO;
 import view.dtos.RoundDTO;
@@ -15,7 +16,7 @@ public class PlayerDeckContainer extends VBox implements RoundObserver {
     private Player player;
     private PlayerDeckDTO playerDeckDTO;
 
-    public PlayerDeckContainer(Group previousScene, PlayerDeck playerDeck, Player player, Round actualRound, Stage stage) {
+    public PlayerDeckContainer(Group previousScene, PlayerDeck playerDeck, Player player, Round actualRound, Stage stage, MainMenuView mainMenuView, Game game) {
         this.previousScene = previousScene;
         this.setLayoutX(490);
         this.setLayoutY(650);
@@ -24,7 +25,7 @@ public class PlayerDeckContainer extends VBox implements RoundObserver {
         this.player = player;
         this.playerDeckDTO = playerDeck.toDTO();
         this.getChildren().add(new PlayerDeckView(this.playerDeckDTO.cards(), this.player));
-        this.getChildren().add(new PlayDiscardButtonsView(stage, previousScene, player, actualRound));
+        this.getChildren().add(new PlayDiscardButtonsView(stage, previousScene, game, mainMenuView));
     }
 
     @Override

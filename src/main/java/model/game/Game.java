@@ -12,19 +12,32 @@ public class Game {
 
     public Game(Player player, ArrayList<Round> rounds) {
         this.player = player;
-        this.currentRound = rounds.getFirst();
         this.roundIterator = rounds.iterator();
+        this.currentRound = roundIterator.next();
     }
 
     public void playHand() {
         this.currentRound.playHand(this.player);
-        if (this.currentRound.wonRound()) {
-            this.currentRound = roundIterator.next();
-        }
     }
 
-    public void playDiscard() {
+    public void discardHand() {
         this.currentRound.discardHand(this.player);
+    }
+
+    public void setNextRound() {
+        this.currentRound = roundIterator.next();
+    }
+
+    public boolean wonRound() {
+        return this.currentRound.wonRound();
+    }
+
+    public boolean wonGame() {
+        return (this.currentRound.wonRound() && !this.roundIterator.hasNext());
+    }
+
+    public boolean ranOutOfHands() {
+        return this.currentRound.ranOutOfHands();
     }
 
     public GameDTO toDTO() {

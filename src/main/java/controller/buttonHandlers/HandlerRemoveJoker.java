@@ -21,7 +21,7 @@ public class HandlerRemoveJoker implements EventHandler<ActionEvent> {
     }
 
     public void handle(ActionEvent actionEvent) {
-        this.soundPlayer.playJokerUp();
+        this.soundPlayer.playJokerDown();
         this.player.removeJoker(this.joker);
         this.shop.addJoker(this.joker);
     }

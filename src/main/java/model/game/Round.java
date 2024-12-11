@@ -17,9 +17,6 @@ public class Round implements ObservableRound {
     private TurnGenerator turnGenerator;
     private Score actualScore;
     private ArrayList<RoundObserver> observers;
-    private Round nextRound;
-
-    public Round() {}
 
     public Round(int number, Score hands, Score discards, Score scoreToBeat, Shop shop) {
         this.number = number;
@@ -66,10 +63,6 @@ public class Round implements ObservableRound {
         return (this.actualScore.isGreaterThanOrEqualTo(this.scoreToBeat)) ;
     }
 
-    public boolean won(){
-        return (this.number == 8 && this.wonRound());
-    }
-
     public void subtractOne(Score score) {
         score.subtractOne();
     }
@@ -80,10 +73,6 @@ public class Round implements ObservableRound {
 
     public boolean ranOutOfDiscards() {
         return (this.discards.isLessThanOrEqualtoZero());
-    }
-
-    public void setNextRound(Round nextRound) {
-        this.nextRound = nextRound;
     }
 
     public RoundDTO toDTO() {

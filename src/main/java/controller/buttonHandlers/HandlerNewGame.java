@@ -47,7 +47,7 @@ public class HandlerNewGame implements EventHandler<ActionEvent> {
             Player user = new Player(playerName, englishDeck);
             Game game = new Game(user, rounds);
 
-            Scene scene = new Scene(new PreparationView(this.stage, this.mainMenuView, game.toDTO()));
+            Scene scene = new Scene(new PreparationView(this.stage, this.mainMenuView, game));
             scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
             stage.setScene(scene);
 

@@ -1,6 +1,5 @@
 package view;
 
-import controller.buttonHandlers.HandlerOptionsButton;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -8,18 +7,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.decks.PlayerDeck;
+import model.game.Game;
 import view.buttons.ButtonOptions;
-import view.dtos.GameDTO;
 import model.game.Shop;
+import view.dtos.GameDTO;
 
 public class PreparationView extends Group {
-    public PreparationView(Stage stage, MainMenuView mainMenuView, GameDTO gameDTO) {
+    public PreparationView(Stage stage, MainMenuView mainMenuView, Game game) {
         super();
 
         Image background = new Image("file:src/resources/textures/game_background.jpg");
@@ -52,8 +51,9 @@ public class PreparationView extends Group {
 
         titleContainer.getChildren().addAll(title, subtitle);
 
-        Button optionsButton = new ButtonOptions(stage, mainMenuView, this);
+        GameDTO gameDTO = game.toDTO();
 
+        Button optionsButton = new ButtonOptions(stage, mainMenuView, this);
         PlayerDeck playerDeck = gameDTO.player().toDTO().playerDeck();
 
         this.addView(backgroundView);
@@ -65,7 +65,7 @@ public class PreparationView extends Group {
         Shop shop = gameDTO.round().toDTO().shop();
         this.addView(new PlayerJokersContainer(this, gameDTO.player(), shop));
         this.addView(new PlayerTarotsContainer(this, gameDTO.player(), shop));
-        this.addView(new ProductsContainer(stage, this, gameDTO.player(), shop, mainMenuView, gameDTO));
+        this.addView(new ProductsContainer(stage, this, gameDTO.player(), shop, mainMenuView, game));
         this.addView(new EnglishDeckView(this, gameDTO.player().toDTO().englishDeck()));
     }
 

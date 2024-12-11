@@ -1,5 +1,6 @@
 package view;
 
+import controller.SoundPlayer;
 import controller.buttonHandlers.HandlerQuit;
 import controller.buttonHandlers.HandlerStartAgain;
 import javafx.geometry.Pos;
@@ -17,6 +18,9 @@ public class RoundLostView extends VBox {
         this.setAlignment(Pos.CENTER);
         this.setSpacing(20);
         this.setPrefSize(1920, 1080);
+        SoundPlayer soundPlayer = SoundPlayer.getInstance();
+        soundPlayer.pauseBackgroundMusic();
+        soundPlayer.playLose();
 
         Label title = new Label("¡No has alcanzado la puntuacion requerida!");
         title.setStyle("-fx-text-fill: rgb(209,81,81); -fx-font-size: 92px;");

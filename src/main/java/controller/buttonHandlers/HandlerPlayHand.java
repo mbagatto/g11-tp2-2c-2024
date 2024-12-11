@@ -7,40 +7,46 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import model.Player;
-import model.game.Round;
+import model.game.Game;
+import view.MainMenuView;
 import view.RoundWonView;
 import view.RoundLostView;
+import view.WonGameView;
 
 public class HandlerPlayHand implements EventHandler<ActionEvent> {
     private Stage stage;
     private Group previousScene;
-    private Player player;
     private SoundPlayer soundPlayer;
-    private Round round;
+    private Game game;
+    private MainMenuView mainMenuView;
 
-    public HandlerPlayHand(Stage stage, Group previousScene, Player player, Round actualRound) {
+    public HandlerPlayHand(Stage stage, Group previousScene, Game game, MainMenuView mainMenuView) {
         this.stage = stage;
         this.previousScene = previousScene;
-        this.player = player;
         this.soundPlayer = SoundPlayer.getInstance();
-        this.round = actualRound;
+        this.game = game;
+        this.mainMenuView = mainMenuView;
     }
 
     public void handle(ActionEvent event) {
         this.soundPlayer.playButtonSound();
-        this.round.playHand(this.player);
+        this.game.playHand();
         checkLoserStatus();
     }
 
     public void checkLoserStatus() {
         PauseTransition pause = new PauseTransition(Duration.seconds(0.25));
 
-        if (this.round.wonRound()) {
+        if (this.game.wonGame()) {
             pause.setOnFinished(event -> {
-                this.previousScene.getChildren().add(new RoundWonView(this.stage));
+                this.previousScene.getChildren().add(new WonGameView(this.stage));
             });
-        } else if (this.round.ranOutOfHands()) {
+        } else if (this.game.wonRound()) {
+            pause.setOnFinished(event -> {
+                this.previousScene.getChildren().add(new RoundWonView(this.stage, this.mainMenuView, this.game));
+            });
+            this.game.setNextRound();
+        } else if (this.game.ranOutOfHands()) {
             pause.setOnFinished(event -> {
                 this.previousScene.getChildren().add(new RoundLostView(this.stage));
             });

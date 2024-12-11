@@ -2,7 +2,6 @@ package model.reader;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.game.NullRound;
 import model.score.Score;
 import model.tarots.Tarot;
 import model.game.Round;
@@ -11,8 +10,6 @@ import model.decks.JokerDeck;
 import model.decks.TarotDeck;
 import model.exceptions.CouldNotReadException;
 import model.jokers.Joker;
-
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,14 +31,8 @@ public class RoundReader {
             BalatroData balatroData = objectMapper.readValue(file, BalatroData.class);
             List<RoundData> roundData = balatroData.getRounds();
 
-            for(int i = 0; i < roundData.size(); i++) {
-                Round round = this.roundGenerator(roundData.get(i));
-                if (i != 0) {
-                    this.rounds.get(i - 1).setNextRound(round);
-                } else if (i == roundData.size() - 1) {
-                    round.setNextRound(new NullRound());
-                }
-                this.rounds.add(round);
+            for (RoundData roundDatum : roundData) {
+                this.rounds.add(this.roundGenerator(roundDatum));
             }
 
         } catch (Exception e) {
