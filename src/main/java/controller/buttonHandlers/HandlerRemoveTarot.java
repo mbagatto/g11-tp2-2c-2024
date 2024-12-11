@@ -23,6 +23,9 @@ public class HandlerRemoveTarot implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent) {
         this.soundPlayer.playTarotDown();
         this.player.removeTarot(this.tarot);
-        this.shop.addTarot(this.tarot);
+
+        if (!this.shop.isFull()) {
+            this.shop.addTarot(this.tarot);
+        }
     }
 }

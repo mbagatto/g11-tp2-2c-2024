@@ -1,30 +1,31 @@
 package view;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 import model.Drawable;
 import model.Player;
+import model.game.Shop;
 import model.jokers.Joker;
-import view.buttons.ButtonSpecialCard;
 import view.dtos.JokerDTO;
 
 public class JokerView extends VBox implements Drawable {
     private Joker joker;
-    private ImageView imageView;
-    private VBox popup;
-    private Pane pane;
+    private Player player;
+    private Shop shop;
+    private ImageView jokerImageView;
+    private JokerManagmentOverlay managmentOverlay;
+    private boolean alreadyClicked = false;
 
-    public JokerView(Joker joker) {
+    public JokerView(Joker joker, Player player, Shop shop) {
         super();
         this.joker = joker;
+        this.player = player;
+        this.shop = shop;
         this.setId("joker-view");
         this.setAlignment(Pos.CENTER);
 
@@ -38,57 +39,46 @@ public class JokerView extends VBox implements Drawable {
         Pane pane = new Pane();
 
         Image image = new Image("file:src/resources/textures/specialCards/" + jokerDTO.name() + ".png");
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(115);
-        imageView.setFitWidth(90);
+        this.jokerImageView = new ImageView(image);
+        this.jokerImageView.setFitHeight(115);
+        this.jokerImageView.setFitWidth(90);
+        this.jokerImageView.setCursor(Cursor.HAND);
 
-        VBox overlay = new VBox(5);
-        overlay.setId("joker-popup");
-        overlay.setAlignment(Pos.CENTER);
-        overlay.setMinWidth(205);
-        overlay.setMaxWidth(205);
-        overlay.setMinHeight(125);
-        overlay.setMaxHeight(125);
-        Label name = new Label(jokerDTO.name());
-        name.setId("joker-popup-name");
-        Label description = new Label(jokerDTO.description());
-        description.setId("joker-popup-description");
-        description.setWrapText(true);
-        description.setTextAlignment(TextAlignment.CENTER);
-        description.setMinWidth(195);
-        description.setMaxWidth(195);
-        Label type = new Label("Comodin");
-        type.setId("joker-popup-type");
-        type.setPrefWidth(80);
-        type.setAlignment(Pos.CENTER);
-        overlay.setVisible(false);
-        overlay.getChildren().addAll(name, description, type);
+        JokerInfoOverlay infoOverlay = new JokerInfoOverlay(jokerDTO);
+        pane.setOnMouseEntered(e -> {
+            infoOverlay.setTranslateX(-60);
+            infoOverlay.setTranslateY(-130);
+            infoOverlay.setVisible(true);
+        });
+        pane.setOnMouseExited(e -> {
+            infoOverlay.setVisible(false);
+        });
 
-        pane.getChildren().addAll(imageView, overlay);
+        this.managmentOverlay = new JokerManagmentOverlay(this.joker, this.player, this.shop);
+        pane.setOnMouseClicked(e -> {
+            if (!this.alreadyClicked) {
+                this.alreadyClicked = true;
+                this.managmentOverlay.setTranslateX(8);
+                this.managmentOverlay.setTranslateY(112);
+                this.managmentOverlay.setVisible(true);
+            } else {
+                this.alreadyClicked = false;
+                this.managmentOverlay.setVisible(false);
+            }
+        });
 
-        this.pane = pane;
-        this.imageView = imageView;
-        this.popup = overlay;
+        pane.getChildren().add(infoOverlay);
+        pane.getChildren().add(this.managmentOverlay);
+        pane.getChildren().add(this.jokerImageView);
 
         this.getChildren().add(pane);
     }
 
-    public void addButton(Button button, EventHandler<ActionEvent> handler) {
-        button.setOnAction(handler);
-        button.setGraphic(this.imageView);
-        button.setOnMouseEntered(e -> {
-            this.popup.setVisible(true);
-            this.popup.setTranslateX(-50);
-            this.popup.setTranslateY(-125);
-        });
-        button.setOnMouseExited(e -> this.popup.setVisible(false));
-        this.pane.getChildren().add(button);
+    public void setAddButton() {
+        this.managmentOverlay.setAddButton();
     }
 
-    public void disableButton() {
-        this.pane.getChildren().removeLast();
-        ButtonSpecialCard button = new ButtonSpecialCard();
-        button.setStyle("-fx-cursor: default;");
-        this.addButton(button, null);
+    public void setDiscardButton() {
+        this.managmentOverlay.setDiscardButton();
     }
 }

@@ -4,6 +4,7 @@ import controller.buttonHandlers.HandlerUseTarot;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -13,21 +14,24 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import model.Drawable;
 import model.Player;
+import model.game.Shop;
 import model.tarots.Tarot;
 import view.buttons.ButtonSpecialCard;
 import view.dtos.TarotDTO;
 
 public class TarotView extends VBox implements Drawable {
-    private Player player;
     private Tarot tarot;
-    private ImageView imageView;
-    private VBox popup;
-    private Pane pane;
+    private Player player;
+    private Shop shop;
+    private ImageView tarotImageView;
+    private TarotManagmentOverlay managmentOverlay;
+    private boolean alreadyClicked = false;
 
-    public TarotView(Tarot tarot, Player player) {
+    public TarotView(Tarot tarot, Player player, Shop shop) {
         super();
         this.player = player;
         this.tarot = tarot;
+        this.shop = shop;
         this.setId("tarot-view");
         this.setAlignment(Pos.CENTER);
 
@@ -41,58 +45,46 @@ public class TarotView extends VBox implements Drawable {
         Pane pane = new Pane();
 
         Image image = new Image("file:src/resources/textures/specialCards/" + tarotDTO.name() + ".png");
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(115);
-        imageView.setFitWidth(90);
+        this.tarotImageView = new ImageView(image);
+        this.tarotImageView.setFitHeight(115);
+        this.tarotImageView.setFitWidth(90);
+        this.tarotImageView.setCursor(Cursor.HAND);
 
-        VBox overlay = new VBox(5);
-        overlay.setId("tarot-popup");
-        overlay.setAlignment(Pos.CENTER);
-        overlay.setMinWidth(205);
-        overlay.setMaxWidth(205);
-        overlay.setMinHeight(125);
-        overlay.setMaxHeight(125);
-        Label name = new Label(tarotDTO.name());
-        name.setId("tarot-popup-name");
-        Label description = new Label(tarotDTO.description());
-        description.setId("tarot-popup-description");
-        description.setWrapText(true);
-        description.setAlignment(Pos.CENTER);
-        description.setTextAlignment(TextAlignment.CENTER);
-        description.setMinWidth(195);
-        description.setMaxWidth(195);
-        description.setMinHeight(50);
-        description.setMaxHeight(50);
-        Label type = new Label("Tarot");
-        type.setId("tarot-popup-type");
-        type.setPrefWidth(80);
-        type.setAlignment(Pos.CENTER);
-        overlay.setVisible(false);
-        overlay.getChildren().addAll(name, description, type);
+        TarotInfoOverlay infoOverlay = new TarotInfoOverlay(tarotDTO);
+        pane.setOnMouseEntered(e -> {
+            infoOverlay.setTranslateX(-60);
+            infoOverlay.setTranslateY(-130);
+            infoOverlay.setVisible(true);
+        });
+        pane.setOnMouseExited(e -> {
+            infoOverlay.setVisible(false);
+        });
 
-        pane.getChildren().addAll(imageView, overlay);
+        this.managmentOverlay = new TarotManagmentOverlay(this.tarot, this.player, this.shop);
+        pane.setOnMouseClicked(e -> {
+            if (!this.alreadyClicked) {
+                this.alreadyClicked = true;
+                this.managmentOverlay.setTranslateX(8);
+                this.managmentOverlay.setTranslateY(112);
+                this.managmentOverlay.setVisible(true);
+            } else {
+                this.alreadyClicked = false;
+                this.managmentOverlay.setVisible(false);
+            }
+        });
 
-        this.pane = pane;
-        this.imageView = imageView;
-        this.popup = overlay;
+        pane.getChildren().add(infoOverlay);
+        pane.getChildren().add(this.managmentOverlay);
+        pane.getChildren().add(this.tarotImageView);
 
         this.getChildren().add(pane);
     }
 
-    public void addButton(Button button, EventHandler<ActionEvent> handler) {
-        button.setOnAction(handler);
-        button.setGraphic(this.imageView);
-        button.setOnMouseEntered(e -> {
-            this.popup.setVisible(true);
-            this.popup.setTranslateX(-50);
-            this.popup.setTranslateY(-125);
-        });
-        button.setOnMouseExited(e -> this.popup.setVisible(false));
-        this.pane.getChildren().add(button);
+    public void setAddButton() {
+        this.managmentOverlay.setAddButton();
     }
 
-    public void setUseButton() {
-        this.pane.getChildren().removeLast();
-        this.addButton(new ButtonSpecialCard(), new HandlerUseTarot(this.player, this.tarot));
+    public void setDiscardAndUseButton() {
+        this.managmentOverlay.setDiscardAndUseButton();
     }
 }

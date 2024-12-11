@@ -47,8 +47,4 @@ public class PlayerTarotsContainer extends VBox implements PlayerObserver {
         this.stage.getChildren().remove(this);
         this.stage.getChildren().add(this);
     }
-
-    public void setUseButtons() {
-        this.tarotsContainerView.setUseButtons();
-    }
 }

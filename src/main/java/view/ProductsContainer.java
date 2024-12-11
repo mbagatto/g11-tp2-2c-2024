@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 import model.Player;
 import model.ShopObserver;
 import model.game.Game;
-import view.dtos.GameDTO;
 import model.game.Shop;
 import view.buttons.ButtonNextRound;
 import view.dtos.ShopDTO;
@@ -27,7 +26,7 @@ public class ProductsContainer extends VBox implements ShopObserver {
 
         this.setId("products-container");
         this.setAlignment(Pos.TOP_CENTER);
-        this.setSpacing(125);
+        this.setSpacing(150);
         this.setLayoutX(550);
         this.setLayoutY(405);
         this.setPrefWidth(900);
