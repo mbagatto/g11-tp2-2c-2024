@@ -10,7 +10,7 @@ public final class SoundPlayer { //Aplica Singleton
     private String tarotUpPath = "src/resources/sounds/tarotUp.wav";
     private String tarotDownPath = "src/resources/sounds/tarotDown.wav";
     private String jokerUpPath = "src/resources/sounds/jokerUp.wav";
-    private String jokerDownPath = "src/resources/sounds/jokerDown.wav";
+    private String jokerDownPath = "src/resources/sounds/jokerDown2.wav";
     private String winRoundPath = "src/resources/sounds/winRound.wav";
     private String cardUpPath = "src/resources/sounds/cardUp.wav";
     private String cardDownPath = "src/resources/sounds/cardDown.wav";
