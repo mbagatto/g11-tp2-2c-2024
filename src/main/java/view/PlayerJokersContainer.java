@@ -47,8 +47,4 @@ public class PlayerJokersContainer extends VBox implements PlayerObserver {
         this.stage.getChildren().remove(this);
         this.stage.getChildren().add(this);
     }
-
-    public void setDisabledButtons() {
-        this.jokersContainerView.setDisabledButtons();
-    }
 }

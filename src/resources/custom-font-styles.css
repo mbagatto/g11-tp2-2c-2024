@@ -95,15 +95,6 @@
     -fx-padding: 50px;
 }
 
-#products-container-view {
-    -fx-background-color: rgba(59, 59, 59, 0.27);
-    -fx-background-radius: 15px;
-    -fx-padding: 10px;
-    -fx-border-radius: 15px;
-    -fx-border-width: 1px;
-    -fx-border-color: rgb(255, 235, 167);
-}
-
 #round-score-container, #points-and-mult, #round-info-pane, #actual-score-pane {
     -fx-background-color: rgba(0,0,0,0.5);
     -fx-background-radius: 12px;
@@ -245,4 +236,46 @@
     -fx-background-radius: 15px;
     -fx-font-size: 18px;
     -fx-text-fill: white;
+}
+
+#joker-managment-button {
+    -fx-background-color: rgba(0,153,255,0.5);
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-background-radius: 0 0 10 10px;
+    -fx-padding: 5px;
+    -fx-text-alignment: center;
+}
+
+#joker-managment-button:hover {
+    -fx-background-color: rgb(0,153,255);
+    -fx-cursor: hand;
+}
+
+#tarot-managment-button {
+    -fx-background-color: rgba(251,56,56,0.5);
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-background-radius: 0 0 10 10px;
+    -fx-padding: 5px;
+    -fx-text-alignment: center;
+}
+
+#tarot-managment-button:hover {
+    -fx-background-color: rgb(251,56,56);
+    -fx-cursor: hand;
+}
+
+#tarot-managment-use-button {
+    -fx-background-color: rgba(255, 235, 167, 0.65);
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-background-radius: 0 10 10 0px;
+    -fx-padding: 5px;
+    -fx-text-alignment: center;
+}
+
+#tarot-managment-use-button:hover {
+    -fx-background-color: rgb(255, 235, 167);
+    -fx-cursor: hand;
 }

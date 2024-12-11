@@ -39,6 +39,10 @@ public class Shop implements ObservableShop  {
         this.notifyObservers();
     }
 
+    public boolean isFull() {
+        return (this.tarots.size() + this.jokers.size()) >= 4;
+    }
+
     public void addObserver(ShopObserver observer) {
         this.observers.add(observer);
     }
@@ -52,4 +56,6 @@ public class Shop implements ObservableShop  {
     public ShopDTO toDTO() {
         return new ShopDTO(this.jokers, this.tarots);
     }
+
+
 }
