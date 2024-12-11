@@ -120,6 +120,10 @@ public class Player implements ObservablePlayer {
         this.englishDeck.shuffleDeck();
     }
 
+    public boolean maxSelectedReached() {
+        return (this.playerDeck.maxSelectedReached());
+    }
+
     public PlayerDTO toDTO() {
         return new PlayerDTO(
                 this.name,

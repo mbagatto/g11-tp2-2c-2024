@@ -6,6 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class HandsAndDiscardsView extends HBox {
+
     public HandsAndDiscardsView(String hands, String discards) {
         super();
         this.setLayoutX(145);

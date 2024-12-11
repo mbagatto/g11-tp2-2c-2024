@@ -1,6 +1,6 @@
 package view.buttons;
 
-import controller.buttonHandlers.HandlerPlay;
+import controller.buttonHandlers.HandlerNewGame;
 import controller.buttonHandlers.HandlerQuit;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -17,7 +17,7 @@ public class MainMenuButtonContainer extends HBox {
         this.setAlignment(Pos.CENTER);
 
         Button playButton = new ButtonBlue("Nueva Partida");  //Nuevo Juego
-        playButton.setOnAction(new HandlerPlay(stage, mainMenuView, playerName, errorLabel));
+        playButton.setOnAction(new HandlerNewGame(stage, mainMenuView, playerName, errorLabel));
 
         Button quitButton = new ButtonRed("Salir");
         quitButton.setOnAction(new HandlerQuit());

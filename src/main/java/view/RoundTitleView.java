@@ -19,7 +19,7 @@ public class RoundTitleView extends VBox implements RoundObserver {
         round.addObserver(this);
         RoundDTO roundDTO = round.toDTO();
 
-        Label title = new Label("RONDA " + roundDTO.number());
+        Label title = new Label("Ronda " + roundDTO.number());
         title.setStyle("-fx-font-size: 100px; -fx-text-fill: white;");
 
         this.getChildren().add(title);
@@ -30,7 +30,7 @@ public class RoundTitleView extends VBox implements RoundObserver {
     public void update(RoundDTO roundDTO) {
         this.getChildren().clear();
 
-        Label title = new Label("RONDA" + roundDTO.number());
+        Label title = new Label("Ronda " + roundDTO.number());
         title.setStyle("-fx-font-size: 100px; -fx-text-fill: white;");
 
         this.getChildren().add(title);

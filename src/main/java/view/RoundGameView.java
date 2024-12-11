@@ -39,10 +39,12 @@ public class RoundGameView extends Group {
         optionsButton.setPrefHeight(80);
         optionsButton.setOnAction(new HandlerOptionsButton(stage, mainMenuView, this));
 
+        PlayerDeck playerDeck = gameDTO.player().toDTO().playerDeck();
+
         this.addView(backgroundView);
         this.addView(rectangle);
         this.addView(new RoundTitleView(gameDTO.round()));
-        this.addView(new RoundInfoView(this, gameDTO.round()));
+        this.addView(new RoundInfoView(this, gameDTO.round(), playerDeck));
         this.addView(optionsButton);
 
         Shop shop = gameDTO.round().toDTO().shop();
@@ -55,8 +57,7 @@ public class RoundGameView extends Group {
         playerTarotsContainer.setUseButtons();
         this.addView(playerTarotsContainer);
 
-        PlayerDeck playerDeck = gameDTO.player().toDTO().playerDeck();
-        PlayerDeckContainer playerDeckContainer = new PlayerDeckContainer(this, playerDeck, gameDTO.player());
+        PlayerDeckContainer playerDeckContainer = new PlayerDeckContainer(this, playerDeck, gameDTO.player(), gameDTO.round(), stage);
         this.addView(playerDeckContainer);
 
         this.addView(new EnglishDeckView(this, gameDTO.player().toDTO(). englishDeck()));

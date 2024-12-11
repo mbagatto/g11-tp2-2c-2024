@@ -1,16 +1,18 @@
 package model.hands;
 
+import model.HandObserver;
+import model.ObservableHand;
 import model.cards.Card;
 import model.jokers.Joker;
 import model.score.Score;
 import model.score.ScoreModifier;
 import model.Modifiable;
-import model.ObservablePlayerDeck;
-import view.records.HandRecord;
+import view.records.HandDTO;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public abstract class Hand extends Modifiable {
+    protected ArrayList<HandObserver> observers;
     protected String name;
 
     @Override
@@ -28,6 +30,7 @@ public abstract class Hand extends Modifiable {
 
     public Hand(Score points, Score multiplier) {
         super(points, multiplier);
+        this.observers = new ArrayList<>();
     }
 
     public Score calculateScore(ArrayList<Card> cards, ArrayList<Joker> jokers) {
@@ -53,7 +56,17 @@ public abstract class Hand extends Modifiable {
         return cards;
     }
 
-    public HandRecord toRecord() {
-        return new HandRecord(this.points.toRecord(), this.multiplier.toRecord(), this.name);
+//    public void addObserver(HandObserver observer) {
+//        this.observers.add(observer);
+//    }
+//
+//    public void notifyObservers() {
+//        for (HandObserver observer : observers) {
+//            observer.update(this.toDTO());
+//        }
+//    }
+
+    public HandDTO toDTO() {
+        return new HandDTO(this.points.toString(), this.multiplier.toString(), this.name);
     }
 }

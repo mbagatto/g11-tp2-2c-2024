@@ -411,15 +411,12 @@
 //
 //    @Override
 //    public void update(RoundRecord roundRecord) {
-////        System.out.println("UPDATE Round se ejecuto");
 //
 //        this.roundLabel.setText("Ronda "+roundRecord.number());
 //        int score = (int) Math.round(roundRecord.scoreToBeat().value());
-////        System.out.println("scoreToBeat: " + score);
 //        this.score.setText("" + score);
 //        int actualScore = (int) Math.round(roundRecord.actualScore().value());
 //        this.actualScore.setText("" + actualScore);
-////        System.out.println("hands: " + roundRecord.hands());
 //        this.handsContainerValue.setText( "" + roundRecord.hands());
 //        this.discardsContainerValue.setText( "" + roundRecord.discards());
 //
@@ -451,7 +448,5 @@
 //
 //        this.labelHand.setText(playerDeckRecord.handRecord().name());
 //
-//        //System.out.println( "Points: " + playerDeckRecord.handRecord().points().value());
-//        //System.out.println( "Mults: " + playerDeckRecord.handRecord().multiplier().value());
 //    }
 //}

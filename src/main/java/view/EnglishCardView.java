@@ -6,11 +6,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import model.Drawable;
-
 import java.util.Random;
 
 public class EnglishCardView extends VBox implements Drawable {
+
     private ImageView imageView;
+
     public EnglishCardView(ImageView cardView){
         super();
         this.imageView = cardView;

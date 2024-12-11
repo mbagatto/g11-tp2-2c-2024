@@ -17,14 +17,14 @@ import view.MainMenuView;
 import view.PreparationView;
 import java.util.ArrayList;
 
-public class HandlerPlay implements EventHandler<ActionEvent> {
+public class HandlerNewGame implements EventHandler<ActionEvent> {
     private Stage stage;
     private MainMenuView mainMenuView;
     private TextField playerName;
     private SoundPlayer soundPlayer;
     private Label errorLabel;
 
-    public HandlerPlay(Stage stage, MainMenuView mainMenuView, TextField playerName, Label errorLabel) {
+    public HandlerNewGame(Stage stage, MainMenuView mainMenuView, TextField playerName, Label errorLabel) {
         this.stage = stage;
         this.mainMenuView = mainMenuView;
         this.playerName = playerName;
@@ -44,7 +44,8 @@ public class HandlerPlay implements EventHandler<ActionEvent> {
 
             EnglishDeck englishDeck = new EnglishDeck();
             englishDeck.fillDeck(cards);
-            Game game = new Game(new Player(playerName, englishDeck), rounds);
+            Player user = new Player(playerName, englishDeck);
+            Game game = new Game(user, rounds);
 
             Scene scene = new Scene(new PreparationView(this.stage, this.mainMenuView, game.toDTO()));
             scene.getStylesheets().add("file:src/resources/custom-font-styles.css");

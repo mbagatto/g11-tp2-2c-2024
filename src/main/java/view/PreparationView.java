@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import model.decks.PlayerDeck;
 import model.game.GameDTO;
 import model.game.Shop;
 
@@ -57,10 +58,12 @@ public class PreparationView extends Group {
         optionsButton.setPrefHeight(80);
         optionsButton.setOnAction(new HandlerOptionsButton(stage, mainMenuView, this));
 
+        PlayerDeck playerDeck = gameDTO.player().toDTO().playerDeck();
+
         this.addView(backgroundView);
         this.addView(rectangle);
         this.addView(titleContainer);
-        this.addView(new RoundInfoView(this, gameDTO.round()));
+        this.addView(new RoundInfoView(this, gameDTO.round(), playerDeck));
         this.addView(optionsButton);
 
         Shop shop = gameDTO.round().toDTO().shop();

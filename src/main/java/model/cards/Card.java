@@ -5,7 +5,6 @@ import model.ObserverCard;
 import model.score.Score;
 import model.Modifiable;
 import view.records.EnglishCardDTO;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -68,38 +67,17 @@ public abstract class Card extends Modifiable implements ObservableCard {
         return new ArrayList<>(Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "Jota", "Reina", "Rey", "As"));
     }
 
-    public void attach(ObserverCard observer) {
+    public void addObserver(ObserverCard observer) {
         this.observers.add(observer);
-    }
-
-    public void detach(ObserverCard observer) {
-        this.observers.remove(observer);
     }
 
     public void notifyObservers() {
         for (ObserverCard observer : observers) {
-            observer.update();
+            observer.update(this.toDTO());
         }
     }
 
-    public String getNumber() {
-        return number;
-    }
-
-    public Score getPoints() {
-        return points;
-    }
-
-    public Score getMultiplier() {
-        return multiplier;
-    }
-
-    public String getSuit() {
-        return suit;
-    }
-
-    public EnglishCardDTO toRecord() {
+    public EnglishCardDTO toDTO() {
         return new EnglishCardDTO(suit, number);
     }
-
 }

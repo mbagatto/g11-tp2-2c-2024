@@ -12,6 +12,9 @@ public final class SoundPlayer { //Aplica Singleton
     private String tarotDownPath = "src/resources/sounds/tarotDown.wav";
     private String jokerUpPath = "src/resources/sounds/jokerUp.wav";
     private String winRoundPath = "src/resources/sounds/winRound.wav";
+    private String cardUpPath = "src/resources/sounds/cardUp.wav";
+    private String cardDownPath = "src/resources/sounds/cardDown.wav";
+    private String maxSelectedPath = "src/resources/sounds/maxSelected.wav";
     private Clip musicClip;
     private static SoundPlayer instance;
 
@@ -94,5 +97,17 @@ public final class SoundPlayer { //Aplica Singleton
 
     public boolean isPlayingMusic() {
         return musicClip != null && musicClip.isRunning();
+    }
+
+    public void playCardUp() {
+        this.playSound(this.cardUpPath);
+    }
+
+    public void playCardDown() {
+        this.playSound(this.cardDownPath);
+    }
+
+    public void playMaxSelected() {
+        this.playSound(this.maxSelectedPath);
     }
 }

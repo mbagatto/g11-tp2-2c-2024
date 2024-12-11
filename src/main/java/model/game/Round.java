@@ -35,22 +35,20 @@ public class Round implements ObservableRound {
     }
 
     public void playHand(Player player) {
-        if (!this.wonRound()) {
+        if (! this.ranOutOfHands()) {
             PlayHand playHand = this.playHands.pop();
             this.actualScore = this.actualScore.addWith(playHand.playTurn(player));
+            this.subtractOne(this.hands);
             this.notifyObservers();
-        } else {
-            this.nextRound.playHand(player);
         }
     }
 
     public void discardHand(Player player) {
-        if (!this.wonRound()) {
+        if (! this.ranOutOfDiscards()) {
             DiscardHand discardHand = this.discardHands.pop();
             this.actualScore = this.actualScore.addWith(discardHand.playTurn(player));
+            this.subtractOne(this.discards);
             this.notifyObservers();
-        } else {
-            this.nextRound.discardHand(player);
         }
     }
 
@@ -72,12 +70,16 @@ public class Round implements ObservableRound {
         return (this.number == 8 && this.wonRound());
     }
 
-    public void subtractHand() {
-        this.hands.subtractOne();
+    public void subtractOne(Score score) {
+        score.subtractOne();
     }
 
     public boolean ranOutOfHands() {
         return (this.hands.isLessThanOrEqualtoZero());
+    }
+
+    public boolean ranOutOfDiscards() {
+        return (this.discards.isLessThanOrEqualtoZero());
     }
 
     public void setNextRound(Round nextRound) {
