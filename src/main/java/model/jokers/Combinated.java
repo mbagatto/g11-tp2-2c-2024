@@ -10,6 +10,7 @@ public class Combinated extends Joker {
     public Combinated(String name, String description, ArrayList<Joker> jokers) {
         super(name, description);
         this.jokers = jokers;
+        this.type = "Combinated";
     }
 
     public Score applyToPoints(Score points, Hand hand) {

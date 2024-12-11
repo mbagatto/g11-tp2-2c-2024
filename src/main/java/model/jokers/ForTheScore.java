@@ -7,6 +7,7 @@ import model.score.Score;
 public class ForTheScore extends Joker {
     public ForTheScore(String name, String description, ScoreModifier toPoints, ScoreModifier toMultiplier) {
         super(name, description, toPoints, toMultiplier);
+        this.type = "For The Score";
     }
 
     public Score applyToPoints(Score points, Hand hand) {

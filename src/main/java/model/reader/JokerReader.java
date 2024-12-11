@@ -82,7 +82,7 @@ public class JokerReader implements Reader<Joker> {
 
                         if (entry.getKey().equals("Bonus por Descarte")) {
                             if (points == 1) {
-                                jokers.add(this.creator.createDiscardBonus(name, description, new DoNotModify(), new Multiply(new Score(multiplier))));
+                                jokers.add(this.creator.createDiscardBonus(name, description, new DoNotModify(), new Add(new Score(multiplier))));
                             } else {
                                 jokers.add(this.creator.createDiscardBonus(name, description, new Add(new Score(points)), new DoNotModify()));
                             }
