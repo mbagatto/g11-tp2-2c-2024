@@ -1,6 +1,6 @@
 package view;
 
-import controller.buttonHandlers.HandlerPlay;
+import controller.buttonHandlers.HandlerNewGame;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -43,7 +43,7 @@ public class MainMenuView extends VBox {
         Label errorLabel = new Label("¡Nombre inválido!");
         errorLabel.setStyle("-fx-font-size: 36px; -fx-text-fill: rgb(251,56,56);");
         errorLabel.setVisible(false);
-        nameField.setOnAction(new HandlerPlay(stage, this, nameField, errorLabel));
+        nameField.setOnAction(new HandlerNewGame(stage, this, nameField, errorLabel));
 
         MainMenuButtonContainer buttonContainer = new MainMenuButtonContainer(stage, this, nameField, errorLabel);
 
