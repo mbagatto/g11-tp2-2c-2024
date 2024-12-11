@@ -11,7 +11,7 @@ public class FourOfAKind extends Hand {
 
     private FourOfAKind() {
         super(new Score(60), new Score(7));
-        this.name = "Four Of A Kind";
+        this.name = "Poker";
     }
 
     public static FourOfAKind getInstance() {

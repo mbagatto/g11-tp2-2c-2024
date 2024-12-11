@@ -7,7 +7,7 @@ public class StraightFlush extends Hand {
 
     private StraightFlush() {
         super(new Score(100), new Score(8));
-        this.name = "Straight Flush";
+        this.name = "Escalera Color";
     }
 
     public static StraightFlush getInstance() {

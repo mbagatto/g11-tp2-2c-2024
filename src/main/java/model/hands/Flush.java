@@ -7,7 +7,7 @@ public class Flush extends Hand {
 
     private Flush() {
         super(new Score(35), new Score(4));
-        this.name = "Flush";
+        this.name = "Color";
     }
 
     public static Flush getInstance() {

@@ -1,5 +1,6 @@
 package model;
 
+import model.cards.Card;
 import model.cards.Diamond;
 import model.cards.Heart;
 import model.cards.Spade;
@@ -36,8 +37,9 @@ public class JokerTest {
     public void test01ForTheScoreJokerShouldBeAppliedCorrectlyToThePointsOfAHand() {
         // Arrange
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
-        playerDeck.selectCard(0);
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        playerDeck.addCard(fourOfSpades);
+        playerDeck.selectCard(fourOfSpades);
         Joker joker = new ForTheScore("Octopus Joker", "", new Add(new Score(100)), new DoNotModify());
         ArrayList<Joker> jokers = new ArrayList<>();
         jokers.add(joker);
@@ -52,12 +54,15 @@ public class JokerTest {
     public void test02ForTheScoreJokerShouldBeAppliedCorrectlyToTheMultiplierOfAHand() {
         // Arrange
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
-        playerDeck.addCard(new Heart("4", new Score(4), new Score(1)));
-        playerDeck.addCard(new Diamond("4", new Score(4), new Score(1)));
-        playerDeck.selectCard(0);
-        playerDeck.selectCard(1);
-        playerDeck.selectCard(2);
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card fourOfHearts = new Heart("4", new Score(4), new Score(1));
+        Card fourOfDiamonds = new Diamond("4", new Score(4), new Score(1));
+        playerDeck.addCard(fourOfSpades);
+        playerDeck.addCard(fourOfHearts);
+        playerDeck.addCard(fourOfDiamonds);
+        playerDeck.selectCard(fourOfSpades);
+        playerDeck.selectCard(fourOfHearts);
+        playerDeck.selectCard(fourOfDiamonds);
         Joker joker = new ForTheScore("Octopus Joker", "", new DoNotModify(), new Multiply(new Score(4)));
         ArrayList<Joker> jokers = new ArrayList<>();
         jokers.add(joker);
@@ -72,16 +77,21 @@ public class JokerTest {
     public void test03PlayedHandBonusJokerShouldBeAppliedCorrectlyToTheMultiplierOfAStraight() {
         // Arrange
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
-        playerDeck.addCard(new Diamond("6", new Score(6), new Score(1)));
-        playerDeck.addCard(new Spade("5", new Score(5), new Score(1)));
-        playerDeck.addCard(new Spade("3", new Score(3), new Score(1)));
-        playerDeck.addCard(new Spade("7", new Score(7), new Score(1)));
-        playerDeck.selectCard(0);
-        playerDeck.selectCard(1);
-        playerDeck.selectCard(2);
-        playerDeck.selectCard(3);
-        playerDeck.selectCard(4);
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card sixOfDiamonds = new Diamond("6", new Score(6), new Score(1));
+        Card fiveOfSpades = new Spade("5", new Score(5), new Score(1));
+        Card threeOfSpades = new Spade("3", new Score(3), new Score(1));
+        Card sevenOfSpades = new Spade("7", new Score(7), new Score(1));
+        playerDeck.addCard(fourOfSpades);
+        playerDeck.addCard(sixOfDiamonds);
+        playerDeck.addCard(fiveOfSpades);
+        playerDeck.addCard(threeOfSpades);
+        playerDeck.addCard(sevenOfSpades);
+        playerDeck.selectCard(fourOfSpades);
+        playerDeck.selectCard(sixOfDiamonds);
+        playerDeck.selectCard(fiveOfSpades);
+        playerDeck.selectCard(threeOfSpades);
+        playerDeck.selectCard(sevenOfSpades);
         Hand straight = Straight.getInstance();
         Joker joker = new PlayedHandBonus("Crazy Joker", "", new DoNotModify(), new Add(new Score(12)), straight);
         ArrayList<Joker> jokers = new ArrayList<>();
@@ -97,12 +107,17 @@ public class JokerTest {
     public void test04PlayedHandBonusJokerShouldNotBeAppliedWhenOtherHandIsPlayed() {
         // Arrange
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
-        playerDeck.addCard(new Diamond("6", new Score(6), new Score(1)));
-        playerDeck.addCard(new Spade("5", new Score(5), new Score(1)));
-        playerDeck.addCard(new Spade("3", new Score(3), new Score(1)));
-        playerDeck.addCard(new Spade("7", new Score(7), new Score(1)));
-        playerDeck.selectCard(0);
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card sixOfDiamonds = new Diamond("6", new Score(6), new Score(1));
+        Card fiveOfSpades = new Spade("5", new Score(5), new Score(1));
+        Card threeOfSpades = new Spade("3", new Score(3), new Score(1));
+        Card sevenOfSpades = new Spade("7", new Score(7), new Score(1));
+        playerDeck.addCard(fourOfSpades);
+        playerDeck.addCard(sixOfDiamonds);
+        playerDeck.addCard(fiveOfSpades);
+        playerDeck.addCard(threeOfSpades);
+        playerDeck.addCard(sevenOfSpades);
+        playerDeck.selectCard(fourOfSpades);
         Hand straight = Straight.getInstance();
         Joker joker = new PlayedHandBonus("Crazy Joker", "", new DoNotModify(), new Add(new Score(12)), straight);
         ArrayList<Joker> jokers = new ArrayList<>();
@@ -120,8 +135,9 @@ public class JokerTest {
         Probability mockProbability = Mockito.mock(Probability.class);
         Mockito.when(mockProbability.calculate()).thenReturn(true);
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("10", new Score(10), new Score(1)));
-        playerDeck.selectCard(0);
+        Card tenOfSpades = new Spade("10", new Score(10), new Score(1));
+        playerDeck.addCard(tenOfSpades);
+        playerDeck.selectCard(tenOfSpades);
         Joker joker = new RandomActivation("Gros Michel", "", new DoNotModify(), new Multiply(new Score(15)), mockProbability);
         ArrayList<Joker> jokers = new ArrayList<>();
         jokers.add(joker);
@@ -138,8 +154,9 @@ public class JokerTest {
         Probability mockProbability = Mockito.mock(Probability.class);
         Mockito.when(mockProbability.calculate()).thenReturn(false);
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("10", new Score(10), new Score(1)));
-        playerDeck.selectCard(0);
+        Card tenOfSpades = new Spade("10", new Score(10), new Score(1));
+        playerDeck.addCard(tenOfSpades);
+        playerDeck.selectCard(tenOfSpades);
         Joker joker = new RandomActivation("Gros Michel", "", new DoNotModify(), new Multiply(new Score(15)), mockProbability);
         ArrayList<Joker> jokers = new ArrayList<>();
         jokers.add(joker);
@@ -162,16 +179,21 @@ public class JokerTest {
         jokersForJoker.add(new RandomActivation("Gros Michel", "", new DoNotModify(), new Multiply(new Score(15)), mockProbability));
         Joker joker = new Combinated("Combinated Supremacy", "", jokersForJoker);
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
-        playerDeck.addCard(new Diamond("6", new Score(6), new Score(1)));
-        playerDeck.addCard(new Heart("5", new Score(5), new Score(1)));
-        playerDeck.addCard(new Spade("3", new Score(3), new Score(1)));
-        playerDeck.addCard(new Spade("7", new Score(7), new Score(1)));
-        playerDeck.selectCard(0);
-        playerDeck.selectCard(1);
-        playerDeck.selectCard(2);
-        playerDeck.selectCard(3);
-        playerDeck.selectCard(4);
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card sixOfDiamonds = new Diamond("6", new Score(6), new Score(1));
+        Card fiveOfSpades = new Spade("5", new Score(5), new Score(1));
+        Card threeOfSpades = new Spade("3", new Score(3), new Score(1));
+        Card sevenOfSpades = new Spade("7", new Score(7), new Score(1));
+        playerDeck.addCard(fourOfSpades);
+        playerDeck.addCard(sixOfDiamonds);
+        playerDeck.addCard(fiveOfSpades);
+        playerDeck.addCard(threeOfSpades);
+        playerDeck.addCard(sevenOfSpades);
+        playerDeck.selectCard(fourOfSpades);
+        playerDeck.selectCard(sixOfDiamonds);
+        playerDeck.selectCard(fiveOfSpades);
+        playerDeck.selectCard(threeOfSpades);
+        playerDeck.selectCard(sevenOfSpades);
         ArrayList<Joker> jokersForDeck = new ArrayList<>();
         jokersForDeck.add(joker);
         Score expectedScore = new Score(52800);
@@ -193,8 +215,9 @@ public class JokerTest {
         jokersForJoker.add(new RandomActivation("Gros Michel", "", new DoNotModify(), new Multiply(new Score(15)), mockProbability));
         Joker joker = new Combinated("Combinated Supremacy", "", jokersForJoker);
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("10", new Score(10), new Score(1)));
-        playerDeck.selectCard(0);
+        Card tenOfSpades = new Spade("10", new Score(10), new Score(1));
+        playerDeck.addCard(tenOfSpades);
+        playerDeck.selectCard(tenOfSpades);
         ArrayList<Joker> jokersForDeck = new ArrayList<>();
         jokersForDeck.add(joker);
         Score expectedScore = new Score(900);
@@ -216,16 +239,21 @@ public class JokerTest {
         jokersForJoker.add(new RandomActivation("Gros Michel", "", new DoNotModify(), new Multiply(new Score(15)), mockProbability));
         Joker joker = new Combinated("Combinated Supremacy", "", jokersForJoker);
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
-        playerDeck.addCard(new Diamond("6", new Score(6), new Score(1)));
-        playerDeck.addCard(new Heart("5", new Score(5), new Score(1)));
-        playerDeck.addCard(new Spade("3", new Score(3), new Score(1)));
-        playerDeck.addCard(new Spade("7", new Score(7), new Score(1)));
-        playerDeck.selectCard(0);
-        playerDeck.selectCard(1);
-        playerDeck.selectCard(2);
-        playerDeck.selectCard(3);
-        playerDeck.selectCard(4);
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card sixOfDiamonds = new Diamond("6", new Score(6), new Score(1));
+        Card fiveOfSpades = new Spade("5", new Score(5), new Score(1));
+        Card threeOfSpades = new Spade("3", new Score(3), new Score(1));
+        Card sevenOfSpades = new Spade("7", new Score(7), new Score(1));
+        playerDeck.addCard(fourOfSpades);
+        playerDeck.addCard(sixOfDiamonds);
+        playerDeck.addCard(fiveOfSpades);
+        playerDeck.addCard(threeOfSpades);
+        playerDeck.addCard(sevenOfSpades);
+        playerDeck.selectCard(fourOfSpades);
+        playerDeck.selectCard(sixOfDiamonds);
+        playerDeck.selectCard(fiveOfSpades);
+        playerDeck.selectCard(threeOfSpades);
+        playerDeck.selectCard(sevenOfSpades);
         ArrayList<Joker> jokersForDeck = new ArrayList<>();
         jokersForDeck.add(joker);
         Score expectedScore = new Score(3520);
@@ -247,8 +275,9 @@ public class JokerTest {
         jokersForJoker.add(new RandomActivation("Gros Michel", "", new DoNotModify(), new Multiply(new Score(15)), mockProbability));
         Joker joker = new Combinated("Combinated Supremacy", "", jokersForJoker);
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("10", new Score(10), new Score(1)));
-        playerDeck.selectCard(0);
+        Card tenOfSpades = new Spade("10", new Score(10), new Score(1));
+        playerDeck.addCard(tenOfSpades);
+        playerDeck.selectCard(tenOfSpades);
         ArrayList<Joker> jokersForDeck = new ArrayList<>();
         jokersForDeck.add(joker);
         Score expectedScore = new Score(60);
@@ -262,17 +291,22 @@ public class JokerTest {
     public void test11DiscardBonusJokerShouldBeAppliedToThePointsCorrectly() {
         // Arrange
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
-        playerDeck.addCard(new Diamond("6", new Score(6), new Score(1)));
-        playerDeck.addCard(new Spade("5", new Score(5), new Score(1)));
-        playerDeck.addCard(new Spade("3", new Score(3), new Score(1)));
-        playerDeck.addCard(new Spade("7", new Score(7), new Score(1)));
-        playerDeck.selectCard(0);
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card sixOfDiamonds = new Diamond("6", new Score(6), new Score(1));
+        Card fiveOfSpades = new Spade("5", new Score(5), new Score(1));
+        Card threeOfSpades = new Spade("3", new Score(3), new Score(1));
+        Card sevenOfSpades = new Spade("7", new Score(7), new Score(1));
+        playerDeck.addCard(fourOfSpades);
+        playerDeck.addCard(sixOfDiamonds);
+        playerDeck.addCard(fiveOfSpades);
+        playerDeck.addCard(threeOfSpades);
+        playerDeck.addCard(sevenOfSpades);
+        playerDeck.selectCard(fourOfSpades);
         Joker joker = new DiscardBonus("Flag Joker", "", new Add(new Score(30)), new DoNotModify());
         ArrayList<Joker> jokers = new ArrayList<>();
         jokers.add(joker);
         playerDeck.discard(jokers);
-        playerDeck.selectCard(0);
+        playerDeck.selectCard(sixOfDiamonds);
         Score expectedScore = new Score(41);
         // Act
         Score obtainedScore = playerDeck.play(jokers);
@@ -284,12 +318,17 @@ public class JokerTest {
     public void test12DiscardBonusJokerShouldNotBeAppliedWhenThePlayerHasZeroDiscards() {
         // Arrange
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
-        playerDeck.addCard(new Diamond("6", new Score(6), new Score(1)));
-        playerDeck.addCard(new Spade("5", new Score(5), new Score(1)));
-        playerDeck.addCard(new Spade("3", new Score(3), new Score(1)));
-        playerDeck.addCard(new Spade("7", new Score(7), new Score(1)));
-        playerDeck.selectCard(0);
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card sixOfDiamonds = new Diamond("6", new Score(6), new Score(1));
+        Card fiveOfSpades = new Spade("5", new Score(5), new Score(1));
+        Card threeOfSpades = new Spade("3", new Score(3), new Score(1));
+        Card sevenOfSpades = new Spade("7", new Score(7), new Score(1));
+        playerDeck.addCard(fourOfSpades);
+        playerDeck.addCard(sixOfDiamonds);
+        playerDeck.addCard(fiveOfSpades);
+        playerDeck.addCard(threeOfSpades);
+        playerDeck.addCard(sevenOfSpades);
+        playerDeck.selectCard(fourOfSpades);
         Joker joker = new DiscardBonus("Flag Joker", "", new Add(new Score(30)), new DoNotModify());
         ArrayList<Joker> jokers = new ArrayList<>();
         jokers.add(joker);
@@ -304,17 +343,22 @@ public class JokerTest {
     public void test13DiscardBonusJokerShouldBeAppliedToTheMultiplierCorrectly() {
         // Arrange
         PlayerDeck playerDeck = new PlayerDeck();
-        playerDeck.addCard(new Spade("4", new Score(4), new Score(1)));
-        playerDeck.addCard(new Diamond("6", new Score(6), new Score(1)));
-        playerDeck.addCard(new Spade("5", new Score(5), new Score(1)));
-        playerDeck.addCard(new Spade("3", new Score(3), new Score(1)));
-        playerDeck.addCard(new Spade("7", new Score(7), new Score(1)));
-        playerDeck.selectCard(0);
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card sixOfDiamonds = new Diamond("6", new Score(6), new Score(1));
+        Card fiveOfSpades = new Spade("5", new Score(5), new Score(1));
+        Card threeOfSpades = new Spade("3", new Score(3), new Score(1));
+        Card sevenOfSpades = new Spade("7", new Score(7), new Score(1));
+        playerDeck.addCard(fourOfSpades);
+        playerDeck.addCard(sixOfDiamonds);
+        playerDeck.addCard(fiveOfSpades);
+        playerDeck.addCard(threeOfSpades);
+        playerDeck.addCard(sevenOfSpades);
+        playerDeck.selectCard(fourOfSpades);
         Joker joker = new DiscardBonus("Mountain Eco", "", new DoNotModify(), new Multiply(new Score(10)));
         ArrayList<Joker> jokers = new ArrayList<>();
         jokers.add(joker);
         playerDeck.discard(jokers);
-        playerDeck.selectCard(0);
+        playerDeck.selectCard(sixOfDiamonds);
         Score expectedScore = new Score(110);
         // Act
         Score obtainedScore = playerDeck.play(jokers);

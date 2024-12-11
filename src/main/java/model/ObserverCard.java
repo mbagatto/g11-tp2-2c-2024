@@ -1,5 +1,7 @@
 package model;
 
+import view.dtos.EnglishCardDTO;
+
 public interface ObserverCard {
-    public void update();
+    void update(EnglishCardDTO cardDTO);
 }

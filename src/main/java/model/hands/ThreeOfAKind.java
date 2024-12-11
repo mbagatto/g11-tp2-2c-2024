@@ -11,7 +11,7 @@ public class ThreeOfAKind extends Hand {
 
     private ThreeOfAKind() {
         super(new Score(30), new Score(3));
-        this.name = "Three Of A Kind";
+        this.name = "Trio";
     }
 
     public static ThreeOfAKind getInstance() {

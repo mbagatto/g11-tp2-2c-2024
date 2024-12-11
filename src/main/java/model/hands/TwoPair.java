@@ -11,7 +11,7 @@ public class TwoPair extends Hand {
 
     private TwoPair() {
         super(new Score(20), new Score(2));
-        this.name = "Two Pair";
+        this.name = "Doble Par";
     }
 
     public static TwoPair getInstance() {

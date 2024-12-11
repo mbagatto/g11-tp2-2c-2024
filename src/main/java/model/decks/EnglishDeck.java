@@ -1,19 +1,19 @@
 package model.decks;
 
-import model.Dealable;
+import model.EnglishDeckObserver;
+import model.ObservableEnglishDeck;
 import model.cards.*;
-import model.creators.EnglishCardBuilder;
 import model.exceptions.EmptyDeckException;
 import model.reader.DataReader;
-
+import view.dtos.EnglishDeckDTO;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
-public class EnglishDeck implements Dealable {
+public class EnglishDeck implements ObservableEnglishDeck {
     private ArrayList<Card> cards;
-    DataReader cardReader;
-    EnglishCardBuilder cardBuilder;
+    private DataReader cardReader;
+    private ArrayList<EnglishDeckObserver> observers;
 
     @Override
     public boolean equals(Object o) {
@@ -31,34 +31,42 @@ public class EnglishDeck implements Dealable {
     public EnglishDeck() {
         this.cards = new ArrayList<>();
         this.cardReader = new DataReader();
-        this.cardBuilder = new EnglishCardBuilder();
+        this.observers = new ArrayList<>();
     }
 
-    public void fillDeck(){
-        try {
-            this.cards.addAll(this.cardReader.cardsRead());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public int fillDeck(ArrayList<Card> cards) {
+        this.cards.addAll(cards);
+        return this.cards.size();
     }
 
     public Card deal() {
         if (this.cards.isEmpty()) {
             throw new EmptyDeckException();
         }
-        return (this.cards.removeLast());
+        Card dealedCard = this.cards.removeLast();
+        this.notifyObservers();
+        return dealedCard;
     }
 
     public void shuffleDeck(){
         Collections.shuffle(this.cards);
     }
 
-    @Override
-    public ArrayList<Card> getCards() {
-        return this.cards;
-    }
-
     public void reorderDeck(ArrayList<Card> playedCards) {
         this.cards.addAll(playedCards);
+    }
+
+    public void addObserver(EnglishDeckObserver observer) {
+        this.observers.add(observer);
+    }
+
+    public void notifyObservers() {
+        for (EnglishDeckObserver observer : observers) {
+            observer.update(this.toDTO());
+        }
+    }
+
+    public EnglishDeckDTO toDTO() {
+        return new EnglishDeckDTO(this.cards.size());
     }
 }

@@ -3,42 +3,26 @@ package controller.buttonHandlers;
 import controller.SoundPlayer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
 import model.Player;
+import model.game.Shop;
 import model.jokers.Joker;
-import view.PlayerJokersView;
-import view.ShopContainer;
-import view.ShopProductView;
 
 public class HandlerRemoveJoker implements EventHandler<ActionEvent> {
     private Player player;
     private Joker joker;
-    private ShopContainer shopContainer;
-    private VBox playerJokerView;
-    private PlayerJokersView playerJokersView;
+    private Shop shop;
     private SoundPlayer soundPlayer;
 
-    public HandlerRemoveJoker(Player player, Joker joker, ShopContainer shopContainer, VBox playerJokerView, PlayerJokersView playerJokersView) {
+    public HandlerRemoveJoker(Player player, Joker joker, Shop shop) {
         this.player = player;
         this.joker = joker;
-        this.shopContainer = shopContainer;
-        this.playerJokerView = playerJokerView;
-        this.playerJokersView = playerJokersView;
-        this.soundPlayer = new SoundPlayer();
+        this.shop = shop;
+        this.soundPlayer = SoundPlayer.getInstance();
     }
 
     public void handle(ActionEvent actionEvent) {
-        this.soundPlayer.playJokerUp();
+        this.soundPlayer.playJokerDown();
         this.player.removeJoker(this.joker);
-        this.playerJokersView.removeProduct(this.playerJokerView);
-
-        VBox shopJokerView = new ShopProductView(joker);
-        this.shopContainer.addProduct(shopJokerView);
-
-        Button addButton = (Button) shopJokerView.getChildren().get(1);
-        addButton.setOnAction(new HandlerAddJoker(this.player, this.joker, this.shopContainer, shopJokerView, this.playerJokersView));
-
-        this.playerJokersView.updateLabel();
+        this.shop.addJoker(this.joker);
     }
 }

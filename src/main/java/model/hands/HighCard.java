@@ -12,7 +12,7 @@ public class HighCard extends Hand {
 
     private HighCard() {
         super(new Score(5), new Score(1));
-        this.name = "High Card";
+        this.name = "Carta Alta";
     }
 
     public static HighCard getInstance() {

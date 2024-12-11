@@ -1,6 +1,5 @@
 package model.cards;
 
-import model.ObserverCard;
 import model.score.Score;
 
 import java.util.ArrayList;

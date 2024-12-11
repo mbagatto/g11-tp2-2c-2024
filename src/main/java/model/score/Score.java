@@ -1,12 +1,5 @@
 package model.score;
 
-import view.records.ScoreRecord;
-
-import java.math.BigInteger;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
-import java.util.Locale;
 import java.util.Objects;
 
 public class Score {
@@ -45,17 +38,13 @@ public class Score {
         return (int) this.value;
     }
 
-    public String toString() {
-        return String.valueOf(this.value);
-    }
-
     public boolean isLessThanOrEqualtoZero() { return (this.value <= 0); }
-
-    public ScoreRecord toRecord(){
-        return new ScoreRecord(this.value);
-    }
 
     public void subtractOne() {
         this.value = this.value - 1;
+    }
+
+    public String toString() {
+        return String.valueOf((int) this.value);
     }
 }

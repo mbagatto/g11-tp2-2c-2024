@@ -7,7 +7,7 @@ public class Straight extends Hand {
 
     private Straight() {
         super(new Score(30), new Score(4));
-        this.name = "Straight";
+        this.name = "Escalera";
     }
 
     public static Straight getInstance() {

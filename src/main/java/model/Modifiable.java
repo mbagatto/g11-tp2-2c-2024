@@ -12,8 +12,7 @@ public abstract class Modifiable {
       this.multiplier = multiplier;
    }
 
-   public boolean applyTarot(ScoreModifier toPoints, ScoreModifier toMultiplier, Modifiable modifiable) {
-      System.out.println(modifiable.toString());
+   public boolean applyTarot(ScoreModifier toPoints, ScoreModifier toMultiplier) {
       Score oldPoints = new Score(this.points.numericValue());
       Score oldMultiplier = new Score(this.multiplier.numericValue());
       this.points = toPoints.modify(this.points);
