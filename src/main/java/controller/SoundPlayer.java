@@ -16,6 +16,7 @@ public final class SoundPlayer { //Aplica Singleton
     private String cardDownPath = "src/resources/sounds/cardDown.wav";
     private String maxSelectedPath = "src/resources/sounds/maxSelected.wav";
     private String losePath = "src/resources/sounds/lose.wav";
+    private String tarotUsePath =  "src/resources/sounds/tarotUse.wav";
     private Clip musicClip;
     private static SoundPlayer instance;
 
@@ -118,5 +119,9 @@ public final class SoundPlayer { //Aplica Singleton
 
     public void playLose() {
         this.playSound(this.losePath);
+    }
+
+    public void playTarotUse() {
+        this.playSound(this.tarotUsePath);
     }
 }
