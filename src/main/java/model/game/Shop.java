@@ -4,7 +4,7 @@ import model.ObservableShop;
 import model.ShopObserver;
 import model.tarots.Tarot;
 import model.jokers.Joker;
-import view.records.ShopDTO;
+import view.dtos.ShopDTO;
 
 import java.util.ArrayList;
 

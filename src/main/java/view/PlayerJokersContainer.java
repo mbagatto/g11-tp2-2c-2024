@@ -6,7 +6,7 @@ import javafx.scene.layout.VBox;
 import model.Player;
 import model.PlayerObserver;
 import model.game.Shop;
-import view.records.PlayerDTO;
+import view.dtos.PlayerDTO;
 
 public class PlayerJokersContainer extends VBox implements PlayerObserver {
     private Group stage;

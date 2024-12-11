@@ -22,7 +22,7 @@ public class ProductsContainerView extends HBox {
         this.setPrefHeight(250);
 
         for (Joker joker : jokers) {
-            JokerView jokerView = new JokerView(joker, player);
+            JokerView jokerView = new JokerView(joker);
             jokerView.addButton(new ButtonSpecialCard(), new HandlerAddJoker(player, joker, shop));
             this.getChildren().add(jokerView);
         }

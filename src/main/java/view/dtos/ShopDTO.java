@@ -1,6 +1,5 @@
-package view.records;
+package view.dtos;
 
-import model.ClassDTO;
 import model.jokers.Joker;
 import model.tarots.Tarot;
 

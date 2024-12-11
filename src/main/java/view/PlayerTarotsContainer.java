@@ -6,7 +6,7 @@ import javafx.scene.layout.VBox;
 import model.Player;
 import model.PlayerObserver;
 import model.game.Shop;
-import view.records.PlayerDTO;
+import view.dtos.PlayerDTO;
 
 public class PlayerTarotsContainer extends VBox implements PlayerObserver {
     private Group stage;
@@ -29,7 +29,7 @@ public class PlayerTarotsContainer extends VBox implements PlayerObserver {
         this.tarotsContainerView = new TarotsContainerView(player, playerDTO.tarots(), shop);
         this.getChildren().add(tarotsContainerView);
 
-        Label tarotsCount = new Label(playerDTO.jokers().size() + "/2");
+        Label tarotsCount = new Label(playerDTO.tarots().size() + "/2");
         tarotsCount.setId("player-tarots-count");
         this.getChildren().add(tarotsCount);
     }

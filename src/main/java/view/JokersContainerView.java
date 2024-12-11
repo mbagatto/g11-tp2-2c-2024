@@ -12,6 +12,9 @@ import java.util.ArrayList;
 
 public class JokersContainerView extends HBox {
     private ArrayList<JokerView> jokerViews;
+    private ArrayList<Joker> jokers;
+    private Player player;
+    private Shop shop;
 
     public JokersContainerView(Player player, ArrayList<Joker> jokers, Shop shop) {
         super();
@@ -21,12 +24,14 @@ public class JokersContainerView extends HBox {
         this.setMaxWidth(775);
         this.setPrefHeight(190);
         this.setSpacing(0);
-
+        this.player = player;
+        this.shop = shop;
+        this.jokers = jokers;
         this.jokerViews = new ArrayList<>();
 
         for (Joker joker : jokers) {
-            JokerView jokerView = new JokerView(joker, player);
-            jokerView.addButton(new ButtonSpecialCard(), new HandlerRemoveJoker(player, joker, shop));
+            JokerView jokerView = new JokerView(joker);
+            jokerView.addButton(new ButtonSpecialCard(), new HandlerRemoveJoker(this.player, joker, this.shop));
             this.getChildren().add(jokerView);
             this.jokerViews.add(jokerView);
         }

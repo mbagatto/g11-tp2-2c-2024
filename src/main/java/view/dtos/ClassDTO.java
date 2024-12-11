@@ -1,3 +1,3 @@
-package model;
+package view.dtos;
 
 public interface ClassDTO {}

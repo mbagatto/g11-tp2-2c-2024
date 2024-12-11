@@ -3,7 +3,6 @@ package view;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -15,18 +14,16 @@ import model.Drawable;
 import model.Player;
 import model.jokers.Joker;
 import view.buttons.ButtonSpecialCard;
-import view.records.JokerDTO;
+import view.dtos.JokerDTO;
 
 public class JokerView extends VBox implements Drawable {
-    private Player player;
     private Joker joker;
     private ImageView imageView;
     private VBox popup;
     private Pane pane;
 
-    public JokerView(Joker joker, Player player) {
+    public JokerView(Joker joker) {
         super();
-        this.player = player;
         this.joker = joker;
         this.setId("joker-view");
         this.setAlignment(Pos.CENTER);

@@ -21,7 +21,7 @@ public class HandlerUnselectCard implements EventHandler<MouseEvent> {
     }
 
     public void handle(MouseEvent event) {
-        //this.englishCardView.setTranslateY(this.englishCardView.getLayoutY() - 40);
+        this.soundPlayer.playCardDown();
         this.englishCardView.setTranslateY(this.englishCardView.getLayoutY());
         this.player.unselectCard(this.card);
         this.englishCardView.setOnMouseClicked(new HandlerSelectCard(player, card, englishCardView));

@@ -7,8 +7,8 @@ import model.Player;
 import model.RoundObserver;
 import model.decks.PlayerDeck;
 import model.game.Round;
-import view.records.PlayerDeckDTO;
-import view.records.RoundDTO;
+import view.dtos.PlayerDeckDTO;
+import view.dtos.RoundDTO;
 
 public class PlayerDeckContainer extends VBox implements RoundObserver {
     private Group previousScene;
@@ -24,7 +24,7 @@ public class PlayerDeckContainer extends VBox implements RoundObserver {
         this.player = player;
         this.playerDeckDTO = playerDeck.toDTO();
         this.getChildren().add(new PlayerDeckView(this.playerDeckDTO.cards(), this.player));
-        this.getChildren().add(new PlayDiscardButtonsView(player, stage, actualRound));
+        this.getChildren().add(new PlayDiscardButtonsView(stage, previousScene, player, actualRound));
     }
 
     @Override

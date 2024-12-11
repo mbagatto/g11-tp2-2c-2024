@@ -1,6 +1,6 @@
 package model;
 
-import view.records.HandDTO;
+import view.dtos.HandDTO;
 
 public interface HandObserver {
     void update(HandDTO handDTO);

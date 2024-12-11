@@ -1,8 +1,6 @@
-package view.records;
+package view.dtos;
 
-import model.ClassDTO;
-
-public record TarotDTO
+public record JokerDTO
         (
             String name,
             String description

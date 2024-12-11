@@ -1,6 +1,5 @@
-package view.records;
+package view.dtos;
 
-import model.ClassDTO;
 import model.decks.EnglishDeck;
 import model.decks.PlayerDeck;
 import model.jokers.Joker;

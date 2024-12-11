@@ -5,7 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.game.GameDTO;
+import view.dtos.GameDTO;
 import view.MainMenuView;
 import view.RoundGameView;
 
@@ -29,7 +29,6 @@ public class HandlerNextRound  implements EventHandler<ActionEvent> {
         this.gameDTO.player().reorderDeck();
         this.gameDTO.player().shuffleDeck();
         this.gameDTO.player().completeDeck();
-
 
         Scene scene = new Scene(new RoundGameView(this.stage, this.mainMenuView, this.gameDTO));
         scene.getStylesheets().add("file:src/resources/custom-font-styles.css");

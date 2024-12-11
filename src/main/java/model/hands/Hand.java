@@ -1,13 +1,12 @@
 package model.hands;
 
 import model.HandObserver;
-import model.ObservableHand;
 import model.cards.Card;
 import model.jokers.Joker;
 import model.score.Score;
 import model.score.ScoreModifier;
 import model.Modifiable;
-import view.records.HandDTO;
+import view.dtos.HandDTO;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -55,16 +54,6 @@ public abstract class Hand extends Modifiable {
     protected ArrayList<Card> findHandCards(ArrayList<Card> cards) {
         return cards;
     }
-
-//    public void addObserver(HandObserver observer) {
-//        this.observers.add(observer);
-//    }
-//
-//    public void notifyObservers() {
-//        for (HandObserver observer : observers) {
-//            observer.update(this.toDTO());
-//        }
-//    }
 
     public HandDTO toDTO() {
         return new HandDTO(this.points.toString(), this.multiplier.toString(), this.name);

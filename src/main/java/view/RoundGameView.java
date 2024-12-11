@@ -6,11 +6,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.decks.PlayerDeck;
-import model.game.GameDTO;
+import view.buttons.ButtonOptions;
+import view.dtos.GameDTO;
 import model.game.Shop;
 
 public class RoundGameView extends Group {
@@ -31,13 +33,7 @@ public class RoundGameView extends Group {
         rectangle.setStroke(Color.web("#FFEBA7FF"));
         rectangle.setStrokeWidth(5);
 
-        Button optionsButton = new Button("Opciones");
-        optionsButton.setId("options-button");
-        optionsButton.setLayoutX(100);
-        optionsButton.setLayoutY(900);
-        optionsButton.setPrefWidth(300);
-        optionsButton.setPrefHeight(80);
-        optionsButton.setOnAction(new HandlerOptionsButton(stage, mainMenuView, this));
+        Button optionsButton = new ButtonOptions(stage, mainMenuView, this);
 
         PlayerDeck playerDeck = gameDTO.player().toDTO().playerDeck();
 

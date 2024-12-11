@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.EnglishDeckObserver;
 import model.decks.EnglishDeck;
-import view.records.EnglishDeckDTO;
+import view.dtos.EnglishDeckDTO;
 
 public class EnglishDeckView extends VBox implements EnglishDeckObserver {
     private Group stage;

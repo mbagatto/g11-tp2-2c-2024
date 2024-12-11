@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import model.RoundObserver;
 import model.game.Round;
-import view.records.RoundDTO;
+import view.dtos.RoundDTO;
 
 public class RoundTitleView extends VBox implements RoundObserver {
     public RoundTitleView(Round round) {

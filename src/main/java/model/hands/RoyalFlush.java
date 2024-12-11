@@ -7,7 +7,7 @@ public class RoyalFlush extends Hand {
 
     private RoyalFlush() {
         super(new Score(100), new Score(8));
-        this.name = "Royal Flush";
+        this.name = "Escalera Real";
     }
 
     public static RoyalFlush getInstance() {

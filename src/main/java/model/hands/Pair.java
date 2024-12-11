@@ -11,7 +11,7 @@ public class Pair extends Hand {
 
     private Pair() {
         super(new Score(10), new Score(2));
-        this.name = "Pair";
+        this.name = "Par";
     }
 
     public static Pair getInstance() {

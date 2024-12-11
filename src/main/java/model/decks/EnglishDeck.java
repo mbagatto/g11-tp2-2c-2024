@@ -5,7 +5,7 @@ import model.ObservableEnglishDeck;
 import model.cards.*;
 import model.exceptions.EmptyDeckException;
 import model.reader.DataReader;
-import view.records.EnglishDeckDTO;
+import view.dtos.EnglishDeckDTO;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;

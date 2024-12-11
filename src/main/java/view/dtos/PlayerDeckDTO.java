@@ -1,6 +1,5 @@
-package view.records;
+package view.dtos;
 
-import model.ClassDTO;
 import model.cards.Card;
 import java.util.ArrayList;
 

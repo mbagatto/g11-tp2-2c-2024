@@ -1,6 +1,4 @@
-package view.records;
-
-import model.ClassDTO;
+package view.dtos;
 
 public record EnglishDeckDTO
         (

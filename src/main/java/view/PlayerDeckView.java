@@ -6,7 +6,7 @@ import javafx.scene.layout.HBox;
 import model.Drawable;
 import model.Player;
 import model.cards.Card;
-import view.records.EnglishCardDTO;
+import view.dtos.EnglishCardDTO;
 
 import java.util.ArrayList;
 

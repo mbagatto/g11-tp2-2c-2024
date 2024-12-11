@@ -3,7 +3,7 @@ package model.tarots;
 import model.Modifiable;
 import model.Player;
 import model.score.ScoreModifier;
-import view.records.TarotDTO;
+import view.dtos.TarotDTO;
 
 public class Tarot {
     private String name;

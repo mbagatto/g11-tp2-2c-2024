@@ -6,7 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.PlayerDeckObserver;
 import model.decks.PlayerDeck;
-import view.records.PlayerDeckDTO;
+import view.dtos.PlayerDeckDTO;
 
 public class PointsAndMultView extends VBox implements PlayerDeckObserver {
 

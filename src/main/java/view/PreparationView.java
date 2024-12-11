@@ -8,12 +8,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.decks.PlayerDeck;
-import model.game.GameDTO;
+import view.buttons.ButtonOptions;
+import view.dtos.GameDTO;
 import model.game.Shop;
 
 public class PreparationView extends Group {
@@ -50,13 +52,7 @@ public class PreparationView extends Group {
 
         titleContainer.getChildren().addAll(title, subtitle);
 
-        Button optionsButton = new Button("Opciones");
-        optionsButton.setId("options-button");
-        optionsButton.setLayoutX(100);
-        optionsButton.setLayoutY(900);
-        optionsButton.setPrefWidth(300);
-        optionsButton.setPrefHeight(80);
-        optionsButton.setOnAction(new HandlerOptionsButton(stage, mainMenuView, this));
+        Button optionsButton = new ButtonOptions(stage, mainMenuView, this);
 
         PlayerDeck playerDeck = gameDTO.player().toDTO().playerDeck();
 

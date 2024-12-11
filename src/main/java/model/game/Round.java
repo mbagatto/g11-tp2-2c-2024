@@ -2,7 +2,7 @@ package model.game;
 
 import model.*;
 import model.score.Score;
-import view.records.RoundDTO;
+import view.dtos.RoundDTO;
 import java.util.ArrayList;
 import java.util.Stack;
 

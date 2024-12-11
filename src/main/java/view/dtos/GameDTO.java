@@ -1,6 +1,6 @@
-package model.game;
+package view.dtos;
 
-import model.ClassDTO;
+import model.game.Round;
 import model.Player;
 
 public record GameDTO(

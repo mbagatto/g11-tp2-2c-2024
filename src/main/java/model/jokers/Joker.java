@@ -3,7 +3,7 @@ package model.jokers;
 import model.hands.Hand;
 import model.score.ScoreModifier;
 import model.score.Score;
-import view.records.JokerDTO;
+import view.dtos.JokerDTO;
 
 public abstract class Joker {
     protected String name;

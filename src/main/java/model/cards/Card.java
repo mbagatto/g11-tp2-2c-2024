@@ -4,7 +4,7 @@ import model.ObservableCard;
 import model.ObserverCard;
 import model.score.Score;
 import model.Modifiable;
-import view.records.EnglishCardDTO;
+import view.dtos.EnglishCardDTO;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;

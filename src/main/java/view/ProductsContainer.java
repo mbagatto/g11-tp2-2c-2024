@@ -6,10 +6,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Player;
 import model.ShopObserver;
-import model.game.GameDTO;
+import view.dtos.GameDTO;
 import model.game.Shop;
 import view.buttons.ButtonNextRound;
-import view.records.ShopDTO;
+import view.dtos.ShopDTO;
 
 public class ProductsContainer extends VBox implements ShopObserver {
     private Group groupView;

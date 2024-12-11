@@ -7,13 +7,12 @@ import model.exceptions.NoSelectedCardsException;
 import model.hands.Hand;
 import model.cards.Card;
 import model.hands.NullHand;
-import model.hands.Pair;
 import model.identifiers.*;
 import model.jokers.DiscardBonus;
 import model.jokers.Joker;
 import model.score.Score;
 import model.tarots.Tarot;
-import view.records.PlayerDeckDTO;
+import view.dtos.PlayerDeckDTO;
 import java.util.ArrayList;
 
 public class PlayerDeck implements ObservablePlayerDeck {

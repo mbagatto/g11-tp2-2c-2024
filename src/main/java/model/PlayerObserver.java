@@ -1,6 +1,6 @@
 package model;
 
-import view.records.PlayerDTO;
+import view.dtos.PlayerDTO;
 
 public interface PlayerObserver {
     void update(PlayerDTO playerDTO);

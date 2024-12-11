@@ -5,7 +5,7 @@ import javafx.scene.layout.VBox;
 import model.RoundObserver;
 import model.decks.PlayerDeck;
 import model.game.Round;
-import view.records.RoundDTO;
+import view.dtos.RoundDTO;
 
 public class RoundInfoView extends VBox implements RoundObserver {
     private Group stage;

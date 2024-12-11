@@ -15,7 +15,7 @@ import model.Drawable;
 import model.Player;
 import model.tarots.Tarot;
 import view.buttons.ButtonSpecialCard;
-import view.records.TarotDTO;
+import view.dtos.TarotDTO;
 
 public class TarotView extends VBox implements Drawable {
     private Player player;

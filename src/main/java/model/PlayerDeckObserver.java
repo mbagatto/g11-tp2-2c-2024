@@ -1,6 +1,6 @@
 package model;
 
-import view.records.PlayerDeckDTO;
+import view.dtos.PlayerDeckDTO;
 
 public interface PlayerDeckObserver {
     void update(PlayerDeckDTO playerDeckDTO);

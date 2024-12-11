@@ -16,8 +16,9 @@ public class MainMenuButtonContainer extends HBox {
         this.setId("menu-button-container");
         this.setAlignment(Pos.CENTER);
 
-        Button playButton = new ButtonBlue("Nueva Partida");  //Nuevo Juego
+        Button playButton = new ButtonBlue("Nueva Partida");
         playButton.setOnAction(new HandlerNewGame(stage, mainMenuView, playerName, errorLabel));
+        playButton.setDefaultButton(true);
 
         Button quitButton = new ButtonRed("Salir");
         quitButton.setOnAction(new HandlerQuit());

@@ -1,6 +1,6 @@
 package model;
 
-import view.records.RoundDTO;
+import view.dtos.RoundDTO;
 
 public interface RoundObserver {
     void update(RoundDTO roundDTO);

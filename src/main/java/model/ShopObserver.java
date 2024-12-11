@@ -1,6 +1,6 @@
 package model;
 
-import view.records.ShopDTO;
+import view.dtos.ShopDTO;
 
 public interface ShopObserver {
     void update(ShopDTO shopDTO);

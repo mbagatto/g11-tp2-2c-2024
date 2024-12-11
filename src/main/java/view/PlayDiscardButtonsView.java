@@ -1,5 +1,6 @@
 package view;
 
+import javafx.scene.Group;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.Player;
@@ -9,10 +10,10 @@ import view.buttons.ButtonPlayHand;
 
 public class PlayDiscardButtonsView extends HBox {
     
-    public PlayDiscardButtonsView(Player player, Stage stage, Round actualRound) {
+    public PlayDiscardButtonsView(Stage stage, Group previousScene, Player player, Round actualRound) {
         this.setSpacing(20);
         this.setTranslateX(300);
-        this.getChildren().add(new ButtonPlayHand(player, stage, actualRound));
+        this.getChildren().add(new ButtonPlayHand(stage, previousScene, player, actualRound));
         this.getChildren().add(new ButtonDiscard(player, actualRound));
     }
 }

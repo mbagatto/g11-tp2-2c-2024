@@ -1,6 +1,6 @@
 package model;
 
-import view.records.EnglishDeckDTO;
+import view.dtos.EnglishDeckDTO;
 
 public interface EnglishDeckObserver {
     void update(EnglishDeckDTO englishDeckDTO);

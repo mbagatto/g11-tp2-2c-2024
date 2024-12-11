@@ -9,7 +9,7 @@ import model.exceptions.InvalidTarotException;
 import model.jokers.Joker;
 import model.score.Score;
 import model.tarots.Tarot;
-import view.records.PlayerDTO;
+import view.dtos.PlayerDTO;
 
 import java.util.ArrayList;
 
