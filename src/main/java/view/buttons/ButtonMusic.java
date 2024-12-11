@@ -18,12 +18,14 @@ public class ButtonMusic extends Button {
         if (this.soundPlayer.isPlayingMusic()) {
             this.setText("Desactivar Musica");
             this.setOnAction(_ -> {
+                this.soundPlayer.playButtonSound();
                 this.soundPlayer.pauseBackgroundMusic();
                 this.update();
             });
         } else {
             this.setText("Activar Musica");
             this.setOnAction(_ -> {
+                this.soundPlayer.playButtonSound();
                 this.soundPlayer.resumeBackgroundMusic();
                 this.update();
             });

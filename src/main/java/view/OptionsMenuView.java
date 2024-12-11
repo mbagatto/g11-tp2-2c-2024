@@ -1,5 +1,6 @@
 package view;
 
+import controller.SoundPlayer;
 import controller.buttonHandlers.HandlerMainMenuButton;
 import controller.buttonHandlers.HandlerQuit;
 import javafx.geometry.Pos;
@@ -14,8 +15,11 @@ import view.buttons.ButtonRed;
 import view.buttons.ButtonYellow;
 
 public class OptionsMenuView extends VBox {
+    private SoundPlayer soundPlayer;
+
     public OptionsMenuView(Stage stage, MainMenuView mainMenuView, Group groupView) {
         super();
+        this.soundPlayer = SoundPlayer.getInstance();
         this.setStyle("-fx-background-color: rgba(0,0,0,0.9);");
         this.setAlignment(Pos.CENTER);
         this.setSpacing(20);
@@ -29,7 +33,10 @@ public class OptionsMenuView extends VBox {
         buttonContainer.setSpacing(10);
 
         Button continueButton = new ButtonYellow("Continuar");
-        continueButton.setOnAction(_ -> groupView.getChildren().removeLast());
+        continueButton.setOnAction(event -> {
+            this.soundPlayer.playButtonSound();
+            groupView.getChildren().removeLast();
+        });
 
         Button mainMenuButton = new ButtonBlue("Menú Principal");
         mainMenuButton.setPrefHeight(75);
