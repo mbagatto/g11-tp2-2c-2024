@@ -11,6 +11,7 @@ public class RandomActivation extends Joker {
     public RandomActivation(String name, String description, ScoreModifier toPoints, ScoreModifier toMultiplier, Probability probability) {
         super(name, description, toPoints, toMultiplier);
         this.probability = probability;
+        this.type = "Random Activation";
     }
 
     public Score applyToPoints(Score points, Hand hand) {

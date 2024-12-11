@@ -6,6 +6,7 @@ import model.decks.PlayerDeck;
 import model.exceptions.EmptyPlayerDeckException;
 import model.exceptions.InvalidJokerException;
 import model.exceptions.InvalidTarotException;
+import model.jokers.DiscardBonus;
 import model.jokers.Joker;
 import model.score.Score;
 import model.tarots.Tarot;
@@ -62,10 +63,10 @@ public class Player implements ObservablePlayer {
         if (this.playerDeck.isEmpty()) {
             throw new EmptyPlayerDeckException();
         }
-        this.playerDeck.discard(this.jokers);
 
+        this.discards = this.discards.addWith(new Score(1));
+        this.playerDeck.discard(this.jokers, this.discards);
         this.completeDeck();
-        this.discards.addWith(new Score(1));
 
         this.notifyObservers();
     }
@@ -99,6 +100,18 @@ public class Player implements ObservablePlayer {
     public void removeTarot(Tarot tarot) {
         this.tarots.remove(tarot);
         this.notifyObservers();
+    }
+
+    public void resetDiscards() {
+        this.discards = new Score(0);
+        for (Joker joker : this.jokers) {
+            if (joker.hasType("Discard Bonus")) {
+                DiscardBonus discardBonus = new DiscardBonus(joker);
+                discardBonus.setDiscards(this.discards);
+                this.jokers.add(discardBonus);
+                this.jokers.remove(discardBonus);
+            }
+        }
     }
 
     public void shuffleDeck() {

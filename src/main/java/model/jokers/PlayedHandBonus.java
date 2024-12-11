@@ -11,6 +11,7 @@ public class PlayedHandBonus extends Joker {
     public PlayedHandBonus(String name, String description, ScoreModifier toPoints, ScoreModifier toMultiplier, Hand hand) {
         super(name, description, toPoints, toMultiplier);
         this.hand = hand;
+        this.type = "Played Hand Bonus";
     }
 
     public Score applyToPoints(Score points, Hand hand) {

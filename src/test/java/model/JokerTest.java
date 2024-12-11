@@ -304,7 +304,7 @@ public class JokerTest {
         Joker joker = new DiscardBonus("Flag Joker", "", new Add(new Score(30)), new DoNotModify());
         ArrayList<Joker> jokers = new ArrayList<>();
         jokers.add(joker);
-        playerDeck.discard(jokers);
+        playerDeck.discard(jokers, new Score(1));
         playerDeck.selectCard(sixOfDiamonds);
         Score expectedScore = new Score(41);
         // Act
@@ -356,7 +356,7 @@ public class JokerTest {
         Joker joker = new DiscardBonus("Mountain Eco", "", new DoNotModify(), new Multiply(new Score(10)));
         ArrayList<Joker> jokers = new ArrayList<>();
         jokers.add(joker);
-        playerDeck.discard(jokers);
+        playerDeck.discard(jokers, new Score(1));
         playerDeck.selectCard(sixOfDiamonds);
         Score expectedScore = new Score(110);
         // Act

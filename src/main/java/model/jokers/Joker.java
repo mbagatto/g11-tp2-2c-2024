@@ -10,6 +10,7 @@ public abstract class Joker {
     protected String description;
     protected ScoreModifier toPoints;
     protected ScoreModifier toMultiplier;
+    protected String type;
 
     @Override
     public boolean equals(Object o) {
@@ -46,7 +47,14 @@ public abstract class Joker {
         return name.equals(aName);
     }
 
+    public boolean hasType(String aType) {
+        return type.equals(aType);
+    }
+
     public JokerDTO toDTO() {
         return new JokerDTO(this.name, this.description);
+    }
+
+    public void incrementDiscards() {
     }
 }

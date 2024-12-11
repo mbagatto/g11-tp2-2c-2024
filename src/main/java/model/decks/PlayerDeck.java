@@ -69,17 +69,20 @@ public class PlayerDeck implements ObservablePlayerDeck {
         return score;
     }
 
-    public void discard(ArrayList<Joker> jokers) {
+    public void discard(ArrayList<Joker> jokers, Score discards) {
         if (selectedCards.isEmpty()) {
             throw new NoSelectedCardsException();
         }
-        DiscardBonus discardBonusJoker = null;
+
         for (Joker joker : jokers) {
-            if (joker.equals(new DiscardBonus(joker))) {
-                discardBonusJoker = (DiscardBonus) joker;
-                discardBonusJoker.incrementDiscards();
+            if (joker.hasType("Discard Bonus")) {
+                DiscardBonus discardBonus = new DiscardBonus(joker);
+                discardBonus.setDiscards(discards);
+                jokers.add(discardBonus);
+                jokers.remove(joker);
             }
         }
+
         this.playedCards.addAll(this.selectedCards);
         this.reset(selectedCards);
     }
