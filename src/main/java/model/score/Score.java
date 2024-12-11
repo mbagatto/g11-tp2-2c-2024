@@ -26,6 +26,10 @@ public class Score {
         return new Score(this.value + otherScore.value);
     }
 
+    public Score subtractWith(Score otherScore) {
+        return new Score(this.value - otherScore.value);
+    }
+
     public Score multiplyWith(Score otherScore) {
         return new Score(this.value * otherScore.value);
     }
@@ -39,10 +43,6 @@ public class Score {
     }
 
     public boolean isLessThanOrEqualtoZero() { return (this.value <= 0); }
-
-    public void subtractOne() {
-        this.value = this.value - 1;
-    }
 
     public String toString() {
         return String.valueOf((int) this.value);
