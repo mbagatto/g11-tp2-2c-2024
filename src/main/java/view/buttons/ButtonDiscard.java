@@ -13,6 +13,6 @@ public class ButtonDiscard extends Button {
         this.setId("button-red");
         this.setPrefWidth(280);
         this.setPrefHeight(95);
-        this.setOnAction(new HandlerDiscard(game));
+        this.setOnAction(new HandlerDiscard(game, this));
     }
 }

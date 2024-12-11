@@ -40,6 +40,10 @@ public class Game {
         return this.currentRound.ranOutOfHands();
     }
 
+    public boolean ranOutOfDiscards() {
+        return this.currentRound.ranOutOfDiscards();
+    }
+
     public GameDTO toDTO() {
         return new GameDTO(this.player, this.currentRound);
     }

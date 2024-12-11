@@ -161,22 +161,10 @@
     -fx-cursor: hand;
 }
 
-#button-add, #button-remove {
-    -fx-background-color: transparent;
-}
-
-#button-add:hover, #button-remove:hover {
-    -fx-cursor: hand;
-}
-
 #player-jokers-container, #player-tarots-container {
     -fx-background-color: rgba(0,0,0,0.5);
     -fx-background-radius: 10px;
     -fx-padding: 25px;
-}
-
-#game-button-joker, #game-button-tarot {
-    -fx-cursor: default;
 }
 
 #round-score-pane, #actual-score-chip {
