@@ -3,12 +3,9 @@ package model.creators;
 import model.hands.Hand;
 import model.jokers.*;
 import model.score.ScoreModifier;
-
 import java.util.ArrayList;
 
-
 public class JokerCreator {
-
     public Joker createForTheScore(String name, String description, ScoreModifier toPoints, ScoreModifier toMultiplier) {
         return new ForTheScore(name, description, toPoints, toMultiplier);
     }

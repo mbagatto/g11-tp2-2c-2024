@@ -1,28 +1,17 @@
 package model.decks;
 
 import model.tarots.Tarot;
-import model.exceptions.CouldNotReadException;
-import model.reader.TarotReader;
-
 import java.util.ArrayList;
 
 public class TarotDeck {
     private final ArrayList<Tarot> tarots;
-    private final TarotReader reader;
 
     public TarotDeck() {
         this.tarots = new ArrayList<>();
-        this.reader = new TarotReader();
     }
 
-    public int fillDeck() {
-        try {
-            String path = "/cardsInfo/tarots.json";
-            this.tarots.addAll(this.reader.read(path));
-        } catch (CouldNotReadException e) {
-            throw new RuntimeException(e);
-        }
-        return this.tarots.size();
+    public void fillDeck(ArrayList<Tarot> tarots) {
+        this.tarots.addAll(tarots);
     }
 
     public Tarot findTarotByName(String name) {

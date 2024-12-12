@@ -1,6 +1,6 @@
 package model;
 
 public interface ObservableRound {
-    void addObserverRound(ObserverRound observerRound);
-    void notifyObserversRound();
+    void addObserver(RoundObserver roundObserver);
+    void notifyObservers();
 }

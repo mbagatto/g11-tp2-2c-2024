@@ -1,5 +1,3 @@
 package model.exceptions;
 
-public class CouldNotReadException extends RuntimeException {
-
-}
+public class CouldNotReadException extends RuntimeException {}

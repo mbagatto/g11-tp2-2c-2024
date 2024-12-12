@@ -3,7 +3,6 @@ package model.hands;
 import model.cards.Card;
 import model.identifiers.FrequencyChecker;
 import model.score.Score;
-
 import java.util.ArrayList;
 
 public class Pair extends Hand {
@@ -11,7 +10,7 @@ public class Pair extends Hand {
 
     private Pair() {
         super(new Score(10), new Score(2));
-        this.name = "Pair";
+        this.name = "Par";
     }
 
     public static Pair getInstance() {

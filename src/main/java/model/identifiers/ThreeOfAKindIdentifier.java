@@ -6,7 +6,6 @@ import model.hands.ThreeOfAKind;
 import java.util.ArrayList;
 
 public class ThreeOfAKindIdentifier extends FrequencyHandIdentifier {
-
     public ThreeOfAKindIdentifier(HandIdentifier next) {
         super(next);
     }

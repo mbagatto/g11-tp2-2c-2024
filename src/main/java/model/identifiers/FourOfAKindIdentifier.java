@@ -6,7 +6,6 @@ import model.cards.Card;
 import java.util.ArrayList;
 
 public class FourOfAKindIdentifier extends FrequencyHandIdentifier {
-
     public FourOfAKindIdentifier(HandIdentifier next) {
         super(next);
     }

@@ -3,7 +3,6 @@ package model.reader;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RoundData {
-
     @JsonProperty("nro")
     private int number;
 
@@ -58,5 +57,4 @@ public class RoundData {
     public void setStore(StoreData store) {
         this.store = store;
     }
-
 }

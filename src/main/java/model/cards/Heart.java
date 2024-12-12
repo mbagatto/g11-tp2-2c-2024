@@ -1,7 +1,6 @@
 package model.cards;
 
 import model.score.Score;
-
 import java.util.ArrayList;
 
 public class Heart extends Card {

@@ -9,8 +9,8 @@ import model.score.Score;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-public class StraightIdentifierTest {
 
+public class StraightIdentifierTest {
     @Test
     public void test01StraightIdentifierIdentifiesAStraightCorrectly() {
         // Arrange
@@ -27,5 +27,4 @@ public class StraightIdentifierTest {
         // Assert
         assertEquals(expectedHand, obtainedHand);
     }
-
 }

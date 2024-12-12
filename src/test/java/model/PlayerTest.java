@@ -9,48 +9,16 @@ import model.jokers.DiscardBonus;
 import model.jokers.Joker;
 import model.score.Add;
 import model.score.DoNotModify;
-import model.score.Multiply;
 import model.score.Score;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-
 import java.lang.reflect.Field;
-import java.util.List;
-
+import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 public class PlayerTest {
-    private EnglishDeck englishDeckMock;
-
     @BeforeEach
     public void setUp() throws NoSuchFieldException, IllegalAccessException {
-        englishDeckMock = Mockito.mock(EnglishDeck.class);
-        when(englishDeckMock.deal()).thenAnswer(new Answer<Card>() {
-            private List<Card> cards = List.of(
-                    new Spade("2", new Score(2), new Score(1)),
-                    new Club("5", new Score(5), new Score(1)),
-                    new Heart("2", new Score(2), new Score(1)),
-                    new Spade("Rey", new Score(10), new Score(1)),
-                    new Spade("Reina", new Score(10), new Score(1)),
-                    new Heart("8", new Score(8), new Score(1)),
-                    new Spade("4", new Score(4), new Score(1)),
-                    new Club("10", new Score(10), new Score(1)),
-                    new Club("9", new Score(9), new Score(1))
-            );
-            private int index = 0;
-
-            @Override
-            public Card answer(InvocationOnMock invocation) {
-                if (index < cards.size()) {
-                    return cards.get(index++);
-                }
-                return null;
-            }
-        });
         Field instance = HighCard.class.getDeclaredField("instance");
         instance.setAccessible(true);
         instance.set(null, null);
@@ -62,14 +30,37 @@ public class PlayerTest {
     @Test
     public void test01WhenPlayingAPairItShouldGiveACertainScore() {
         // Arrange
-        String nameExample = "example";
-        Player player = new Player(nameExample, englishDeckMock);
+        ArrayList<Card> cards = new ArrayList<>();
+        Card twoOfSpades = new Spade("2", new Score(2), new Score(1));
+        Card twoOfDiamonds = new Diamond("2", new Score(2), new Score(1));
+        Card twoOfHearts = new Heart("2", new Score(2), new Score(1));
+        Card threeOfSpades = new Spade("3", new Score(3), new Score(1));
+        Card threeOfDiamonds = new Diamond("3", new Score(3), new Score(1));
+        Card threeOfHearts = new Heart("3", new Score(3), new Score(1));
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card fourOfDiamonds = new Diamond("4", new Score(4), new Score(1));
+        Card fourOfHearts = new Heart("4", new Score(4), new Score(1));
+        Card fiveOfSpades = new Spade("5", new Score(5), new Score(1));
+        Card fiveOfDiamonds = new Diamond("5", new Score(5), new Score(1));
+        Card fiveOfHearts = new Heart("5", new Score(5), new Score(1));
+        cards.add(twoOfSpades);
+        cards.add(twoOfDiamonds);
+        cards.add(twoOfHearts);
+        cards.add(threeOfSpades);
+        cards.add(threeOfDiamonds);
+        cards.add(threeOfHearts);
+        cards.add(fourOfSpades);
+        cards.add(fourOfDiamonds);
+        cards.add(fourOfHearts);
+        cards.add(fiveOfSpades);
+        cards.add(fiveOfDiamonds);
+        cards.add(fiveOfHearts);
+        EnglishDeck englishDeck = new EnglishDeck();
+        englishDeck.fillDeck(cards);
+        Player player = new Player("Cristiano Ronaldo", englishDeck);
         player.completeDeck();
-        player.selectCard(0);
-        player.selectCard(1);
-        player.selectCard(4);
-        player.selectCard(2);
-        player.selectCard(7);
+        player.selectCard(twoOfSpades);
+        player.selectCard(twoOfDiamonds);
         Score expectedScore = new Score(28);
         // Act
         Score obtainedScore = player.play();
@@ -79,47 +70,153 @@ public class PlayerTest {
 
     @Test
     public void test02PlayerWithoutCompleteDeckCanNotPlay() {
-        String playerName = "ExampleName";
-        EnglishDeck mockEnglishDeck = Mockito.mock(EnglishDeck.class);
-        Player player = new Player(playerName, mockEnglishDeck);
+        // Arrange
+        ArrayList<Card> cards = new ArrayList<>();
+        Card twoOfSpades = new Spade("2", new Score(2), new Score(1));
+        Card twoOfDiamonds = new Diamond("2", new Score(2), new Score(1));
+        Card twoOfHearts = new Heart("2", new Score(2), new Score(1));
+        Card threeOfSpades = new Spade("3", new Score(3), new Score(1));
+        Card threeOfDiamonds = new Diamond("3", new Score(3), new Score(1));
+        Card threeOfHearts = new Heart("3", new Score(3), new Score(1));
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card fourOfDiamonds = new Diamond("4", new Score(4), new Score(1));
+        Card fourOfHearts = new Heart("4", new Score(4), new Score(1));
+        Card fiveOfSpades = new Spade("5", new Score(5), new Score(1));
+        Card fiveOfDiamonds = new Diamond("5", new Score(5), new Score(1));
+        Card fiveOfHearts = new Heart("5", new Score(5), new Score(1));
+        cards.add(twoOfSpades);
+        cards.add(twoOfDiamonds);
+        cards.add(twoOfHearts);
+        cards.add(threeOfSpades);
+        cards.add(threeOfDiamonds);
+        cards.add(threeOfHearts);
+        cards.add(fourOfSpades);
+        cards.add(fourOfDiamonds);
+        cards.add(fourOfHearts);
+        cards.add(fiveOfSpades);
+        cards.add(fiveOfDiamonds);
+        cards.add(fiveOfHearts);
+        EnglishDeck englishDeck = new EnglishDeck();
+        englishDeck.fillDeck(cards);
+        Player player = new Player("Cristiano Ronaldo", englishDeck);
+        // Assert
         assertThrows(EmptyPlayerDeckException.class, player::play);
     }
 
     @Test
     public void test03PlayerWithoutSelectedCardsCanNotPlay() {
+        // Arrange
+        ArrayList<Card> cards = new ArrayList<>();
+        Card twoOfSpades = new Spade("2", new Score(2), new Score(1));
+        Card twoOfDiamonds = new Diamond("2", new Score(2), new Score(1));
+        Card twoOfHearts = new Heart("2", new Score(2), new Score(1));
+        Card threeOfSpades = new Spade("3", new Score(3), new Score(1));
+        Card threeOfDiamonds = new Diamond("3", new Score(3), new Score(1));
+        Card threeOfHearts = new Heart("3", new Score(3), new Score(1));
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card fourOfDiamonds = new Diamond("4", new Score(4), new Score(1));
+        Card fourOfHearts = new Heart("4", new Score(4), new Score(1));
+        Card fiveOfSpades = new Spade("5", new Score(5), new Score(1));
+        Card fiveOfDiamonds = new Diamond("5", new Score(5), new Score(1));
+        Card fiveOfHearts = new Heart("5", new Score(5), new Score(1));
+        cards.add(twoOfSpades);
+        cards.add(twoOfDiamonds);
+        cards.add(twoOfHearts);
+        cards.add(threeOfSpades);
+        cards.add(threeOfDiamonds);
+        cards.add(threeOfHearts);
+        cards.add(fourOfSpades);
+        cards.add(fourOfDiamonds);
+        cards.add(fourOfHearts);
+        cards.add(fiveOfSpades);
+        cards.add(fiveOfDiamonds);
+        cards.add(fiveOfHearts);
         EnglishDeck englishDeck = new EnglishDeck();
-        englishDeck.fillDeck();
-        String playerName = "ExampleName";
-        Player player = new Player(playerName, englishDeck);
+        englishDeck.fillDeck(cards);
+        Player player = new Player("Cristiano Ronaldo", englishDeck);
+        // Act
         player.completeDeck();
+        // Assert
         assertThrows(NoSelectedCardsException.class, player::play);
     }
 
     @Test
     public void test04PlayerWithValidSelectedCardsCanPlay() {
-        String playerName = "ExampleName";
+        // Arrange
+        ArrayList<Card> cards = new ArrayList<>();
+        Card twoOfSpades = new Spade("2", new Score(2), new Score(1));
+        Card twoOfDiamonds = new Diamond("2", new Score(2), new Score(1));
+        Card twoOfHearts = new Heart("2", new Score(2), new Score(1));
+        Card threeOfSpades = new Spade("3", new Score(3), new Score(1));
+        Card threeOfDiamonds = new Diamond("3", new Score(3), new Score(1));
+        Card threeOfHearts = new Heart("3", new Score(3), new Score(1));
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card fourOfDiamonds = new Diamond("4", new Score(4), new Score(1));
+        Card fourOfHearts = new Heart("4", new Score(4), new Score(1));
+        Card fiveOfSpades = new Spade("5", new Score(5), new Score(1));
+        Card fiveOfDiamonds = new Diamond("5", new Score(5), new Score(1));
+        Card fiveOfHearts = new Heart("5", new Score(5), new Score(1));
+        cards.add(twoOfSpades);
+        cards.add(twoOfDiamonds);
+        cards.add(twoOfHearts);
+        cards.add(threeOfSpades);
+        cards.add(threeOfDiamonds);
+        cards.add(threeOfHearts);
+        cards.add(fourOfSpades);
+        cards.add(fourOfDiamonds);
+        cards.add(fourOfHearts);
+        cards.add(fiveOfSpades);
+        cards.add(fiveOfDiamonds);
+        cards.add(fiveOfHearts);
         EnglishDeck englishDeck = new EnglishDeck();
-        englishDeck.fillDeck();
-        Player player = new Player(playerName, englishDeck);
+        englishDeck.fillDeck(cards);
+        Player player = new Player("Cristiano Ronaldo", englishDeck);
         player.completeDeck();
-        player.selectCard(1);
-        player.selectCard(2);
+        // Act
+        player.selectCard(twoOfSpades);
+        player.selectCard(twoOfDiamonds);
+        // Assert
         assertDoesNotThrow(player::play);
     }
 
     @Test
     public void test05PlayerDiscardsWithDiscardBonusAndTheMultiplierIsModifiedCorrectly() {
         // Arrange
+        ArrayList<Card> cards = new ArrayList<>();
+        Card twoOfSpades = new Spade("2", new Score(2), new Score(1));
+        Card twoOfDiamonds = new Diamond("2", new Score(2), new Score(1));
+        Card twoOfHearts = new Heart("2", new Score(2), new Score(1));
+        Card threeOfSpades = new Spade("3", new Score(3), new Score(1));
+        Card threeOfDiamonds = new Diamond("3", new Score(3), new Score(1));
+        Card threeOfHearts = new Heart("3", new Score(3), new Score(1));
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card fourOfDiamonds = new Diamond("4", new Score(4), new Score(1));
+        Card fourOfHearts = new Heart("4", new Score(4), new Score(1));
+        Card fiveOfSpades = new Spade("5", new Score(5), new Score(1));
+        Card fiveOfDiamonds = new Diamond("5", new Score(5), new Score(1));
+        Card fiveOfHearts = new Heart("5", new Score(5), new Score(1));
+        cards.add(twoOfSpades);
+        cards.add(twoOfDiamonds);
+        cards.add(twoOfHearts);
+        cards.add(threeOfSpades);
+        cards.add(threeOfDiamonds);
+        cards.add(threeOfHearts);
+        cards.add(fourOfSpades);
+        cards.add(fourOfDiamonds);
+        cards.add(fourOfHearts);
+        cards.add(fiveOfSpades);
+        cards.add(fiveOfDiamonds);
+        cards.add(fiveOfHearts);
         EnglishDeck englishDeck = new EnglishDeck();
-        englishDeck.fillDeck();
+        englishDeck.fillDeck(cards);
         Player player = new Player("Lionel Messi", englishDeck);
         player.completeDeck();
-        Joker joker = new DiscardBonus("Holy Discard", "", new DoNotModify(), new Multiply(new Score(20)));
+        Joker joker = new DiscardBonus("Holy Discard", "", new DoNotModify(), new Add(new Score(20)));
         player.addJoker(joker);
-        player.selectCard(0);
+        player.selectCard(twoOfSpades);
         player.discard();
-        player.selectCard(0);
-        Score expectedScore = new Score(300);
+        player.selectCard(twoOfDiamonds);
+        Score expectedScore = new Score(147);
         // Act
         Score obtainedScore = player.play();
         // Assert
@@ -129,14 +226,39 @@ public class PlayerTest {
     @Test
     public void test06PlayerDoesNotDiscardWithDiscardBonusAndTheMultiplierIsNotModified() {
         // Arrange
+        ArrayList<Card> cards = new ArrayList<>();
+        Card twoOfSpades = new Spade("2", new Score(2), new Score(1));
+        Card twoOfDiamonds = new Diamond("2", new Score(2), new Score(1));
+        Card twoOfHearts = new Heart("2", new Score(2), new Score(1));
+        Card threeOfSpades = new Spade("3", new Score(3), new Score(1));
+        Card threeOfDiamonds = new Diamond("3", new Score(3), new Score(1));
+        Card threeOfHearts = new Heart("3", new Score(3), new Score(1));
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card fourOfDiamonds = new Diamond("4", new Score(4), new Score(1));
+        Card fourOfHearts = new Heart("4", new Score(4), new Score(1));
+        Card fiveOfSpades = new Spade("5", new Score(5), new Score(1));
+        Card fiveOfDiamonds = new Diamond("5", new Score(5), new Score(1));
+        Card fiveOfHearts = new Heart("5", new Score(5), new Score(1));
+        cards.add(twoOfSpades);
+        cards.add(twoOfDiamonds);
+        cards.add(twoOfHearts);
+        cards.add(threeOfSpades);
+        cards.add(threeOfDiamonds);
+        cards.add(threeOfHearts);
+        cards.add(fourOfSpades);
+        cards.add(fourOfDiamonds);
+        cards.add(fourOfHearts);
+        cards.add(fiveOfSpades);
+        cards.add(fiveOfDiamonds);
+        cards.add(fiveOfHearts);
         EnglishDeck englishDeck = new EnglishDeck();
-        englishDeck.fillDeck();
+        englishDeck.fillDeck(cards);
         Player player = new Player("Lionel Messi", englishDeck);
         player.completeDeck();
-        Joker joker = new DiscardBonus("Holy Discard", "", new DoNotModify(), new Multiply(new Score(20)));
+        Joker joker = new DiscardBonus("Holy Discard", "", new DoNotModify(), new Add(new Score(20)));
         player.addJoker(joker);
-        player.selectCard(0);
-        Score expectedScore = new Score(15);
+        player.selectCard(twoOfSpades);
+        Score expectedScore = new Score(7);
         // Act
         Score obtainedScore = player.play();
         // Assert
@@ -146,18 +268,43 @@ public class PlayerTest {
     @Test
     public void test07PlayerDiscardsTwiceWithDiscardBonusAndTheMultiplierIsModifiedCorrectly() {
         // Arrange
+        ArrayList<Card> cards = new ArrayList<>();
+        Card twoOfSpades = new Spade("2", new Score(2), new Score(1));
+        Card twoOfDiamonds = new Diamond("2", new Score(2), new Score(1));
+        Card twoOfHearts = new Heart("2", new Score(2), new Score(1));
+        Card threeOfSpades = new Spade("3", new Score(3), new Score(1));
+        Card threeOfDiamonds = new Diamond("3", new Score(3), new Score(1));
+        Card threeOfHearts = new Heart("3", new Score(3), new Score(1));
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card fourOfDiamonds = new Diamond("4", new Score(4), new Score(1));
+        Card fourOfHearts = new Heart("4", new Score(4), new Score(1));
+        Card fiveOfSpades = new Spade("5", new Score(5), new Score(1));
+        Card fiveOfDiamonds = new Diamond("5", new Score(5), new Score(1));
+        Card fiveOfHearts = new Heart("5", new Score(5), new Score(1));
+        cards.add(twoOfSpades);
+        cards.add(twoOfDiamonds);
+        cards.add(twoOfHearts);
+        cards.add(threeOfSpades);
+        cards.add(threeOfDiamonds);
+        cards.add(threeOfHearts);
+        cards.add(fourOfSpades);
+        cards.add(fourOfDiamonds);
+        cards.add(fourOfHearts);
+        cards.add(fiveOfSpades);
+        cards.add(fiveOfDiamonds);
+        cards.add(fiveOfHearts);
         EnglishDeck englishDeck = new EnglishDeck();
-        englishDeck.fillDeck();
+        englishDeck.fillDeck(cards);
         Player player = new Player("Lionel Messi", englishDeck);
         player.completeDeck();
-        Joker joker = new DiscardBonus("Holy Discard", "", new DoNotModify(), new Multiply(new Score(20)));
+        Joker joker = new DiscardBonus("Holy Discard", "", new DoNotModify(), new Add(new Score(20)));
         player.addJoker(joker);
-        player.selectCard(0);
+        player.selectCard(twoOfSpades);
         player.discard();
-        player.selectCard(0);
+        player.selectCard(twoOfDiamonds);
         player.discard();
-        player.selectCard(0);
-        Score expectedScore = new Score(6000);
+        player.selectCard(twoOfHearts);
+        Score expectedScore = new Score(287);
         // Act
         Score obtainedScore = player.play();
         // Assert
@@ -167,16 +314,41 @@ public class PlayerTest {
     @Test
     public void test08PlayerDiscardsWithDiscardBonusAndThePointsAreModifiedCorrectly() {
         // Arrange
+        ArrayList<Card> cards = new ArrayList<>();
+        Card twoOfSpades = new Spade("2", new Score(2), new Score(1));
+        Card twoOfDiamonds = new Diamond("2", new Score(2), new Score(1));
+        Card twoOfHearts = new Heart("2", new Score(2), new Score(1));
+        Card threeOfSpades = new Spade("3", new Score(3), new Score(1));
+        Card threeOfDiamonds = new Diamond("3", new Score(3), new Score(1));
+        Card threeOfHearts = new Heart("3", new Score(3), new Score(1));
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card fourOfDiamonds = new Diamond("4", new Score(4), new Score(1));
+        Card fourOfHearts = new Heart("4", new Score(4), new Score(1));
+        Card fiveOfSpades = new Spade("5", new Score(5), new Score(1));
+        Card fiveOfDiamonds = new Diamond("5", new Score(5), new Score(1));
+        Card fiveOfHearts = new Heart("5", new Score(5), new Score(1));
+        cards.add(twoOfSpades);
+        cards.add(twoOfDiamonds);
+        cards.add(twoOfHearts);
+        cards.add(threeOfSpades);
+        cards.add(threeOfDiamonds);
+        cards.add(threeOfHearts);
+        cards.add(fourOfSpades);
+        cards.add(fourOfDiamonds);
+        cards.add(fourOfHearts);
+        cards.add(fiveOfSpades);
+        cards.add(fiveOfDiamonds);
+        cards.add(fiveOfHearts);
         EnglishDeck englishDeck = new EnglishDeck();
-        englishDeck.fillDeck();
+        englishDeck.fillDeck(cards);
         Player player = new Player("Lionel Messi", englishDeck);
         player.completeDeck();
         Joker joker = new DiscardBonus("Valley Ritual", "", new Add(new Score(75)), new DoNotModify());
         player.addJoker(joker);
-        player.selectCard(0);
+        player.selectCard(twoOfSpades);
         player.discard();
-        player.selectCard(0);
-        Score expectedScore = new Score(90);
+        player.selectCard(twoOfDiamonds);
+        Score expectedScore = new Score(82);
         // Act
         Score obtainedScore = player.play();
         // Assert
@@ -186,18 +358,43 @@ public class PlayerTest {
     @Test
     public void test09PlayerDiscardsTwiceWithDiscardBonusAndThePointsAreModifiedCorrectly() {
         // Arrange
+        ArrayList<Card> cards = new ArrayList<>();
+        Card twoOfSpades = new Spade("2", new Score(2), new Score(1));
+        Card twoOfDiamonds = new Diamond("2", new Score(2), new Score(1));
+        Card twoOfHearts = new Heart("2", new Score(2), new Score(1));
+        Card threeOfSpades = new Spade("3", new Score(3), new Score(1));
+        Card threeOfDiamonds = new Diamond("3", new Score(3), new Score(1));
+        Card threeOfHearts = new Heart("3", new Score(3), new Score(1));
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card fourOfDiamonds = new Diamond("4", new Score(4), new Score(1));
+        Card fourOfHearts = new Heart("4", new Score(4), new Score(1));
+        Card fiveOfSpades = new Spade("5", new Score(5), new Score(1));
+        Card fiveOfDiamonds = new Diamond("5", new Score(5), new Score(1));
+        Card fiveOfHearts = new Heart("5", new Score(5), new Score(1));
+        cards.add(twoOfSpades);
+        cards.add(twoOfDiamonds);
+        cards.add(twoOfHearts);
+        cards.add(threeOfSpades);
+        cards.add(threeOfDiamonds);
+        cards.add(threeOfHearts);
+        cards.add(fourOfSpades);
+        cards.add(fourOfDiamonds);
+        cards.add(fourOfHearts);
+        cards.add(fiveOfSpades);
+        cards.add(fiveOfDiamonds);
+        cards.add(fiveOfHearts);
         EnglishDeck englishDeck = new EnglishDeck();
-        englishDeck.fillDeck();
+        englishDeck.fillDeck(cards);
         Player player = new Player("Lionel Messi", englishDeck);
         player.completeDeck();
         Joker joker = new DiscardBonus("Valley Ritual", "", new Add(new Score(75)), new DoNotModify());
         player.addJoker(joker);
-        player.selectCard(0);
+        player.selectCard(twoOfSpades);
         player.discard();
-        player.selectCard(0);
+        player.selectCard(twoOfDiamonds);
         player.discard();
-        player.selectCard(0);
-        Score expectedScore = new Score(165);
+        player.selectCard(twoOfHearts);
+        Score expectedScore = new Score(157);
         // Act
         Score obtainedScore = player.play();
         // Assert
@@ -207,14 +404,39 @@ public class PlayerTest {
     @Test
     public void test10PlayerDiscardsTwiceWithDiscardBonusAndThePointsAreNotModified() {
         // Arrange
+        ArrayList<Card> cards = new ArrayList<>();
+        Card twoOfSpades = new Spade("2", new Score(2), new Score(1));
+        Card twoOfDiamonds = new Diamond("2", new Score(2), new Score(1));
+        Card twoOfHearts = new Heart("2", new Score(2), new Score(1));
+        Card threeOfSpades = new Spade("3", new Score(3), new Score(1));
+        Card threeOfDiamonds = new Diamond("3", new Score(3), new Score(1));
+        Card threeOfHearts = new Heart("3", new Score(3), new Score(1));
+        Card fourOfSpades = new Spade("4", new Score(4), new Score(1));
+        Card fourOfDiamonds = new Diamond("4", new Score(4), new Score(1));
+        Card fourOfHearts = new Heart("4", new Score(4), new Score(1));
+        Card fiveOfSpades = new Spade("5", new Score(5), new Score(1));
+        Card fiveOfDiamonds = new Diamond("5", new Score(5), new Score(1));
+        Card fiveOfHearts = new Heart("5", new Score(5), new Score(1));
+        cards.add(twoOfSpades);
+        cards.add(twoOfDiamonds);
+        cards.add(twoOfHearts);
+        cards.add(threeOfSpades);
+        cards.add(threeOfDiamonds);
+        cards.add(threeOfHearts);
+        cards.add(fourOfSpades);
+        cards.add(fourOfDiamonds);
+        cards.add(fourOfHearts);
+        cards.add(fiveOfSpades);
+        cards.add(fiveOfDiamonds);
+        cards.add(fiveOfHearts);
         EnglishDeck englishDeck = new EnglishDeck();
-        englishDeck.fillDeck();
+        englishDeck.fillDeck(cards);
         Player player = new Player("Lionel Messi", englishDeck);
         player.completeDeck();
         Joker joker = new DiscardBonus("Valley Ritual", "", new Add(new Score(75)), new DoNotModify());
         player.addJoker(joker);
-        player.selectCard(0);
-        Score expectedScore = new Score(15);
+        player.selectCard(twoOfSpades);
+        Score expectedScore = new Score(7);
         // Act
         Score obtainedScore = player.play();
         // Assert

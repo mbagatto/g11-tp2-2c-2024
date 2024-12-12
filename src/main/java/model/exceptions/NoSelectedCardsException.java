@@ -1,4 +1,3 @@
 package model.exceptions;
 
-public class NoSelectedCardsException extends RuntimeException {
-}
+public class NoSelectedCardsException extends RuntimeException {}

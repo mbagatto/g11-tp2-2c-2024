@@ -7,7 +7,6 @@ import model.cards.Card;
 import java.util.ArrayList;
 
 public class FlushIdentifier extends SequenceHandIdentifier {
-
     public FlushIdentifier(HandIdentifier next) {
         super(next);
     }

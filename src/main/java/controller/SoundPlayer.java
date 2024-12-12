@@ -3,20 +3,34 @@ package controller;
 import javax.sound.sampled.*;
 import java.io.File;
 
-public class SoundPlayer {
-
+public final class SoundPlayer { //Aplica Singleton
     private String buttonPath = "src/resources/sounds/button.wav";
     private String musicPath = "src/resources/sounds/music.wav";
     private String winPath = "src/resources/sounds/win.wav";
     private String tarotUpPath = "src/resources/sounds/tarotUp.wav";
     private String tarotDownPath = "src/resources/sounds/tarotDown.wav";
     private String jokerUpPath = "src/resources/sounds/jokerUp.wav";
+    private String jokerDownPath = "src/resources/sounds/jokerDown2.wav";
     private String winRoundPath = "src/resources/sounds/winRound.wav";
+    private String cardUpPath = "src/resources/sounds/cardUp.wav";
+    private String cardDownPath = "src/resources/sounds/cardDown.wav";
+    private String maxSelectedPath = "src/resources/sounds/maxSelected.wav";
+    private String losePath = "src/resources/sounds/lose.wav";
+    private String tarotUsePath =  "src/resources/sounds/tarotUse.wav";
     private Clip musicClip;
+    private static SoundPlayer instance;
+
+    private SoundPlayer() {}
+
+    public static SoundPlayer getInstance() {
+        if (instance == null) {
+            instance = new SoundPlayer();
+        }
+        return instance;
+    }
 
     public void playSound(String soundPath) {
         try {
-            // Cargar el archivo de sonido
             File soundFile = new File(soundPath);
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
             Clip clip = AudioSystem.getClip();
@@ -51,12 +65,6 @@ public class SoundPlayer {
         }
     }
 
-    public void stopBackgroundMusic() {
-        if (musicClip != null && musicClip.isRunning()) {
-            musicClip.stop();
-        }
-    }
-
     public void pauseBackgroundMusic() {
         if (musicClip != null && musicClip.isRunning()) {
             musicClip.stop();
@@ -85,8 +93,35 @@ public class SoundPlayer {
         this.playSound(this.jokerUpPath);
     }
 
+    public void playJokerDown() {
+        this.playSound(this.jokerDownPath);
+    }
+
     public void playWinRound() {
         this.playSound(this.winRoundPath);
     }
 
+    public boolean isPlayingMusic() {
+        return musicClip != null && musicClip.isRunning();
+    }
+
+    public void playCardUp() {
+        this.playSound(this.cardUpPath);
+    }
+
+    public void playCardDown() {
+        this.playSound(this.cardDownPath);
+    }
+
+    public void playMaxSelected() {
+        this.playSound(this.maxSelectedPath);
+    }
+
+    public void playLose() {
+        this.playSound(this.losePath);
+    }
+
+    public void playTarotUse() {
+        this.playSound(this.tarotUsePath);
+    }
 }

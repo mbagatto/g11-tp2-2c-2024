@@ -51,6 +51,5 @@ public class JokerData {
     public void setJokers(List<JokerData> jokers) {
         this.jokers = jokers;
     }
-
 }
 

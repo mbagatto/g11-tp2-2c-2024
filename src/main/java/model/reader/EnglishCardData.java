@@ -3,7 +3,6 @@ package model.reader;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EnglishCardData {
-
     @JsonProperty("nombre")
     private String name;
     @JsonProperty("palo")
@@ -22,7 +21,6 @@ public class EnglishCardData {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public String getSuit() {
         return suit;
@@ -55,5 +53,4 @@ public class EnglishCardData {
     public void setMultiplier(int multiplier) {
         this.multiplier = multiplier;
     }
-
 }

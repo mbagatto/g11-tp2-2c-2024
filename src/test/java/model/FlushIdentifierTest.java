@@ -7,10 +7,7 @@ import model.hands.Hand;
 import model.identifiers.FlushIdentifier;
 import model.identifiers.HandIdentifier;
 import model.score.Score;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

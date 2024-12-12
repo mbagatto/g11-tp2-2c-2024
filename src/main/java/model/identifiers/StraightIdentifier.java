@@ -6,7 +6,6 @@ import model.cards.Card;
 import java.util.ArrayList;
 
 public class StraightIdentifier extends SequenceHandIdentifier {
-
     public StraightIdentifier(HandIdentifier next) {
         super(next);
     }

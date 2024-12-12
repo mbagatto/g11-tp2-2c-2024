@@ -1,11 +1,9 @@
 package model.game;
 
 import model.score.Score;
-
 import java.util.Stack;
 
 public class TurnGenerator {
-
     public Stack<PlayHand> generatePlayHands(Score numbersOfTurns){
         Stack<PlayHand> turns = new Stack<>();
         for (int i = 0; i < numbersOfTurns.numericValue(); i++) {

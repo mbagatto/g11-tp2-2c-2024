@@ -1,7 +1,8 @@
 package model.decks;
 
 import model.ObservablePlayerDeck;
-import model.ObserverPlayerDeck;
+import model.Player;
+import model.PlayerDeckObserver;
 import model.exceptions.NoSelectedCardsException;
 import model.hands.Hand;
 import model.cards.Card;
@@ -11,8 +12,7 @@ import model.jokers.DiscardBonus;
 import model.jokers.Joker;
 import model.score.Score;
 import model.tarots.Tarot;
-import view.records.EnglishCardRecord;
-import view.records.PlayerDeckRecord;
+import view.dtos.PlayerDeckDTO;
 import java.util.ArrayList;
 
 public class PlayerDeck implements ObservablePlayerDeck {
@@ -20,7 +20,7 @@ public class PlayerDeck implements ObservablePlayerDeck {
     private ArrayList<Card> selectedCards;
     private ArrayList<Card> playedCards;
     private HandIdentifier handIdentifier;
-    private ArrayList<ObserverPlayerDeck> observers;
+    private ArrayList<PlayerDeckObserver> observers;
     private Hand actualHand;
 
     public PlayerDeck() {
@@ -28,8 +28,8 @@ public class PlayerDeck implements ObservablePlayerDeck {
         this.selectedCards = new ArrayList<>();
         this.playedCards = new ArrayList<>();
         this.observers = new ArrayList<>();
+        this.actualHand = NullHand.getInstance();
         initializeIdentifiersChain();
-        this.actualHand = this.handIdentifier.identify(this.selectedCards);
     }
 
     public void addCard(Card card) {
@@ -44,16 +44,16 @@ public class PlayerDeck implements ObservablePlayerDeck {
         return (this.cards.isEmpty());
     }
 
-    public void selectCard(int indexCard){
-        this.selectedCards.add(this.cards.get(indexCard));
+    public void selectCard(Card card){
+        this.selectedCards.add(card);
         this.actualHand = handIdentifier.identify(this.selectedCards);
-
-        //System.out.println("selectCard(): " +this.actualHand.toRecord().name());
-        //System.out.println("Lista de cartas: " +this.selectedCards.toString());
+        this.notifyObservers();
     }
 
-    public void noSelectCard(){
+    public void unselectCard(Card card) {
+        this.selectedCards.remove(card);
         this.actualHand = handIdentifier.identify(this.selectedCards);
+        this.notifyObservers();
     }
 
     public Score play(ArrayList<Joker> jokers) {
@@ -64,30 +64,55 @@ public class PlayerDeck implements ObservablePlayerDeck {
         Hand hand = handIdentifier.identify(this.selectedCards);
 
         Score score = hand.calculateScore(this.selectedCards, jokers);
-        this.playedCards.addAll(this.selectedCards);
         this.reset(selectedCards);
         return score;
     }
 
-    public void discard(ArrayList<Joker> jokers) {
+    public void discard(ArrayList<Joker> jokers, Score discards) {
         if (selectedCards.isEmpty()) {
             throw new NoSelectedCardsException();
         }
-        DiscardBonus discardBonusJoker = null;
+
+        ArrayList<Joker> resetJokers = new ArrayList<>();
         for (Joker joker : jokers) {
-            if (joker.equals(new DiscardBonus(joker))) {
-                discardBonusJoker = (DiscardBonus) joker;
-                discardBonusJoker.incrementDiscards();
+            if (joker.hasType("Discard Bonus")) {
+                DiscardBonus discardBonus = new DiscardBonus(joker);
+                discardBonus.setDiscards(discards);
+                resetJokers.add(discardBonus);
+            } else {
+                resetJokers.add(joker);
             }
         }
-        this.playedCards.addAll(this.selectedCards);
+        jokers.clear();
+        jokers.addAll(resetJokers);
         this.reset(selectedCards);
     }
 
     public void reset(ArrayList<Card> selectedCards) {
-        ArrayList<Card> discardCards = new ArrayList<>(selectedCards);
+        this.playedCards.addAll(selectedCards);
         this.cards.removeAll(selectedCards);
         this.selectedCards.clear();
+    }
+
+    public void useTarot(Tarot tarot, Player player) {
+        if (this.selectedCards.isEmpty()) {
+            throw new NoSelectedCardsException();
+        }
+        if (this.selectedCards.size() == 1) {
+            tarot.setTarget(this.selectedCards.getFirst());
+        }
+        tarot.apply(player);
+    }
+
+    public boolean maxSelectedReached() {
+        return (this.selectedCards.size() >= 5);
+    }
+
+    public void reorderDeck(EnglishDeck deck) {
+        deck.fillDeck(this.playedCards);
+        deck.fillDeck(this.cards);
+        this.cards.clear();
+        this.playedCards.clear();
     }
 
     private void initializeIdentifiersChain() {
@@ -113,49 +138,17 @@ public class PlayerDeck implements ObservablePlayerDeck {
                 ));
     }
 
-    public PlayerDeckRecord toRecord(){
-        ArrayList<EnglishCardRecord> cardRecords = new ArrayList<>();
-        for(Card card : this.cards){
-            cardRecords.add(card.toRecord());
-        }
-
-        return new PlayerDeckRecord(cardRecords, this.actualHand.toRecord());
+    public void addObserver(PlayerDeckObserver observer) {
+        this.observers.add(observer);
     }
 
-    public void addObserverForPlayerDeck(ObserverPlayerDeck observerPlayerDeck) {
-        this.observers.add(observerPlayerDeck);
-    }
-
-    @Override
-    public void addObserversPlayerDeck(ObserverPlayerDeck observerPlayerDeck) {
-        this.observers.add(observerPlayerDeck);
-        observerPlayerDeck.updatePlayerDeck(this.toRecord());
-    }
-
-    @Override
-    public void notifyObserversPlayerDeck() {
-        for (ObserverPlayerDeck observerPlayerDeck : this.observers) {
-            //System.out.println("PLAYERDECK: " +this.toRecord().handRecord().name());
-            observerPlayerDeck.updatePlayerDeck(this.toRecord());
+    public void notifyObservers() {
+        for (PlayerDeckObserver observer : observers) {
+            observer.update(this.toDTO());
         }
     }
 
-    public void clearSelectedCards() {
-        this.selectedCards.clear();
+    public PlayerDeckDTO toDTO(){
+        return new PlayerDeckDTO(this.cards, this.actualHand.toDTO());
     }
-
-    public boolean useTarot(Tarot tarot) {
-        if (this.selectedCards.size() == 1) {
-            tarot.setTarget(this.selectedCards.getFirst());
-        }
-        return tarot.apply();
-    }
-
-    public void reorderDeck(EnglishDeck deck){
-        this.playedCards.addAll(this.cards);
-        this.cards.clear();
-        deck.reorderDeck(this.playedCards);
-        this.playedCards.clear();
-    }
-
 }

@@ -1,15 +1,16 @@
 package model.jokers;
 
-import model.Purchasable;
 import model.hands.Hand;
 import model.score.ScoreModifier;
 import model.score.Score;
+import view.dtos.JokerDTO;
 
-public abstract class Joker implements Purchasable {
+public abstract class Joker {
     protected String name;
     protected String description;
     protected ScoreModifier toPoints;
     protected ScoreModifier toMultiplier;
+    protected String type;
 
     @Override
     public boolean equals(Object o) {
@@ -26,16 +27,16 @@ public abstract class Joker implements Purchasable {
         this.toMultiplier = joker.toMultiplier;
     }
 
+    public Joker(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public Joker(String name, String description, ScoreModifier toPoints, ScoreModifier toMultiplier) {
         this.name = name;
         this.description = description;
         this.toPoints = toPoints;
         this.toMultiplier = toMultiplier;
-    }
-
-    public Joker(String name, String description) {
-        this.name = name;
-        this.description = description;
     }
 
     public abstract Score applyToPoints(Score points, Hand hand);
@@ -46,18 +47,11 @@ public abstract class Joker implements Purchasable {
         return name.equals(aName);
     }
 
-    @Override
-    public String getName() {
-        return this.name;
+    public boolean hasType(String aType) {
+        return type.equals(aType);
     }
 
-    @Override
-    public String getDescription() {
-        return this.description;
-    }
-
-    @Override
-    public String toString() {
-        return "joker";
+    public JokerDTO toDTO() {
+        return new JokerDTO(this.name, this.description);
     }
 }

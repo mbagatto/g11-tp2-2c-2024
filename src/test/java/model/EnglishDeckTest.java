@@ -1,8 +1,12 @@
 package model;
 
+import model.cards.Card;
+import model.cards.Heart;
 import model.decks.EnglishDeck;
 import model.exceptions.EmptyDeckException;
+import model.score.Score;
 import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EnglishDeckTest {
@@ -13,13 +17,15 @@ public class EnglishDeckTest {
     }
 
     @Test
-    public void test02ADeckThatDealtACardIsNotEqualToAFullDeck() {
+    public void test02ADeckThatDealtACardIsNotEqualToOtherDeckThatDidNotDeal() {
         // Arrange
         EnglishDeck englishDeck = new EnglishDeck();
-        englishDeck.fillDeck();
+        ArrayList<Card> cards = new ArrayList<>();
+        cards.add(new Heart("2", new Score(2), new Score(1)));
+        englishDeck.fillDeck(cards);
 
         EnglishDeck otherEnglishDeck = new EnglishDeck();
-        otherEnglishDeck.fillDeck();
+        otherEnglishDeck.fillDeck(cards);
         // Act
         englishDeck.deal();
         // Assert

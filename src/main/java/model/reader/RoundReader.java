@@ -6,7 +6,6 @@ import model.score.Score;
 import model.tarots.Tarot;
 import model.game.Round;
 import model.game.Shop;
-import model.cards.Card;
 import model.decks.JokerDeck;
 import model.decks.TarotDeck;
 import model.exceptions.CouldNotReadException;
@@ -15,8 +14,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoundReader {
-
+public class RoundReader implements Reader<Round> {
     private ArrayList<Round> rounds;
 
     public RoundReader() {
@@ -24,7 +22,6 @@ public class RoundReader {
     }
 
     public ArrayList<Round> read(String pathRound) {
-
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -32,8 +29,8 @@ public class RoundReader {
             BalatroData balatroData = objectMapper.readValue(file, BalatroData.class);
             List<RoundData> roundData = balatroData.getRounds();
 
-            for(RoundData round : roundData) {
-                this.rounds.add(this.roundGenerator(round));
+            for (RoundData roundDatum : roundData) {
+                this.rounds.add(this.roundGenerator(roundDatum));
             }
 
         } catch (Exception e) {
@@ -48,36 +45,27 @@ public class RoundReader {
         Score discards = new Score(round.getDiscards());
         Score scoreToBeat  = new Score(round.getScoreToBeat());
         StoreData storeData = round.getStore();
-        Shop shop = this.storeGenerator(storeData);
+        Shop shop = this.shopGenerator(storeData);
         return (new Round(number, hands, discards, scoreToBeat, shop));
     }
 
-    public Shop storeGenerator(StoreData storeData) {
-        List<JokerData> jokers = storeData.getJokers();
-        List<TarotData> tarots = storeData.getTarots();
-        EnglishCardData cardData = storeData.getEnglishCardData();
+    public Shop shopGenerator(StoreData storeData) {
+        Shop shop = new Shop();
 
-        ArrayList<Joker> realJokers = new ArrayList<>();
         JokerDeck jokerDeck = new JokerDeck();
-        jokerDeck.fillDeck();
-        for (JokerData jokerData : jokers) {
-            Joker actualJoker = jokerDeck.findJokerByName(jokerData.getName());
-            if (actualJoker != null) {
-                realJokers.add(actualJoker);
-            }
+        jokerDeck.fillDeck((new DataReader()).jokersRead());
+        for (JokerData jokerData : storeData.getJokers()) {
+            Joker joker = jokerDeck.findJokerByName(jokerData.getName());
+            shop.addJoker(joker);
         }
 
-        ArrayList<Tarot> realTarots = new ArrayList<>();
         TarotDeck tarotDeck = new TarotDeck();
-        tarotDeck.fillDeck();
-        for (TarotData tarotData : tarots) {
-            Tarot actualTarot = tarotDeck.findTarotByName(tarotData.getName());
-            if (actualTarot != null) {
-                realTarots.add(actualTarot);
-            }
+        tarotDeck.fillDeck((new DataReader()).tarotsRead());
+        for (TarotData tarotData : storeData.getTarots()) {
+            Tarot tarot = tarotDeck.findTarotByName(tarotData.getName());
+            shop.addTarot(tarot);
         }
-        EnglishCardParser englishCardParser = new EnglishCardParser();
-        Card card = englishCardParser.cardGenerator(cardData);
-        return (new Shop(realJokers, realTarots, card));
+
+        return shop;
     }
 }

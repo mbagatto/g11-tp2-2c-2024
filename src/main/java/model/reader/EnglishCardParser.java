@@ -10,16 +10,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnglishCardParser {
-
-    private EnglishCardBuilder creator;
+public class EnglishCardParser implements Reader<Card> {
+    private final EnglishCardBuilder creator;
 
     public EnglishCardParser() {
         this.creator = new EnglishCardBuilder();
     }
 
-    public ArrayList<Card> read(String pathEnglishCard ) {
-
+    public ArrayList<Card> read(String pathEnglishCard) {
         ArrayList<Card> englishCards = new ArrayList<>();
 
         try{
@@ -32,35 +30,24 @@ public class EnglishCardParser {
             for(EnglishCardData englishCardData : cardData) {
                 englishCards.add(this.cardGenerator(englishCardData));
             }
-
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new CouldNotReadException();
         }
         return englishCards;
     }
 
     public Card cardGenerator(EnglishCardData jsonCard) {
-
         String suit = jsonCard.getSuit();
         String number = jsonCard.getNumber();
         Score points =  new Score(jsonCard.getPoints()) ;
         Score multiplier = new Score(jsonCard.getMultiplier());
-        Card card = null;
 
-        switch(suit) {
-            case "Trebol":
-                card = this.creator.createClubCard(number,points,multiplier);
-                break;
-            case "Corazones":
-                card = this.creator.createHeartCard(number,points,multiplier);
-                break;
-            case "Picas":
-                card = this.creator.createSpadeCard(number,points,multiplier);
-                break;
-            case "Diamantes":
-                card = this.creator.createDiamondCard(number,points,multiplier);
-                break;
-        }
-        return card;
+        return switch (suit) {
+            case "Trebol" -> this.creator.createClubCard(number, points, multiplier);
+            case "Corazones" -> this.creator.createHeartCard(number, points, multiplier);
+            case "Picas" -> this.creator.createSpadeCard(number, points, multiplier);
+            case "Diamantes" -> this.creator.createDiamondCard(number, points, multiplier);
+            default -> null;
+        };
     }
 }
