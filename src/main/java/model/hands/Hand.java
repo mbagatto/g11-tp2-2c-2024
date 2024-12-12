@@ -41,7 +41,7 @@ public abstract class Hand extends Modifiable {
         }
         for (Joker joker : jokers) {
             points = joker.applyToPoints(points, this);
-            multiplier = joker.applyToMultiplier(multiplier, this);;
+            multiplier = joker.applyToMultiplier(multiplier, this);
         }
         return points.multiplyWith(multiplier);
     }

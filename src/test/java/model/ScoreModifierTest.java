@@ -42,7 +42,7 @@ public class ScoreModifierTest {
     }
 
     @Test
-    public void test03ChangeScoreModifierShouldChangeOtherScoreCorrectly() {
+    public void test04ChangeScoreModifierShouldChangeOtherScoreCorrectly() {
         // Arrange
         ScoreModifier changeModifier = new Change(new Score(10));
         Score toModifyScore = new Score(5);

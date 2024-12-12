@@ -24,8 +24,8 @@ public class HighCard extends Hand {
 
     @Override
     public Score calculateScore(ArrayList<Card> cards, ArrayList<Joker> jokers) {
-        Score points = new Score(0).addWith(this.points);
-        Score multiplier = new Score(0).addWith(this.multiplier);
+        Score points = this.points;
+        Score multiplier = this.multiplier;
         Card maxCard = findMaxCard(cards);
         points = points.addWith(maxCard.calculateScore());
         for (Joker joker : jokers) {
