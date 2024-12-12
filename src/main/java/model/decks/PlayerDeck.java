@@ -73,15 +73,18 @@ public class PlayerDeck implements ObservablePlayerDeck {
             throw new NoSelectedCardsException();
         }
 
+        ArrayList<Joker> resetJokers = new ArrayList<>();
         for (Joker joker : jokers) {
             if (joker.hasType("Discard Bonus")) {
                 DiscardBonus discardBonus = new DiscardBonus(joker);
                 discardBonus.setDiscards(discards);
-                jokers.add(discardBonus);
-                jokers.remove(joker);
+                resetJokers.add(discardBonus);
+            } else {
+                resetJokers.add(joker);
             }
         }
-
+        jokers.clear();
+        jokers.addAll(resetJokers);
         this.reset(selectedCards);
     }
 

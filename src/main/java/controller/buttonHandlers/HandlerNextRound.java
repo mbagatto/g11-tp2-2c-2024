@@ -31,5 +31,6 @@ public class HandlerNextRound  implements EventHandler<ActionEvent> {
         Scene scene = new Scene(new RoundGameView(this.stage, this.mainMenuView, this.game));
         scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
         stage.setScene(scene);
+        this.stage.setFullScreen(true);
     }
 }
