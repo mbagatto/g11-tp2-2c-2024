@@ -5,12 +5,9 @@ import model.hands.Hand;
 import model.hands.NullHand;
 import java.util.ArrayList;
 
-public class NullCardIdentifier implements HandIdentifier {
+public class NullHandIdentifier implements HandIdentifier {
     @Override
     public Hand identify(ArrayList<Card> cards) {
-        if (cards.isEmpty()){
-            return NullHand.getInstance();
-        }
-        return null;
+        return NullHand.getInstance();
     }
 }

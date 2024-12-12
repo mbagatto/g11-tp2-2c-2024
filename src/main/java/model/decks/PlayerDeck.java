@@ -126,7 +126,7 @@ public class PlayerDeck implements ObservablePlayerDeck {
                                                                 new TwoPairIdentifier(
                                                                         new PairIdentifier(
                                                                                 new HighCardIdentifier(
-                                                                                        new NullCardIdentifier()
+                                                                                        new NullHandIdentifier()
                                                                                 )
                                                                         )
                                                                 )

@@ -6,17 +6,17 @@ import model.hands.HighCard;
 import java.util.ArrayList;
 
 public class HighCardIdentifier implements HandIdentifier  {
-    private NullCardIdentifier nullCardIdentifier;
+    private HandIdentifier next;
 
     public HighCardIdentifier(HandIdentifier next) {
-        this.nullCardIdentifier = new NullCardIdentifier();
+        this.next = next;
     }
 
     @Override
     public Hand identify(ArrayList<Card> cards) {
-        if (cards.isEmpty()) {
-            return this.nullCardIdentifier.identify(cards);
+        if (!cards.isEmpty()) {
+            return HighCard.getInstance();
         }
-        return HighCard.getInstance();
+        return next.identify(cards);
     }
 }
