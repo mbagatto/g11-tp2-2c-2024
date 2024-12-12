@@ -33,8 +33,8 @@ public abstract class Hand extends Modifiable {
     }
 
     public Score calculateScore(ArrayList<Card> cards, ArrayList<Joker> jokers) {
-        Score points = new Score(0).addWith(this.points);
-        Score multiplier = new Score(0).addWith(this.multiplier);
+        Score points = this.points;
+        Score multiplier = this.multiplier;
         ArrayList<Card> handCards = findHandCards(cards);
         for (Card card : handCards) {
             points = points.addWith(card.calculateScore());
