@@ -1,5 +1,7 @@
 package view;
 
+import javafx.animation.Animation;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,9 +10,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import view.buttons.ButtonMusic;
 import view.buttons.ButtonYellow;
 import view.buttons.MainMenuButtonContainer;
+import java.util.Random;
 
 public class MainMenuView extends VBox {
     public MainMenuView(Stage stage) {
@@ -28,7 +32,7 @@ public class MainMenuView extends VBox {
         ImageView logoImageView = new ImageView(balatroLogo);
         logoImageView.setFitWidth(900);
         logoImageView.setFitHeight(500);
-
+        this.addSwingEffect(logoImageView);
         Label welcomeLabel = new Label("¡Bienvenido!");
         welcomeLabel.setStyle("-fx-font-size: 90px; -fx-text-fill: white;");
 
@@ -56,4 +60,15 @@ public class MainMenuView extends VBox {
         this.getChildren().add(continueButton);
         this.getChildren().add(new ButtonMusic());
     }
+
+    public void addSwingEffect(ImageView image) {
+
+        TranslateTransition tt = new TranslateTransition(Duration.seconds(1), image);
+        tt.setFromY(0);
+        tt.setToY(-20);
+        tt.setCycleCount(Animation.INDEFINITE);
+        tt.setAutoReverse(true);
+        tt.play();
+    }
+
 }

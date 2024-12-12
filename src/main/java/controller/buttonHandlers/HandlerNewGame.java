@@ -50,7 +50,7 @@ public class HandlerNewGame implements EventHandler<ActionEvent> {
             Scene scene = new Scene(new PreparationView(this.stage, this.mainMenuView, game));
             scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
             stage.setScene(scene);
-
+            this.stage.setFullScreen(true);
         } else {
             this.errorLabel.setVisible(true);
         }

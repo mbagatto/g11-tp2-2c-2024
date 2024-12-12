@@ -48,10 +48,6 @@ public class EnglishDeck implements ObservableEnglishDeck {
         Collections.shuffle(this.cards);
     }
 
-    public void reorderDeck(ArrayList<Card> playedCards) {
-        this.cards.addAll(playedCards);
-    }
-
     public void addObserver(EnglishDeckObserver observer) {
         this.observers.add(observer);
     }

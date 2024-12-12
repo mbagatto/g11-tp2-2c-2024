@@ -64,7 +64,6 @@ public class PlayerDeck implements ObservablePlayerDeck {
         Hand hand = handIdentifier.identify(this.selectedCards);
 
         Score score = hand.calculateScore(this.selectedCards, jokers);
-        this.playedCards.addAll(this.selectedCards);
         this.reset(selectedCards);
         return score;
     }
@@ -74,26 +73,24 @@ public class PlayerDeck implements ObservablePlayerDeck {
             throw new NoSelectedCardsException();
         }
 
+        ArrayList<Joker> resetJokers = new ArrayList<>();
         for (Joker joker : jokers) {
             if (joker.hasType("Discard Bonus")) {
                 DiscardBonus discardBonus = new DiscardBonus(joker);
                 discardBonus.setDiscards(discards);
-                jokers.add(discardBonus);
-                jokers.remove(joker);
+                resetJokers.add(discardBonus);
+            } else {
+                resetJokers.add(joker);
             }
         }
-
-        this.playedCards.addAll(this.selectedCards);
+        jokers.clear();
+        jokers.addAll(resetJokers);
         this.reset(selectedCards);
     }
 
     public void reset(ArrayList<Card> selectedCards) {
-        ArrayList<Card> discardCards = new ArrayList<>(selectedCards);
+        this.playedCards.addAll(selectedCards);
         this.cards.removeAll(selectedCards);
-        this.selectedCards.clear();
-    }
-
-    public void clearSelectedCards() {
         this.selectedCards.clear();
     }
 
@@ -111,10 +108,10 @@ public class PlayerDeck implements ObservablePlayerDeck {
         return (this.selectedCards.size() >= 5);
     }
 
-    public void reorderDeck(EnglishDeck deck){
-        this.playedCards.addAll(this.cards);
+    public void reorderDeck(EnglishDeck deck) {
+        deck.fillDeck(this.playedCards);
+        deck.fillDeck(this.cards);
         this.cards.clear();
-        deck.reorderDeck(this.playedCards);
         this.playedCards.clear();
     }
 
