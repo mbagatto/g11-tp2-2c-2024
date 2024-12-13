@@ -64,7 +64,10 @@ public class PreparationView extends Group {
 
         Shop shop = gameDTO.round().toDTO().shop();
         this.addView(new PlayerJokersContainer(this, gameDTO.player(), shop));
-        this.addView(new PlayerTarotsContainer(this, gameDTO.player(), shop));
+
+        PlayerTarotsContainer playerTarotsContainer = new PlayerTarotsContainer(this, gameDTO.player(), shop, false);
+        this.addView(playerTarotsContainer);
+
         this.addView(new ProductsContainer(stage, this, gameDTO.player(), shop, mainMenuView, game));
         this.addView(new EnglishDeckView(this, gameDTO.player().toDTO().englishDeck()));
     }

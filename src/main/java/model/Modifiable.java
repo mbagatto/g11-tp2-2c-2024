@@ -1,7 +1,11 @@
 package model;
 
+import model.cards.Card;
 import model.score.Score;
 import model.score.ScoreModifier;
+import model.tarots.Tarot;
+
+import java.util.ArrayList;
 
 public abstract class Modifiable {
    protected Score points;
@@ -12,11 +16,8 @@ public abstract class Modifiable {
       this.multiplier = multiplier;
    }
 
-   public boolean applyTarot(ScoreModifier toPoints, ScoreModifier toMultiplier) {
-      Score oldPoints = new Score(this.points.numericValue());
-      Score oldMultiplier = new Score(this.multiplier.numericValue());
+   public void applyTarot(ScoreModifier toPoints, ScoreModifier toMultiplier, ArrayList<Card> selectedCards, Tarot tarot) {
       this.points = toPoints.modify(this.points);
       this.multiplier = toMultiplier.modify(this.multiplier);
-      return (!oldPoints.equals(this.points) || !oldMultiplier.equals(this.multiplier));
    }
 }

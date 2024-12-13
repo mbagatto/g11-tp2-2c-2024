@@ -13,12 +13,14 @@ public class PlayerTarotsContainer extends VBox implements PlayerObserver {
     private Player player;
     private Shop shop;
     private TarotsContainerView tarotsContainerView;
+    private final boolean isRoundGameView;
 
-    public PlayerTarotsContainer(Group stage, Player player, Shop shop) {
+    public PlayerTarotsContainer(Group stage, Player player, Shop shop, boolean isRoundGameView) {
         super();
         this.stage = stage;
         this.player = player;
         this.shop = shop;
+        this.isRoundGameView = isRoundGameView;
         player.addObserver(this);
         PlayerDTO playerDTO = player.toDTO();
 
@@ -26,7 +28,7 @@ public class PlayerTarotsContainer extends VBox implements PlayerObserver {
         this.setLayoutY(100);
         this.setSpacing(5);
 
-        this.tarotsContainerView = new TarotsContainerView(player, playerDTO.tarots(), shop);
+        this.tarotsContainerView = new TarotsContainerView(player, playerDTO.tarots(), shop, isRoundGameView);
         this.getChildren().add(tarotsContainerView);
 
         Label tarotsCount = new Label(playerDTO.tarots().size() + "/2");
@@ -38,7 +40,8 @@ public class PlayerTarotsContainer extends VBox implements PlayerObserver {
     public void update(PlayerDTO playerDTO) {
         this.getChildren().clear();
 
-        this.getChildren().add(new TarotsContainerView(player, playerDTO.tarots(), shop));
+        this.tarotsContainerView = new TarotsContainerView(player, playerDTO.tarots(), shop, this.isRoundGameView);
+        this.getChildren().add(tarotsContainerView);
 
         Label tarotsCount = new Label(playerDTO.tarots().size() + "/2");
         tarotsCount.setId("player-tarots-count");
@@ -46,5 +49,9 @@ public class PlayerTarotsContainer extends VBox implements PlayerObserver {
 
         this.stage.getChildren().remove(this);
         this.stage.getChildren().add(this);
+    }
+
+    public void setUseButtonEnabled() {
+        this.tarotsContainerView.setUseButtonEnabled();
     }
 }

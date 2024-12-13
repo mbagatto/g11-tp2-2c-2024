@@ -2,8 +2,11 @@ package model.cards;
 
 import model.ObservableCard;
 import model.CardObserver;
+import model.exceptions.NoSelectedCardsException;
 import model.score.Score;
 import model.Modifiable;
+import model.score.ScoreModifier;
+import model.tarots.Tarot;
 import view.dtos.EnglishCardDTO;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,6 +60,18 @@ public abstract class Card extends Modifiable implements ObservableCard {
 
     public boolean hasSameSuitAs(Card card) {
         return this.suit.equals(card.suit);
+    }
+
+    @Override
+    public void applyTarot(ScoreModifier toPoints, ScoreModifier toMultiplier, ArrayList<Card> selectedCards, Tarot tarot) {
+        if (selectedCards.isEmpty()) {
+            throw new NoSelectedCardsException();
+        }
+        if (selectedCards.size() == 1) {
+            Card card = selectedCards.getFirst();
+            card.points = toPoints.modify(card.points);
+            card.multiplier = toMultiplier.modify(card.multiplier);
+        }
     }
 
     public String toString() {

@@ -49,7 +49,8 @@ public class RoundGameView extends Group {
         PlayerJokersContainer playerJokersContainer = new PlayerJokersContainer(this, gameDTO.player(), shop);
         this.addView(playerJokersContainer);
 
-        PlayerTarotsContainer playerTarotsContainer = new PlayerTarotsContainer(this, gameDTO.player(), shop);
+        PlayerTarotsContainer playerTarotsContainer = new PlayerTarotsContainer(this, gameDTO.player(), shop, true);
+        playerTarotsContainer.setUseButtonEnabled();
         this.addView(playerTarotsContainer);
 
         PlayerDeckContainer playerDeckContainer = new PlayerDeckContainer(this, playerDeck, gameDTO.player(), gameDTO.round(), stage, mainMenuView, game);

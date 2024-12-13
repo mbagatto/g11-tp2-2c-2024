@@ -80,4 +80,8 @@ public class TarotView extends VBox implements Drawable {
     public void setDiscardAndUseButton() {
         this.managmentOverlay.setDiscardAndUseButton();
     }
+
+    public void setUseButtonEnabled() {
+        this.managmentOverlay.setUseButtonEnabled();
+    }
 }

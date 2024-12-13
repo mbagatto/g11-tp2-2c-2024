@@ -4,8 +4,8 @@ import model.HandObserver;
 import model.cards.Card;
 import model.jokers.Joker;
 import model.score.Score;
-import model.score.ScoreModifier;
 import model.Modifiable;
+import model.score.ScoreModifier;
 import view.dtos.HandDTO;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -44,11 +44,6 @@ public abstract class Hand extends Modifiable {
             multiplier = joker.applyToMultiplier(multiplier, this);
         }
         return points.multiplyWith(multiplier);
-    }
-
-    @Override
-    public boolean applyTarot(ScoreModifier toPoints, ScoreModifier toMultiplier) {
-        return super.applyTarot(toPoints, toMultiplier);
     }
 
     protected ArrayList<Card> findHandCards(ArrayList<Card> cards) {

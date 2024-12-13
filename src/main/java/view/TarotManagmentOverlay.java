@@ -47,6 +47,7 @@ public class TarotManagmentOverlay extends VBox {
         useButton.setTranslateX(60);
         useButton.setTranslateY(-100);
         useButton.setOnAction(new HandlerUseTarot(player, tarot));
+        useButton.setDisable(true);
 
         Button discardButton = new Button("Descartar");
         discardButton.setId("tarot-managment-button");
@@ -56,5 +57,9 @@ public class TarotManagmentOverlay extends VBox {
         discardButton.setOnAction(new HandlerRemoveTarot(player, tarot, shop));
 
         this.getChildren().addAll(discardButton, useButton);
+    }
+
+    public void setUseButtonEnabled() {
+        this.getChildren().getLast().setDisable(false);
     }
 }

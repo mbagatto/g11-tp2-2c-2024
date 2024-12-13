@@ -40,7 +40,7 @@ public class TarotTest {
         Hand highCard = HighCard.getInstance();
         Tarot tarot = new Tarot("The Fool", "", new Add(new Score(10)), new Add(new Score(2)));
         tarot.setTarget(highCard);
-        tarot.apply(player);
+        tarot.apply(player, cards);
         Score expectedScore = new Score(75);
         // Act
         Score obtainedScore = highCard.calculateScore(cards, new ArrayList<>());
@@ -58,7 +58,7 @@ public class TarotTest {
         Hand pair = Pair.getInstance();
         Tarot tarot = new Tarot("The Magician", "", new Add(new Score(15)), new Add(new Score(2)));
         tarot.setTarget(pair);
-        tarot.apply(player);
+        tarot.apply(player, cards);
         Score expectedScore = new Score(180);
         // Act
         Score obtainedScore = pair.calculateScore(cards, new ArrayList<>());
@@ -70,10 +70,11 @@ public class TarotTest {
     public void test03TheEmpressTarotChangesCardMultiplierCorrectly() {
         // Arrange
         Player player = new Player("Matias", new EnglishDeck());
+        ArrayList<Card> cards = new ArrayList<>();
         Card card = new Spade("10", new Score(10), new Score(1));
+        cards.add(card);
         Tarot tarot = new Tarot("The Empress", "", new DoNotModify(), new Change(new Score(4)));
-        tarot.setTarget(card);
-        tarot.apply(player);
+        tarot.apply(player, cards);
         Score expectedScore = new Score(40);
         // Act
         Score obtainedScore = card.calculateScore();
@@ -85,10 +86,12 @@ public class TarotTest {
     public void test04TheTowerTarotChangesCardPointsCorrectly() {
         // Arrange
         Player player = new Player("Matias", new EnglishDeck());
+        ArrayList<Card> cards = new ArrayList<>();
         Card card = new Spade("5", new Score(5), new Score(1));
+        cards.add(card);
         Tarot tarot = new Tarot("The Tower", "", new Change(new Score(50)), new DoNotModify());
         tarot.setTarget(card);
-        tarot.apply(player);
+        tarot.apply(player, cards);
         Score expectedScore = new Score(50);
         // Act
         Score obtainedScore = card.calculateScore();

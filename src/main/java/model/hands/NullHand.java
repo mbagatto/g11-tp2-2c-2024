@@ -7,7 +7,7 @@ public class NullHand extends Hand {
 
     private NullHand() {
         super(new Score(0), new Score(0));
-        this.name = "Null Hand";
+        this.name = "";
     }
 
     public static NullHand getInstance() {
