@@ -39,7 +39,7 @@ public class HandlerPlayHand implements EventHandler<ActionEvent> {
 
         if (this.game.wonGame()) {
             pause.setOnFinished(event -> {
-                this.previousScene.getChildren().add(new WonGameView(this.stage));
+                this.previousScene.getChildren().add(new WonGameView(this.stage, this.game.getPlayer().getName()));
             });
         } else if (this.game.wonRound()) {
             pause.setOnFinished(event -> {
@@ -48,7 +48,7 @@ public class HandlerPlayHand implements EventHandler<ActionEvent> {
             this.game.setNextRound();
         } else if (this.game.ranOutOfHands()) {
             pause.setOnFinished(event -> {
-                this.previousScene.getChildren().add(new RoundLostView(this.stage));
+                this.previousScene.getChildren().add(new RoundLostView(this.stage, this.game.getPlayer().getName()));
             });
         }
 

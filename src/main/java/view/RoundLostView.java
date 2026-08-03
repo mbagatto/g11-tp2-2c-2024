@@ -12,7 +12,7 @@ import view.buttons.ButtonRed;
 import view.buttons.ButtonYellow;
 
 public class RoundLostView extends VBox {
-    public RoundLostView(Stage stage) {
+    public RoundLostView(Stage stage, String playerName) {
         super();
         this.setStyle("-fx-background-color: rgba(0,0,0,0.9);");
         this.setAlignment(Pos.CENTER);
@@ -26,7 +26,7 @@ public class RoundLostView extends VBox {
         title.setStyle("-fx-text-fill: rgb(209,81,81); -fx-font-size: 92px;");
 
         Button startAgainButton = new ButtonYellow("Volver a empezar");
-        startAgainButton.setOnAction(new HandlerStartAgain(stage));
+        startAgainButton.setOnAction(new HandlerStartAgain(stage, playerName));
 
         Button quitButton = new ButtonRed("Salir");
         quitButton.setPrefHeight(75);

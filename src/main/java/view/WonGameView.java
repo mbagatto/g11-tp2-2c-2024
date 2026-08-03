@@ -12,7 +12,7 @@ import view.buttons.ButtonRed;
 import view.buttons.ButtonYellow;
 
 public class WonGameView extends VBox {
-    public WonGameView(Stage stage) {
+    public WonGameView(Stage stage, String playerName) {
         super();
         this.setStyle("-fx-background-color: rgba(0,0,0,0.9);");
         this.setAlignment(Pos.CENTER);
@@ -26,7 +26,7 @@ public class WonGameView extends VBox {
         title.setStyle("-fx-text-fill: rgb(255, 235, 167); -fx-font-size: 108px;");
 
         Button startAgainButton = new ButtonYellow("Volver a empezar");
-        startAgainButton.setOnAction(new HandlerStartAgain(stage));
+        startAgainButton.setOnAction(new HandlerStartAgain(stage, playerName));
 
         Button quitButton = new ButtonRed("Salir");
         quitButton.setPrefHeight(75);

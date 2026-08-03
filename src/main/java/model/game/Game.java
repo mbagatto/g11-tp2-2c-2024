@@ -16,6 +16,10 @@ public class Game {
         this.currentRound = roundIterator.next();
     }
 
+    public Player getPlayer() {
+        return this.player;
+    }
+
     public void playHand() {
         this.currentRound.playHand(this.player);
     }

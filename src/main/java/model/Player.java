@@ -33,6 +33,10 @@ public class Player implements ObservablePlayer {
         this.observers = new ArrayList<>();
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public void completeDeck() {
         while (!this.playerDeck.isComplete()) {
             this.playerDeck.addCard(this.englishDeck.deal());
