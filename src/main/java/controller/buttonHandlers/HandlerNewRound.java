@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import model.game.Game;
 import view.MainMenuView;
 import view.PreparationView;
+import view.ScaledSceneFactory;
 
 public class HandlerNewRound implements EventHandler<ActionEvent> {
     private Stage stage;
@@ -25,7 +26,7 @@ public class HandlerNewRound implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent) {
         this.soundPlayer.playButtonSound();
         this.game.buildNewRound();
-        Scene scene = new Scene(new PreparationView(this.stage, this.mainMenuView, this.game));
+        Scene scene = ScaledSceneFactory.create(new PreparationView(this.stage, this.mainMenuView, this.game));
         scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
         this.stage.setScene(scene);
     }

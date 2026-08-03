@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import model.game.Game;
 import view.MainMenuView;
 import view.RoundGameView;
+import view.ScaledSceneFactory;
 
 public class HandlerNextRound  implements EventHandler<ActionEvent> {
     private Stage stage;
@@ -28,7 +29,7 @@ public class HandlerNextRound  implements EventHandler<ActionEvent> {
         this.game.buildNewRound();
         this.game.completePlayerDeck();
 
-        Scene scene = new Scene(new RoundGameView(this.stage, this.mainMenuView, this.game));
+        Scene scene = ScaledSceneFactory.create(new RoundGameView(this.stage, this.mainMenuView, this.game));
         scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
         stage.setScene(scene);
         this.stage.setFullScreen(true);

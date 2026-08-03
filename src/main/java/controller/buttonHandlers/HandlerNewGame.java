@@ -15,6 +15,7 @@ import model.game.Round;
 import model.reader.DataReader;
 import view.MainMenuView;
 import view.PreparationView;
+import view.ScaledSceneFactory;
 import java.util.ArrayList;
 
 public class HandlerNewGame implements EventHandler<ActionEvent> {
@@ -47,7 +48,7 @@ public class HandlerNewGame implements EventHandler<ActionEvent> {
             Player user = new Player(playerName, englishDeck);
             Game game = new Game(user, rounds);
 
-            Scene scene = new Scene(new PreparationView(this.stage, this.mainMenuView, game));
+            Scene scene = ScaledSceneFactory.create(new PreparationView(this.stage, this.mainMenuView, game));
             scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
             stage.setScene(scene);
             this.stage.setFullScreen(true);

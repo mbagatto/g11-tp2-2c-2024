@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import view.MainMenuView;
+import view.ScaledSceneFactory;
 
 public class HandlerStartAgain implements EventHandler<ActionEvent> {
     private Stage stage;
@@ -18,7 +19,7 @@ public class HandlerStartAgain implements EventHandler<ActionEvent> {
 
     public void handle(ActionEvent actionEvent) {
         this.soundPlayer.playBackgroundMusic();
-        Scene scene = new Scene(new MainMenuView(this.stage));
+        Scene scene = ScaledSceneFactory.create(new MainMenuView(this.stage));
         scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
         stage.setScene(scene);
     }

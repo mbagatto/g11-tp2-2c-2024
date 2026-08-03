@@ -15,7 +15,7 @@ public class Main extends Application {
         SoundPlayer soundPlayer = SoundPlayer.getInstance();
         soundPlayer.playBackgroundMusic();
 
-        Scene scene = new Scene(new MainMenuView(stage));
+        Scene scene = ScaledSceneFactory.create(new MainMenuView(stage));
 
         scene.getStylesheets().add("file:src/resources/custom-font-styles.css");
         stage.setScene(scene);
